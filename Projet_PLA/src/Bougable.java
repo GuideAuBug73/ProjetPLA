@@ -5,74 +5,74 @@ public class Bougable extends Entity{
 	 
 	
 
-		void Avancer(Entity uraz ) {
+		void Avancer() {
 		     
-			switch(uraz.O.yon) {
+			switch(this.O.yon) {
 			  
 				case Nord : 
-					uraz.p.y++;
+					this.p.y++;
 					break ;
 				
 				case Sud  :	
-				     uraz.p.y--;
+				     this.p.y--;
 				     break ;
 				     
 				case Est  :	
-				     uraz.p.x++;
+				     this.p.x++;
 				     break ;
 				  
 				case West  :	
-				     uraz.p.x--;
+				     this.p.x--;
 				     break ;
 			}
 		   
 		} 
 		
-		void Rotation_droite(Entity uraz ) {
+		void Rotation_droite() {
 		    
 			 
 			
-			switch(uraz.O.yon) {
+			switch(this.O.yon) {
 			  
 				case Nord : 
-					uraz.O.yon = nsew.Est;
+					this.O.yon = nsew.Est;
 					break ;
 				
 				case Sud  :	
-					uraz.O.yon = nsew.West;
+					this.O.yon = nsew.West;
 				     break ;
 				     
 				case Est  :	
-					uraz.O.yon = nsew.Sud;
+					this.O.yon = nsew.Sud;
 				     break ;
 				  
 				case West  :	
-					uraz.O.yon = nsew.Nord;
+					this.O.yon = nsew.Nord;
 				     break ;
 			}
 		   
 		} 
 		
-void Rotation_gauche(Entity uraz ) {
+void Rotation_gauche() {
 		    
 			 
 			
-			switch(uraz.O.yon) {
+			switch(this.O.yon) {
 			  
 				case Nord : 
-					uraz.O.yon = nsew.West;
+					this.O.yon = nsew.West;
 					break ;
 				
 				case Sud  :	
-					uraz.O.yon = nsew.Sud;
+					this.O.yon = nsew.Sud;
 				     break ;
 				     
 				case Est  :	
-					uraz.O.yon = nsew.Nord;
+					this.O.yon = nsew.Nord;
 				     break ;
 				  
 				case West  :	
-					uraz.O.yon = nsew.Est;
+					this.O.yon = nsew.Est;
 				     break ;
 			}
 		   
