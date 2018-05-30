@@ -1,6 +1,6 @@
 import basic.Position;
 public class Entity {
-	public int x;
-	public int y;
+	public Position p;
+	
 	public char Img;
 }
