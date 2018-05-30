@@ -1,10 +1,12 @@
 package basic;
 
 public class Orientation {
-	public enum orientation{
+	public enum nsew{
 			Nord,
 			Sud,
 			Est,
-			West;
+			West
 	}
+	
+	public nsew yon;
 }

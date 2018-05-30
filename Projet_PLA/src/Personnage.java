@@ -1,7 +1,8 @@
 
-import basic.Orientation;
+import basic.Position;
 public class Personnage extends Entity{
 	int pdv;
 	float vitesse;
-	Orientation O;
+	public Position p;
+	
 }

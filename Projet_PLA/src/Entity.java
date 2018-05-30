@@ -1,6 +1,7 @@
-import basic.Position;
+import basic.*;
+
 public class Entity {
-	public Position p;
-	
+	public Orientation O ; 
 	public char Img;
+	public Position p ;
 }
