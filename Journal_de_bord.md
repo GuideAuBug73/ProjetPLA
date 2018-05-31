@@ -25,3 +25,8 @@ Questions : Quelle librairie graphique choisir ? JavaFx ? Java2D ? LibGBX ?
 -Implémentation des classes principales
 -Implémentation des premières méthodes
 -Mise en place du dépot git sous eclipse
+
+**Jeudi 31 Mai après-midi**
+- Premier test : Faire bouger un personnage avec les touches directionnels
+- Ajout des classes Inventaire, Item, Map
+- Travail sur le framework , structure et héritage (Model, View, Controller)
