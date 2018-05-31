@@ -1,3 +1,8 @@
+**Lundi 28 Mai après-midi**
+- Choix du type de jeu
+- Definition des grands concepts du jeu
+
+
 **Mardi 29 Mai après-midi**
 
 - Etablissement des tâches constituant le projet
@@ -19,4 +24,4 @@ Questions : Quelle librairie graphique choisir ? JavaFx ? Java2D ? LibGBX ?
 -Définition des classes et des structures
 -Implémentation des classes principales
 -Implémentation des premières méthodes
--Mise en place du dépot git sous eclipse 
+-Mise en place du dépot git sous eclipse
