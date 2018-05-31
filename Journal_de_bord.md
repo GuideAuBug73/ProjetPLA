@@ -25,3 +25,10 @@ Questions : Quelle librairie graphique choisir ? JavaFx ? Java2D ? LibGBX ?
 -Implémentation des classes principales
 -Implémentation des premières méthodes
 -Mise en place du dépot git sous eclipse
+
+**Jeudi 31 Mai après-midi**
+
+Questions : 
+- Comment faire tous les pops en même temps ? 
+- Faut il beaucoup d'automates différents ? 
+

@@ -1,5 +1,4 @@
-
-public class Ennemi extends Personnage{
+public class Ennemi extends Personnage {
 	boolean boss;
-	/*Automate IA; */
+	/* Automate IA; */
 }
