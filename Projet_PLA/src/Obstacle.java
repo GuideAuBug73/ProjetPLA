@@ -1,3 +1,3 @@
 public class Obstacle {
-	/* 	AUtomate IA; */
+	/* Automate IA; */
 }

@@ -1,6 +1,7 @@
 /.metadata/
-
 eclipse/
 *.log
 .metadata
 *.sh
+/bin/
+/.settings/

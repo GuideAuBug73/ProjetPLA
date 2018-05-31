@@ -30,3 +30,8 @@ Questions : Quelle librairie graphique choisir ? JavaFx ? Java2D ? LibGBX ?
 - Premier test : Faire bouger un personnage avec les touches directionnels
 - Ajout des classes Inventaire, Item, Map
 - Travail sur le framework , structure et héritage (Model, View, Controller)
+
+Questions : 
+- Comment faire tous les pops en même temps ? 
+- Faut il beaucoup d'automates différents ? 
+
