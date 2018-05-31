@@ -1,5 +1,5 @@
 import basic.*;
-import basic.Orientation.nsew;
+import basic.Orientation.orientation;
 
 public class Bougable extends Entity{
 	 
@@ -7,7 +7,7 @@ public class Bougable extends Entity{
 
 		void Avancer() {
 		     
-			switch(this.O.yon) {
+			switch(this.O.orient) {
 			  
 				case Nord : 
 					this.p.y++;
@@ -32,22 +32,22 @@ public class Bougable extends Entity{
 		    
 			 
 			
-			switch(this.O.yon) {
+			switch(this.O.orient) {
 			  
 				case Nord : 
-					this.O.yon = nsew.Est;
+					this.O.orient = orientation.Est;
 					break ;
 				
 				case Sud  :	
-					this.O.yon = nsew.West;
+					this.O.orient = orientation.West;
 				     break ;
 				     
 				case Est  :	
-					this.O.yon = nsew.Sud;
+					this.O.orient = orientation.Sud;
 				     break ;
 				  
 				case West  :	
-					this.O.yon = nsew.Nord;
+					this.O.orient = orientation.Nord;
 				     break ;
 			}
 		   
@@ -57,22 +57,22 @@ void Rotation_gauche() {
 		    
 			 
 			
-			switch(this.O.yon) {
+			switch(this.O.orient) {
 			  
 				case Nord : 
-					this.O.yon = nsew.West;
+					this.O.orient = orientation.West;
 					break ;
 				
 				case Sud  :	
-					this.O.yon = nsew.Sud;
+					this.O.orient = orientation.Sud;
 				     break ;
 				     
 				case Est  :	
-					this.O.yon = nsew.Nord;
+					this.O.orient = orientation.Nord;
 				     break ;
 				  
 				case West  :	
-					this.O.yon = nsew.Est;
+					this.O.orient = orientation.Est;
 				     break ;
 			}
 		   
