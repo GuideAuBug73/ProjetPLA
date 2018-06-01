@@ -1,4 +1,4 @@
 package principal;
 public class Obstacle {
-	/* 	AUtomate IA; */
+	/* Automate IA; */
 }

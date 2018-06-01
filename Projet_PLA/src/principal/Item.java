@@ -1,4 +1,9 @@
 package principal;
+
 public class Item extends Entity {
-	int type;
+	public int type;
+
+	public Item(int type) {
+		this.type = type;
+	}
 }
