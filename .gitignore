@@ -5,3 +5,5 @@ eclipse/
 *.sh
 /bin/
 /.settings/
+
+\.recommenders/

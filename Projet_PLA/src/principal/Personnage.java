@@ -1,3 +1,4 @@
+package principal;
 
 import basic.Orientation;
 public class Personnage extends Entity{
