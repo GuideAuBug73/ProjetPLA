@@ -30,7 +30,7 @@ public class Map {
 		m_spritewall = spritewall;
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
-				nombreAleatoire = (int) (Math.random() * (10 - 0));
+				nombreAleatoire = (int) (Math.random() * (4 - 0));
 				// mur
 				if (nombreAleatoire == 0)
 					cellules[i][j] = new Cellule(null, false, j * m_sizew / m_w, i * m_sizeh / m_h);
@@ -49,7 +49,7 @@ public class Map {
 					img = m_spritefield;
 				} else
 					img = m_spritewall;
-				g.drawImage(img, m_w, m_h, cellules[i][j].x, cellules[i][j].y, null);
+				g.drawImage(img, cellules[i][j].x, cellules[i][j].y, m_sizew / m_w, m_sizeh / m_h, null);
 			}
 		}
 	}
