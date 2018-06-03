@@ -13,11 +13,14 @@ public class Model extends GameModel {
   Personnage perso;
   BufferedImage m_cowboySprite;
   BufferedImage m_explosionSprite;
+  BufferedImage m_fieldSprite;
+  BufferedImage m_wallSprite;
+  Map m_carte;
   Random rand = new Random();
 
   public Model() {
     loadSprites();
-    
+    m_carte = new Map(10, 10, 700, 1000, m_wallSprite, m_fieldSprite);
   }
   
   @Override
@@ -57,6 +60,22 @@ public class Model extends GameModel {
     imageFile = new File("src/sprites/explosion01_set_64.png");
     try {
       m_explosionSprite = ImageIO.read(imageFile);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.exit(-1);
+    }
+    
+    imageFile = new File("src/sprites/field.png");
+    try {
+      m_fieldSprite = ImageIO.read(imageFile);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      System.exit(-1);
+    }
+    
+    imageFile = new File("src/sprites/wall.png");
+    try {
+      m_wallSprite = ImageIO.read(imageFile);
     } catch (IOException ex) {
       ex.printStackTrace();
       System.exit(-1);
