@@ -1,10 +1,12 @@
-package principal;
+package tests;
 
 import static org.junit.Assert.*;
 
 import java.awt.image.BufferedImage;
 
 import org.junit.Test;
+
+import principal.Map;
 
 public class MapTest {
 

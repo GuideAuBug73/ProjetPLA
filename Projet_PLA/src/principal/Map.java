@@ -8,7 +8,7 @@ import basic.Cellule;
 
 public class Map {
 	// tableau de cellules
-	Cellule cellules[][] = new Cellule[30][50];
+	public Cellule cellules[][] = new Cellule[30][50];
 	// nombre de cellules
 	int m_w;
 	int m_h;
@@ -20,7 +20,7 @@ public class Map {
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
 
-	Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
+	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
 		int nombreAleatoire = 0;
 		m_w = w;
 		m_h = h;
