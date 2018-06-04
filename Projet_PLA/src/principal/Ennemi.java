@@ -47,11 +47,11 @@ public class Ennemi extends Personnage {
 		m_sizew = width / m_w;
 		m_sizeh = height / m_h;
 
-		for (int i = 0; i < m_w; i++) {
+		for (int i = 0; i < m_w-1; i++) {
 			for (int j = 0; j < m_h; j++) {
 				int x = j * m_sizew;
 				int y = i * m_sizeh;
-				m_sprites[(i * m_h) + j] = Img.getSubimage(x, y, m_sizew, m_sizeh);
+				m_sprites[(i * m_h) + j] = Img.getSubimage(x, y, m_sizew, m_sizeh+14);
 			}
 		}
 	}

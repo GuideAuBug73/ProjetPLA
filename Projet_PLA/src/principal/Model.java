@@ -30,7 +30,7 @@ public class Model extends GameModel {
 
 		for (int i = 0; i < 10; i++) {
 			boss = false;
-			p = new Position(i*100+25,i*70+5);
+			p = new Position(i*100+25,i*70+15);
 			m_ennemi[i] = new Ennemi(this,10, 10, 700, 1000,boss, p, squelette_sprite, 3F);
 		}
 	}
