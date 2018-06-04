@@ -14,7 +14,7 @@ public class MapTest {
 	public void test() {
 		BufferedImage field = null;
 		BufferedImage wall = null;
-		Map carte = new Map(30,30,60,60,field,wall,0);
+		Map carte = new Map(30,30,60,60,field,wall);
 		for (int i = 0; i < 30; i++)
 		{
 			for(int j = 0; j < 30; j++) {

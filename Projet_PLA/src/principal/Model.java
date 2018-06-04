@@ -82,10 +82,10 @@ public class Model extends GameModel {
       System.exit(-1);
     }
   }
-  public void createMap(GameView v,int h, int w,int m){
+  public void createMap(GameView v,int h, int w){
     int sizeh=v.getHeight();
     int sizew=v.getWidth();
-    m_carte= new Map(h, w, sizeh, sizew, m_wallSprite, m_fieldSprite,m);
+    m_carte= new Map(h, w, sizeh, sizew, m_wallSprite, m_fieldSprite);
   }
 
 }

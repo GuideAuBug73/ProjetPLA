@@ -15,15 +15,13 @@ public class Map {
 	// taille de la fenetre
 	int m_sizew;
 	int m_sizeh;
-	int map_start=0;
 	Entity a = null;
 	// sprites
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
 
-	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield,int m) {
+	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
 		int nombreAleatoire = 0;
-		map_start=m;
 		m_w = w;
 		m_h = h;
 		m_sizew = sizew;
@@ -51,7 +49,7 @@ public class Map {
 					img = m_spritefield;
 				} else
 					img = m_spritewall;
-				g.drawImage(img, cellules[i][j].x, cellules[i][j].y+map_start, m_sizew / m_w, m_sizeh / m_h, null);
+				g.drawImage(img, cellules[i][j].x, cellules[i][j].y, m_sizew / m_w, m_sizeh / m_h, null);
 			}
 		}
 	}

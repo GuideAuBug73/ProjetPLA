@@ -125,6 +125,7 @@ public class GameUI {
     private void createWindow(Dimension d, GameModel m) {
         m_frame = new JFrame();
         m_frame.setTitle("Game");
+        m_frame.setUndecorated(true);
         m_frame.setSize(d);
         m_frame.doLayout();
         m_frame.setVisible(true);
@@ -132,27 +133,47 @@ public class GameUI {
         m_h=d.height;
         m_w=d.width;
         tailleMap();
+        /*
         m_frame.setLayout(new BorderLayout());
-        JPanel panelgrid = new JPanel();
-        panelgrid.setBackground(Color.BLACK);
         JPanel panelinventaire = new JPanel();
         panelinventaire.setPreferredSize(new Dimension(m_panelD, d.height));
-        JPanel panelplayer = new JPanel();
+        JPanel panelplayer = new JPanel(new BorderLayout());
         panelplayer.setPreferredSize(new Dimension(d.width, m_panelH));
         m_text = new JLabel();
         m_text.setText("Starting up ...");
-        panelplayer.add(m_text);
+        panelplayer.add(m_text,BorderLayout.CENTER);
         JPanel panelinfo = new JPanel();
         panelinfo.setPreferredSize(new Dimension(d.width, m_panelB));
         panelinventaire.setBackground(Color.PINK);
         addEast(panelinventaire);
         addNorth(panelplayer);
         addSouth(panelinfo);
-        addCenter(panelgrid);
         addCenter(m_view);
+        */
+        JPanel panelinventaire=new JPanel();
+        panelinventaire.setBounds(d.width-m_panelD,0,m_panelD,d.height);
+        panelinventaire.setBackground(Color.BLACK);
+        JPanel panelplayer = new JPanel(new BorderLayout());
+        panelplayer.setBounds(0,0,d.width,m_panelH);
+        panelplayer.setBackground(Color.BLACK);
+        JPanel panelinfo=new JPanel();
+        panelinfo.setBounds(0,d.height-m_panelB,d.width,d.height);
+        panelinfo.setBackground(Color.BLACK);
+        JPanel panelgrid=new JPanel(new BorderLayout());
+        panelgrid.setBounds(0,m_panelH,d.width-m_panelD,m_h*Options.TAILLE_CELLULE);
+        m_text = new JLabel();
+        m_text.setText("Starting up ...");
+        panelplayer.add(m_text,BorderLayout.CENTER);
+        JLayeredPane pane=new JLayeredPane();
+        pane.add(panelinfo);
+        pane.add(panelinventaire);
+        pane.add(panelplayer);
+        panelgrid.add(m_view,BorderLayout.CENTER);
+        pane.add(panelgrid);
+        m_frame.add(pane);
+        System.out.println(panelgrid.getHeight()/m_h);
 
         m_frame.addWindowListener(new WindowListener(m_model));
-
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
         GameController ctr = getController();
@@ -162,9 +183,7 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
-        int h=panelplayer.getHeight();
-        h-=h*0.15;
-        m_model.createMap(m_view,m_h,m_w,h);
+        m_model.createMap(m_view,m_h,m_w);
     }
 
     /*
