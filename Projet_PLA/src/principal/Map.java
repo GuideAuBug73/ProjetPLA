@@ -1,4 +1,5 @@
 package principal;
+
 import basic.Arbre;
 
 import java.awt.Graphics;
@@ -20,10 +21,10 @@ public class Map {
 	// sprites
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
-	Arbre chemin;
+	public Arbre chemin;
 	int compteur = 0;
 
-	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield,Cellule start) {
+	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield, Cellule start) {
 		int nombreAleatoire = 0;
 		m_w = w;
 		m_h = h;
@@ -44,56 +45,53 @@ public class Map {
 			}
 		}
 	}
-	
-	public boolean testMap(Spawn mob[],Arbre a) {
+
+	public boolean testMap(Spawn mob[], Arbre a) {
 		cellules[a.c.x][a.c.y].visite = true;
-		for (int i = 0; i < mob.length;i++) {
-			if(!testSpawn(mob[i],a))
-					return false;
+		for (int i = 0; i < mob.length; i++) {
+			if (!testSpawn(mob[i], a))
+				return false;
 		}
 		return true;
-			
+
 	}
-	
-	
-	
+
 	private boolean testSpawn(Spawn s, Arbre a) {
-		if(a.c.x == s.x && a.c.y == s.y) {
+		if (a.c.x == s.x && a.c.y == s.y) {
 			return true;
 		}
-		if(a.c.x >= 0 && a.c.y+1 >=0 && !(cellules[a.c.x][a.c.y-1].visite))
-		{
-			cellules[a.c.x][a.c.y-1].visite = true;
-			a.filsN.c = cellules[a.c.x][a.c.y-1];
-			if(a.filsN.c.libre && testSpawn(s,a.filsN)) {
+		if (a.c.x >= 0 && a.c.y - 1 >= 0 && a.c.x < m_w && a.c.y - 1 < m_h && !(cellules[a.c.x][a.c.y - 1].visite)) {
+			cellules[a.c.x][a.c.y - 1].visite = true;
+			a.filsN = new Arbre(cellules[a.c.x][a.c.y - 1]);
+			if (a.filsN.c.libre && testSpawn(s, a.filsN)) {
 				return true;
 			}
-			
+
 		}
-		if(a.c.x+1 >= 0 && a.c.y >=0 && !(cellules[a.c.x+1][a.c.y].visite)) {
-			cellules[a.c.x+1][a.c.y].visite = true;
-			a.filsE.c = cellules[a.c.x+1][a.c.y];
-			if(a.filsE.c.libre && testSpawn(s,a.filsE)) {
+		if (a.c.x + 1 >= 0 && a.c.y >= 0 && a.c.x + 1 < m_w && a.c.y < m_h && !(cellules[a.c.x + 1][a.c.y].visite)) {
+			cellules[a.c.x + 1][a.c.y].visite = true;
+			a.filsE = new Arbre(cellules[a.c.x + 1][a.c.y]);
+			if (a.filsE.c.libre && testSpawn(s, a.filsE)) {
 				return true;
 			}
 		}
-		if(a.c.x >= 0 && a.c.y+1 >=0 && !(cellules[a.c.x][a.c.y+1].visite)) {
-			cellules[a.c.x][a.c.y+1].visite = true;
-			a.filsS.c = cellules[a.c.x][a.c.y+1];
-			if(a.filsS.c.libre && testSpawn(s,a.filsS)) {
+		if (a.c.x >= 0 && a.c.y + 1 >= 0 && a.c.x < m_w && a.c.y + 1 < m_h && !(cellules[a.c.x][a.c.y + 1].visite)) {
+			cellules[a.c.x][a.c.y + 1].visite = true;
+			a.filsS = new Arbre(cellules[a.c.x][a.c.y + 1]);
+			if (a.filsS.c.libre && testSpawn(s, a.filsS)) {
 				return true;
 			}
-		
+
 		}
-		if(a.c.x-1 >= 0 && a.c.y >=0 && !(cellules[a.c.x-1][a.c.y].visite)) {
-			cellules[a.c.x-1][a.c.y].visite = true;
-			a.filsO.c = cellules[a.c.x-1][a.c.y];
-			if(a.filsO.c.libre && testSpawn(s,a.filsO)) {
+		if (a.c.x - 1 >= 0 && a.c.y >= 0 && a.c.x - 1 < m_w && a.c.y < m_h && !(cellules[a.c.x - 1][a.c.y].visite)) {
+			cellules[a.c.x - 1][a.c.y].visite = true;
+			a.filsO = new Arbre(cellules[a.c.x - 1][a.c.y]);
+			if (a.filsO.c.libre && testSpawn(s, a.filsO)) {
 				return true;
 			}
 		}
 		return false;
-		
+
 	}
 
 	void paint(Graphics g) {
