@@ -37,11 +37,11 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		g.setColor(m_background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		//g.setColor(m_background);
+		//g.fillRect(0, 0, getWidth(), getHeight());
+
 		Map carte = m_model.m_carte;
 		carte.paint(g);
-				
 		// Paint our model, grabbing the elements,
 		// in our case, the squares.
 	}

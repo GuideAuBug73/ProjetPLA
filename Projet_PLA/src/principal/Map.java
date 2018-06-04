@@ -8,20 +8,22 @@ import basic.Cellule;
 
 public class Map {
 	// tableau de cellules
-	public Cellule cellules[][] = new Cellule[30][50];
+	public Cellule cellules[][] = new Cellule[32][60];
 	// nombre de cellules
 	int m_w;
 	int m_h;
 	// taille de la fenetre
 	int m_sizew;
 	int m_sizeh;
+	int map_start=0;
 	Entity a = null;
 	// sprites
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
 
-	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
+	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield,int m) {
 		int nombreAleatoire = 0;
+		map_start=m;
 		m_w = w;
 		m_h = h;
 		m_sizew = sizew;
@@ -41,15 +43,15 @@ public class Map {
 		}
 	}
 
-	void paint(Graphics g) {
+	public void paint(Graphics g) {
 		Image img;
-		for (int i = 0; i < m_w; i++) {
-			for (int j = 0; j < m_h; j++) {
+		for (int i = 0; i < m_h; i++) {
+			for (int j = 0; j < m_w; j++) {
 				if (cellules[i][j].libre == true) {
 					img = m_spritefield;
 				} else
 					img = m_spritewall;
-				g.drawImage(img, cellules[i][j].x, cellules[i][j].y, m_sizew / m_w, m_sizeh / m_h, null);
+				g.drawImage(img, cellules[i][j].x, cellules[i][j].y+map_start, m_sizew / m_w, m_sizeh / m_h, null);
 			}
 		}
 	}

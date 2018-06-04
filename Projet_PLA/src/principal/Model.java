@@ -1,5 +1,6 @@
 package principal;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import edu.ricm3.game.GameModel;
+import edu.ricm3.game.GameView;
 
 public class Model extends GameModel {
   Personnage perso;
@@ -20,7 +22,6 @@ public class Model extends GameModel {
 
   public Model() {
     loadSprites();
-    m_carte = new Map(10, 10, 700, 1000, m_wallSprite, m_fieldSprite);
   }
   
   @Override
@@ -80,6 +81,11 @@ public class Model extends GameModel {
       ex.printStackTrace();
       System.exit(-1);
     }
+  }
+  public void createMap(GameView v,int h, int w,int m){
+    int sizeh=v.getHeight();
+    int sizew=v.getWidth();
+    m_carte= new Map(h, w, sizeh, sizew, m_wallSprite, m_fieldSprite,m);
   }
 
 }

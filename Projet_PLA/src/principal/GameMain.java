@@ -11,8 +11,7 @@ public class GameMain {
     Model model = new Model();
     Controller controller = new Controller(model);
     View view = new View(model,controller);
-
-    Dimension d = new Dimension(1024, 768);
+    Dimension d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     new GameUI(model,view,controller,d);
     
     // notice that the main thread will exit here,
