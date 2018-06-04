@@ -1,4 +1,5 @@
 package principal;
+import basic.Arbre;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,8 +20,10 @@ public class Map {
 	// sprites
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
+	Arbre chemin;
+	int compteur = 0;
 
-	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
+	public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield,Cellule start) {
 		int nombreAleatoire = 0;
 		m_w = w;
 		m_h = h;
@@ -28,6 +31,7 @@ public class Map {
 		m_sizeh = sizeh;
 		m_spritefield = spritefield;
 		m_spritewall = spritewall;
+		chemin = new Arbre(start);
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
 				nombreAleatoire = (int) (Math.random() * (10 - 0));
@@ -39,6 +43,57 @@ public class Map {
 					cellules[i][j] = cellules[i][j] = new Cellule(null, true, j * m_sizew / m_w, i * m_sizeh / m_h);
 			}
 		}
+	}
+	
+	public boolean testMap(Spawn mob[],Arbre a) {
+		cellules[a.c.x][a.c.y].visite = true;
+		for (int i = 0; i < mob.length;i++) {
+			if(!testSpawn(mob[i],a))
+					return false;
+		}
+		return true;
+			
+	}
+	
+	
+	
+	private boolean testSpawn(Spawn s, Arbre a) {
+		if(a.c.x == s.x && a.c.y == s.y) {
+			return true;
+		}
+		if(a.c.x >= 0 && a.c.y+1 >=0 && !(cellules[a.c.x][a.c.y-1].visite))
+		{
+			cellules[a.c.x][a.c.y-1].visite = true;
+			a.filsN.c = cellules[a.c.x][a.c.y-1];
+			if(a.filsN.c.libre && testSpawn(s,a.filsN)) {
+				return true;
+			}
+			
+		}
+		if(a.c.x+1 >= 0 && a.c.y >=0 && !(cellules[a.c.x+1][a.c.y].visite)) {
+			cellules[a.c.x+1][a.c.y].visite = true;
+			a.filsE.c = cellules[a.c.x+1][a.c.y];
+			if(a.filsE.c.libre && testSpawn(s,a.filsE)) {
+				return true;
+			}
+		}
+		if(a.c.x >= 0 && a.c.y+1 >=0 && !(cellules[a.c.x][a.c.y+1].visite)) {
+			cellules[a.c.x][a.c.y+1].visite = true;
+			a.filsS.c = cellules[a.c.x][a.c.y+1];
+			if(a.filsS.c.libre && testSpawn(s,a.filsS)) {
+				return true;
+			}
+		
+		}
+		if(a.c.x-1 >= 0 && a.c.y >=0 && !(cellules[a.c.x-1][a.c.y].visite)) {
+			cellules[a.c.x-1][a.c.y].visite = true;
+			a.filsO.c = cellules[a.c.x-1][a.c.y];
+			if(a.filsO.c.libre && testSpawn(s,a.filsO)) {
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	void paint(Graphics g) {

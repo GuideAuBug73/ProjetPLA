@@ -8,6 +8,7 @@ public class Cellule {
 	// coordonnées du centre d'une cellule
 	public int x;
 	public int y;
+	public boolean visite = false;
 
 	public Cellule() {
 	}
