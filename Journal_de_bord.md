@@ -35,3 +35,8 @@ Questions :
 - Comment faire tous les pops en même temps ? 
 - Faut il beaucoup d'automates différents ? 
 
+**Vendredi 1 Juin**
+- Build de la map
+- Test sur le controle d'un joueur
+- Mise en place des partie de la view(Partie centrale : map, partie Droite : Inventaire, partie Haute et basse : informations sur le jeu)
+- Gestion de l'inventaire(pile)
