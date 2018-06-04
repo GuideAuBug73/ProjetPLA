@@ -35,13 +35,18 @@ public class View extends GameView {
 	@Override
 	protected void _paint(Graphics g) {
 		computeFPS();
-
+		int i;
 		// erase background
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		Map carte = m_model.m_carte;
 		carte.paint(g);
-				
+		Ennemi[] ennemi = m_model.m_ennemi;
+		for(i=0;i<10;i++) {
+			ennemi[i].paint(g);
+		}
+		
+		
 		// Paint our model, grabbing the elements,
 		// in our case, the squares.
 	}
