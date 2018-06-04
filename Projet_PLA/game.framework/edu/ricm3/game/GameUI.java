@@ -162,7 +162,9 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
-        m_model.createMap(m_view,m_h,m_w,panelplayer.getHeight());
+        int h=panelplayer.getHeight();
+        h-=h*0.15;
+        m_model.createMap(m_view,m_h,m_w,h);
     }
 
     /*
