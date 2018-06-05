@@ -130,37 +130,19 @@ public class GameUI {
         m_frame.doLayout();
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        m_h=d.height;
-        m_w=d.width;
-        tailleMap();
-        /*
-        m_frame.setLayout(new BorderLayout());
-        JPanel panelinventaire = new JPanel();
-        panelinventaire.setPreferredSize(new Dimension(m_panelD, d.height));
-        JPanel panelplayer = new JPanel(new BorderLayout());
-        panelplayer.setPreferredSize(new Dimension(d.width, m_panelH));
-        m_text = new JLabel();
-        m_text.setText("Starting up ...");
-        panelplayer.add(m_text,BorderLayout.CENTER);
-        JPanel panelinfo = new JPanel();
-        panelinfo.setPreferredSize(new Dimension(d.width, m_panelB));
-        panelinventaire.setBackground(Color.PINK);
-        addEast(panelinventaire);
-        addNorth(panelplayer);
-        addSouth(panelinfo);
-        addCenter(m_view);
-        */
+
+
         JPanel panelinventaire=new JPanel();
-        panelinventaire.setBounds(d.width-m_panelD,0,m_panelD,d.height);
+        panelinventaire.setBounds(Options.nb_px_x_max,0,d.width,d.height);
         panelinventaire.setBackground(Color.BLACK);
         JPanel panelplayer = new JPanel(new BorderLayout());
-        panelplayer.setBounds(0,0,d.width,m_panelH);
+        panelplayer.setBounds(0,0,d.width,Options.nb_px_y_min);
         panelplayer.setBackground(Color.BLACK);
         JPanel panelinfo=new JPanel();
-        panelinfo.setBounds(0,d.height-m_panelB,d.width,d.height);
+        panelinfo.setBounds(0,Options.nb_px_y_max,d.width,d.height);
         panelinfo.setBackground(Color.BLACK);
         JPanel panelgrid=new JPanel(new BorderLayout());
-        panelgrid.setBounds(0,m_panelH,d.width-m_panelD,m_h*Options.TAILLE_CELLULE);
+        panelgrid.setBounds(Options.nb_px_x_min,Options.nb_px_y_min,Options.nb_px_x_max,Options.nb_px_y_max);
         m_text = new JLabel();
         m_text.setText("Starting up ...");
         panelplayer.add(m_text,BorderLayout.CENTER);
@@ -171,7 +153,10 @@ public class GameUI {
         panelgrid.add(m_view,BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
-        System.out.println(panelgrid.getHeight()/m_h);
+        System.out.println(Options.nb_px_x_min);
+        System.out.println(Options.nb_px_x_max);
+        System.out.println(Options.nb_px_y_min);
+        System.out.println(Options.nb_px_y_max);
 
         m_frame.addWindowListener(new WindowListener(m_model));
         m_frame.pack();
@@ -183,7 +168,6 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
-        m_model.createMap(m_view,m_h,m_w);
     }
 
     /*
@@ -243,18 +227,4 @@ public class GameUI {
         m_fps = fps;
         m_msg = msg;
     }
-    public void tailleMap(){
-        int tempH=m_h;
-        int tempW=m_w;
-        m_h-=100;
-        m_w-=100;
-        m_h=m_h/Options.TAILLE_CELLULE;
-        m_w=m_w/Options.TAILLE_CELLULE;
-        m_panelD=tempW-m_w*Options.TAILLE_CELLULE;
-        m_panelB=tempH-m_h*Options.TAILLE_CELLULE;
-        m_panelB=m_panelB/2;
-        m_panelH=m_panelB;
-
-    }
-
 }

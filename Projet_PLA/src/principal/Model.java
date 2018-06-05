@@ -19,7 +19,9 @@ public class Model extends GameModel {
     Random rand = new Random();
 
     public Model() {
+
         loadSprites();
+        createMap();
     }
 
     @Override
@@ -73,10 +75,8 @@ public class Model extends GameModel {
         }
     }
 
-    public void createMap(GameView v, int h, int w) {
-        int sizeh = v.getHeight();
-        int sizew = v.getWidth();
-        m_carte = new Map(h, w, sizeh, sizew, m_wallSprite, m_fieldSprite);
+    public void createMap() {
+        m_carte = new Map(Options.nb_cell_h,Options.nb_cell_w,Options.nb_px_y_max-Options.nb_px_y_min,Options.nb_px_x_max-Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
     }
 
 }
