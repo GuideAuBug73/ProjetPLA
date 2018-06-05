@@ -17,9 +17,8 @@ public class Personnage extends Entity {
 	int orientation=0;
 	
 
-	Personnage(){}
-	
-	Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
+
+	public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
 		m_sprite = sprite;
 		m_x = x;
@@ -30,7 +29,7 @@ public class Personnage extends Entity {
 
 
 
-	void splitSprite() {
+	public void splitSprite() {
 		int width = m_sprite.getWidth(null);
 		int height = m_sprite.getHeight(null);
 		m_sprites = new BufferedImage[4*4];
@@ -55,9 +54,9 @@ public class Personnage extends Entity {
     public int y_cell_pixel(Cellule c ) {
     	
     	return c.y *60    ;
-    }*/	
-	
-	void droite() {
+    }*/
+
+	public void droite() {
      
      Cellule cell = m_model.m_carte.cellules[m_y / 60][(m_x / 60)+1];
 
@@ -74,8 +73,8 @@ public class Personnage extends Entity {
 		this.orientation=1;
 	 }	
 	}
-	
-	void haut() {
+
+	public void haut() {
 	     Cellule cell = m_model.m_carte.cellules[(m_y / 60)-1][m_x / 60];
 
 
@@ -91,8 +90,8 @@ public class Personnage extends Entity {
 			m_idx=13;	
 		this.orientation=3;
 	}
-	}	
-	void bas() {
+	}
+	public void bas() {
 	     
 		
 			Cellule cell = m_model.m_carte.cellules[(m_y / 60)+1][m_x / 60];
@@ -114,7 +113,7 @@ public class Personnage extends Entity {
 		 }
 	}
 
-	void gauche() {
+	public void gauche() {
 		Cellule cell = m_model.m_carte.cellules[m_y/60][(m_x/60)-1];
 
      	if(cell.libre) {	
@@ -149,7 +148,7 @@ public class Personnage extends Entity {
 			
 	}
 	*/
-	void paint(Graphics g) {
+	public void paint(Graphics g) {
 		
 			Image img = m_sprites[m_idx];
 			int w = (int) (m_scale * m_w);

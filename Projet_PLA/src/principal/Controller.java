@@ -35,7 +35,7 @@ public class Controller extends GameController implements ActionListener {
   
   public Controller(Model m) {
     m_model = m;
-    c = m.m_harry;
+    c = m.m_perso;
     s=m.m_spell;
   }
 

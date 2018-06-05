@@ -1,7 +1,7 @@
 
+package principal;
 
 import edu.ricm3.game.GameModel;
-import edu.ricm3.game.GameView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,38 +10,34 @@ import java.io.IOException;
 import java.util.Random;
 
 
-import edu.ricm3.game.GameModel;
-import edu.ricm3.game.GameView;
-
-
-
 public class Model extends GameModel {
-  Personnage m_perso;
-  BufferedImage m_fieldSprite;
-  BufferedImage m_wallSprite;
-  BufferedImage m_persoSprite;
-  spell m_spell;
-  BufferedImage m_spellSprite;
+    Personnage m_perso;
+    BufferedImage m_fieldSprite;
+    BufferedImage m_wallSprite;
+    BufferedImage m_persoSprite;
+    spell m_spell;
+    BufferedImage m_spellSprite;
     BufferedImage m_itemBeer;
     BufferedImage m_itemPepsi;
     BufferedImage m_itemCake;
     BufferedImage m_itemPizza;
     Map m_carte;
-    Item[] m_item=new Item[10];
+    Item[] m_item = new Item[10];
     Random rand = new Random();
 
     public Model() {
         loadSprites();
         createMap();
         createItem();
-        m_perso = new Personnage(this, m_persoSprite, 5 ,25 , 1.5F);
-        m_spell= new spell(this,m_spellSprite,0,0);
+        m_perso = new Personnage(this, m_persoSprite, 15, 0, 1.3F);
+        m_spell = new spell(this, m_spellSprite, 0, 0);
     }
-    
-  @Override
-  public void shutdown() {
-    
-  }
+
+    @Override
+    public void shutdown() {
+
+    }
+
     /**
      * Simulation step.
      *
@@ -132,11 +128,12 @@ public class Model extends GameModel {
         m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min, Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
 
     }
-    public void createItem(){
-        for(int i=0;i<2;i++){
-            int x=((int)(Math.random()*(Options.nb_px_x_max-Options.nb_px_x_min))+Options.nb_px_x_min)/Options.TAILLE_CELLULE;
-            int y=((int)(Math.random()*(Options.nb_px_y_max-Options.nb_px_y_min))+Options.nb_px_y_min)/Options.TAILLE_CELLULE;
-            m_item[i]=new Item(1,x*Options.TAILLE_CELLULE,y*Options.TAILLE_CELLULE,m_itemPepsi);
+
+    public void createItem() {
+        for (int i = 0; i < 2; i++) {
+            int x = ((int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) + Options.nb_px_x_min) / Options.TAILLE_CELLULE;
+            int y = ((int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) + Options.nb_px_y_min) / Options.TAILLE_CELLULE;
+            m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi);
         }
     }
 }

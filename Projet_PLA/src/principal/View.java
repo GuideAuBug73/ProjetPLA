@@ -1,21 +1,20 @@
 package principal;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import edu.ricm3.game.GameView;
+
+import java.awt.*;
 
 
 public class View extends GameView {
 
     private static final long serialVersionUID = 1L;
 
-	Color m_background = Color.black;
-	long m_last;
-	int m_npaints;
-	int m_fps;
-	Model m_model;
-	Controller m_ctr;
+    Color m_background = Color.black;
+    long m_last;
+    int m_npaints;
+    int m_fps;
+    Model m_model;
+    Controller m_ctr;
 
     public View(Model m, Controller c) {
         m_model = m;
@@ -38,23 +37,21 @@ public class View extends GameView {
         computeFPS();
 
         // erase background
-        //g.setColor(m_background);
-        //g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(m_background);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
         Map carte = m_model.m_carte;
         carte.paint(g);
         Item[] item = m_model.m_item;
         System.out.println(item.length);
-        for(int i=0;i<item.length;i++){
-            if(item[i]!=null)
+        for (int i = 0; i < item.length; i++) {
+            if (item[i] != null)
                 item[i].paint(g);
         }
-        // Paint our model, grabbing the elements,
-        // in our case, the squares.
+        m_model.m_spell.cast();
+        Personnage h = m_model.m_perso;
+        h.paint(g);
+        spell ss = m_model.m_spell;
+        ss.paint(g);
     }
-	    m_model.m_spell.cast();
-	      Personnage h = m_model.m_perso;
-	      h.paint(g);
-	      spell ss = m_model.m_spell;
-	      ss.paint(g);
 }
