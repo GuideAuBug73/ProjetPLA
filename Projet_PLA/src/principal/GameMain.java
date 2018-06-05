@@ -1,6 +1,7 @@
 package principal;
 
 import java.awt.Dimension;
+
 import edu.ricm3.game.GameUI;
 
 public class GameMain {
