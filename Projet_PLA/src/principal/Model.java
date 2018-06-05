@@ -139,7 +139,7 @@ public class Model extends GameModel {
         for(int i=0;i<2;i++){
             int x=((int)(Math.random()*(Options.nb_px_x_max-Options.nb_px_x_min))+Options.nb_px_x_min)/60;
             int y=((int)(Math.random()*(Options.nb_px_y_max-Options.nb_px_y_min))+Options.nb_px_y_min)/60;
-            m_item=new Item(1,x,y,m_itemPepsi);
+            m_item=new Item(1,x,y,m_itemPizza);
         }
     }
 }

@@ -21,8 +21,8 @@ public class Map {
 	BufferedImage m_spritewall;
 
     //Generation de la map
-    int maxTunnels = 50;
-    int maxLength = 9;
+    int maxTunnels = 65;
+    int maxLength = 10;
 
     public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
         m_w = w;
