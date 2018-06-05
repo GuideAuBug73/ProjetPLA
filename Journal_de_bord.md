@@ -40,3 +40,11 @@ Questions :
 - Test sur le controle d'un joueur
 - Mise en place des partie de la view(Partie centrale : map, partie Droite : Inventaire, partie Haute et basse : informations sur le jeu)
 - Gestion de l'inventaire(pile)
+
+**Mardi 5 juin**
+- Merge du personnage et de la map 
+- Changement des sprites 
+- Mise en place du contrat 
+- Finalisation du diapo
+- Préparation à l'oral du contrat
+- affichage des items 
