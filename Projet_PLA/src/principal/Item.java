@@ -22,7 +22,7 @@ public class Item extends Entity {
 
     public void paint(Graphics g) {
         Image img=m_item;
-        g.drawImage(img,120,120,Options.TAILLE_CELLULE,Options.TAILLE_CELLULE, null);
+        g.drawImage(img,w,h,Options.TAILLE_CELLULE,Options.TAILLE_CELLULE, null);
     }
 
 }

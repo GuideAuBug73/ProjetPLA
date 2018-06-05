@@ -128,6 +128,7 @@ public class GameUI {
         m_frame.setUndecorated(true);
         m_frame.setSize(d);
         m_frame.doLayout();
+        m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

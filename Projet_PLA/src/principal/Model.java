@@ -21,7 +21,7 @@ public class Model extends GameModel {
     BufferedImage m_itemCake;
     BufferedImage m_itemPizza;
     Map m_carte;
-    Item m_item;
+    Item[] m_item=new Item[10];
     Random rand = new Random();
 
     public Model() {
@@ -72,7 +72,7 @@ public class Model extends GameModel {
             System.exit(-1);
         }
 
-        imageFile = new File("src/sprites/field.png");
+        imageFile = new File("src/sprites/grass03.png");
         try {
             m_fieldSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
@@ -120,15 +120,6 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-
-
-        imageFile = new File("src/sprites/wall.png");
-        try {
-            m_wallSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
     }
 
     public void createMap() {
@@ -137,9 +128,9 @@ public class Model extends GameModel {
     }
     public void createItem(){
         for(int i=0;i<2;i++){
-            int x=((int)(Math.random()*(Options.nb_px_x_max-Options.nb_px_x_min))+Options.nb_px_x_min)/60;
-            int y=((int)(Math.random()*(Options.nb_px_y_max-Options.nb_px_y_min))+Options.nb_px_y_min)/60;
-            m_item=new Item(1,x,y,m_itemPepsi);
+            int x=((int)(Math.random()*(Options.nb_px_x_max-Options.nb_px_x_min))+Options.nb_px_x_min)/Options.TAILLE_CELLULE;
+            int y=((int)(Math.random()*(Options.nb_px_y_max-Options.nb_px_y_min))+Options.nb_px_y_min)/Options.TAILLE_CELLULE;
+            m_item[i]=new Item(1,x*Options.TAILLE_CELLULE,y*Options.TAILLE_CELLULE,m_itemPepsi);
         }
     }
 }
