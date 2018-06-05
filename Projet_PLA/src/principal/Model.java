@@ -48,6 +48,8 @@ public class Model extends GameModel {
 	 */
 	@Override
 	public void step(long now) {
+		for (int i = 0; i < m_ennemi.length; i++)
+		     m_ennemi[i].step(now);
 
 	}
 
