@@ -125,34 +125,41 @@ public class GameUI {
     private void createWindow(Dimension d, GameModel m) {
         m_frame = new JFrame();
         m_frame.setTitle("Game");
+        m_frame.setUndecorated(true);
         m_frame.setSize(d);
         m_frame.doLayout();
+        m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        m_h=d.height;
-        m_w=d.width;
-        tailleMap();
-        m_frame.setLayout(new BorderLayout());
-        JPanel panelgrid = new JPanel();
-        panelgrid.setBackground(Color.BLACK);
-        JPanel panelinventaire = new JPanel();
-        panelinventaire.setPreferredSize(new Dimension(m_panelD, d.height));
-        JPanel panelplayer = new JPanel();
-        panelplayer.setPreferredSize(new Dimension(d.width, m_panelH));
+
+
+        JPanel panelinventaire=new JPanel();
+        panelinventaire.setBounds(Options.nb_px_x_max,0,d.width,d.height);
+        panelinventaire.setBackground(Color.BLACK);
+        JPanel panelplayer = new JPanel(new BorderLayout());
+        panelplayer.setBounds(0,0,d.width,Options.nb_px_y_min);
+        panelplayer.setBackground(Color.BLACK);
+        JPanel panelinfo=new JPanel();
+        panelinfo.setBounds(0,Options.nb_px_y_max,d.width,d.height);
+        panelinfo.setBackground(Color.BLACK);
+        JPanel panelgrid=new JPanel(new BorderLayout());
+        panelgrid.setBounds(Options.nb_px_x_min,Options.nb_px_y_min,Options.nb_px_x_max,Options.nb_px_y_max);
         m_text = new JLabel();
         m_text.setText("Starting up ...");
-        panelplayer.add(m_text);
-        JPanel panelinfo = new JPanel();
-        panelinfo.setPreferredSize(new Dimension(d.width, m_panelB));
-        panelinventaire.setBackground(Color.PINK);
-        addEast(panelinventaire);
-        addNorth(panelplayer);
-        addSouth(panelinfo);
-        addCenter(panelgrid);
-        addCenter(m_view);
+        panelplayer.add(m_text,BorderLayout.CENTER);
+        JLayeredPane pane=new JLayeredPane();
+        pane.add(panelinfo);
+        pane.add(panelinventaire);
+        pane.add(panelplayer);
+        panelgrid.add(m_view,BorderLayout.CENTER);
+        pane.add(panelgrid);
+        m_frame.add(pane);
+        System.out.println(Options.nb_px_x_min);
+        System.out.println(Options.nb_px_x_max);
+        System.out.println(Options.nb_px_y_min);
+        System.out.println(Options.nb_px_y_max);
 
         m_frame.addWindowListener(new WindowListener(m_model));
-
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
         GameController ctr = getController();
@@ -162,9 +169,6 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
-        int h=panelplayer.getHeight();
-        h-=h*0.15;
-        m_model.createMap(m_view,m_h,m_w,h);
     }
 
     /*
@@ -224,18 +228,4 @@ public class GameUI {
         m_fps = fps;
         m_msg = msg;
     }
-    public void tailleMap(){
-        int tempH=m_h;
-        int tempW=m_w;
-        m_h-=100;
-        m_w-=100;
-        m_h=m_h/Options.TAILLE_CELLULE;
-        m_w=m_w/Options.TAILLE_CELLULE;
-        m_panelD=tempW-m_w*Options.TAILLE_CELLULE;
-        m_panelB=tempH-m_h*Options.TAILLE_CELLULE;
-        m_panelB=m_panelB/2;
-        m_panelH=m_panelB;
-
-    }
-
 }

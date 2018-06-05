@@ -7,12 +7,12 @@ package principal;
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,18 +36,18 @@ import javax.media.Time;
 
 /*
  * Music player.
- * 
+ *
  * You can play .wav files.
  * If like me, you have mp3 files, you can transcode them:
- * 
+ *
  *    sudo apt-get install mpg123
- * 
+ *
  * Then to convert mp3 to wav (using -w option)
  *    mpg123 -w output.wav input.mp3
  *
  * Title:   Future RPG                      Artist: Eric Matyas
- * Comment: QMAYT1400787                    Album:  
- * Year:    6                               Genre:  Soundtrack, 
+ * Comment: QMAYT1400787                    Album:
+ * Year:    6                               Genre:  Soundtrack,
 */
 
 public class Music {
