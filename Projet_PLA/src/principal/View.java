@@ -50,11 +50,11 @@ public class View extends GameView {
                 item[i].paint(g);
         }
         // Paint our model, grabbing the elements,
-        // in our case, the squares.
+        m_model.m_spell.cast();
+        Personnage h = m_model.m_perso;
+        h.paint(g);
+        spell ss = m_model.m_spell;
+        ss.paint(g);
     }
-	    m_model.m_spell.cast();
-	      Personnage h = m_model.m_perso;
-	      h.paint(g);
-	      spell ss = m_model.m_spell;
-	      ss.paint(g);
+
 }

@@ -17,9 +17,7 @@ public class Personnage extends Entity {
 	int orientation=0;
 	
 
-	Personnage(){}
-	
-	Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
+	public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
 		m_sprite = sprite;
 		m_x = x;
@@ -34,7 +32,7 @@ public class Personnage extends Entity {
 		int width = m_sprite.getWidth(null);
 		int height = m_sprite.getHeight(null);
 		m_sprites = new BufferedImage[4*4];
-		m_w = width / 4;
+		m_w = width / 6;
 		m_h = height / 4;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
