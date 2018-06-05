@@ -1,4 +1,4 @@
-package principal;
+
 
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.GameView;
@@ -10,12 +10,18 @@ import java.io.IOException;
 import java.util.Random;
 
 
+import edu.ricm3.game.GameModel;
+import edu.ricm3.game.GameView;
+
+
+
 public class Model extends GameModel {
-    Personnage perso;
-    BufferedImage m_cowboySprite;
-    BufferedImage m_explosionSprite;
-    BufferedImage m_fieldSprite;
-    BufferedImage m_wallSprite;
+  Personnage m_perso;
+  BufferedImage m_fieldSprite;
+  BufferedImage m_wallSprite;
+  BufferedImage m_persoSprite;
+  spell m_spell;
+  BufferedImage m_spellSprite;
     BufferedImage m_itemBeer;
     BufferedImage m_itemPepsi;
     BufferedImage m_itemCake;
@@ -28,14 +34,14 @@ public class Model extends GameModel {
         loadSprites();
         createMap();
         createItem();
+        m_perso = new Personnage(this, m_persoSprite, 5 ,25 , 1.5F);
+        m_spell= new spell(this,m_spellSprite,0,0);
     }
-
-    @Override
-    public void shutdown() {
-
-    }
-
-
+    
+  @Override
+  public void shutdown() {
+    
+  }
     /**
      * Simulation step.
      *
@@ -55,7 +61,7 @@ public class Model extends GameModel {
          */
         File imageFile = new File("src/sprites/winchester.png");
         try {
-            m_cowboySprite = ImageIO.read(imageFile);
+            m_persoSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -66,7 +72,7 @@ public class Model extends GameModel {
          */
         imageFile = new File("src/sprites/explosion01_set_64.png");
         try {
-            m_explosionSprite = ImageIO.read(imageFile);
+            m_spellSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
