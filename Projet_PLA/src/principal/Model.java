@@ -13,27 +13,15 @@ import java.util.Random;
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.GameView;
 
-import edu.ricm3.game.GameModel;
-import edu.ricm3.game.GameView;
 
 
 public class Model extends GameModel {
-  Personnage perso;
-  BufferedImage m_cowboySprite;
-  BufferedImage m_explosionSprite;
+  Personnage m_perso;
   BufferedImage m_fieldSprite;
   BufferedImage m_wallSprite;
-  Map m_carte;
-  Random rand = new Random();
-  BufferedImage m_harrySprite;
+  BufferedImage m_persoSprite;
   spell m_spell;
-  Personnage m_harry;
   BufferedImage m_spellSprite;
-    Personnage perso;
-    BufferedImage m_cowboySprite;
-    BufferedImage m_explosionSprite;
-    BufferedImage m_fieldSprite;
-    BufferedImage m_wallSprite;
     BufferedImage m_itemBeer;
     BufferedImage m_itemPepsi;
     BufferedImage m_itemCake;
@@ -42,73 +30,18 @@ public class Model extends GameModel {
     Item[] m_item=new Item[10];
     Random rand = new Random();
 
-  public Model() {
-    loadSprites();
-  }
-  
-  @Override
-  public void shutdown() {
-    
-  }
-    m_harry = new Personnage(this, m_harrySprite, 5 ,25 , 1.5F);
-    m_spell= new spell(this,m_spellSprite,0,0);
     public Model() {
         loadSprites();
         createMap();
         createItem();
-    }
-
-    @Override
-    public void shutdown() {
-
-  private void loadSprites() {
-    /*
-     * Cowboy with rifle, western style; png; 48x48 px sprite size
-     * Krasi Wasilev ( http://freegameassets.blogspot.com)
-     */
-    File imageFile = new File("src/sprites/winchester.png");
-    try {
-      m_cowboySprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-    }
-    /*
-     * Long explosion set; png file; 64x64 px sprite size
-     * Krasi Wasilev ( http://freegameassets.blogspot.com)
-     */
-    imageFile = new File("src/sprites/explosion01_set_64.png");
-    try {
-      m_explosionSprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
+        m_perso = new Personnage(this, m_persoSprite, 5 ,25 , 1.5F);
+        m_spell= new spell(this,m_spellSprite,0,0);
     }
     
-    imageFile = new File("src/sprites/field.png");
-    try {
-      m_fieldSprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-    }
+  @Override
+  public void shutdown() {
     
-    imageFile = new File("src/sprites/wall.png");
-    try {
-      m_wallSprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-    }
   }
-  public void createMap(GameView v,int h, int w,int m){
-    int sizeh=v.getHeight();
-    int sizew=v.getWidth();
-    m_carte= new Map(h, w, sizeh, sizew, m_wallSprite, m_fieldSprite,m);
-  }
-
-
-
     /**
      * Simulation step.
      *
@@ -128,7 +61,7 @@ public class Model extends GameModel {
          */
         File imageFile = new File("src/sprites/winchester.png");
         try {
-            m_cowboySprite = ImageIO.read(imageFile);
+            m_persoSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -139,7 +72,7 @@ public class Model extends GameModel {
          */
         imageFile = new File("src/sprites/explosion01_set_64.png");
         try {
-            m_explosionSprite = ImageIO.read(imageFile);
+            m_spellSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);

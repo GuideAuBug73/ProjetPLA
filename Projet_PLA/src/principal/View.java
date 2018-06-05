@@ -53,7 +53,7 @@ public class View extends GameView {
         // in our case, the squares.
     }
 	    m_model.m_spell.cast();
-	      Personnage h = m_model.m_harry;
+	      Personnage h = m_model.m_perso;
 	      h.paint(g);
 	      spell ss = m_model.m_spell;
 	      ss.paint(g);
