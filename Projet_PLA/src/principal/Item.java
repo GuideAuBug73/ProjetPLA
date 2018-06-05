@@ -7,21 +7,22 @@ public class Item extends Entity {
     public int type;
     public int w;
     public int h;
-    BufferedImage
+    BufferedImage m_item;
 
     public Item(int type) {
         this.type = type;
     }
-    public Item(int type,int w, int h){
+    public Item(int type,int w, int h,BufferedImage m_item){
         this.type=type;
         this.w=w;
         this.h=h;
+        this.m_item=m_item;
     }
 
 
     public void paint(Graphics g) {
-        g.drawImage(img, cellules[i][j].x, cellules[i][j].y + map_start, m_sizew / m_w, m_sizeh / m_h, null);
-
+        Image img=m_item;
+        g.drawImage(img,120,120,Options.TAILLE_CELLULE,Options.TAILLE_CELLULE, null);
     }
 
 }
