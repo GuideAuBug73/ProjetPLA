@@ -5,17 +5,17 @@ import java.awt.image.BufferedImage;
 
 public class Item extends Entity {
     public int type;
-    public int x;
-    public int y;
+    public int w;
+    public int h;
     BufferedImage
 
     public Item(int type) {
         this.type = type;
     }
-    public Item(int type,int x, int y){
+    public Item(int type,int w, int h){
         this.type=type;
-        this.x=x;
-        this.y=y;
+        this.w=w;
+        this.h=h;
     }
 
 
