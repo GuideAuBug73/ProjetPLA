@@ -42,8 +42,12 @@ public class View extends GameView {
 
         Map carte = m_model.m_carte;
         carte.paint(g);
-        Item item = m_model.m_item;
-        item.paint(g);
+        Item[] item = m_model.m_item;
+        System.out.println(item.length);
+        for(int i=0;i<item.length;i++){
+            if(item[i]!=null)
+                item[i].paint(g);
+        }
         // Paint our model, grabbing the elements,
         // in our case, the squares.
     }
