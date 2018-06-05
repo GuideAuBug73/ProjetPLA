@@ -74,7 +74,7 @@ public class Model extends GameModel {
             System.exit(-1);
         }
 
-        imageFile = new File("src/sprites/grass03.png");
+        imageFile = new File("src/sprites/field.png");
         try {
             m_fieldSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
