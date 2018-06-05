@@ -1,5 +1,6 @@
 package principal;
-public class Ennemi extends Personnage {
+public class Ennemi {
+	//extends Harry {
 	boolean boss;
 	/* Automate IA; */
 }

@@ -18,4 +18,9 @@ public class Cellule {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public boolean occuper(Cellule e ) {	
+		return e.libre ;
+	}
+	 
 }

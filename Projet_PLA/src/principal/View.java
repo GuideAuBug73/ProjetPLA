@@ -5,11 +5,12 @@ import java.awt.Graphics;
 
 import edu.ricm3.game.GameView;
 
+
 public class View extends GameView {
 
 	private static final long serialVersionUID = 1L;
 
-	Color m_background = Color.gray;
+	Color m_background = Color.black;
 	long m_last;
 	int m_npaints;
 	int m_fps;
@@ -36,13 +37,19 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 
-		// erase background
-		//g.setColor(m_background);
-		//g.fillRect(0, 0, getWidth(), getHeight());
-
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		
 		Map carte = m_model.m_carte;
 		carte.paint(g);
-		// Paint our model, grabbing the elements,
-		// in our case, the squares.
+
+	    m_model.m_spell.cast();
+	    
+	      Personnage h = m_model.m_harry;
+	      h.paint(g);
+	        
+	      spell ss = m_model.m_spell;
+	      ss.paint(g);
+	
 	}
 }
