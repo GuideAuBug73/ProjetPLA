@@ -21,11 +21,10 @@ public class Map {
 	BufferedImage m_spritewall;
 
     //Generation de la map
-    int maxTunnels = 40;
-    int maxLength = 8;
+    int maxTunnels = 50;
+    int maxLength = 9;
 
-    public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield, int m) {
-        map_start = m;
+    public Map(int h, int w, int sizeh, int sizew, BufferedImage spritewall, BufferedImage spritefield) {
         m_w = w;
         m_h = h;
         m_sizew = sizew;
@@ -117,7 +116,7 @@ public class Map {
                     img = m_spritefield;
                 } else
                     img = m_spritewall;
-                g.drawImage(img, cellules[i][j].x, cellules[i][j].y + map_start, m_sizew / m_w, m_sizeh / m_h, null);
+                g.drawImage(img, cellules[i][j].x, cellules[i][j].y, m_sizew / m_w, m_sizeh / m_h, null);
             }
         }
     }
