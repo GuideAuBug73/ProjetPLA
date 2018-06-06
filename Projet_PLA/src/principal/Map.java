@@ -19,6 +19,8 @@ public class Map {
 	// sprites
 	BufferedImage m_spritefield;
 	BufferedImage m_spritewall;
+	
+	Arbre abr;
 
     //Generation de la map
     int maxTunnels = 80;
@@ -107,6 +109,65 @@ public class Map {
 
         return map;
     }
+    //A REFAIRE, NE MARCHE PAS !!!
+    public boolean testMap(Spawn mob[], Cellule start) {
+		abr = new Arbre(start);
+		cellules[abr.c.y / Options.TAILLE_CELLULE][abr.c.x / Options.TAILLE_CELLULE].visite = true;
+		for (int i = 0; i < mob.length; i++) {
+			if (!testSpawn(mob[i], abr))
+				return false;
+		}
+		return true;
+
+	}
+
+    //A REFAIRE, NE MARCHE PAS !!!
+	private boolean testSpawn(Spawn s, Arbre a) {
+		if (a.c.x / Options.TAILLE_CELLULE == s.x && a.c.y / Options.TAILLE_CELLULE == s.y) {
+			return true;
+		}
+		if (a.c.x >= Options.nb_px_x_min && a.c.y - Options.TAILLE_CELLULE >= Options.nb_px_y_min
+				&& a.c.x < Options.nb_px_x_max && a.c.y - Options.TAILLE_CELLULE < Options.nb_px_y_max
+				&& !(cellules[(a.c.y - Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE].visite)) {
+			cellules[(a.c.y - Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE].visite = true;
+			a.filsN = new Arbre(cellules[a.c.y - Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE]);
+			if (a.filsN.c.libre && testSpawn(s, a.filsN)) {
+				return true;
+			}
+
+		}
+		if (a.c.x + Options.TAILLE_CELLULE >= Options.nb_px_x_min && a.c.y >= Options.nb_px_y_min && a.c.x + Options.TAILLE_CELLULE < Options.nb_px_x_max && a.c.y < Options.nb_px_y_max
+				&& !(cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE].visite)) {
+			cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE].visite = true;
+			a.filsE = new Arbre(cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE]);
+			if (a.filsE.c.libre && testSpawn(s, a.filsE)) {
+				return true;
+			}
+		}
+		if (a.c.x >= Options.nb_px_x_min && a.c.y + Options.TAILLE_CELLULE >= Options.nb_px_y_min && a.c.x < Options.nb_px_x_max && a.c.y + Options.TAILLE_CELLULE < Options.nb_px_y_max
+				&& !(cellules[(a.c.y + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE].visite)) {
+			cellules[(a.c.y + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE].visite = true;
+			a.filsS = new Arbre(cellules[(a.c.y + Options.TAILLE_CELLULE) / Options.TAILLE_CELLULE][a.c.x / Options.TAILLE_CELLULE]);
+			if (a.filsS.c.libre && testSpawn(s, a.filsS)) {
+				return true;
+			}
+
+		}
+		if (a.c.x - Options.TAILLE_CELLULE >= Options.nb_px_x_min && a.c.y >= Options.nb_px_y_min
+				&& a.c.x - Options.TAILLE_CELLULE < Options.nb_px_x_max && a.c.y < Options.nb_px_y_max
+				&& !(cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x - Options.TAILLE_CELLULE)
+						/ Options.TAILLE_CELLULE].visite)) {
+			cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x - Options.TAILLE_CELLULE)
+					/ Options.TAILLE_CELLULE].visite = true;
+			a.filsO = new Arbre(cellules[a.c.y / Options.TAILLE_CELLULE][(a.c.x - Options.TAILLE_CELLULE)
+					/ Options.TAILLE_CELLULE]);
+			if (a.filsO.c.libre && testSpawn(s, a.filsO)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
 
     public void paint(Graphics g) {
         Image img;
