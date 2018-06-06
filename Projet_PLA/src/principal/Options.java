@@ -11,4 +11,13 @@ public class Options {
 	public static final boolean ECHO_MOUSE = true;
 	public static final boolean ECHO_MOUSE_MOTION = true;
 	public static final boolean ECHO_KEYBOARD = true;
+
+
+	public static int TAILLE_CELLULE=60;
+	public static int nb_cell_w;
+	public static int nb_cell_h;
+	public static int nb_px_x_min;
+	public static int nb_px_x_max;
+	public static int nb_px_y_min;
+	public static int nb_px_y_max;
 }

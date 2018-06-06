@@ -37,4 +37,5 @@ public abstract class GameModel {
   public abstract void step(long now);
   
   public abstract void shutdown();
+  public abstract void createMap();
 }

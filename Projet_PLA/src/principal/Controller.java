@@ -1,125 +1,150 @@
+/*
+ * Educational software for a basic game development
+ * Copyright (C) 2018  Pr. Olivier Gruber
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package principal;
 
-import java.awt.Container;
-import java.awt.FlowLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
+
 
 import edu.ricm3.game.GameController;
 
+
 public class Controller extends GameController implements ActionListener {
-	Model m_model;
-	Music m_player;
 
-	public Controller(Model m) {
-		m_model = m;
-	}
+  Model m_model;
+  Personnage c;
+  spell s;
+  
+  public Controller(Model m) {
+    m_model = m;
+    c = m.m_perso;
+    s=m.m_spell;
+  }
 
-	/**
-	 * Simulation step. Warning: the model has already executed its step.
-	 * 
-	 * @param now
-	 *            is the current time in milliseconds.
-	 */
-	@Override
-	public void step(long now) {
-	}
+  /**
+   * Simulation step. Warning: the model has already executed its step.
+   *
+   * @param now
+   *          is the current time in milliseconds.
+   */
+  @Override
+  public void step(long now) {
+  }
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// if (Options.ECHO_KEYBOARD)
-		// System.out.println("KeyTyped: " + e);
-		if (e.getKeyChar() == ' ') {
-			try {
-				/*
-				 * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
-				 * WILL BLOCK EVERYTHING.
-				 */
-				System.err.println("You should not have done that!");
-				System.out.println("ZZzzz....");
-				Thread.sleep(3000);
-				System.out.println("Hey! I am back");
-			} catch (InterruptedException ex) {
-			}
-		} else if (e.getKeyChar() == 'd') {
-			System.out.println("Keytyperd : d");
-		}
-	}
+  @Override
+  public void keyTyped(KeyEvent e) {
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-	}
+    if (e.getKeyChar() == 'd') {
+    	c.droite();
+    }  else if (e.getKeyChar() == 's') {
+    	c.bas();
+    }
+    else if (e.getKeyChar() == 'z') {
+    	c.haut();
+    }
+    else if (e.getKeyChar() == 'q') {
+    	c.gauche();
+    }
+    else if (e.getKeyChar() == 'm') {
+   
+    if(c.orientation==0)
+        s.setcast(c.m_x,c.m_y,c.m_x,c.m_y+400);
+      if(c.orientation==1)
+          s.setcast(c.m_x,c.m_y,c.m_x+400,c.m_y);
+      if(c.orientation==2)
+          s.setcast(c.m_x,c.m_y,c.m_x-400,c.m_y);
+      if(c.orientation==3)
+          s.setcast(c.m_x,c.m_y,c.m_x,c.m_y-400);
+    }
+  }
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
-	}
+  @Override
+  public void keyPressed(KeyEvent e) {
+    if (Options.ECHO_KEYBOARD)
+      System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+  }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (Options.ECHO_MOUSE)
-			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-	}
+  @Override
+  public void keyReleased(KeyEvent e) {
+    if (Options.ECHO_KEYBOARD)
+      System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+  }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		if (Options.ECHO_MOUSE)
-			System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-	}
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    if (Options.ECHO_MOUSE)
+      System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+    
+    
+  }
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		if (Options.ECHO_MOUSE)
-			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-	}
+  @Override
+  public void mousePressed(MouseEvent e) {
+    if (Options.ECHO_MOUSE)
+      System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+  }
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		if (Options.ECHO_MOUSE_MOTION)
-			System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
-	}
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    if (Options.ECHO_MOUSE)
+      System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+  }
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		if (Options.ECHO_MOUSE_MOTION)
-			System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
-	}
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    if (Options.ECHO_MOUSE_MOTION)
+      System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
+  }
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		if (Options.ECHO_MOUSE_MOTION)
-			System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
-	}
+  @Override
+  public void mouseExited(MouseEvent e) {
+    if (Options.ECHO_MOUSE_MOTION)
+      System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
+  }
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		if (Options.ECHO_MOUSE_MOTION)
-			System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
-	}
+  @Override
+  public void mouseDragged(MouseEvent e) {
+    if (Options.ECHO_MOUSE_MOTION)
+      System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
+  }
 
-	public void notifyVisible() {
-		Container cont = new Container();
-		cont.setLayout(new FlowLayout());
+  @Override
+  public void mouseMoved(MouseEvent e) {
+    if (Options.ECHO_MOUSE_MOTION)
+      System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
+  }
 
-		File file;
-		file = new File("game.sample/sprites/Future-RPG.wav");
-		// file = new File("game.sample/sprites/Runaway-Food-Truck.wav");
-		try {
-			m_player = new Music(file);
-			cont.add(m_player.getControls());
-		} catch (Exception ex) {
-		}
-		m_game.addNorth(cont);
-	}
+  public void notifyVisible() {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-	}
+
+  
+
+
+
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
+ 
+  }
 
 }
