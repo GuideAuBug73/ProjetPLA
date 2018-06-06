@@ -141,8 +141,8 @@ public class Model extends GameModel {
     }
     public void createPerso() {
         for (int i = 0; i < 1; ) {
-            int x = (int) (Math.random() * 29);
-            int y = (int) (Math.random() * 15);
+        	int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
                 m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
