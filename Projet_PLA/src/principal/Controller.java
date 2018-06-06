@@ -32,10 +32,12 @@ public class Controller extends GameController implements ActionListener {
   Model m_model;
   Personnage c;
   spell s;
+  Ennemi E ;
   
   public Controller(Model m) {
     m_model = m;
     c = m.m_perso;
+    E = m.m_ennemi ;
     s=m.m_spell;
   }
 
@@ -63,16 +65,27 @@ public class Controller extends GameController implements ActionListener {
     else if (e.getKeyChar() == 'q') {
     	c.gauche();
     }
+    if (e.getKeyChar() == 'l') {
+    	E.droite();
+    }  else if (e.getKeyChar() == 'k') {
+    	E.bas();
+    }
+    else if (e.getKeyChar() == 'i') {
+    	E.haut();
+    }
+    else if (e.getKeyChar() == 'j') {
+    	E.gauche();
+    }
     else if (e.getKeyChar() == 'm') {
    
     if(c.orientation==0)
-        s.setcast(c.m_x,c.m_y,c.m_x,c.m_y+400);
+        s.setcast(c.x,c.y,c.x,c.y+400);
       if(c.orientation==1)
-          s.setcast(c.m_x,c.m_y,c.m_x+400,c.m_y);
+          s.setcast(c.x,c.y,c.x+400,c.y);
       if(c.orientation==2)
-          s.setcast(c.m_x,c.m_y,c.m_x-400,c.m_y);
+          s.setcast(c.x,c.y,c.x-400,c.y);
       if(c.orientation==3)
-          s.setcast(c.m_x,c.m_y,c.m_x,c.m_y-400);
+          s.setcast(c.x,c.y,c.x,c.y-400);
     }
   }
 

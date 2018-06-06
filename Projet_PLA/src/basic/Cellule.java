@@ -19,11 +19,4 @@ public class Cellule {
         this.x = x;
         this.y = y;
     }
-
-    int[] positionToCell(int x,int y){
-        int[] cell=new int[2];
-        cell[0]=x/60;
-        cell[1]=y/60;
-        return cell;
-    }
 }

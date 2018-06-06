@@ -14,6 +14,6 @@ public class Arbre {
 	}
 	
 	public Arbre(Spawn start,Map carte) {
-		this.c = carte.cellules[start.i][start.j];
+		this.c = carte.cellules[(start.y)/Options.TAILLE_CELLULE][(start.x)/Options.TAILLE_CELLULE];
 	}
 }
