@@ -109,7 +109,7 @@ public class Map {
 
         return map;
     }
-    
+    //A REFAIRE, NE MARCHE PAS !!!
     public boolean testMap(Spawn mob[], Cellule start) {
 		abr = new Arbre(start);
 		cellules[abr.c.y / Options.TAILLE_CELLULE][abr.c.x / Options.TAILLE_CELLULE].visite = true;
@@ -121,8 +121,9 @@ public class Map {
 
 	}
 
+    //A REFAIRE, NE MARCHE PAS !!!
 	private boolean testSpawn(Spawn s, Arbre a) {
-		if (a.c.x / Options.TAILLE_CELLULE == s.i && a.c.y / Options.TAILLE_CELLULE == s.j) {
+		if (a.c.x / Options.TAILLE_CELLULE == s.x && a.c.y / Options.TAILLE_CELLULE == s.y) {
 			return true;
 		}
 		if (a.c.x >= Options.nb_px_x_min && a.c.y - Options.TAILLE_CELLULE >= Options.nb_px_y_min

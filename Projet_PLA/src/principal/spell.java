@@ -1,8 +1,7 @@
 
 package principal;
 
-import edu.ricm3.game.GameModel;
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class spell {

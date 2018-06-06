@@ -1,28 +1,33 @@
 package principal;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import basic.Cellule;
+
 public class Item extends Entity {
-    public int type;
-    public int w;
-    public int h;
-    BufferedImage m_item;
+	public int type;
 
-    public Item(int type) {
-        this.type = type;
-    }
-    public Item(int type,int w, int h,BufferedImage m_item){
-        this.type=type;
-        this.w=w;
-        this.h=h;
-        this.m_item=m_item;
-    }
+	public Item(int type, int w, int h, BufferedImage m_item, Model model) {
+		this.type = type;
+		m_model = model;
+		x = w;
+		y = h;
+		img = m_item;
+	}
 
+	public Item(int type, Cellule cell, BufferedImage m_item, Model model) {
+		this.type = type;
+		m_model = model;
+		x = cell.x;
+		y = cell.y;
+		img = m_item;
+	}
 
-    public void paint(Graphics g) {
-        Image img=m_item;
-        g.drawImage(img,w,h,Options.TAILLE_CELLULE,Options.TAILLE_CELLULE, null);
-    }
+	public void paint(Graphics g) {
+		Image img = this.img;
+		g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+	}
 
 }
