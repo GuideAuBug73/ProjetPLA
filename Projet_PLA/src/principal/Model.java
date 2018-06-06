@@ -134,7 +134,7 @@ public class Model extends GameModel {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if(m_carte.cellules[y][x].libre) {
-                m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi);
+                m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi,this);
                 i++;
             }
         }
