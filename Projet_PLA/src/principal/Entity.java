@@ -2,6 +2,7 @@ package principal;
 import java.awt.image.BufferedImage;
 
 import basic.Position;
+import java.awt.image.BufferedImage;
 public class Entity {
 	public Position p;
 	BufferedImage Img;

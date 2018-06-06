@@ -1,8 +1,7 @@
 package principal;
 
 import basic.Cellule;
-
-public class Spawn extends Entity {
+public class Spawn extends IA {
 	int presence;
 	 int i, j; 
 	 

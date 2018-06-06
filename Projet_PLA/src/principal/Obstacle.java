@@ -1,4 +1,4 @@
 package principal;
-public class Obstacle {
-	/* Automate IA; */
+public class Obstacle extends IA {
+
 }
