@@ -9,7 +9,7 @@ public class Personnage extends Entity {
 	BufferedImage m_sprite;
 	int m_w, m_h;
 	int m_x, m_y;
-	int i=5, j=25;
+//	int i=5, j=25;
 	int m_idx;
 	float m_scale;
 	BufferedImage[] m_sprites;
@@ -79,7 +79,7 @@ public class Personnage extends Entity {
 
 
 	     	if(cell.libre) {				
-			i--;
+			//i--;
 	
 
 		m_y-=60;
@@ -99,7 +99,7 @@ public class Personnage extends Entity {
            // int y = cell.y ;
 	     	if(cell.libre) {	
 			
-			i++;
+		//	i++;
 		 	
 
 		
@@ -118,7 +118,7 @@ public class Personnage extends Entity {
 
      	if(cell.libre) {	
 			
-				j--;
+			//	j--;
 		
 
 					m_x-=60;
