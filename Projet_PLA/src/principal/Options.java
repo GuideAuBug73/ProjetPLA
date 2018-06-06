@@ -1,5 +1,7 @@
 package principal;
 
+import java.awt.*;
+
 public class Options {
 	public static final boolean USE_DOUBLE_BUFFERING = true;
 
@@ -20,4 +22,5 @@ public class Options {
 	public static int nb_px_x_max;
 	public static int nb_px_y_min;
 	public static int nb_px_y_max;
+	public static Dimension d;
 }

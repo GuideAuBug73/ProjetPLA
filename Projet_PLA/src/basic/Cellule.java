@@ -8,6 +8,7 @@ public class Cellule {
     // coordonnées du centre d'une cellule
     public int x;
     public int y;
+    public boolean visite = false;
 
     public Cellule() {
     }
@@ -17,12 +18,5 @@ public class Cellule {
         this.libre = l;
         this.x = x;
         this.y = y;
-    }
-
-    int[] positionToCell(int x,int y){
-        int[] cell=new int[2];
-        cell[0]=x/60;
-        cell[1]=y/60;
-        return cell;
     }
 }
