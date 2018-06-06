@@ -35,3 +35,22 @@ Questions :
 - Comment faire tous les pops en même temps ? 
 - Faut il beaucoup d'automates différents ? 
 
+**Vendredi 1 Juin**
+- Build de la map
+- Test sur le controle d'un joueur
+- Mise en place des partie de la view(Partie centrale : map, partie Droite : Inventaire, partie Haute et basse : informations sur le jeu)
+- Gestion de l'inventaire(pile)
+
+**Lundi 4 Juin**
+- Création de la map en version graphique
+- Création de l'algorithme de génération aléatoire des murs + tests (fonctionnnels)
+- Création de l'algorithme de vérification de la carte (pas encore fonctionnel)
+- mise en place des mouvements des personnages sur la carte réalisée préalablement
+
+**Mardi 5 juin**
+- Merge du personnage et de la map 
+- Changement des sprites 
+- Mise en place du contrat 
+- Finalisation du diapo
+- Préparation à l'oral du contrat
+- affichage des items 
