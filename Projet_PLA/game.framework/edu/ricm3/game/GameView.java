@@ -141,4 +141,5 @@ public abstract class GameView extends Canvas {
   }
 
   protected abstract void _paint(Graphics g);
+  protected abstract void _paint_inventaire(Graphics g);
 }

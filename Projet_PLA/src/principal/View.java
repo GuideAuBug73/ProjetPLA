@@ -43,7 +43,6 @@ public class View extends GameView {
         Map carte = m_model.m_carte;
         carte.paint(g);
         Item[] item = m_model.m_item;
-        System.out.println(item.length);
         for (int i = 0; i < item.length; i++) {
             if (item[i] != null)
                 item[i].paint(g);
@@ -53,5 +52,10 @@ public class View extends GameView {
         h.paint(g);
         spell ss = m_model.m_spell;
         ss.paint(g);
+    }
+
+    @Override
+    protected void _paint_inventaire(Graphics g) {
+        
     }
 }
