@@ -152,7 +152,7 @@ public class Personnage extends Entity {
         Item[] item = m_model.m_item;
         for (int i = 0; i < item.length; i++) {
             if (item[i] != null) {
-                if (cell.x == item[i].w && cell.y == item[i].h) {
+                if (cell.x == item[i].w && cell.y == item[i].h && cell.entité!=null) {
                     item[i].possession = 1;
                     inventaire.enfiler(item[i]);
                     cell.entité=null;
