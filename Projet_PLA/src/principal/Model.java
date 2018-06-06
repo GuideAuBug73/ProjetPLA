@@ -196,7 +196,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             int type=(int)(Math.random()*7);
             if(m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi,this);
+                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type],this);
                 m_carte.cellules[y][x].entité=m_item[i];
                 i++;
             }

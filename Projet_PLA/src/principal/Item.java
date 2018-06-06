@@ -8,7 +8,7 @@ import basic.Cellule;
 
 public class Item extends Entity {
 	public int type;
-    public int possession;//0 si non possédé 1 si c'est le joueur  2 si c'est l'ennemi
+	public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
 
 	public Item(int type, int w, int h, BufferedImage m_item, Model model) {
 		this.type = type;
@@ -27,13 +27,13 @@ public class Item extends Entity {
 	}
 
 	public void paint(Graphics g) {
-		Image img = this.img;
-		g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+		if (possession == 0)
+			g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
 	}
 
-    public void paint(Graphics g,int w,int h) {
-        Image img = m_item;
-        if (possession == 1)
-            g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
-    }
+	public void paint(Graphics g, int w, int h) {
+		Image img = this.img;
+		if (possession == 1)
+			g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+	}
 }
