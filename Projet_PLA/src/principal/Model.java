@@ -12,6 +12,9 @@ import java.util.Random;
 
 public class Model extends GameModel {
     Personnage m_perso;
+    Ennemi m_ennemi ;
+    BufferedImage m_ennemiSprite;
+
     BufferedImage m_fieldSprite;
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
@@ -30,6 +33,7 @@ public class Model extends GameModel {
         createMap();
         createItem();
         createPerso();
+        createEnnemi();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
 
@@ -55,9 +59,17 @@ public class Model extends GameModel {
          * Cowboy with rifle, western style; png; 48x48 px sprite size
          * Krasi Wasilev ( http://freegameassets.blogspot.com)
          */
-        File imageFile = new File("src/sprites/winchester.png");
+        File imageFile = new File("src/sprites/hero.png");
         try {
             m_persoSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+         imageFile = new File("src/sprites/Enemi.png");
+
+        try {
+            m_ennemiSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -146,6 +158,18 @@ public class Model extends GameModel {
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
                 m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
+                i++;
+            }
+        }
+    }
+    
+    public void createEnnemi() {
+        for (int i = 0; i < 1; ) {
+        	int x = 0;//(int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = 0;//(int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+            if (m_carte.cellules[y][x].libre) {
+                System.out.println(x+"et y :"+y);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, 0, 0, 1.3F);
                 i++;
             }
         }
