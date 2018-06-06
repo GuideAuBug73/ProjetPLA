@@ -120,6 +120,8 @@ public abstract class GameView extends Canvas {
   public final void paint() {
     Graphics g = m_drawBuffer.getGraphics();
     _paint(g);
+    Graphics g2=m_game.m_frame.getGraphics();
+    _paint_inventaire(g2);
     m_swap = true;
     repaint();
   }
@@ -141,4 +143,5 @@ public abstract class GameView extends Canvas {
   }
 
   protected abstract void _paint(Graphics g);
+  protected abstract void _paint_inventaire(Graphics g);
 }
