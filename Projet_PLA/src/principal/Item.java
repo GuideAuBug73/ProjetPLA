@@ -3,7 +3,7 @@ package principal;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Item extends Entity {
+public class Item extends IA {
     public int type;
     public int w;
     public int h;

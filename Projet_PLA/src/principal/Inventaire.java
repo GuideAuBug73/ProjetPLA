@@ -93,7 +93,7 @@ public class Inventaire {
 				return current;
 			}
 			iter.next();
-			current = current.next;
+			//current = current.next;
 		}
 		return null;
 	}
