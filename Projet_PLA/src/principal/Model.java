@@ -29,7 +29,7 @@ public class Model extends GameModel {
         loadSprites();
         createMap();
         createItem();
-        m_perso = new Personnage(this, m_persoSprite, 15, 0, 1.3F);
+        createPerso();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
 
@@ -130,10 +130,24 @@ public class Model extends GameModel {
     }
 
     public void createItem() {
-        for (int i = 0; i < 2; i++) {
-            int x = ((int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) + Options.nb_px_x_min) / Options.TAILLE_CELLULE;
-            int y = ((int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) + Options.nb_px_y_min) / Options.TAILLE_CELLULE;
-            m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi);
+        for (int i = 0; i < 2; ) {
+            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+            if(m_carte.cellules[y][x].libre) {
+                m_item[i] = new Item(1, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemPepsi);
+                i++;
+            }
+        }
+    }
+    public void createPerso() {
+        for (int i = 0; i < 1; ) {
+            int x = (int) (Math.random() * 29);
+            int y = (int) (Math.random() * 15);
+            if (m_carte.cellules[y][x].libre) {
+                System.out.println(x+"et y :"+y);
+                m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
+                i++;
+            }
         }
     }
 }

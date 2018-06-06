@@ -8,7 +8,7 @@ import basic.Cellule;
 
 public class Map {
 	// tableau de cellules
-	public Cellule cellules[][] = new Cellule[32][60];
+	public Cellule cellules[][] = new Cellule[16][30];
 	// nombre de cellules
 	int m_w;
 	int m_h;
