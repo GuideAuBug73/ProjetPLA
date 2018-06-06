@@ -57,60 +57,68 @@ public class Personnage extends Entity {
     }*/
 
     public void droite() {
-        Cellule cell = m_model.m_carte.cellules[m_y / 60][(m_x / 60) + 1];
-        if (cell.libre) {
-            ramasser(cell);
-            m_x += 60;
-            if (m_idx == 10)
-                m_idx = 11;
-            else
-                m_idx = 10;
-            this.orientation = 1;
+        if (m_x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+            Cellule cell = m_model.m_carte.cellules[m_y / Options.TAILLE_CELLULE][(m_x / Options.TAILLE_CELLULE) + 1];
+            if (cell.libre) {
+                ramasser(cell);
+                m_x += Options.TAILLE_CELLULE;
+                if (m_idx == 10)
+                    m_idx = 11;
+                else
+                    m_idx = 10;
+                this.orientation = 1;
+            }
         }
     }
 
     public void haut() {
-        Cellule cell = m_model.m_carte.cellules[(m_y / 60) - 1][m_x / 60];
-        if (cell.libre) {
-            ramasser(cell);
-            i--;
-            m_y -= 60;
-            if (m_idx == 13)
-                m_idx = 14;
-            else
-                m_idx = 13;
-            this.orientation = 3;
+        if (m_y/Options.TAILLE_CELLULE != 0) {
+            Cellule cell = m_model.m_carte.cellules[(m_y / Options.TAILLE_CELLULE) - 1][m_x / Options.TAILLE_CELLULE];
+            if (cell.libre) {
+                ramasser(cell);
+                i--;
+                m_y -= Options.TAILLE_CELLULE;
+                if (m_idx == 13)
+                    m_idx = 14;
+                else
+                    m_idx = 13;
+                this.orientation = 3;
+            }
         }
     }
 
     public void bas() {
-        Cellule cell = m_model.m_carte.cellules[(m_y / 60) + 1][m_x / 60];
-        // int x = cell.x ;
-        // int y = cell.y ;
-        if (cell.libre) {
-            ramasser(cell);
-            i++;
-            m_y += 60;
-            if (m_idx == 2)
-                m_idx = 1;
-            else
-                m_idx = 2;
-            this.orientation = 0;
+        if (m_y/Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+            Cellule cell = m_model.m_carte.cellules[(m_y / Options.TAILLE_CELLULE) + 1][m_x / Options.TAILLE_CELLULE];
+            // int x = cell.x ;
+            // int y = cell.y ;
+            if (cell.libre) {
+                ramasser(cell);
+                i++;
+                m_y += Options.TAILLE_CELLULE;
+                if (m_idx == 2)
+                    m_idx = 1;
+                else
+                    m_idx = 2;
+                this.orientation = 0;
+            }
         }
     }
 
     public void gauche() {
-        Cellule cell = m_model.m_carte.cellules[m_y / 60][(m_x / 60) - 1];
+        if (m_x / Options.TAILLE_CELLULE != 0){
+            Cellule cell = m_model.m_carte.cellules[m_y / Options.TAILLE_CELLULE][(m_x / Options.TAILLE_CELLULE) - 1];
 
-        if (cell.libre) {
-            ramasser(cell);
-            j--;
-            m_x -= 60;
-            if (m_idx == 6)
-                m_idx = 5;
-            else
-                m_idx = 6;
-            this.orientation = 2;
+            if (cell.libre) {
+                ramasser(cell);
+                j--;
+                m_x -= Options.TAILLE_CELLULE;
+                if (m_idx == 6)
+                    m_idx = 5;
+                else
+                    m_idx = 6;
+                this.orientation = 2;
+            }
         }
     }
 
@@ -147,6 +155,7 @@ public class Personnage extends Entity {
                 if (cell.x == item[i].w && cell.y == item[i].h) {
                     item[i].possession = 1;
                     inventaire.enfiler(item[i]);
+                    cell.entité=null;
                 }
             }
         }

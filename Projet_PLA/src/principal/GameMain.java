@@ -7,13 +7,13 @@ import edu.ricm3.game.GameUI;
 public class GameMain {
 
   public static void main(String[] args) {
-    Dimension d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    tailleMap(d);
+    Options.d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    tailleMap(Options.d);
     // construct the game elements: model, controller, and view.
     Model model = new Model();
     Controller controller = new Controller(model);
     View view = new View(model,controller);
-    new GameUI(model,view,controller,d);
+    new GameUI(model,view,controller,Options.d);
     
     // notice that the main thread will exit here,
     // but not your program... hence the hooking

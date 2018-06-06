@@ -87,13 +87,11 @@ public class Inventaire {
 
 	public Cell research(Item elem) {
 		Iterator iter = this.iterator();
-		Cell current = head;
 		while (iter.hasNext()) {
-			if (current.elem.type == elem.type) {
-				return current;
+			if (iter.courante.elem.type == elem.type) {
+				return iter.courante;
 			}
 			iter.next();
-			current = current.next;
 		}
 		return null;
 	}

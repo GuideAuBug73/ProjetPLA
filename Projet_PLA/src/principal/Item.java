@@ -25,5 +25,9 @@ public class Item extends Entity {
         if (possession == 0)
             g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
     }
-
+    public void paint(Graphics g,int w,int h) {
+        Image img = m_item;
+        if (possession == 1)
+            g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+    }
 }
