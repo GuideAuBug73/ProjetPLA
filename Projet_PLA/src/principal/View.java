@@ -50,7 +50,28 @@ public class View extends GameView {
         m_model.m_spell.cast();
         Personnage h = m_model.m_perso;
         h.paint(g);
+        Ennemi k = m_model.m_ennemi;
+        k.paint(g);
         spell ss = m_model.m_spell;
         ss.paint(g);
     }
+
+    @Override
+    protected void _paint_inventaire(Graphics g) {
+        g.setColor(m_background);
+        g.fillRect(Options.d.width-Options.nb_px_x_max, 0, Options.d.width, Options.d.height);
+        int y = 100;
+        int x = (Options.d.width - Options.nb_px_x_max - 60) / 2 + Options.nb_px_x_max;
+        Inventaire inv = m_model.m_perso.inventaire;
+        Inventaire.Iterator iter=inv.iterator();
+        while (iter.hasNext()) {
+            x = (Options.d.width - Options.nb_px_x_max - 60) / 2 + Options.nb_px_x_max;
+            for(int i=0;i<iter.courante.number;i++) {
+                iter.courante.elem.paint(g, x, y);
+                x+=10;
+            }
+                y += 60;
+                iter.next();
+            }
+        }
 }
