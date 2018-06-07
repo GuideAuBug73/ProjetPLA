@@ -11,7 +11,7 @@ import java.util.Random;
 
 
 public class Model extends GameModel {
-    Personnage m_perso;
+    Joueur m_perso;
     Ennemi m_ennemi ;
     BufferedImage m_ennemiSprite;
 
@@ -207,7 +207,7 @@ public class Model extends GameModel {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
+                m_perso = new Joueur(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
                 m_carte.cellules[y][x].entité=m_perso;
                 i++;
             }

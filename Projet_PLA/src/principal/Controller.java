@@ -30,7 +30,7 @@ import edu.ricm3.game.GameController;
 public class Controller extends GameController implements ActionListener {
 
   Model m_model;
-  Personnage c;
+  Joueur c;
   spell s;
   Ennemi E ;
   

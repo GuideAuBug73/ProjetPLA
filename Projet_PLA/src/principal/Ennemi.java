@@ -5,12 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class Ennemi extends IA {
+public class Ennemi extends Personnage {
 	int m_w, m_h;
 	int m_idx;
 	float m_scale;
 	BufferedImage[] m_sprites;
-	int orientation = 0;
 
 	public Ennemi(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;

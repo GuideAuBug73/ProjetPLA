@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import basic.Cellule;
 
-public class Spawn extends IA {
+public class Spawn extends Entity {
 	boolean presence = false;
 
 	public Spawn(Cellule c, BufferedImage image, Model model) {

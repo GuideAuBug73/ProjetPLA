@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import basic.Cellule;
 
-public class Item extends IA {
+public class Item extends Entity {
 	public int type;
 	public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
 
