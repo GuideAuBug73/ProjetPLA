@@ -11,6 +11,7 @@ public class Ennemi extends IA {
 	float m_scale;
 	BufferedImage[] m_sprites;
 	int orientation = 0;
+	Cellule m_cell;
 
 	public Ennemi(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
@@ -18,6 +19,10 @@ public class Ennemi extends IA {
 		this.x = x;
 		this.y = y;
 		m_scale = scale;
+		m_cell = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+	    if (m_cell.entité == null) { 
+	      m_cell.entité = this; 
+	    } 
 		splitSprite();
 	}
 
@@ -40,9 +45,13 @@ public class Ennemi extends IA {
 	public void droite() {
 
 		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-
+		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 		if (cell.libre) {
-
+			if(cell.entité instanceof Personnage) {
+				m_model.m_perso.m_mort = true;
+			}
+			cell.entité = this;
+			cellActuel.entité = null;
 			x += Options.TAILLE_CELLULE;
 
 			m_idx = 6 + (m_idx + 1) % 3;
@@ -52,9 +61,13 @@ public class Ennemi extends IA {
 
 	public void haut() {
 		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-
+		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 		if (cell.libre) {
-
+			if(cell.entité instanceof Personnage) {
+				m_model.m_perso.m_mort = true;
+			}
+			cell.entité = this;
+			cellActuel.entité = null;
 			y -= Options.TAILLE_CELLULE;
 
 			m_idx = 9 + (m_idx + 1) % 3;
@@ -66,8 +79,13 @@ public class Ennemi extends IA {
 	public void bas() {
 
 		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 		if (cell.libre) {
-
+			if(cell.entité instanceof Personnage) {
+				m_model.m_perso.m_mort = true;
+			}
+			cell.entité = this;
+			cellActuel.entité = null;
 			y += Options.TAILLE_CELLULE;
 
 			m_idx = (m_idx + 1) % 3;
@@ -78,9 +96,13 @@ public class Ennemi extends IA {
 
 	public void gauche() {
 		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-
+		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 		if (cell.libre) {
-
+			if(cell.entité instanceof Personnage) {
+				m_model.m_perso.m_mort = true;
+			}
+			cell.entité = this;
+			cellActuel.entité = null;
 			x -= Options.TAILLE_CELLULE;
 
 			m_idx = 3 + (m_idx + 1) % 3;
@@ -91,12 +113,12 @@ public class Ennemi extends IA {
 	}
 
 	public void paint(Graphics g) {
-
-		Image img = m_sprites[m_idx];
-		int w = (int) (m_scale * m_w);
-		int h = (int) (m_scale * m_h);
-		g.drawImage(img, x, y, w, h, null);
-
+		if(m_model.m_perso.m_mort != true) {
+			Image img = m_sprites[m_idx];
+			int w = (int) (m_scale * m_w);
+			int h = (int) (m_scale * m_h);
+			g.drawImage(img, x, y, w, h, null);
+		}
 	}
 
 }

@@ -13,6 +13,8 @@ public class Personnage extends Entity {
 	BufferedImage[] m_sprites;
 	int orientation = 0;
 	Inventaire inventaire = new Inventaire();
+	Boolean m_mort = false;
+	Cellule m_cell;
 
 	public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
@@ -20,6 +22,10 @@ public class Personnage extends Entity {
 		this.x = x;
 		this.y = y;
 		m_scale = scale;
+		m_cell = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+	    if (m_cell.entité == null) { 
+	      m_cell.entité = this; 
+	    } 
 		splitSprite();
 	}
 
@@ -39,20 +45,16 @@ public class Personnage extends Entity {
 		}
 	}
 
-	/*
-	 * public int x_cell_pixel(Cellule c ) {
-	 * 
-	 * return c.x *60 ;
-	 * 
-	 * } public int y_cell_pixel(Cellule c ) {
-	 * 
-	 * return c.y *60 ; }
-	 */
-
 	public void droite() {
 		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 			if (cell.libre) {
+				if (cell.entité instanceof Ennemi) {
+					m_mort = true;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
 				ramasser(cell);
 				x += Options.TAILLE_CELLULE;
 				if (m_idx == 10)
@@ -67,7 +69,13 @@ public class Personnage extends Entity {
 	public void haut() {
 		if (y / Options.TAILLE_CELLULE != 0) {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 			if (cell.libre) {
+				if (cell.entité instanceof Ennemi) {
+					m_mort = true;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
 				ramasser(cell);
 
 				y -= Options.TAILLE_CELLULE;
@@ -83,9 +91,13 @@ public class Personnage extends Entity {
 	public void bas() {
 		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-			// int x = cell.x ;
-			// int y = cell.y ;
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 			if (cell.libre) {
+				if (cell.entité instanceof Ennemi) {
+					m_mort = true;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
 				ramasser(cell);
 
 				y += Options.TAILLE_CELLULE;
@@ -101,8 +113,13 @@ public class Personnage extends Entity {
 	public void gauche() {
 		if (x / Options.TAILLE_CELLULE != 0) {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
 			if (cell.libre) {
+				if (cell.entité instanceof Ennemi) {
+					m_mort = true;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
 				ramasser(cell);
 
 				x -= Options.TAILLE_CELLULE;
@@ -114,22 +131,19 @@ public class Personnage extends Entity {
 			}
 		}
 	}
-
-	/*
-	 * void change_orientation() {
-	 * 
-	 * if(this.orientation == 0) { m_idx=2; } if(this.orientation == 1) { m_idx=10;
-	 * } if(this.orientation == 2) { m_idx=6; } if(this.orientation == 3) {
-	 * m_idx=13; }
-	 * 
-	 * }
-	 */
+	
+	
 	public void paint(Graphics g) {
-
-		Image img = m_sprites[m_idx];
+		Image img;
+		if(m_mort == true) {
+			img = m_model.m_mort;
+		}
+		else {
+			img = m_sprites[m_idx];
+		}
 		int w = (int) (m_scale * m_w);
 		int h = (int) (m_scale * m_h);
-		g.drawImage(img, x+10, y, w, h, null);
+		g.drawImage(img, x + 10, y, w, h, null);
 
 	}
 
