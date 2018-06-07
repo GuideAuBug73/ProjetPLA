@@ -14,7 +14,7 @@ public class Model extends GameModel {
     Personnage m_perso;
     Ennemi m_ennemi ;
     BufferedImage m_ennemiSprite;
-
+    BufferedImage m_mort;
     BufferedImage m_fieldSprite;
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
@@ -52,10 +52,7 @@ public class Model extends GameModel {
 
 
     private void loadSprites() {
-        /*
-         * Cowboy with rifle, western style; png; 48x48 px sprite size
-         * Krasi Wasilev ( http://freegameassets.blogspot.com)
-         */
+    	
         File imageFile = new File("src/sprites/hero.png");
         try {
             m_persoSprite = ImageIO.read(imageFile);
@@ -63,7 +60,17 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-         imageFile = new File("src/sprites/Enemi.png");
+        
+        imageFile = new File("src/sprites/mort.png");
+
+        try {
+            m_mort = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        imageFile = new File("src/sprites/Enemi.png");
 
         try {
             m_ennemiSprite = ImageIO.read(imageFile);
@@ -71,10 +78,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        /*
-         * Long explosion set; png file; 64x64 px sprite size
-         * Krasi Wasilev ( http://freegameassets.blogspot.com)
-         */
+        
         imageFile = new File("src/sprites/explosion01_set_64.png");
         try {
             m_spellSprite = ImageIO.read(imageFile);
