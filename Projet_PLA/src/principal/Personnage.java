@@ -54,9 +54,10 @@ public class Personnage extends Entity {
 					if (cell.entité instanceof Ennemi) {
 						m_mort = true;
 					}
+					ramasser(cell);
 					cell.entité = this;
 					cellActuel.entité = null;
-					ramasser(cell);
+
 					x += Options.TAILLE_CELLULE;
 					m_idx = 8 + (m_idx + 1) % 4;
 					this.orientation = 1;
@@ -74,9 +75,10 @@ public class Personnage extends Entity {
 					if (cell.entité instanceof Ennemi) {
 						m_mort = true;
 					}
+					ramasser(cell);
 					cell.entité = this;
 					cellActuel.entité = null;
-					ramasser(cell);
+
 
 					y -= Options.TAILLE_CELLULE;
 					m_idx = 12 + (m_idx + 1) % 4;
@@ -95,9 +97,10 @@ public class Personnage extends Entity {
 					if (cell.entité instanceof Ennemi) {
 						m_mort = true;
 					}
+					ramasser(cell);
 					cell.entité = this;
 					cellActuel.entité = null;
-					ramasser(cell);
+
 
 					y += Options.TAILLE_CELLULE;
 					m_idx = (m_idx + 1) % 4;
@@ -116,9 +119,10 @@ public class Personnage extends Entity {
 					if (cell.entité instanceof Ennemi) {
 						m_mort = true;
 					}
+					ramasser(cell);
 					cell.entité = this;
 					cellActuel.entité = null;
-					ramasser(cell);
+
 
 					x -= Options.TAILLE_CELLULE;
 					m_idx = 4 + (m_idx + 1) % 4;
