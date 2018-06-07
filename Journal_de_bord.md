@@ -54,3 +54,13 @@ Questions :
 - Finalisation du diapo
 - Préparation à l'oral du contrat
 - affichage des items 
+
+**Mercredi 6 juin** 
+-Entrainement oral 
+-Passage oral contrat 
+-Modification du contrat 
+-Mise en place des items sur la map ainsi que de l'inventaire
+-Joueur peut ramasser items 
+-Création ennemi 
+-Début des automates
+
