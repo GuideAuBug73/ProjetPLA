@@ -1,5 +1,8 @@
 package basic;
 
 public class Transition {
-	int q;
+	  int src; 
+	  int dest; 
+	  boolean condition; 
+	  Action act; 
 }

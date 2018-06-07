@@ -1,7 +1,7 @@
 package basic;
 
 public class Automate {
-	int etat;
-	Transition trans;
-	int etat_suivant;
+	int courant;
+	Transition[] trans;
+	int etat_arret;
 }
