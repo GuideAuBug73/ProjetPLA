@@ -1,4 +1,4 @@
-package basic;
+package automate;
 
 public class Transition {
 	  int src; 

@@ -1,6 +1,6 @@
 package principal;
 
-import basic.Automate;
+import automate.Automate;
 
 public class IA extends Entity {
 	Automate Aut;
