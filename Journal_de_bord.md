@@ -64,3 +64,10 @@ Questions :
 -Création ennemi 
 -Début des automates
 
+**Jeudi 7 Juin**
+- Création de la classe Automate et les premiers test 
+- Lancer Item
+- Mort Joueur
+- Inventaire fait
+- Travail sur les spawns
+
