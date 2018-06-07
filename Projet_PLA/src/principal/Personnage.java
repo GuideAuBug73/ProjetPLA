@@ -134,17 +134,18 @@ public class Personnage extends Entity {
 	}
 
 	public void ramasser(Cellule cell) {
-		Item[] item = m_model.m_item;
-		for (int i = 0; i < item.length; i++) {
-			if (item[i] != null) {
-				if (cell.x == item[i].x && cell.y == item[i].y && cell.entité != null) {
-					item[i].possession = 1;
-					inventaire.enfiler(item[i]);
-					cell.entité = null;
+		if(cell.entité!=null) {
+			Item[] item = m_model.m_item;
+			for (int i = 0; i < item.length; i++) {
+				if (item[i] != null) {
+					if (cell.x == item[i].x && cell.y == item[i].y) {
+						item[i].possession = 1;
+						inventaire.enfiler(item[i]);
+						cell.entité = null;
+					}
 				}
 			}
 		}
-
 	}
 
 }

@@ -18,6 +18,7 @@ public class Model extends GameModel {
     BufferedImage m_fieldSprite;
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
+    BufferedImage m_carre_inventaire;
     spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
@@ -148,9 +149,9 @@ public class Model extends GameModel {
             System.exit(-1);
         }
         int test=(int)(Math.random()*5);
-        m_itemSprite[5] =m_itemSprite[test];
-        test=(int)(Math.random()*5);
         m_itemSprite[6] =m_itemSprite[test];
+        test=(int)(Math.random()*5);
+        m_itemSprite[7] =m_itemSprite[test];
 
         imageFile = new File("src/sprites/vie.png");
         try {
@@ -179,6 +180,14 @@ public class Model extends GameModel {
         imageFile = new File("src/sprites/invincible.png");
         try {
             m_itemSprite[11] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("src/sprites/inv.png");
+        try {
+            m_carre_inventaire = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
