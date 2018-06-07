@@ -73,5 +73,6 @@ public class View extends GameView {
                 y += 60;
                 iter.next();
             }
+
         }
 }

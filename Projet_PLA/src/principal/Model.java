@@ -14,6 +14,7 @@ public class Model extends GameModel {
     Personnage m_perso;
     Ennemi m_ennemi ;
     BufferedImage m_ennemiSprite;
+    BufferedImage m_ennemiItemSprite;
     BufferedImage m_mort;
     BufferedImage m_fieldSprite;
     BufferedImage m_wallSprite;
@@ -70,15 +71,6 @@ public class Model extends GameModel {
             System.exit(-1);
         }
         
-        imageFile = new File("src/sprites/Enemi.png");
-
-        try {
-            m_ennemiSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-        
         imageFile = new File("src/sprites/explosion01_set_64.png");
         try {
             m_spellSprite = ImageIO.read(imageFile);
@@ -98,6 +90,17 @@ public class Model extends GameModel {
         imageFile = new File("src/sprites/wall.png");
         try {
             m_wallSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        //  Ennemis <----------------------------------------------------->
+
+        imageFile = new File("src/sprites/ennemi.png");
+
+        try {
+            m_ennemiSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -224,7 +227,7 @@ public class Model extends GameModel {
             int y = 0;//(int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite, 0, 0, 1.3F);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, 6, 14, 1.0F);
                 i++;
             }
         }
