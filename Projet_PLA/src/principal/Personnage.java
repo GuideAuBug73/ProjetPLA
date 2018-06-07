@@ -46,76 +46,84 @@ public class Personnage extends Entity {
 	}
 
 	public void droite() {
-		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
-			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-			if (cell.libre) {
-				if (cell.entité instanceof Ennemi) {
-					m_mort = true;
+		if(m_mort == false) {
+			if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+				Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+				Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+				if (cell.libre) {
+					if (cell.entité instanceof Ennemi) {
+						m_mort = true;
+					}
+					cell.entité = this;
+					cellActuel.entité = null;
+					ramasser(cell);
+					x += Options.TAILLE_CELLULE;
+					m_idx = 8 + (m_idx + 1) % 4;
+					this.orientation = 1;
 				}
-				cell.entité = this;
-				cellActuel.entité = null;
-				ramasser(cell);
-				x += Options.TAILLE_CELLULE;
-				m_idx = 8 + (m_idx + 1) % 4;
-				this.orientation = 1;
 			}
 		}
 	}
 
 	public void haut() {
-		if (y / Options.TAILLE_CELLULE != 0) {
-			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-			if (cell.libre) {
-				if (cell.entité instanceof Ennemi) {
-					m_mort = true;
-				}
-				cell.entité = this;
-				cellActuel.entité = null;
-				ramasser(cell);
+		if(m_mort == false) {
+			if (y / Options.TAILLE_CELLULE != 0) {
+				Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+				Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+				if (cell.libre) {
+					if (cell.entité instanceof Ennemi) {
+						m_mort = true;
+					}
+					cell.entité = this;
+					cellActuel.entité = null;
+					ramasser(cell);
 
-				y -= Options.TAILLE_CELLULE;
-				m_idx = 12 + (m_idx + 1) % 4;
-				this.orientation = 3;
+					y -= Options.TAILLE_CELLULE;
+					m_idx = 12 + (m_idx + 1) % 4;
+					this.orientation = 3;
+				}
 			}
 		}
 	}
 
 	public void bas() {
-		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
-			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-			if (cell.libre) {
-				if (cell.entité instanceof Ennemi) {
-					m_mort = true;
-				}
-				cell.entité = this;
-				cellActuel.entité = null;
-				ramasser(cell);
+		if(m_mort == false) {
+			if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+				Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+				Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+				if (cell.libre) {
+					if (cell.entité instanceof Ennemi) {
+						m_mort = true;
+					}
+					cell.entité = this;
+					cellActuel.entité = null;
+					ramasser(cell);
 
-				y += Options.TAILLE_CELLULE;
-				m_idx = (m_idx + 1) % 4;
-				this.orientation = 0;
+					y += Options.TAILLE_CELLULE;
+					m_idx = (m_idx + 1) % 4;
+					this.orientation = 0;
+				}
 			}
 		}
 	}
 
 	public void gauche() {
-		if (x / Options.TAILLE_CELLULE != 0) {
-			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-			if (cell.libre) {
-				if (cell.entité instanceof Ennemi) {
-					m_mort = true;
-				}
-				cell.entité = this;
-				cellActuel.entité = null;
-				ramasser(cell);
+		if(m_mort == false) {
+			if (x / Options.TAILLE_CELLULE != 0) {
+				Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+				Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
+				if (cell.libre) {
+					if (cell.entité instanceof Ennemi) {
+						m_mort = true;
+					}
+					cell.entité = this;
+					cellActuel.entité = null;
+					ramasser(cell);
 
-				x -= Options.TAILLE_CELLULE;
-				m_idx = 4 + (m_idx + 1) % 4;
-				this.orientation = 2;
+					x -= Options.TAILLE_CELLULE;
+					m_idx = 4 + (m_idx + 1) % 4;
+					this.orientation = 2;
+				}
 			}
 		}
 	}
