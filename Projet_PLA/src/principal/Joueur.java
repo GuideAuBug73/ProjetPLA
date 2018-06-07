@@ -152,4 +152,34 @@ public class Joueur extends Personnage {
 		
 	}
 
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
