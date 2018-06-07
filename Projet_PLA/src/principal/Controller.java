@@ -75,15 +75,18 @@ public class Controller extends GameController implements ActionListener {
         } else if (e.getKeyChar() == 'm') {
             item = c.inventaire.defiler();
             if (item != null) {
+                item.orientation=c.orientation;
+                item.x=c.x;
+                item.y=c.y;
                 Options.itemlance=item;
-                if (c.orientation == 0)
-                    item.setcast(c.x, c.y + 25,c.orientation);
+               /* if (c.orientation == 0)
+                    item.setcast(c.x, c.y,c.orientation);
                 if (c.orientation == 1)
-                    item.setcast(c.x + 25, c.y,c.orientation);
+                    item.setcast(c.x, c.y,c.orientation);
                 if (c.orientation == 2)
-                    item.setcast(c.x - 25, c.y,c.orientation);
+                    item.setcast(c.x, c.y,c.orientation);
                 if (c.orientation == 3)
-                    item.setcast(c.x, c.y - 25,c.orientation);
+                    item.setcast(c.x, c.y,c.orientation);*/
             }else {
                 if (c.orientation == 0)
                     s.setcast(c.x, c.y, c.x, c.y + 400);

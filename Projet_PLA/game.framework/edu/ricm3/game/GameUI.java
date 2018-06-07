@@ -56,7 +56,6 @@ public class GameUI {
 //     */
 //  }
 
-    int compteurTickItem = 500;
     JFrame m_frame;
     GameView m_view;
     Timer m_timer;
@@ -202,8 +201,9 @@ public class GameUI {
         m_nTicks++;
         m_model.step(now);
         m_controller.step(now);
-
-        lanceItem();
+        if (Options.itemlance != null) {
+            Options.itemlance.lanceItem();
+        }
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
             double tick = (double) m_elapsed / (double) m_nTicks;
@@ -222,7 +222,6 @@ public class GameUI {
             //      System.out.println(txt);
             m_text.setText(txt);
             m_text.repaint();
-
             m_view.paint();
             m_lastRepaint = now;
         }
@@ -233,21 +232,5 @@ public class GameUI {
         m_msg = msg;
     }
 
-    public void lanceItem() {
-        if (Options.itemlance != null) {
-            if (compteurTickItem < 100) {
-                System.out.println("ZIZI");
-                compteurTickItem++;
-            } else {
-                System.out.println("Limit:"+ Options.itemlance.limit);
-                if (Options.itemlance.limit!=0){
-                    Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
-                    compteurTickItem = 0;
-                    Options.itemlance.limit--;
-                }else{
-                    Options.itemlance=null;
-                }
-            }
-        }
-    }
+
 }
