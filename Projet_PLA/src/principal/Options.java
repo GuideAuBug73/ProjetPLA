@@ -23,4 +23,5 @@ public class Options {
 	public static int nb_px_y_min;
 	public static int nb_px_y_max;
 	public static Dimension d;
+	public static Item itemlance=null;
 }

@@ -23,7 +23,9 @@ import principal.Map;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import principal.Options;
+
 import javax.swing.*;
 
 public class GameUI {
@@ -54,7 +56,7 @@ public class GameUI {
 //     */
 //  }
 
-
+    int compteurTickItem = 500;
     JFrame m_frame;
     GameView m_view;
     Timer m_timer;
@@ -86,7 +88,7 @@ public class GameUI {
 
         // create the main window and the periodic timer
         // to drive the overall clock of the simulation.
-        createWindow(d,m);
+        createWindow(d, m);
         createTimer();
     }
 
@@ -133,25 +135,25 @@ public class GameUI {
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        JPanel panelinventaire=new JPanel();
-        panelinventaire.setBounds(Options.nb_px_x_max,0,d.width,d.height);
+        JPanel panelinventaire = new JPanel();
+        panelinventaire.setBounds(Options.nb_px_x_max, 0, d.width, d.height);
         panelinventaire.setBackground(Color.BLACK);
         JPanel panelplayer = new JPanel(new BorderLayout());
-        panelplayer.setBounds(0,0,d.width,Options.nb_px_y_min);
+        panelplayer.setBounds(0, 0, d.width, Options.nb_px_y_min);
         panelplayer.setBackground(Color.BLACK);
-        JPanel panelinfo=new JPanel();
-        panelinfo.setBounds(0,Options.nb_px_y_max,d.width,d.height);
+        JPanel panelinfo = new JPanel();
+        panelinfo.setBounds(0, Options.nb_px_y_max, d.width, d.height);
         panelinfo.setBackground(Color.BLACK);
-        JPanel panelgrid=new JPanel(new BorderLayout());
-        panelgrid.setBounds(Options.nb_px_x_min,Options.nb_px_y_min,Options.nb_px_x_max,Options.nb_px_y_max);
+        JPanel panelgrid = new JPanel(new BorderLayout());
+        panelgrid.setBounds(Options.nb_px_x_min, Options.nb_px_y_min, Options.nb_px_x_max, Options.nb_px_y_max);
         m_text = new JLabel();
         m_text.setText("Starting up ...");
-        panelplayer.add(m_text,BorderLayout.CENTER);
-        JLayeredPane pane=new JLayeredPane();
+        panelplayer.add(m_text, BorderLayout.CENTER);
+        JLayeredPane pane = new JLayeredPane();
         pane.add(panelinfo);
         pane.add(panelinventaire);
         pane.add(panelplayer);
-        panelgrid.add(m_view,BorderLayout.CENTER);
+        panelgrid.add(m_view, BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
         System.out.println(Options.nb_px_x_min);
@@ -201,6 +203,7 @@ public class GameUI {
         m_model.step(now);
         m_controller.step(now);
 
+        lanceItem();
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
             double tick = (double) m_elapsed / (double) m_nTicks;
@@ -219,6 +222,7 @@ public class GameUI {
             //      System.out.println(txt);
             m_text.setText(txt);
             m_text.repaint();
+
             m_view.paint();
             m_lastRepaint = now;
         }
@@ -227,5 +231,23 @@ public class GameUI {
     public void setFPS(int fps, String msg) {
         m_fps = fps;
         m_msg = msg;
+    }
+
+    public void lanceItem() {
+        if (Options.itemlance != null) {
+            if (compteurTickItem < 100) {
+                System.out.println("ZIZI");
+                compteurTickItem++;
+            } else {
+                System.out.println("Limit:"+ Options.itemlance.limit);
+                if (Options.itemlance.limit!=0){
+                    Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
+                    compteurTickItem = 0;
+                    Options.itemlance.limit--;
+                }else{
+                    Options.itemlance=null;
+                }
+            }
+        }
     }
 }

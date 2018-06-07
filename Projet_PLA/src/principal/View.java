@@ -39,7 +39,6 @@ public class View extends GameView {
         // erase background
         g.setColor(m_background);
         g.fillRect(0, 0, getWidth(), getHeight());
-
         Map carte = m_model.m_carte;
         carte.paint(g);
         Item[] item = m_model.m_item;
