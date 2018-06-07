@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class Ennemi extends Entity {
+public class Ennemi extends IA {
 	int m_w, m_h;
 	int m_idx;
 	float m_scale;

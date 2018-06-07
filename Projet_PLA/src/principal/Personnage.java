@@ -129,7 +129,7 @@ public class Personnage extends Entity {
 		Image img = m_sprites[m_idx];
 		int w = (int) (m_scale * m_w);
 		int h = (int) (m_scale * m_h);
-		g.drawImage(img, x, y, w, h, null);
+		g.drawImage(img, x+10, y, w, h, null);
 
 	}
 
