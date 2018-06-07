@@ -2,15 +2,15 @@ package automate;
 
 import principal.Entity;
 
-public class Move extends Action {
+public class Stack extends Action {
 
-	public Move() {
-
+	public Stack() {
 	}
 
 	@Override
 	public void execute(Entity e) {
-		e.move();
+		e.stack();
+
 	}
 
 }
