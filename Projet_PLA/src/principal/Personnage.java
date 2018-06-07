@@ -57,10 +57,7 @@ public class Personnage extends Entity {
 				cellActuel.entité = null;
 				ramasser(cell);
 				x += Options.TAILLE_CELLULE;
-				if (m_idx == 10)
-					m_idx = 11;
-				else
-					m_idx = 10;
+				m_idx = 8 + (m_idx + 1) % 4;
 				this.orientation = 1;
 			}
 		}
@@ -79,10 +76,7 @@ public class Personnage extends Entity {
 				ramasser(cell);
 
 				y -= Options.TAILLE_CELLULE;
-				if (m_idx == 13)
-					m_idx = 14;
-				else
-					m_idx = 13;
+				m_idx = 12 + (m_idx + 1) % 4;
 				this.orientation = 3;
 			}
 		}
@@ -101,10 +95,7 @@ public class Personnage extends Entity {
 				ramasser(cell);
 
 				y += Options.TAILLE_CELLULE;
-				if (m_idx == 2)
-					m_idx = 1;
-				else
-					m_idx = 2;
+				m_idx = (m_idx + 1) % 4;
 				this.orientation = 0;
 			}
 		}
@@ -123,10 +114,7 @@ public class Personnage extends Entity {
 				ramasser(cell);
 
 				x -= Options.TAILLE_CELLULE;
-				if (m_idx == 6)
-					m_idx = 5;
-				else
-					m_idx = 6;
+				m_idx = 4 + (m_idx + 1) % 4;
 				this.orientation = 2;
 			}
 		}
