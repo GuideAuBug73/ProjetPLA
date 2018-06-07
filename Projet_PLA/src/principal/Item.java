@@ -36,4 +36,7 @@ public class Item extends Entity {
 		if (possession == 1)
 			g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
 	}
+	
+	public void move() {
+	}
 }

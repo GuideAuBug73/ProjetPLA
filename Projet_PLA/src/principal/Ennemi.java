@@ -36,57 +36,71 @@ public class Ennemi extends Personnage {
 		}
 	}
 
-	public void droite() {
+	public boolean droite() {
+		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 
-		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			if (cell.libre) {
 
-		if (cell.libre) {
+				x += Options.TAILLE_CELLULE;
 
-			x += Options.TAILLE_CELLULE;
-
-			m_idx = 6 + (m_idx + 1) % 3;
-			this.orientation = 1;
+				m_idx = 6 + (m_idx + 1) % 3;
+				this.orientation = 1;
+				return true;
+			}
 		}
+		return false;
 	}
 
-	public void haut() {
-		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+	public boolean haut() {
+		if (y / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 
-		if (cell.libre) {
+			if (cell.libre) {
 
-			y -= Options.TAILLE_CELLULE;
+				y -= Options.TAILLE_CELLULE;
 
-			m_idx = 9 + (m_idx + 1) % 3;
+				m_idx = 9 + (m_idx + 1) % 3;
 
-			this.orientation = 3;
+				this.orientation = 3;
+				return true;
+			}
 		}
+		return false;
 	}
 
-	public void bas() {
+	public boolean bas() {
+		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			if (cell.libre) {
 
-		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-		if (cell.libre) {
+				y += Options.TAILLE_CELLULE;
 
-			y += Options.TAILLE_CELLULE;
+				m_idx = (m_idx + 1) % 3;
 
-			m_idx = (m_idx + 1) % 3;
-
-			this.orientation = 0;
+				this.orientation = 0;
+				return true;
+			}
 		}
+		return false;
 	}
 
-	public void gauche() {
-		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+	public boolean gauche() {
+		if (x / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
 
-		if (cell.libre) {
+			if (cell.libre) {
 
-			x -= Options.TAILLE_CELLULE;
+				x -= Options.TAILLE_CELLULE;
 
-			m_idx = 3 + (m_idx + 1) % 3;
+				m_idx = 3 + (m_idx + 1) % 3;
 
-			this.orientation = 2;
+				this.orientation = 2;
+				return true;
 
+			}
 		}
+		return false;
 	}
 
 	public void paint(Graphics g) {
@@ -96,6 +110,18 @@ public class Ennemi extends Personnage {
 		int h = (int) (m_scale * m_h);
 		g.drawImage(img, x, y, w, h, null);
 
+	}
+
+	@Override
+	public void move() {
+		if (!this.gauche()) {
+			if (!this.haut()) {
+				if (!this.droite()) {
+					if (!this.bas())
+						;
+				}
+			}
+		}
 	}
 
 }

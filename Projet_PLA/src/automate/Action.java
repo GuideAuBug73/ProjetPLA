@@ -1,5 +1,9 @@
 package automate;
 
-abstract class Action {
-	abstract void execute();
+import principal.Entity;
+
+public abstract class Action {
+	
+	
+	public abstract void execute(Entity e);
 }

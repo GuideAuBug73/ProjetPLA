@@ -146,4 +146,10 @@ public class Joueur extends Personnage {
 
 	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

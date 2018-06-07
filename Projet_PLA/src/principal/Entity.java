@@ -1,6 +1,6 @@
 package principal;
 import java.awt.image.BufferedImage;
-public class Entity {
+public abstract class Entity {
 	public int x,y;
 	public BufferedImage img;
 	public Model m_model;
@@ -11,4 +11,6 @@ public class Entity {
 	    i[1] = x/Options.TAILLE_CELLULE; 
 	    return i; 
 	  } 
+	
+	public abstract void move();
 }

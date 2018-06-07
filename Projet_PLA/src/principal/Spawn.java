@@ -21,4 +21,10 @@ public class Spawn extends Entity {
 		this.y = y;
 	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

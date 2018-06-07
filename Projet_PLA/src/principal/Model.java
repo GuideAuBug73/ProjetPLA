@@ -1,13 +1,17 @@
 
 package principal;
 
-import edu.ricm3.game.GameModel;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
+
+import automate.Automate;
+import automate.Move;
+import automate.Transition;
+import edu.ricm3.game.GameModel;
 
 
 public class Model extends GameModel {
@@ -24,6 +28,7 @@ public class Model extends GameModel {
     Item[] m_item = new Item[10];
     Random rand = new Random();
     Map m_carte;
+    Automate a;
 
     public Model() {
         loadSprites();
@@ -31,6 +36,7 @@ public class Model extends GameModel {
         createItem();
         createPerso();
         createEnnemi();
+        createAutomate();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
 
@@ -46,8 +52,7 @@ public class Model extends GameModel {
      */
     @Override
     public void step(long now) {
-
-
+    	a.trans[0].act.execute(m_ennemi);
     }
 
 
@@ -190,7 +195,7 @@ public class Model extends GameModel {
 
     }
 
-    public void createItem() {
+    private void createItem() {
         for (int i = 0; i < 2; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
@@ -202,7 +207,7 @@ public class Model extends GameModel {
             }
         }
     }
-    public void createPerso() {
+    private void createPerso() {
         for (int i = 0; i < 1; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
@@ -214,7 +219,7 @@ public class Model extends GameModel {
         }
     }
     
-    public void createEnnemi() {
+    private void createEnnemi() {
         for (int i = 0; i < 1; ) {
         	int x = 0;//(int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = 0;//(int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
@@ -224,5 +229,12 @@ public class Model extends GameModel {
                 i++;
             }
         }
+    }
+    
+    private void createAutomate() {
+    	Move m = new Move();
+    	Transition t = new Transition(0,0,true,m);
+    	Transition t1[] = {t};
+    	a = new Automate(0,t1,0);
     }
 }
