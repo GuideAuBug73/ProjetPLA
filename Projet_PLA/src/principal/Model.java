@@ -227,7 +227,7 @@ public class Model extends GameModel {
             int y = 0;//(int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite, 6, 14, 1.0F);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, 6, 11, 1.0F);
                 i++;
             }
         }
