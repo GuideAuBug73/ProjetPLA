@@ -125,10 +125,11 @@ public class GameUI {
     private void createWindow(Dimension d, GameModel m) {
         m_frame = new JFrame();
         m_frame.setTitle("Game");
-        m_frame.setUndecorated(true);
         m_frame.setSize(d);
         m_frame.doLayout();
         m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        GraphicsDevice gra= GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gra.setFullScreenWindow(m_frame);
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
