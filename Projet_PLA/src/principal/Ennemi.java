@@ -6,29 +6,24 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Ennemi extends Entity {
-
-	BufferedImage m_sprite;
 	int m_w, m_h;
-	int m_x, m_y;
-	int i = 5, j = 25;
 	int m_idx;
 	float m_scale;
 	BufferedImage[] m_sprites;
-	Model m_model;
 	int orientation = 0;
 
 	public Ennemi(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
-		m_sprite = sprite;
-		m_x = x;
-		m_y = y;
+		img = sprite;
+		this.x = x;
+		this.y = y;
 		m_scale = scale;
 		splitSprite();
 	}
 
 	public void splitSprite() {
-		int width = m_sprite.getWidth(null);
-		int height = m_sprite.getHeight(null);
+		int width = img.getWidth(null);
+		int height = img.getHeight(null);
 		m_sprites = new BufferedImage[4 * 3];
 		m_w = width / 3;
 		m_h = height / 4;
@@ -37,41 +32,30 @@ public class Ennemi extends Entity {
 				int x = j * m_w;
 				int y = i * m_h;
 
-				m_sprites[(i * 3) + j] = m_sprite.getSubimage(x, y, m_w, m_h);
+				m_sprites[(i * 3) + j] = img.getSubimage(x, y, m_w, m_h);
 			}
 		}
 	}
 
-	/*
-	 * public int x_cell_pixel(Cellule c ) {
-	 * 
-	 * return c.x *60 ;
-	 * 
-	 * } public int y_cell_pixel(Cellule c ) {
-	 * 
-	 * return c.y *60 ; }
-	 */
-
 	public void droite() {
 
-		Cellule cell = m_model.m_carte.cellules[m_y / 60][(m_x / 60) + 1];
+		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 
 		if (cell.libre) {
 
-			m_x += 60;
+			x += Options.TAILLE_CELLULE;
 
-				m_idx = 6 + (m_idx + 1) % 3;
+			m_idx = 6 + (m_idx + 1) % 3;
 			this.orientation = 1;
 		}
 	}
 
 	public void haut() {
-		Cellule cell = m_model.m_carte.cellules[(m_y / 60) - 1][m_x / 60];
+		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 
 		if (cell.libre) {
-			i--;
 
-			m_y -= 60;
+			y -= Options.TAILLE_CELLULE;
 
 			m_idx = 9 + (m_idx + 1) % 3;
 
@@ -81,14 +65,10 @@ public class Ennemi extends Entity {
 
 	public void bas() {
 
-		Cellule cell = m_model.m_carte.cellules[(m_y / 60) + 1][m_x / 60];
-		// int x = cell.x ;
-		// int y = cell.y ;
+		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
 		if (cell.libre) {
 
-			i++;
-
-			m_y += 60;
+			y += Options.TAILLE_CELLULE;
 
 			m_idx = (m_idx + 1) % 3;
 
@@ -97,13 +77,11 @@ public class Ennemi extends Entity {
 	}
 
 	public void gauche() {
-		Cellule cell = m_model.m_carte.cellules[m_y / 60][(m_x / 60) - 1];
+		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
 
 		if (cell.libre) {
 
-			j--;
-
-			m_x -= 60;
+			x -= Options.TAILLE_CELLULE;
 
 			m_idx = 3 + (m_idx + 1) % 3;
 
@@ -112,21 +90,12 @@ public class Ennemi extends Entity {
 		}
 	}
 
-	/*
-	 * void change_orientation() {
-	 * 
-	 * if(this.orientation == 0) { m_idx=2; } if(this.orientation == 1) { m_idx=10;
-	 * } if(this.orientation == 2) { m_idx=6; } if(this.orientation == 3) {
-	 * m_idx=13; }
-	 * 
-	 * }
-	 */
 	public void paint(Graphics g) {
 
 		Image img = m_sprites[m_idx];
 		int w = (int) (m_scale * m_w);
 		int h = (int) (m_scale * m_h);
-		g.drawImage(img, m_x, m_y, w, h, null);
+		g.drawImage(img, x, y, w, h, null);
 
 	}
 

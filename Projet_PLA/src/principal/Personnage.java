@@ -11,7 +11,6 @@ public class Personnage extends Entity {
 	int m_idx;
 	float m_scale;
 	BufferedImage[] m_sprites;
-	Model m_model;
 	int orientation = 0;
 	Inventaire inventaire = new Inventaire();
 
