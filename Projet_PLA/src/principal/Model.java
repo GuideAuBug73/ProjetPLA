@@ -132,7 +132,7 @@ public class Model extends GameModel {
             System.exit(-1);
         }
 
-        imageFile = new File("src/sprites/frigo.png");
+        imageFile = new File("src/sprites/bombe.png");
         try {
             m_itemSprite[3] = ImageIO.read(imageFile);
         } catch (IOException ex) {
