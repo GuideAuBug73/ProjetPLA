@@ -17,12 +17,11 @@
  */
 package edu.ricm3.game;
 
-import principal.GameMain;
-import principal.Map;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import principal.Options;
 import javax.swing.*;
 
@@ -61,6 +60,7 @@ public class GameUI {
     GameModel m_model;
     GameController m_controller;
     JLabel m_text;
+    JLabel m_text2;
     int m_fps;
     String m_msg;
     long m_start;
@@ -147,7 +147,13 @@ public class GameUI {
         panelgrid.setBounds(Options.nb_px_x_min,Options.nb_px_y_min,Options.nb_px_x_max,Options.nb_px_y_max);
         m_text = new JLabel();
         m_text.setText("Starting up ...");
-        panelplayer.add(m_text,BorderLayout.CENTER);
+        m_text2=new JLabel();
+        m_text2.setText("Starting up ...");
+        Font font = new Font("Arial",Font.BOLD,20);
+        m_text2.setFont(font);
+        m_text2.setForeground(Color.white);
+        //panelplayer.add(m_text,BorderLayout.CENTER);
+        panelinfo.add(m_text2);
         JLayeredPane pane=new JLayeredPane();
         pane.add(panelinfo);
         pane.add(panelinventaire);
@@ -155,11 +161,7 @@ public class GameUI {
         panelgrid.add(m_view,BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
-        System.out.println(Options.nb_px_x_min);
-        System.out.println(Options.nb_px_x_max);
-        System.out.println(Options.nb_px_y_min);
-        System.out.println(Options.nb_px_y_max);
-
+        m_model.m_game.
         m_frame.addWindowListener(new WindowListener(m_model));
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
@@ -170,6 +172,8 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
+
+        Options.panelinfo=panelinfo;
     }
 
     /*
@@ -220,6 +224,8 @@ public class GameUI {
             //      System.out.println(txt);
             m_text.setText(txt);
             m_text.repaint();
+            m_text2.setText("Level : "+Options.level+"     Vague : "+Options.vague);
+            m_text2.repaint();
             m_view.paint();
             m_lastRepaint = now;
         }

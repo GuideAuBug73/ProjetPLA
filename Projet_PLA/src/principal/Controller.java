@@ -53,7 +53,6 @@ public class Controller extends GameController implements ActionListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-
     if (e.getKeyChar() == 'd') {
     	c.droite();
     }  else if (e.getKeyChar() == 's') {

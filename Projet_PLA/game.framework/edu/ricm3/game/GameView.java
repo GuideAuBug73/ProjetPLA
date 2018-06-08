@@ -17,6 +17,7 @@
  */
 package edu.ricm3.game;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -114,9 +115,11 @@ public abstract class GameView extends Canvas {
         Graphics g = m_drawBuffer.getGraphics();
         _paint(g);
         Graphics g2 = m_game.m_frame.getGraphics();
+        JLayeredPane pane=m_game.m_frame.getLayeredPane();
         _paint_inventaire(g2);
         _paint_player(g2);
-        _paint_level(g2);
+        Graphics g3= principal.Options.panelinfo.getGraphics();
+        _paint_level(g3);
         m_swap = true;
         repaint();
     }
