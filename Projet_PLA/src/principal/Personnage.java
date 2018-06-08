@@ -20,6 +20,7 @@ public class Personnage extends Entity {
 
     public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
         m_model = model;
+        p_vie = Options.point_de_vie;
         img = sprite;
         this.x = x;
         this.y = y;
@@ -31,7 +32,6 @@ public class Personnage extends Entity {
             m_cell.entité = this;
         }
     }
-        p_vie = Options.point_de_vie;
 
     public void splitSprite() {
         int width = img.getWidth(null);
