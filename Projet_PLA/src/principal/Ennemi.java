@@ -22,10 +22,10 @@ public class Ennemi extends IA {
 		this.x = x;
 		this.y = y;
 		m_scale = scale;
-		m_cell = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-	    if (m_cell.entité == null) { 
-	      m_cell.entité = this; 
-	    } 
+		m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
+		if (m_cell.entité == null) {
+			m_cell.entité = this;
+		}
 		splitSprite();
 	}
 
@@ -45,108 +45,106 @@ public class Ennemi extends IA {
 	}
 
 	public void droite() {
-
-		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-		if (cell.libre) {
-			if(cell.entité instanceof Personnage) {
-				m_model.m_perso.m_mort = true;
+		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					m_model.m_perso.m_mort = true;
+				} else if (cell.entité instanceof Item) {
+					m_item = (Item) cell.entité;
+					m_item.possession = 2;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
+				x += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 8 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 24 + (m_idx + 1) % 4;
+				}
+				this.orientation = 1;
 			}
-			else if(cell.entité instanceof Item) {
-				m_item = (Item)cell.entité;
-				m_item.possession = 2;
-			}
-			cell.entité = this;
-			cellActuel.entité = null;
-			x += Options.TAILLE_CELLULE;
-			if(m_item == null) {
-				m_idx = 8 + (m_idx + 1) % 4;
-			}
-			else if(m_item != null) {
-				m_idx = 24 + (m_idx + 1) % 4;
-			}
-			this.orientation = 1;
 		}
 	}
 
 	public void haut() {
-		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-		if (cell.libre) {
-			if(cell.entité instanceof Personnage) {
-				m_model.m_perso.m_mort = true;
-			}
-			else if(cell.entité instanceof Item) {
-				m_item = (Item)cell.entité;
-				m_item.possession = 2;
-			}
-			cell.entité = this;
-			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE;
-			if(m_item == null) {
-				m_idx = 12 + (m_idx + 1) % 4;
-			}
-			else if(m_item != null) {
-				m_idx = 28 + (m_idx + 1) % 4;
-			}
+		if (y / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					m_model.m_perso.m_mort = true;
+				} else if (cell.entité instanceof Item) {
+					m_item = (Item) cell.entité;
+					m_item.possession = 2;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
+				y -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 12 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 28 + (m_idx + 1) % 4;
+				}
 
-			this.orientation = 3;
+				this.orientation = 3;
+			}
 		}
 	}
 
 	public void bas() {
+		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					m_model.m_perso.m_mort = true;
+				} else if (cell.entité instanceof Item) {
+					m_item = (Item) cell.entité;
+					m_item.possession = 2;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
+				y += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 16 + (m_idx + 1) % 4;
+				}
 
-		Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-		if (cell.libre) {
-			if(cell.entité instanceof Personnage) {
-				m_model.m_perso.m_mort = true;
+				this.orientation = 0;
 			}
-			else if(cell.entité instanceof Item) {
-				m_item = (Item)cell.entité;
-				m_item.possession = 2;
-			}
-			cell.entité = this;
-			cellActuel.entité = null;
-			y += Options.TAILLE_CELLULE;
-			if(m_item == null) {
-				m_idx = (m_idx + 1) % 4;
-			}
-			else if(m_item != null) {
-				m_idx = 16 + (m_idx + 1) % 4;
-			}
-
-			this.orientation = 0;
 		}
 	}
 
 	public void gauche() {
-		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)]; 
-		if (cell.libre) {
-			if(cell.entité instanceof Personnage) {
-				m_model.m_perso.m_mort = true;
-			}
-			else if(cell.entité instanceof Item) {
-				m_item = (Item)cell.entité;
-				m_item.possession = 2;
-			}
-			cell.entité = this;
-			cellActuel.entité = null;
-			x -= Options.TAILLE_CELLULE;
-			if(m_item == null) {
-				m_idx = 4 + (m_idx + 1) % 4;
-			}
-			else if(m_item != null) {
-				m_idx = 20 + (m_idx + 1) % 4;
-			}
-			this.orientation = 2;
+		if (x / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					m_model.m_perso.m_mort = true;
+				} else if (cell.entité instanceof Item) {
+					m_item = (Item) cell.entité;
+					m_item.possession = 2;
+				}
+				cell.entité = this;
+				cellActuel.entité = null;
+				x -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 4 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 20 + (m_idx + 1) % 4;
+				}
+				this.orientation = 2;
 
+			}
 		}
 	}
 
 	public void paint(Graphics g) {
-		if(m_model.m_perso.m_mort != true) {
+		if (m_model.m_perso.m_mort != true) {
 			Image img = m_sprites[m_idx];
 			int w = (int) (m_scale * m_w);
 			int h = (int) (m_scale * m_h);

@@ -40,7 +40,6 @@ public class View extends GameView {
         // erase background
         g.setColor(m_background);
         g.fillRect(0, 0, getWidth(), getHeight());
-
         Map carte = m_model.m_carte;
         carte.paint(g);
         Item[] item = m_model.m_item;
@@ -48,6 +47,7 @@ public class View extends GameView {
             if (item[i] != null)
                 item[i].paint(g);
         }
+        m_model.m_perso.projectile.paint(g);
         m_model.m_spell.cast();
         Personnage h = m_model.m_perso;
         h.paint(g);
@@ -60,16 +60,16 @@ public class View extends GameView {
     @Override
     protected void _paint_inventaire(Graphics g) {
         g.setColor(m_background);
-        g.fillRect(Options.d.width-Options.nb_px_x_max, 0, Options.d.width, Options.d.height);
-        int y = Options.d.height/2 -(Options.TAILLE_CELLULE+20)*4;
-        int x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max -20;
-        for(int i=0;i<8;i++){
-            g.drawImage(m_model.m_carre_inventaire,x,y,100,100,null);
-            y+=80;
+        g.fillRect(Options.d.width - Options.nb_px_x_max, 0, Options.d.width, Options.d.height);
+        int y = Options.d.height / 2 - (Options.TAILLE_CELLULE + 20) * 4;
+        int x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max - 20;
+        for (int i = 0; i < 8; i++) {
+            g.drawImage(m_model.m_carre_inventaire, x, y, 100, 100, null);
+            y += 80;
         }
         Inventaire inv = m_model.m_perso.inventaire;
-        Inventaire.Iterator iter=inv.iterator();
-        y=Options.d.height/2 -(Options.TAILLE_CELLULE+20)*4+30;
+        Inventaire.Iterator iter = inv.iterator();
+        y = Options.d.height / 2 - (Options.TAILLE_CELLULE + 20) * 4 + 30;
         while (iter.hasNext()) {
             if(iter.courante.number%2==0){
                 x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max+6 -8*(iter.courante.number/2 -1);
@@ -77,15 +77,15 @@ public class View extends GameView {
                 x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max+10-8*(iter.courante.number/2);
             }
 
-            for(int i=0;i<iter.courante.number;i++) {
+            for (int i = 0; i < iter.courante.number; i++) {
                 iter.courante.elem.paint(g, x, y);
-                x+=8;
+                x += 8;
             }
-                y += 80;
-                iter.next();
-            }
-
+            y += 80;
+            iter.next();
         }
+
+    }
 
     @Override
     protected void _paint_player(Graphics g) {
