@@ -96,6 +96,6 @@ public class Item extends IA {
     public void paint(Graphics g, int w, int h) {
         Image img = this.img;
         if (possession == 1)
-            g.drawImage(img, w, h, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+            g.drawImage(img, w, h, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
     }
 }
