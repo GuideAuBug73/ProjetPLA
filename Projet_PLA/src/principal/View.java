@@ -60,18 +60,42 @@ public class View extends GameView {
     protected void _paint_inventaire(Graphics g) {
         g.setColor(m_background);
         g.fillRect(Options.d.width-Options.nb_px_x_max, 0, Options.d.width, Options.d.height);
-        int y = 100;
-        int x = (Options.d.width - Options.nb_px_x_max - 60) / 2 + Options.nb_px_x_max;
+        int y = Options.d.height/2 -(Options.TAILLE_CELLULE+20)*4;
+        int x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max -20;
+        for(int i=0;i<8;i++){
+            g.drawImage(m_model.m_carre_inventaire,x,y,100,100,null);
+            y+=80;
+        }
         Inventaire inv = m_model.m_perso.inventaire;
         Inventaire.Iterator iter=inv.iterator();
+        y=Options.d.height/2 -(Options.TAILLE_CELLULE+20)*4+30;
         while (iter.hasNext()) {
-            x = (Options.d.width - Options.nb_px_x_max - 60) / 2 + Options.nb_px_x_max;
+            if(iter.courante.number%2==0){
+                x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max+6 -8*(iter.courante.number/2 -1);
+            }else{
+                x = (Options.d.width - Options.nb_px_x_max - Options.TAILLE_CELLULE) / 2 + Options.nb_px_x_max+10;
+            }
+
             for(int i=0;i<iter.courante.number;i++) {
                 iter.courante.elem.paint(g, x, y);
-                x+=10;
+                x+=8;
             }
-                y += 60;
+                y += 80;
                 iter.next();
             }
+
         }
+
+    @Override
+    protected void _paint_player(Graphics g) {
+        g.setColor(m_background);
+        g.fillRect(0, 0, Options.d.width, Options.nb_px_y_min);
+    }
+
+    @Override
+    protected void _paint_level(Graphics g) {
+        g.setColor(m_background);
+        g.fillRect(0, Options.nb_px_y_max, Options.d.width, Options.d.height);
+
+    }
 }
