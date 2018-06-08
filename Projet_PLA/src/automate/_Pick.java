@@ -12,5 +12,4 @@ public class _Pick extends _Action {
 		e.pick();
 
 	}
-
 }
