@@ -46,6 +46,7 @@ public class View extends GameView {
             if (item[i] != null)
                 item[i].paint(g);
         }
+        m_model.m_perso.projectile.paint(g);
         m_model.m_spell.cast();
         Personnage h = m_model.m_perso;
         h.paint(g);

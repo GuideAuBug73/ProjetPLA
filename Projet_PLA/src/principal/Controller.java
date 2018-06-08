@@ -73,32 +73,26 @@ public class Controller extends GameController implements ActionListener {
         } else if (e.getKeyChar() == 'j') {
             E.gauche();
         } else if (e.getKeyChar() == 'm') {
-            item = c.inventaire.defiler();
-            if (item != null) {
-                item.orientation=c.orientation;
-                item.x=c.x;
-                item.y=c.y;
-                Options.itemlance=item;
-               /* if (c.orientation == 0)
-                    item.setcast(c.x, c.y,c.orientation);
-                if (c.orientation == 1)
-                    item.setcast(c.x, c.y,c.orientation);
-                if (c.orientation == 2)
-                    item.setcast(c.x, c.y,c.orientation);
-                if (c.orientation == 3)
-                    item.setcast(c.x, c.y,c.orientation);*/
-            }else {
-                if (c.orientation == 0)
-                    s.setcast(c.x, c.y, c.x, c.y + 400);
-                if (c.orientation == 1)
-                    s.setcast(c.x, c.y, c.x + 400, c.y);
-                if (c.orientation == 2)
-                    s.setcast(c.x, c.y, c.x - 400, c.y);
-                if (c.orientation == 3)
-                    s.setcast(c.x, c.y, c.x, c.y - 400);
+            if (Options.itemlance == null) {
+                item = c.inventaire.defiler();
+                if (item != null) {
+                    item.orientation = c.orientation;
+                    item.x = c.x;
+                    item.y = c.y;
+                    Options.itemlance = item;
+                }
             }
-
+        } else if (e.getKeyChar() == 'p') {
+            if (Options.itemlance == null) {
+                Item projectile = m_model.m_perso.projectile;
+                projectile.orientation = c.orientation;
+                projectile.x = c.x;
+                projectile.y = c.y;
+                Options.itemlance = projectile;
+            }
         }
+
+
     }
 
     @Override

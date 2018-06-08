@@ -11,7 +11,7 @@ import java.util.Random;
 
 
 public class Model extends GameModel {
-    Personnage m_perso;
+    public Personnage m_perso;
     Ennemi m_ennemi ;
     BufferedImage m_ennemiSprite;
 

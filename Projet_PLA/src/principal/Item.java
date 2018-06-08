@@ -23,22 +23,16 @@ public class Item extends IA {
         y = h;
         img = m_item;
         if (this.type == 0 || this.type == 1) {
-            limit = 40 * 20;
+            limit = 40 * 30;
         } else if (this.type == 2 || this.type == 3) {
-            limit = 6 * 20;
+            limit = 6 * 30;
         } else if (this.type == 4 || this.type == 5) {
-            limit = 6 * 20;
+            limit = 6 * 30;
+        } else if (this.type == 13) {
+            limit = 3 * 30;
         } else {
             limit = 0;
         }
-    }
-
-    public Item(int type, Cellule cell, BufferedImage m_item, Model model) {
-        this.type = type;
-        m_model = model;
-        x = cell.x;
-        y = cell.y;
-        img = m_item;
     }
 
     public void setcast(int x, int y, int orientation) {
@@ -49,13 +43,13 @@ public class Item extends IA {
         this.y = y;
 
         if (orientation == 0) {
-            this.y += 3;
+            this.y += 2;
         } else if (orientation == 1) {
-            this.x += 3;
+            this.x += 2;
         } else if (orientation == 2) {
-            this.x -= 3;
+            this.x -= 2;
         } else if (orientation == 3) {
-            this.y -= 3;
+            this.y -= 2;
         }
     }
 
@@ -72,26 +66,26 @@ public class Item extends IA {
                 Options.itemlance.x = -100;
                 Options.itemlance.y = -100;
                 Options.itemlance = null;
+                m_model.m_perso.projectile = new Item(13, -200,-200, m_model.m_spellSprite, m_model);
+
             }
         }
 
     }
 
-    public void verifCellule(){
-        int w = this.x/60;
-        int h = this.y/60;
-        try{
-            if(m_model.m_carte.cellules[h][w].libre==false){
-                this.limit=0;
+    public void verifCellule() {
+        int w = this.x / 60;
+        int h = this.y / 60;
+        try {
+            if (m_model.m_carte.cellules[h][w].libre == false) {
+                this.limit = 0;
             }
-            if(m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
+            if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
                 System.out.println("Touche");
             }
-        }catch(ArrayIndexOutOfBoundsException e){
+        }catch (Exception e){
 
         }
-
-
     }
 
     public void paint(Graphics g) {
