@@ -1,14 +1,19 @@
 package principal;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import basic.Cellule;
 
 public class Spawn extends IA {
 	boolean presence = false;
+	BufferedImage m_sprite;
+	Model m_model;
+	int x,y;
 
 	public Spawn(Cellule c, BufferedImage image, Model model) {
-		img = image;
+		m_sprite = image;
 		m_model = model;
 		x = c.x;
 		y = c.y;
@@ -16,9 +21,12 @@ public class Spawn extends IA {
 
 	public Spawn(int x, int y, BufferedImage image, Model model) {
 		m_model = model;
-		img = image;
+		m_sprite = image;
 		this.x = x;
 		this.y = y;
 	}
 
+	public void paint(Graphics g) {
+		g.drawImage(m_sprite, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+	}
 }
