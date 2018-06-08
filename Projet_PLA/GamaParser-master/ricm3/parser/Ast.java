@@ -1,5 +1,5 @@
 package ricm3.parser;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.ListIterator;
 
@@ -33,12 +33,13 @@ public class Ast {
 	public String as_dot_automata() {
 		return "undefined";
 	}
-	
-	public Object  make() {
-		  return null; // TODO à définir dans la plupart des classes internes ci-dessous.
+
+	public Object make() {
+		return null; // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
-	
-	public static abstract class Expression extends Ast {}
+
+	public static abstract class Expression extends Ast {
+	}
 
 	public static class Terminal extends Ast {
 		String value;
