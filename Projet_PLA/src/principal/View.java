@@ -50,8 +50,16 @@ public class View extends GameView {
         m_model.m_spell.cast();
         Personnage h = m_model.m_perso;
         h.paint(g);
-        Ennemi k = m_model.m_ennemi;
-        k.paint(g);
+        Ennemi k;
+        Spawn spawn;
+        for(int i=0 ; i<4 ; i++) {
+        	spawn = m_model.m_spawns[i];
+        	spawn.paint(g);
+		}
+        for(int i=0 ; i<2 ; i++) {
+        	k = m_model.m_ennemis[i];
+        	k.paint(g);
+        }
         spell ss = m_model.m_spell;
         ss.paint(g);
     }

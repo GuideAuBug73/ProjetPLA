@@ -48,10 +48,10 @@ public class Ennemi extends IA {
 		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			if (cell.libre) {
+			if (cell.libre && !(cell.entité instanceof Ennemi)) {
 				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
-				} else if (cell.entité instanceof Item) {
+				}else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
 				}
@@ -72,7 +72,7 @@ public class Ennemi extends IA {
 		if (y / Options.TAILLE_CELLULE != 0) {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			if (cell.libre) {
+			if (cell.libre && !(cell.entité instanceof Ennemi)) {
 				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
@@ -97,7 +97,7 @@ public class Ennemi extends IA {
 		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			if (cell.libre) {
+			if (cell.libre && !(cell.entité instanceof Ennemi)) {
 				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
@@ -122,7 +122,7 @@ public class Ennemi extends IA {
 		if (x / Options.TAILLE_CELLULE != 0) {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			if (cell.libre) {
+			if (cell.libre && !(cell.entité instanceof Ennemi)) {
 				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {

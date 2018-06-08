@@ -13,6 +13,8 @@ import java.util.Random;
 public class Model extends GameModel {
     Personnage m_perso;
     Ennemi m_ennemi ;
+    Ennemi[] m_ennemis;
+    Spawn[] m_spawns;
     BufferedImage m_ennemiSprite;
     BufferedImage m_ennemiItemSprite;
     BufferedImage m_mort;
@@ -20,6 +22,7 @@ public class Model extends GameModel {
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
     BufferedImage m_carre_inventaire;
+    BufferedImage m_spawnSprite;
     spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
@@ -32,6 +35,7 @@ public class Model extends GameModel {
         createMap();
         createItem();
         createPerso();
+        createSpawn();
         createEnnemi();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
@@ -199,6 +203,14 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+        
+        imageFile = new File("src/sprites/spawn.png");
+        try {
+            m_spawnSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     public void createMap() {
@@ -230,13 +242,30 @@ public class Model extends GameModel {
         }
     }
     
-    public void createEnnemi() {
-        for (int i = 0; i < 1; ) {
-        	int x = 0;//(int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
-            int y = 0;//(int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+    public void createSpawn() {
+    	m_spawns = new Spawn[4];
+    	int i = 0;
+        while (i < 4) {
+        	int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite, 6, 11, 1.0F);
+                m_spawns[i] = new Spawn(x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, m_spawnSprite, this);
+                i++;
+            }
+        }
+    }
+    
+    public void createEnnemi() {
+    	m_ennemis = new Ennemi[2];
+    	int i = 0;
+        while (i < 2) {
+        	int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+            if (m_carte.cellules[y][x].libre) {
+                System.out.println(x+"et y :"+y);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.0F);
+                m_ennemis[i] = m_ennemi;
                 i++;
             }
         }
