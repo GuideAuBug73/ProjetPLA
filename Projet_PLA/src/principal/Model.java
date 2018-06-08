@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import automate.Automate;
 import automate.Move;
+import automate.State;
 import automate.Transition;
 import edu.ricm3.game.GameModel;
 
@@ -233,8 +234,9 @@ public class Model extends GameModel {
     
     private void createAutomate() {
     	Move m = new Move();
-    	Transition t = new Transition(0,0,true,m);
+    	State state1 = new State("0");
+    	Transition t = new Transition(state1,state1,true,m);
     	Transition t1[] = {t};
-    	a = new Automate(0,t1,0);
+    	a = new Automate(state1,t1);
     }
 }

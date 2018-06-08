@@ -1,13 +1,16 @@
 package automate;
 
+import java.util.List;
+
+import ricm3.parser.Ast.Behaviour;
+
 public class Automate {
-	int courant;
-	public Transition[] trans;
-	int etat_arret;
+	State courant;
+	List<Behaviour> behaviours;
+
 	
-	public Automate(int courant,Transition tab[],int arret) {
+	public Automate(State courant,List<Behaviour> behav) {
 		this.courant = courant;
-		this.trans = tab;
-		this.etat_arret = arret;
+		this.behaviours = behav;
 	}
 }
