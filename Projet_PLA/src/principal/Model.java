@@ -8,10 +8,10 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import automate.Automate;
-import automate.Move;
-import automate.State;
-import automate.Transition;
+import automate._Automate;
+import automate._Move;
+import automate._State;
+import automate._Transition;
 import edu.ricm3.game.GameModel;
 
 
@@ -29,7 +29,7 @@ public class Model extends GameModel {
     Item[] m_item = new Item[10];
     Random rand = new Random();
     Map m_carte;
-    Automate a;
+    _Automate a;
 
     public Model() {
         loadSprites();
@@ -233,10 +233,10 @@ public class Model extends GameModel {
     }
     
     private void createAutomate() {
-    	Move m = new Move();
-    	State state1 = new State("0");
-    	Transition t = new Transition(state1,state1,true,m);
-    	Transition t1[] = {t};
-    	a = new Automate(state1,t1);
+    	_Move m = new _Move();
+    	_State state1 = new _State("0");
+    	_Transition t = new _Transition(state1,state1,true,m);
+    	_Transition t1[] = {t};
+    	a = new _Automate(state1,t1);
     }
 }

@@ -44,7 +44,7 @@ public class Item extends Entity {
 	}
 
 	@Override
-	public void stack() {
+	public void pick() {
 		// TODO Auto-generated method stub
 		
 	}

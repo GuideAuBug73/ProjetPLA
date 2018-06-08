@@ -2,9 +2,9 @@ package automate;
 
 import principal.Entity;
 
-public class Wizz extends Action {
+public class _Wizz extends _Action {
 
-	public Wizz() {
+	public _Wizz() {
 	}
 
 	@Override

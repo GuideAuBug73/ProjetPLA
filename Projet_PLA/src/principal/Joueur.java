@@ -159,7 +159,7 @@ public class Joueur extends Personnage {
 	}
 
 	@Override
-	public void stack() {
+	public void pick() {
 		// TODO Auto-generated method stub
 		
 	}

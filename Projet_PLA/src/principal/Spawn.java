@@ -34,7 +34,7 @@ public class Spawn extends Entity {
 	}
 
 	@Override
-	public void stack() {
+	public void pick() {
 		// TODO Auto-generated method stub
 		
 	}

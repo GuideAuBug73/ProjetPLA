@@ -2,16 +2,14 @@ package automate;
 
 import principal.Entity;
 
-public class Turn extends Action {
+public class _Hit extends _Action{
 	
-	public Turn() {
+	public _Hit() {
 		
 	}
 
 	@Override
 	public void execute(Entity e) {
-		e.turn();
-		
+		e.hit();
 	}
-
 }

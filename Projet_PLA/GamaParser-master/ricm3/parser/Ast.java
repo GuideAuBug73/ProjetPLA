@@ -3,6 +3,8 @@ package ricm3.parser;
 import java.util.List;
 import java.util.ListIterator;
 
+import automate.*;
+
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
  * Constructors of the Abstract Syntax Tree of Game Automata
@@ -32,10 +34,6 @@ public class Ast {
 
 	public String as_dot_automata() {
 		return "undefined";
-	}
-
-	public Object make() {
-		return null; // TODO à définir dans la plupart des classes internes ci-dessous.
 	}
 
 	public static abstract class Expression extends Ast {
@@ -207,6 +205,10 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
+		
+		public void make(_State S) {
+			S.name = this.name.toString();
+		}
 	}
 
 	public static class AI_Definitions extends Ast {
@@ -261,6 +263,16 @@ public class Ast {
 			}
 			return output;
 		}
+
+		public void make(_Automate A) {
+			this.entry.make(A.courant);
+			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
+			ListIterator<Behviour> _Iter = A.behaviours.listIterator();
+			while(Iter.hasNext()) {
+				Iter.next().make(A.);
+			}
+			
+		}
 	}
 
 	public static class Behaviour extends Ast {
@@ -283,6 +295,10 @@ public class Ast {
 				output += transition.as_tree_son_of(this);
 			}
 			return output;
+		}
+		
+		public void make(_Behaviour B) {
+			source.make(B.source);
 		}
 	}
 

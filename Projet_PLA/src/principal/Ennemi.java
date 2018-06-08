@@ -131,7 +131,7 @@ public class Ennemi extends Personnage {
 	}
 
 	@Override
-	public void stack() {
+	public void pick() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,7 +14,7 @@ public class Obstacle extends Entity {
 	}
 
 	@Override
-	public void stack() {
+	public void pick() {
 		// TODO Auto-generated method stub
 		
 	}

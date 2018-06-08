@@ -2,14 +2,14 @@ package automate;
 
 import principal.Entity;
 
-public class Pop extends Action {
+public class _Pick extends _Action {
 
-	public Pop() {
+	public _Pick() {
 	}
 
 	@Override
 	public void execute(Entity e) {
-		e.pop();
+		e.pick();
 
 	}
 

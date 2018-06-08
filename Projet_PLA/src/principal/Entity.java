@@ -14,7 +14,7 @@ public abstract class Entity {
 	
 	public abstract void move();
 	public abstract void hit();
-	public abstract void stack();
+	public abstract void pick();
 	public abstract void turn();
 	public abstract void wizz();
 	public abstract void pop();
