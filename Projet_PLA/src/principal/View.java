@@ -48,6 +48,7 @@ public class View extends GameView {
                 item[i].paint(g);
         }
         m_model.m_spell.cast();
+        m_model.m_perso.animation();
         Personnage h = m_model.m_perso;
         h.paint(g);
         Ennemi k;
@@ -60,7 +61,7 @@ public class View extends GameView {
         	k = m_model.m_ennemis[i];
         	k.paint(g);
         }
-        spell ss = m_model.m_spell;
+        Spell ss = m_model.m_spell;
         ss.paint(g);
     }
 
