@@ -151,23 +151,42 @@ public class Ennemi extends IA {
 			if (orientation == 1 && (x-4) % Options.TAILLE_CELLULE != 0) {
 				//4 images par déplacement du personnage
 				x += Options.TAILLE_CELLULE / 4;
-				//changement de sprite du personnage
-				m_idx = 8 + (m_idx + 1) % 4;
+				if (m_item == null) {
+					//changement de sprite du personnage
+					m_idx = 8 + (m_idx + 1) % 4;
+				}else {
+					m_idx = 24 + (m_idx + 1) % 4;
+				}
 			}
 
 			if (orientation == 2 && (x-4) % Options.TAILLE_CELLULE != 0) {
 				x -= Options.TAILLE_CELLULE / 4;
-				m_idx = 4 + (m_idx + 1) % 4;
+				if (m_item == null) {
+					//changement de sprite du personnage
+					m_idx = 4 + (m_idx + 1) % 4;
+				}else {
+					m_idx = 20 + (m_idx + 1) % 4;
+				}
 			}
 
 			if (orientation == 3 && (y-13) % Options.TAILLE_CELLULE != 0) {
 				y -= Options.TAILLE_CELLULE / 4;
-				m_idx = 12 + (m_idx + 1) % 4;
+				if (m_item == null) {
+					//changement de sprite du personnage
+					m_idx = 12 + (m_idx + 1) % 4;
+				}else {
+					m_idx = 28 + (m_idx + 1) % 4;
+				}
 			}
 
 			if (orientation == 0 && (y-13) % Options.TAILLE_CELLULE != 0) {
 				y += Options.TAILLE_CELLULE / 4;
-				m_idx = (m_idx + 1) % 4;
+				if (m_item == null) {
+					//changement de sprite du personnage
+					m_idx = 0 + (m_idx + 1) % 4;
+				}else {
+					m_idx = 16 + (m_idx + 1) % 4;
+				}
 			}
 		}
 	}
