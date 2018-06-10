@@ -156,7 +156,7 @@ public class Personnage extends Entity {
 
 	public void animation() {
 		//condition permettant la régulation de la vitesse du personnage
-		if(m_cpt%4 == 0) {
+		if(m_cpt%3 == 0) {
 			if (orientation == 1 && x % Options.TAILLE_CELLULE != 0) {
 				//4 images par déplacement du personnage
 				x += Options.TAILLE_CELLULE / 4;

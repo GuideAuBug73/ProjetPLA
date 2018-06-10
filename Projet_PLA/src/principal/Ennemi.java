@@ -13,6 +13,7 @@ public class Ennemi extends IA {
 	int orientation;
 	Cellule m_cell;
 	Item m_item;
+	int m_cpt;
 
 	public Ennemi(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
@@ -26,6 +27,7 @@ public class Ennemi extends IA {
 		if (m_cell.entité == null) {
 			m_cell.entité = this;
 		}
+		m_cpt = 0;
 		splitSprite();
 	}
 
@@ -57,7 +59,7 @@ public class Ennemi extends IA {
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				x += Options.TAILLE_CELLULE;
+				x += Options.TAILLE_CELLULE/4;
 				if (m_item == null) {
 					m_idx = 8 + (m_idx + 1) % 4;
 				} else if (m_item != null) {
@@ -81,7 +83,7 @@ public class Ennemi extends IA {
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				y -= Options.TAILLE_CELLULE;
+				y -= Options.TAILLE_CELLULE/4;
 				if (m_item == null) {
 					m_idx = 12 + (m_idx + 1) % 4;
 				} else if (m_item != null) {
@@ -106,7 +108,7 @@ public class Ennemi extends IA {
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				y += Options.TAILLE_CELLULE;
+				y += Options.TAILLE_CELLULE/4;
 				if (m_item == null) {
 					m_idx = (m_idx + 1) % 4;
 				} else if (m_item != null) {
@@ -131,7 +133,7 @@ public class Ennemi extends IA {
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				x -= Options.TAILLE_CELLULE;
+				x -= Options.TAILLE_CELLULE/4;
 				if (m_item == null) {
 					m_idx = 4 + (m_idx + 1) % 4;
 				} else if (m_item != null) {
@@ -142,8 +144,36 @@ public class Ennemi extends IA {
 			}
 		}
 	}
+	
+	public void animation() {
+		//condition permettant la régulation de la vitesse du personnage
+		if(m_cpt%3 == 0) {
+			if (orientation == 1 && (x-4) % Options.TAILLE_CELLULE != 0) {
+				//4 images par déplacement du personnage
+				x += Options.TAILLE_CELLULE / 4;
+				//changement de sprite du personnage
+				m_idx = 8 + (m_idx + 1) % 4;
+			}
+
+			if (orientation == 2 && (x-4) % Options.TAILLE_CELLULE != 0) {
+				x -= Options.TAILLE_CELLULE / 4;
+				m_idx = 4 + (m_idx + 1) % 4;
+			}
+
+			if (orientation == 3 && (y-13) % Options.TAILLE_CELLULE != 0) {
+				y -= Options.TAILLE_CELLULE / 4;
+				m_idx = 12 + (m_idx + 1) % 4;
+			}
+
+			if (orientation == 0 && (y-13) % Options.TAILLE_CELLULE != 0) {
+				y += Options.TAILLE_CELLULE / 4;
+				m_idx = (m_idx + 1) % 4;
+			}
+		}
+	}
 
 	public void paint(Graphics g) {
+		m_cpt++;
 		if (m_model.m_perso.m_mort != true) {
 			Image img = m_sprites[m_idx];
 			int w = (int) (m_scale * m_w);
