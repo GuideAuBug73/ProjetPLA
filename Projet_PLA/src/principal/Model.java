@@ -37,7 +37,7 @@ public class Model extends GameModel {
         createItem();
         createPerso();
         createEnnemi();
-        createAutomate();
+       // createAutomate();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
 
@@ -53,7 +53,7 @@ public class Model extends GameModel {
      */
     @Override
     public void step(long now) {
-    	a.trans[0].act.execute(m_ennemi);
+    	//a.trans[0].act.execute(m_ennemi);
     }
 
 
@@ -232,11 +232,11 @@ public class Model extends GameModel {
         }
     }
     
-    private void createAutomate() {
+   /* private void createAutomate() {
     	_Move m = new _Move();
     	_State state1 = new _State("0");
     	_Transition t = new _Transition(state1,state1,true,m);
     	_Transition t1[] = {t};
     	a = new _Automate(state1,t1);
-    }
+    }*/
 }

@@ -1,9 +1,15 @@
 package ricm3.parser;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import automate.*;
+import automate._Action;
+import automate._Automate;
+import automate._Behaviour;
+import automate._Condition;
+import automate._State;
+import automate._Transition;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
@@ -177,6 +183,11 @@ public class Ast {
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
 		}
+
+		public void make(_Condition condition) {
+			// TODO Auto-generated method stub
+
+		}
 	}
 
 	public static class Action extends Ast {
@@ -190,6 +201,11 @@ public class Ast {
 
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
+		}
+
+		public void make(_Action act) {
+			// TODO Auto-generated method stub
+
 		}
 	}
 
@@ -205,7 +221,7 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
-		
+
 		public void make(_State S) {
 			S.name = this.name.toString();
 		}
@@ -265,13 +281,14 @@ public class Ast {
 		}
 
 		public void make(_Automate A) {
+			A.courant = new _State(this.entry.name.toString());
 			this.entry.make(A.courant);
+			A.behaviours = new LinkedList<_Behaviour>();
 			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
-			ListIterator<Behviour> _Iter = A.behaviours.listIterator();
-			while(Iter.hasNext()) {
-				Iter.next().make(A.);
+			ListIterator<_Behaviour> _Iter = A.behaviours.listIterator();
+			while (Iter.hasNext() && _Iter.hasNext()) {
+				Iter.next().make(_Iter.next());
 			}
-			
 		}
 	}
 
@@ -296,9 +313,16 @@ public class Ast {
 			}
 			return output;
 		}
-		
+
 		public void make(_Behaviour B) {
+			B.source = new _State(this.source.name.toString());
 			source.make(B.source);
+			B.transitions = new LinkedList<_Transition>();
+			ListIterator<Transition> Iter = this.transitions.listIterator();
+			ListIterator<_Transition> _Iter = B.transitions.listIterator();
+			while (Iter.hasNext() && _Iter.hasNext()) {
+				Iter.next().make(_Iter.next());
+			}
 		}
 	}
 
@@ -317,6 +341,12 @@ public class Ast {
 
 		public String tree_edges() {
 			return condition.as_tree_son_of(this) + action.as_tree_son_of(this) + target.as_tree_son_of(this);
+		}
+
+		public void make(_Transition T) {
+			this.condition.make(T.condition);
+			this.action.make(T.act);
+			this.target.make(T.dest);
 		}
 	}
 }
