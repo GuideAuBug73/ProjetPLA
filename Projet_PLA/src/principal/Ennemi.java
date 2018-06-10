@@ -221,9 +221,7 @@ public class Ennemi extends IA {
 		//Si l'ennemi se transforme
 		if (m_idxTransfo >= 0 && m_idxTransfo < 32) {
 			img = m_spritesTransfo[m_idxTransfo];
-			//temps d'attente pour améliorer l'animation
-			if (m_cpt % 2 == 0)
-				m_idxTransfo++;
+			m_idxTransfo++;
 		//sinon
 		} else if (m_model.m_perso.m_mort != true && m_idxTransfo < 0 || m_idxTransfo >= 32) {
 			img = m_sprites[m_idx];

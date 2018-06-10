@@ -7,19 +7,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Personnage extends Entity {
-	int m_w, m_h;
+	int m_w, m_h, m_w2, m_h2;
 	int m_idx;
+	int m_idxTransfo;
 	float m_scale;
 	BufferedImage[] m_sprites;
+	BufferedImage[] m_spritesTransfo;
 	int orientation = 0;
 	Inventaire inventaire = new Inventaire();
 	Boolean m_mort = false;
 	Cellule m_cell;
 	int m_cpt;
 
-	public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
+	public Personnage(Model model, BufferedImage sprite, BufferedImage spriteTransfo, int x, int y, float scale) {
 		m_model = model;
 		img = sprite;
+		img2 = spriteTransfo;
 		this.x = x;
 		this.y = y;
 		m_scale = scale;
@@ -43,6 +46,18 @@ public class Personnage extends Entity {
 				int y = i * m_h;
 
 				m_sprites[(i * 4) + j] = img.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		width = img2.getWidth(null);
+		height = img2.getHeight(null);
+		m_spritesTransfo = new BufferedImage[8 * 4];
+		m_w2 = width / 8;
+		m_h2 = height / 4;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				int x = j * m_w2;
+				int y = i * m_h2;
+				m_spritesTransfo[(i * 8) + j] = img2.getSubimage(x, y, m_w2, m_h2);
 			}
 		}
 	}
@@ -192,7 +207,11 @@ public class Personnage extends Entity {
 		int w = (int) (m_scale * m_w);
 		int h = (int) (m_scale * m_h);
 		g.drawImage(img, x + 10, y, w, h, null);
-
+		//a decommenter quand le pouvoir du personnage sera réalisé
+		/*
+		img = m_spritesTransfo[m_idxTransfo];
+		g.drawImage(img, x-31 , y-75, w+80, h+100, null);
+		m_idxTransfo = (m_idxTransfo+1)%32;*/
 	}
 
 	public void ramasser(Cellule cell) {

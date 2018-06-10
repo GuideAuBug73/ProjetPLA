@@ -22,6 +22,7 @@ public class Model extends GameModel {
     BufferedImage m_fieldSprite;
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
+    BufferedImage m_persoSpriteTransfo;
     BufferedImage m_carre_inventaire;
     BufferedImage m_spawnSprite;
     Spell m_spell;
@@ -63,6 +64,14 @@ public class Model extends GameModel {
         File imageFile = new File("src/sprites/hero.png");
         try {
             m_persoSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        imageFile = new File("src/sprites/aura.png");
+        try {
+            m_persoSpriteTransfo = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -245,7 +254,7 @@ public class Model extends GameModel {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
+                m_perso = new Personnage(this, m_persoSprite, m_persoSpriteTransfo, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
                 m_carte.cellules[y][x].entité=m_perso;
                 i++;
             }
