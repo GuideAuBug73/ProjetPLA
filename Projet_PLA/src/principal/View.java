@@ -94,7 +94,7 @@ public class View extends GameView {
         int pdv=m_model.m_perso.p_vie;
         int x=50;
         for(int i=0;i<pdv;i++){
-            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min/2+10, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
+            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min/2-(Options.TAILLE_CELLULE-20)/2, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
             x+=50;
         }
     }
