@@ -17,147 +17,133 @@
  */
 package principal;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-
 import edu.ricm3.game.GameController;
-
 
 public class Controller extends GameController implements ActionListener {
 
-  Model m_model;
-  Personnage c;
-  spell s;
-  Ennemi E ;
-  
-  public Controller(Model m) {
-    m_model = m;
-    c = m.m_perso;
-    E = m.m_ennemi ;
-    s=m.m_spell;
-  }
+	Model m_model;
+	Personnage c;
+	Spell s;
+	Ennemi E;
 
-  /**
-   * Simulation step. Warning: the model has already executed its step.
-   *
-   * @param now
-   *          is the current time in milliseconds.
-   */
-  @Override
-  public void step(long now) {
-  }
+	public Controller(Model m) {
+		m_model = m;
+		c = m.m_perso;
+		E = m.m_ennemi;
+		s = m.m_spell;
+	}
 
-  @Override
-  public void keyTyped(KeyEvent e) {
+	/**
+	 * Simulation step. Warning: the model has already executed its step.
+	 *
+	 * @param now
+	 *            is the current time in milliseconds.
+	 */
+	@Override
+	public void step(long now) {
+	}
 
-    if (e.getKeyChar() == 'd') {
-    	c.droite();
-    }  else if (e.getKeyChar() == 's') {
-    	c.bas();
-    }
-    else if (e.getKeyChar() == 'z') {
-    	c.haut();
-    }
-    else if (e.getKeyChar() == 'q') {
-    	c.gauche();
-    }
-    if (e.getKeyChar() == 'l') {
-    	E.droite();
-    }  else if (e.getKeyChar() == 'k') {
-    	E.bas();
-    }
-    else if (e.getKeyChar() == 'i') {
-    	E.haut();
-    }
-    else if (e.getKeyChar() == 'j') {
-    	E.gauche();
-    }
-    else if (e.getKeyChar() == 'm') {
-   
-    if(c.orientation==0)
-        s.setcast(c.x,c.y,c.x,c.y+400);
-      if(c.orientation==1)
-          s.setcast(c.x,c.y,c.x+400,c.y);
-      if(c.orientation==2)
-          s.setcast(c.x,c.y,c.x-400,c.y);
-      if(c.orientation==3)
-          s.setcast(c.x,c.y,c.x,c.y-400);
-    }
-  }
+	@Override
+	public void keyTyped(KeyEvent e) {
+		//Si on appuie sur d et que le personnage est bien sur sa cellule
+		//la deuxieme condition empeche un changement de direction du personnage si il est entre deux cellules
+		if (e.getKeyChar() == 'd' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+			c.droite();
+		} else if (e.getKeyChar() == 's' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+			c.bas();
+		} else if (e.getKeyChar() == 'z' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+			c.haut();
+		} else if (e.getKeyChar() == 'q' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+			c.gauche();
+		}
+		if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+			E.droite();
+		} else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+			E.bas();
+		} else if (e.getKeyChar() == 'i' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+			E.haut();
+		} else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+			E.gauche();
+		} else if (e.getKeyChar() == 'm') {
 
-  @Override
-  public void keyPressed(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-  }
+			if (c.orientation == 0)
+				s.setcast(c.x, c.y, c.x, c.y + 400);
+			if (c.orientation == 1)
+				s.setcast(c.x, c.y, c.x + 400, c.y);
+			if (c.orientation == 2)
+				s.setcast(c.x, c.y, c.x - 400, c.y);
+			if (c.orientation == 3)
+				s.setcast(c.x, c.y, c.x, c.y - 400);
+		}
+	}
 
-  @Override
-  public void keyReleased(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
-  }
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (Options.ECHO_KEYBOARD)
+			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+	}
 
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-    
-    
-  }
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (Options.ECHO_KEYBOARD)
+			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+	}
 
-  @Override
-  public void mousePressed(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-  }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    if (Options.ECHO_MOUSE)
-      System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-  }
+	}
 
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+	}
 
-  @Override
-  public void mouseExited(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (Options.ECHO_MOUSE)
+			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+	}
 
-  @Override
-  public void mouseDragged(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
+	}
 
-  @Override
-  public void mouseMoved(MouseEvent e) {
-    if (Options.ECHO_MOUSE_MOTION)
-      System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
-  }
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
+	}
 
-  public void notifyVisible() {
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
+	}
 
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
+	}
 
-  
+	public void notifyVisible() {
 
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
-  }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-
- 
-  }
+	}
 
 }

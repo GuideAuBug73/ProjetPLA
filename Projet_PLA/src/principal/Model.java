@@ -23,7 +23,7 @@ public class Model extends GameModel {
     BufferedImage m_persoSprite;
     BufferedImage m_carre_inventaire;
     BufferedImage m_spawnSprite;
-    spell m_spell;
+    Spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
     Item[] m_item = new Item[10];
@@ -37,7 +37,7 @@ public class Model extends GameModel {
         createPerso();
         createSpawn();
         createEnnemi();
-        m_spell = new spell(this, m_spellSprite, 0, 0);
+        m_spell = new Spell(this, m_spellSprite, 0, 0);
     }
 
     @Override
