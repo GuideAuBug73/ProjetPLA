@@ -382,8 +382,8 @@ public class Ast {
 		}
 
 		public void make(_Transition T) {
-			this.condition.make(T.condition);
-			this.action.make(T.act);
+			this.condition.make(T);
+			this.action.make(T);
 			this.target.make(T.dest);
 		}
 	}
