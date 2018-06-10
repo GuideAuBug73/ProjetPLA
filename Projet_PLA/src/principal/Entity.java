@@ -3,6 +3,8 @@ import java.awt.image.BufferedImage;
 public class Entity {
 	public int x,y;
 	public BufferedImage img;
+	public BufferedImage img2;
+
 	public Model m_model;
 	
 	protected int[] PosToCell(int x, int y) { 

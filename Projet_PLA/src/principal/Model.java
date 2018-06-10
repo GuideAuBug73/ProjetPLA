@@ -16,6 +16,7 @@ public class Model extends GameModel {
     Ennemi[] m_ennemis;
     Spawn[] m_spawns;
     BufferedImage m_ennemiSprite;
+    BufferedImage m_ennemiSpriteTransfo;
     BufferedImage m_ennemiItemSprite;
     BufferedImage m_mort;
     BufferedImage m_fieldSprite;
@@ -106,6 +107,15 @@ public class Model extends GameModel {
 
         try {
             m_ennemiSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        imageFile = new File("src/sprites/explosionFull.png");
+
+        try {
+            m_ennemiSpriteTransfo = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -264,7 +274,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite, x*Options.TAILLE_CELLULE+4, y*Options.TAILLE_CELLULE+13, 1.0F);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteTransfo, x*Options.TAILLE_CELLULE+4, y*Options.TAILLE_CELLULE+13, 1.0F);
                 m_ennemis[i] = m_ennemi;
                 i++;
             }
