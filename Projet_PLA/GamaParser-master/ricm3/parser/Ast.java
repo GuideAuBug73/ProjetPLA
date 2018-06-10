@@ -4,12 +4,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import automate._Action;
+import automate.Got_item;
+import automate.Joueur_Proche;
+import automate.Presence;
 import automate._Automate;
 import automate._Behaviour;
-import automate._Condition;
+import automate._Cell;
+import automate._Hit;
+import automate._Move;
+import automate._Pick;
+import automate._Pop;
 import automate._State;
 import automate._Transition;
+import automate._Turn;
+import automate._Wizz;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
@@ -171,25 +179,6 @@ public class Ast {
 		}
 	}
 
-	public static class Condition extends Ast {
-
-		Expression expression;
-
-		Condition(Expression expression) {
-			this.kind = "Condition";
-			this.expression = expression;
-		}
-
-		public String tree_edges() {
-			return expression.as_tree_son_of(this);
-		}
-
-		public void make(_Condition condition) {
-			// TODO Auto-generated method stub
-
-		}
-	}
-
 	public static class Action extends Ast {
 
 		Expression expression;
@@ -203,10 +192,59 @@ public class Ast {
 			return expression.as_tree_son_of(this);
 		}
 
-		public void make(_Action act) {
-			// TODO Auto-generated method stub
-
+		public void make(_Transition trans) {
+			switch (expression.toString()) {
+			case "Move":
+				trans.act = new _Move();
+				break;
+			case "Pick":
+				trans.act = new _Pick();
+				break;
+			case "Hit":
+				trans.act = new _Hit();
+				break;
+			case "Wizz":
+				trans.act = new _Wizz();
+				break;
+			case "Pop":
+				trans.act = new _Pop();
+				break;
+			case "Turn":
+				trans.act = new _Turn();
+				break;
+			}
 		}
+	}
+
+	public static class Condition extends Ast {
+
+		Expression expression;
+
+		Condition(Expression expression) {
+			this.kind = "Action";
+			this.expression = expression;
+		}
+
+		public String tree_edges() {
+			return expression.as_tree_son_of(this);
+		}
+
+		public void make(_Transition trans) {
+			switch (expression.toString()) {
+			case "Cell":
+				trans.condition = new _Cell();
+				break;
+			case "Got_item":
+				trans.condition = new Got_item();
+				break;
+			case "Joueur_proche":
+				trans.condition = new Joueur_Proche();
+				break;
+			case "Presence":
+				trans.condition = new Presence();
+				break;
+			}
+		} 
 	}
 
 	public static class State extends Ast {
