@@ -6,7 +6,7 @@ public class Got_item extends _Condition {
 	}
 
 	@Override
-	public void eval(Entity e) {
+	public boolean eval(Entity e) {
 		e.got_item();
 	}
 }

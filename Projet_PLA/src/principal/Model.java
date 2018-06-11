@@ -28,7 +28,7 @@ public class Model extends GameModel {
     BufferedImage[] m_itemSprite=new BufferedImage[12];
     Item[] m_item = new Item[10];
     Random rand = new Random();
-    Map m_carte;
+    public Map m_carte;
     _Automate a;
 
     public Model() {

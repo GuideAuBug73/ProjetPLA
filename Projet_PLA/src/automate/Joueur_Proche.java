@@ -1,12 +1,16 @@
 package automate;
+
 import principal.Entity;
 
 public class Joueur_Proche extends _Condition {
-	public Joueur_Proche() {
+	int distance;
+
+	public Joueur_Proche(int d) {
+		this.distance = d;
 	}
 
 	@Override
-	public void eval(Entity e) {
+	public boolean eval(Entity e) {
 		e.joueur_proche();
 	}
 }

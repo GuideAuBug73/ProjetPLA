@@ -18,8 +18,5 @@ public abstract class Entity {
 	public abstract void turn();
 	public abstract void wizz();
 	public abstract void pop();
-	public abstract void cell_libre();
-	public abstract void got_item();
-	public abstract void joueur_proche();
-	public abstract void presence();
+
 }

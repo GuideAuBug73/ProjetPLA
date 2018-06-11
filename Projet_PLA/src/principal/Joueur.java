@@ -182,28 +182,4 @@ public class Joueur extends Personnage {
 		
 	}
 
-	@Override
-	public void cell_libre() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void got_item() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void joueur_proche() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void presence() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

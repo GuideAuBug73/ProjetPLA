@@ -5,6 +5,6 @@ public abstract class Personnage extends Entity {
 	int vitesse;
 	int pdv;
 
-	public abstract void move();
+
 
 }
