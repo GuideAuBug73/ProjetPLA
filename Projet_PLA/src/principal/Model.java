@@ -16,7 +16,7 @@ import edu.ricm3.game.GameModel;
 
 
 public class Model extends GameModel {
-    Joueur m_perso;
+    public Joueur m_perso;
     Ennemi m_ennemi ;
     BufferedImage m_ennemiSprite;
 

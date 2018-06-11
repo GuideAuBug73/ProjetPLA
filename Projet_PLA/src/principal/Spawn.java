@@ -5,13 +5,14 @@ import java.awt.image.BufferedImage;
 import basic.Cellule;
 
 public class Spawn extends Entity {
-	boolean presence = false;
+	public Entity entit;
 
-	public Spawn(Cellule c, BufferedImage image, Model model) {
+	public Spawn(Cellule c, BufferedImage image, Model model,Entity m_entit) {
 		img = image;
 		m_model = model;
 		x = c.x;
 		y = c.y;
+		entit = m_entit;
 	}
 
 	public Spawn(int x, int y, BufferedImage image, Model model) {
