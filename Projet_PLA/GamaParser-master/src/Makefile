@@ -1,8 +1,8 @@
 graphviz_executable = open
-java_interpreter    = ~/Documents/ProjetPLA/eclipse
-dot_output_file     = ~/Documents/ProjetPLA/Projet_PLA/GamaParser
-project_directory   = ~/Documents/ProjetPLA/Projet_PLA/
-parser_class        = AutomataParser
+java_interpreter    = java
+dot_output_file     = ~/Bureau/ast.dot
+project_directory   = ~/Bureau/ProjetPLA/Projet_PLA
+parser_class        = ricm3.parser.AutomataParser
 
 test1 = "Philosopher(Think){ * (Think) }"
 
@@ -14,12 +14,11 @@ test4 = "Blocker(Init){ * (Init): !(True) ? Power :(Init) }"
 
 test5 = "Mover(Init){ * (Init): True ? Move :(Init) }"
 
-test6 = "Turner(Turn_0){ \
-	* (Turn_0): True ? Turn(R) :(Turn_1) \
-  * (Turn_1): True ? Turn(R) :(Turn_2) \
-  * (Turn_2): True ? Turn(R) :(Turn_3) \
-  * (Turn_3): True ? Turn(R) :(Turn_4) \
-  * (Turn_4): True ? Kamikaze :() \
+test6 = "TestduRun(Run){ \
+* (Run):\
+  | Cell(F,V) ? Move(F) :(Explore)\
+  | Cell(F,A) / Cell(B,A) / Cell(L,A) / Cell(R,A) ? Wizz :(Escape)\
+  | True ? Pop :(Explore)\
 }"
 
 test7 = "Master(Think){ \

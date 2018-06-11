@@ -9,108 +9,214 @@
  */
 
 PARSER_BEGIN(AutomataParser)
-
 package ricm3.parser;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
 import ricm3.parser.Ast.*;
 
-public class AutomataParser {
-
-	public static Ast from_file(String path_file) throws Exception {
-  		Ast ast = new AutomataParser(new BufferedReader(new FileReader(path_file))).Run();
-  		return ast; 
-   }
-
-   public static Ast from_string(String input) throws Exception {
-        Ast ast = new AutomataParser(new java.io.StringReader(input)).Run() ;
-  		return ast ;
-   }
-
-   public static boolean option(String option, String[] args) {
-    		int i=0 ;
-     	while(i<args.length) { 
-     		if (args[i].equals(option)){ return true ; }
-     		i++;
-   		 }
-  	  return false ;
+public class AutomataParser
+{
+  public static Ast from_file(String path_file) throws Exception
+  {
+    Ast ast = new AutomataParser(new BufferedReader(new FileReader(path_file))).Run();
+    return ast;
   }
 
-  public static int index_of_input(String[] args) {
-    	int i = 0 ;
-    	while (i<args.length) {
-    	  if ( false == (
-    	    	       args[i].equals("-ast")
-    	  	 	|| args[i].equals("-string")
-    	  	 	|| args[i].equals("-aut")
-    	  	 	|| args[i].equals("-file") ))
-     	{ return i ; }
-     else
-     	{ i++ ; }
-   	}
-  	return 0 ;
+  public static Ast from_string(String input) throws Exception
+  {
+    Ast ast = new AutomataParser(new java.io.StringReader(input)).Run();
+    return ast;
   }
-  
-   public static void main(String[] args) throws Exception {
-        Ast ast ;
-        int i = index_of_input(args) ;
-        if ( option("-string",args) )
-            ast = from_string(args[i]) ;
-        else
-        		ast = from_file(args[i]) ;
-        if ( option("-ast",args) )
-        		System.out.println("// THE AST of the PARSED AUTOMATA in DOT FORMAT \n" + ast.as_dot_tree()) ;
-        	else
-        		System.out.println("// THE PARSED AUTOMATA in DOT FORMAT \n" + ast.as_dot_aut()) ;
+
+  public static boolean option(String option, String [] args)
+  {
+    int i = 0;
+    while (i < args.length)
+    {
+      if (args [i].equals(option))
+      {
+        return true;
+      }
+      i++;
     }
-	
+    return false;
+  }
+
+  public static int index_of_input(String [] args)
+  {
+    int i = 0;
+    while (i < args.length)
+    {
+      if (false == (
+      args [i].equals("-ast") 
+      || args [i].equals("-string") 
+      || args [i].equals("-aut") 
+      || args [i].equals("-file")))
+      {
+        return i;
+      }
+      else
+      {
+        i++;
+      }
+    }
+    return 0;
+  }
+
+  public static void main(String [] args) throws Exception
+  {
+    Ast ast;
+    int i = index_of_input(args);
+    ast = from_string(args [i]);
+    //ast = from_file(args[i]) ;
+    System.out.println("// THE AST of the PARSED AUTOMATA in DOT FORMAT \n" + ast.as_dot_tree());
+  }
 }
 
 PARSER_END(AutomataParser)
 
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
 
-SKIP:  { " " | "\t" | "\n" | "\r" }
+TOKEN :
+{
+  < CONDITION :
+    "True"
+  | "Key"
+  | "MyDir"
+  | "Cell"
+  | "Closest"
+  | "GotPower"
+  | "GotStuff" >
+}
 
-TOKEN: { < CONDITION: "True" | "Key" | "MyDir" | "Cell" | "Closest" | "GotPower" | "GotStuff" > }
+TOKEN :
+{
+  < ACTION :
+    "Get"
+  | "Hit"
+  | "Jump"
+  | "Kamikaze"
+  | "Move"
+  | "Pick"
+  | "Pop"
+  | "Power"
+  | "Protect"
+  | "Store"
+  | "Throw"
+  | "Turn"
+  | "Wizz" >
+}
 
-TOKEN: { < ACTION: "Get" | "Hit" | "Jump" | "Kamikaze" | "Move" | "Pick" | "Pop" | "Power" | "Protect" | "Store" | "Throw" | "Turn" | "Wizz" > }
+TOKEN :
+{
+  < SPECIAL_KEY :
+    "SPACE"
+  | "ENTER"
+  | "FU"
+  | "FD"
+  | "FL"
+  | "FR" >
+}
 
-TOKEN : { < SPECIAL_KEY: "SPACE" | "ENTER" | "FU" | "FD" | "FL" | "FR" > }
+TOKEN :
+{
+  < DIRVAR : "d" >
+}
 
-TOKEN: { < DIRVAR: "d" > }
+TOKEN :
+{
+  < ENTVAR : "e" >
+}
 
-TOKEN: { < ENTVAR: "e" > }
+TOKEN :
+{
+  < DIRECTION :
+    "N"
+  | "S"
+  | "O"
+  | "E"
+  | "F"
+  | "B"
+  | "L"
+  | "R" >
+}
 
-TOKEN: { < DIRECTION: "N" | "S" | "O" | "E" | "F" | "B" | "L" | "R" > }
+TOKEN :
+{
+  < ENTITY :
+    "A"
+  | "D"
+  | "G"
+  | "J"
+  | "M"
+  | "O"
+  | "P"
+  | "T"
+  | "V" >
+}
 
-TOKEN: { < ENTITY: "A" | "D" | "G" | "J" | "M" | "O" | "P" | "T" | "V" > }
+TOKEN :
+{
+  < #CAPITAL : [ "A"-"Z" ] >
+}
 
-TOKEN: { < #CAPITAL: ["A"-"Z"] > }
+TOKEN :
+{
+  < LOWERCASE : [ "a"-"z" ] >
+}
 
-TOKEN: { < LOWERCASE: ["a"-"z"] > }
+TOKEN :
+{
+  < #LETTER :
+    (
+      < CAPITAL >
+    | < LOWERCASE >
+    ) >
+}
 
-TOKEN: { < #LETTER: (<CAPITAL> | <LOWERCASE>) >  }
+TOKEN :
+{
+  < DIGIT : [ "0"-"9" ] >
+}
 
-TOKEN: { < DIGIT: ["0"-"9"] > }
+TOKEN :
+{
+  < UNARY : "!" >
+}
 
-TOKEN:
-{ < UNARY: "!" > }
+TOKEN :
+{
+  < BINOP :
+    "&"
+  | "/" >
+}
 
-TOKEN:
-{ <  BINOP: "&" | "/" > }
+TOKEN :
+{
+  < ID :
+    < CAPITAL >
+    (
+      < LETTER >
+    | < DIGIT >
+    | "_"
+    )* >
+}
 
-TOKEN:
-{ < ID: <CAPITAL> (<LETTER>|<DIGIT>|"_")* > }
+TOKEN :
+{
+  < INT : (< DIGIT >)+ >
+}
 
-TOKEN:
-{ < INT: (<DIGIT>)+ > }
-   
 /* == The grammar for writing automata
 
 Run
@@ -227,423 +333,519 @@ Entity
 */
 
 // THE PARSER
-
 /**
  ** See Ast.java for the definitions of types returned by Parsers
  **/
 
 /* Identifier */
-String P_Identifier():
-{ Token token; }
+String P_Identifier() :
 {
-  token=<ID> { return token.image; }
+  Token token;
 }
-
+{
+  token = < ID >
+  {
+    return token.image;
+  }
+}
 
 /* Direction
  * | "N" | "S" | "O" | "E" | "F" | "B" | "L" | "R"
  * | "d"
  */
-Direction P_Direction():
-{ Token token; }
+Direction P_Direction() :
 {
-  token=<DIRECTION> { return new Direction(new Constant(token.image)); }
-| token=<DIRVAR>    { return new Direction(new Variable(token.image)); }   
+  Token token;
 }
-
+{
+  token = < DIRECTION >
+  {
+    return new Direction(new Constant(token.image));
+  }
+| token = < DIRVAR >
+  {
+    return new Direction(new Variable(token.image));
+  }
+}
 
 /* Entity
  * | "V" | "T" | "A" | "P" | "J" | "D" | "O" 
  * | "e"
  */
-Entity P_Entity():
-{ Token token; }
+Entity P_Entity() :
 {
-  token=<ENTITY>  { return new Entity(new Constant(token.image)); }
-| token=<ENTVAR>  { return new Entity(new Variable(token.image)); }   
+  Token token;
 }
-
+{
+  token = < ENTITY >
+  {
+    return new Entity(new Constant(token.image));
+  }
+| token = < ENTVAR >
+  {
+    return new Entity(new Variable(token.image));
+  }
+}
 
 /* Run
  * | Some_Automata <EOF>
  */
-Ast Run():
-{ List<Automaton> automata ; }
-{ automata = P_Some_Automata( new LinkedList<Automaton>() )
-  <EOF>
-   	{ return new AI_Definitions(automata) ; }
+Ast Run() :
+{
+  List < Automaton > automata;
 }
-
+{
+  automata = P_Some_Automata
+  (
+    new LinkedList < Automaton > ()
+  )
+  < EOF >
+  {
+    return new AI_Definitions(automata);
+  }
+}
 
 /* Some_Automata
  * | Automaton Some_Automata
  * | epsilon
  */
-List<Automaton> P_Some_Automata(List<Automaton> input_list):
+List < Automaton > P_Some_Automata(List < Automaton > input_list) :
 {
-  Automaton aut ;
-  List<Automaton> list ;
+  Automaton aut;
+  List < Automaton > list;
 }
-{ aut  = P_Automaton()
-  list = P_Some_Automata(input_list) 
-    	{ list.add(0,aut) ; return list ; }
+{
+  aut = P_Automaton() 
+  list = P_Some_Automata(input_list)
+  {
+    list.add(0, aut);
+    return list;
+  }
 | /*epsilon*/
-	{ return input_list ; }
+  {
+    return input_list;
+  }
 }
-
 
 /* Automaton
  * | Identifier "(" Identifier ")" "{" At_least_one_Behaviour "}"
  */
-Automaton P_Automaton():
-{ String name ;
-  String entry_state ;
-  List<Behaviour> behaviours ; 
+Automaton P_Automaton() :
+{
+  String name;
+  String entry_state;
+  List < Behaviour > behaviours;
 }
 {
-  name = P_Identifier()
-  "("
-  entry_state = P_Identifier()
-  ")"
-  "{"
-  behaviours = P_At_least_one_Behaviour( new LinkedList<Behaviour>() ) 
+  name = P_Identifier() 
+  "(" 
+  entry_state = P_Identifier() 
+  ")" 
+  "{" 
+  behaviours = P_At_least_one_Behaviour
+  (
+    new LinkedList < Behaviour > ()
+  )
   "}"
-  { return new Automaton(name, new State(entry_state), behaviours) ; }
+  {
+    return new Automaton(name, new State(entry_state), behaviours);
+  }
 }
-
 
 /* At_least_one_Behaviour
  * | Behaviour  Some_Behaviour
  */
 
-List<Behaviour> P_At_least_one_Behaviour(List<Behaviour> input_list):
+List < Behaviour > P_At_least_one_Behaviour(List < Behaviour > input_list) :
 {
-  Behaviour behaviour ;
-  List<Behaviour> list ;
+  Behaviour behaviour;
+  List < Behaviour > list;
 }
-{ behaviour = P_Behaviour()
+{
+  behaviour = P_Behaviour() 
   list = P_Some_Behaviour(input_list)
-  	{ list.add(0,behaviour) ; return list ; }
+  {
+    list.add(0, behaviour);
+    return list;
+  }
 }
-
 
 /* Some_Behaviour
  * | At_least_one_Behaviour
  * | epsilon
  */
 
-List<Behaviour> P_Some_Behaviour(List<Behaviour> input_list):
+List < Behaviour > P_Some_Behaviour(List < Behaviour > input_list) :
 {
-  List<Behaviour> list ;
+  List < Behaviour > list;
 }
-{ list = P_At_least_one_Behaviour(input_list)
-	{ return list ; }
+{
+  list = P_At_least_one_Behaviour(input_list)
+  {
+    return list;
+  }
 | /*epsilon*/
-	{ return input_list ; }
+  {
+    return input_list;
+  }
 }
-
 
 /* Behaviour
  * | "*"  State Opt_points Some_Transitions
  */
-Behaviour P_Behaviour():
+Behaviour P_Behaviour() :
 {
-  State state ;
-  List<Transition> list = new LinkedList<Transition>() ;
+  State state;
+  List < Transition > list = new LinkedList < Transition > ();
 }
-{ "*"
-  state = P_State()
-  P_Opt_Points()
-  list = P_Some_Transitions(list) 
-  	{ return new Behaviour(state,list) ; }
+{
+  "*" 
+  state = P_State() 
+  P_Opt_Points() 
+  list = P_Some_Transitions(list)
+  {
+    return new Behaviour(state, list);
+  }
 }
-
 
 /* Opt_points
  * | ":" 
  * | epsilon
  */
-Void P_Opt_Points():
+Void P_Opt_Points() :
 {}
-{ ":"         { return null; }
-| /*epsilon*/ { return null; }
+{
+  ":"
+  {
+    return null;
+  }
+| /*epsilon*/
+  {
+    return null;
+  }
 }
-
 
 /* State
  * | "(" State_Identifier ")"
  */
-State P_State():
+State P_State() :
 {
-  State state ;
+  State state;
 }
-{ "("
-  state = P_State_Identifier()
-  ")" 
-  	{ return state; }
+{
+  "(" 
+  state = P_State_Identifier() 
+  ")"
+  {
+    return state;
+  }
 }
-
 
 /* State_Identifier
  * | Identifier
  * | "_"
  * | epsilon
  */
-State P_State_Identifier():
+State P_State_Identifier() :
 {
-  String name ;
+  String name;
 }
-{ name = P_Identifier()  
-  	{ return new State(name); }
+{
+  name = P_Identifier()
+  {
+    return new State(name);
+  }
 | "_"
-   	{ return new State("_"); }
-| /*epsilon*/  
-   	{ return new State(""); } 
+  {
+    return new State("_");
+  }
+| /*epsilon*/
+  {
+    return new State("");
+  }
 }
-
 
 /* Some_Transitions
  * | Transition  Some_Transitions 
  * | epsilon
  */
-List<Transition> P_Some_Transitions(List<Transition> input_list):
+List < Transition > P_Some_Transitions(List < Transition > input_list) :
 {
-  Transition transition ; 
-  List<Transition> list ;
+  Transition transition;
+  List < Transition > list;
 }
 {
-  transition = P_Transition()
+  transition = P_Transition() 
   list = P_Some_Transitions(input_list)
-     { list.add(0,transition) ; return list ; } 
-| /*epsilon*/  
-   	{ return input_list ; }
+  {
+    list.add(0, transition);
+    return list;
+  }
+| /*epsilon*/
+  {
+    return input_list;
+  }
 }
 
-  
 /* Transition
  * | Opt_Bar  Condition "?" Action ":"  State
  */
-Transition P_Transition():
+Transition P_Transition() :
 {
-	Condition condition ;
-	Action action ;
-	State state ;	
+  Condition condition;
+  Action action;
+  State state;	
 }
 {
-  P_Opt_Bar()
+  P_Opt_Bar() 
   condition = P_Condition() 
-  "?"
+  "?" 
   action = P_Action() 
-  ":"
+  ":" 
   state = P_State()
-  	{ return new Transition(condition,action,state) ; }
-}  
-
+  {
+    return new Transition(condition, action, state);
+  }
+}
 
 /* Opt_Bar
  * | "|"
  * | epsilon
  */
-Void P_Opt_Bar():
-{ }
-{ "|"         { return null; }
-| /*epsilon*/ { return null; }
-}  
-
+Void P_Opt_Bar() :
+{}
+{
+  "|"
+  {
+    return null;
+  }
+| /*epsilon*/
+  {
+    return null;
+  }
+}
 
 /* Condition
    | Expression
-*/    
-Condition P_Condition():
+*/
+Condition P_Condition() :
 {
-  Expression expression ;
+  Expression expression;
 }
-{ expression = P_Expression()
-	{ return new Condition(expression) ; }
+{
+  expression = P_Expression()
+  {
+    return new Condition(expression);
+  }
 }
-
 
 /* Action
    | Expression
-*/    
-Action P_Action():
+*/
+Action P_Action() :
 {
-  Expression expression ;
+  Expression expression;
 }
-{ expression = P_Expression()
-	{ return new Action(expression) ; }
+{
+  expression = P_Expression()
+  {
+    return new Action(expression);
+  }
 }
 
-	   
-  
 /* Expression
    | "(" Expression ")" 
    | <UNARYOP> Expression 
    | FunCall  Op_Expression
 */
-Expression P_Expression():
+Expression P_Expression() :
 {
-  Expression expression ;
-  Token token ;
-  FunCall funcall ;
+  Expression expression;
+  Token token;
+  FunCall funcall;
 }
-{ "("
-  expression = P_Expression()
+{
+  "(" 
+  expression = P_Expression() 
   ")"
-  	{ return expression ; } 	
-
-| token = <UNARY>
-  expression = P_Expression()  
-	{ return new UnaryOp(token.image,expression) ; }
-	
-| funcall = P_FunCall()
+  {
+    return expression;
+  }	
+| token = < UNARY > 
+  expression = P_Expression()
+  {
+    return new UnaryOp(token.image, expression);
+  }
+| funcall = P_FunCall() 
   expression = P_Op_Expression(funcall)
-  	{ return expression ; }
+  {
+    return expression;
+  }
 }
-
 
 /* Op_Expression
    | <BINOP> Expression
    | epsilon
 */
-Expression P_Op_Expression(Expression e1):
+Expression P_Op_Expression(Expression e1) :
 {
-  Token token ;
-  Expression e2 ;
+  Token token;
+  Expression e2;
 }
-{ token = <BINOP>
+{
+  token = < BINOP > 
   e2 = P_Expression()
-    { return new BinaryOp(e1,token.image,e2) ; }
-
+  {
+    return new BinaryOp(e1, token.image, e2);
+  }
 | /*epsilon*/
-  	{ return e1 ; }
+  {
+    return e1;
+  }
 }
-
 
 /* FunCall
  * | "Key(" KeyName ")"
  * | CONDITION Opt_Parameters
  * | ACTION    Opt_Parameters
  */
-FunCall P_FunCall():
-{ Token token ;
-  List<Parameter> parameters = new LinkedList<Parameter>() ;
-  Key key ;
+FunCall P_FunCall() :
+{
+  Token token;
+  List < Parameter > parameters = new LinkedList < Parameter > ();
+  Key key;
 }
 {
-  "Key("
-  key = P_Key_Name()	
+  "Key(" 
+  key = P_Key_Name() 	
   ")"
-   	{ parameters.add(key) ; return new FunCall("Key", parameters) ; }
-   	
-| token = <CONDITION>
-  parameters = P_Opt_Parameters( parameters )
-  	{ return new FunCall(token.image, parameters) ; }
-
-| token = <ACTION>
-  parameters = P_Opt_Parameters( parameters )
-  	{ return new FunCall(token.image, parameters) ; }
-
+  {
+    parameters.add(key);
+    return new FunCall("Key", parameters);
+  }
+| token = < CONDITION > 
+  parameters = P_Opt_Parameters(parameters)
+  {
+    return new FunCall(token.image, parameters);
+  }
+| token = < ACTION > 
+  parameters = P_Opt_Parameters(parameters)
+  {
+    return new FunCall(token.image, parameters);
+  }
 }
 
-     
 /* Opt_Parameters
  * | "(" Some_Parameters ")"
  * | epsilon
  */
-List<Parameter> P_Opt_Parameters(List<Parameter> input_list):
+List < Parameter > P_Opt_Parameters(List < Parameter > input_list) :
 {
-  List<Parameter> list ;
+  List < Parameter > list;
 }
 {
-  "("
-  list = P_Some_Parameters(input_list)
+  "(" 
+  list = P_Some_Parameters(input_list) 
   ")"
-  	{ return list ; }
-|  /*epsilon*/
-	{ return input_list ; }
+  {
+    return list;
+  }
+| /*epsilon*/
+  {
+    return input_list;
+  }
 }
-
 
 /* Some_Parameters
  * | Parameter  More_Parameters
  * | epsilon
  */
-List<Parameter> P_Some_Parameters(List<Parameter> input_list):
+List < Parameter > P_Some_Parameters(List < Parameter > input_list) :
 {
-  Parameter parameter ;
-  List<Parameter> list ;
+  Parameter parameter;
+  List < Parameter > list;
 }
 {
-  parameter = P_Parameter()
-  list = P_More_Parameters(input_list) 
-  	{ list.add(0,parameter) ; return list ; }
-
-|  /*epsilon*/
-	{ return input_list ; }
+  parameter = P_Parameter() 
+  list = P_More_Parameters(input_list)
+  {
+    list.add(0, parameter);
+    return list;
+  }
+| /*epsilon*/
+  {
+    return input_list;
+  }
 }
-
 
 /* More_Parameters
  * | ","  Parameter  More_Parameters 
  * | epsilon
  */
-List<Parameter> P_More_Parameters(List<Parameter> input_list):
+List < Parameter > P_More_Parameters(List < Parameter > input_list) :
 {
-  Parameter parameter ;
-  List<Parameter> list ;
+  Parameter parameter;
+  List < Parameter > list;
 }
-{ ","
-  parameter = P_Parameter()
-  list = P_More_Parameters(input_list) 
-  	{ list.add(0,parameter) ; return list ; }
-
-|  /*epsilon*/
-	{ return input_list ; }
+{
+  "," 
+  parameter = P_Parameter() 
+  list = P_More_Parameters(input_list)
+  {
+    list.add(0, parameter);
+    return list;
+  }
+| /*epsilon*/
+  {
+    return input_list;
+  }
 }
-
 
 /* Key
  * | DIGIT
  * | LETTER
  * | SPECIAL_KEY
  */
-Key P_Key_Name():
+Key P_Key_Name() :
 {
-  Token token ;
+  Token token;
 }
-{ token = <DIGIT>
-	{ return new Key(token.image) ; }
-
-| token = <LOWERCASE>
-	{ return new Key(token.image) ; }
-
-| token = <SPECIAL_KEY>
-	{ return new Key(token.image) ; }
+{
+  token = < DIGIT >
+  {
+    return new Key(token.image);
+  }
+| token = < LOWERCASE >
+  {
+    return new Key(token.image);
+  }
+| token = < SPECIAL_KEY >
+  {
+    return new Key(token.image);
+  }
 }
 
-     
 /* Parameters
  * | Direction
  * | Entity
  * |  "_"
  */
-Parameter P_Parameter():
+Parameter P_Parameter() :
 {
-  Token token ;
-  Parameter parameter ;
+  Token token;
+  Parameter parameter;
 }
-{ parameter = P_Direction()
-	{ return parameter ; }
-
+{
+  parameter = P_Direction()
+  {
+    return parameter;
+  }
 | parameter = P_Entity()
-	{ return parameter ; }
-
+  {
+    return parameter;
+  }
 | "_"
-	{ return new Underscore() ; }
-		
+  {
+    return new Underscore();
+  }
 }
-
-
-	
-	  
