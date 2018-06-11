@@ -7,6 +7,6 @@ public class Presence extends _Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		e.presence();
+		//e.presence();
 	}
 }

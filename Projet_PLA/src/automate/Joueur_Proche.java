@@ -11,6 +11,6 @@ public class Joueur_Proche extends _Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		e.joueur_proche();
-	}
+		
+			}
 }

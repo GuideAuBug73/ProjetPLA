@@ -14,7 +14,10 @@ public class _Cell extends _Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		switch (entity_cellule) {
+		switch (tab_parametre[1]) {
+		/*
+		 * case "OW": entity_cellule = "Obstacle"; break;
+		 */
 		case "T":
 			entity_cellule = "Personnage";
 			break;
@@ -27,25 +30,26 @@ public class _Cell extends _Condition {
 		case "P":
 			entity_cellule = "Item";
 			break;
-		default : break;	
+		default:
+			break;
 		}
-		switch (o) {
-		case Est:
+		switch (tab_parametre[2]) {
+		case "E":
 			if (e.x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)
 						+ 1];
 				if ((entity_cellule != "V") || (entity_cellule != "W")) {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
-				if (entity_cellule != "V") {
+				if (entity_cellule == "V") {
 					return (cell.libre);
 				}
-				if (entity_cellule != "W") {
-					return (!cell.libre);
-				}
+				/*
+				 * if (entity_cellule == "W") { return (!cell.libre); }
+				 */
 			}
 			return false;
-		case West:
+		case "O":
 			if (e.x / Options.TAILLE_CELLULE != 0) {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)
 						- 1];
@@ -55,12 +59,10 @@ public class _Cell extends _Condition {
 				if (entity_cellule != "V") {
 					return (cell.libre);
 				}
-				if (entity_cellule != "W") {
-					return (!cell.libre);
-				}
+
 			}
 			return false;
-		case Nord:
+		case "N":
 			if (e.y / Options.TAILLE_CELLULE != 0) {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) - 1][e.x
 						/ Options.TAILLE_CELLULE];
@@ -70,12 +72,10 @@ public class _Cell extends _Condition {
 				if (entity_cellule != "V") {
 					return (cell.libre);
 				}
-				if (entity_cellule != "W") {
-					return (!cell.libre);
-				}
+
 			}
 			return false;
-		case Sud:
+		case "S":
 			if (e.y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE
 					- 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) + 1][e.x
@@ -86,9 +86,7 @@ public class _Cell extends _Condition {
 				if (entity_cellule != "V") {
 					return (cell.libre);
 				}
-				if (entity_cellule != "W") {
-					return (!cell.libre);
-				}
+
 			}
 			return false;
 		default:

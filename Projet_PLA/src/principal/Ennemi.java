@@ -10,6 +10,7 @@ public class Ennemi extends Personnage {
 	int m_idx;
 	float m_scale;
 	BufferedImage[] m_sprites;
+	public Item m_item;
 
 	public Ennemi(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
@@ -17,6 +18,7 @@ public class Ennemi extends Personnage {
 		this.x = x;
 		this.y = y;
 		m_scale = scale;
+
 		splitSprite();
 	}
 

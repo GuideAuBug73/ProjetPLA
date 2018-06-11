@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import automate.Got_item;
+import automate.Joueur_in_range;
 import automate.Joueur_Proche;
 import automate.Presence;
 import automate._Automate;
@@ -198,7 +198,7 @@ public class Ast {
 				trans.act = new _Pick();
 				break;
 			case "GotStuff":
-				trans.condition = new Got_item();
+				trans.condition = new Joueur_in_range();
 				break;
 			case "GotPower":
 				
@@ -272,7 +272,7 @@ public class Ast {
 				trans.condition = new _Cell();
 				break;
 			case "Got_item":
-				trans.condition = new Got_item();
+				trans.condition = new Joueur_in_range();
 				break;
 			case "Joueur_proche":
 				trans.condition = new Joueur_Proche();

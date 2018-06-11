@@ -5,7 +5,7 @@ public abstract class Entity {
 	public BufferedImage img;
 	public Model m_model;
 	
-	protected int[] PosToCell(int x, int y) { 
+	public int[] PosToCell(int x, int y) { 
 	    int i[] = new int[2]; 
 	    i[0] = y/Options.TAILLE_CELLULE; 
 	    i[1] = x/Options.TAILLE_CELLULE; 
