@@ -6,17 +6,17 @@ import java.util.ListIterator;
 
 import automate.Got_item;
 import automate.Joueur_Proche;
-import automate.Presence;
+import automate._Action;
 import automate._Automate;
 import automate._Behaviour;
 import automate._Cell;
+import automate._Condition;
 import automate._Hit;
 import automate._Move;
 import automate._Pick;
 import automate._Pop;
 import automate._State;
 import automate._Transition;
-import automate._Turn;
 import automate._Wizz;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
@@ -51,6 +51,18 @@ public class Ast {
 	}
 
 	public static abstract class Expression extends Ast {
+
+		public abstract void make(_Transition trans);
+
+		public void make(_Action act) {
+			// TODO Auto-generated method stub
+
+		}
+
+		public void make(_Condition condition) {
+			// TODO Auto-generated method stub
+
+		}
 	}
 
 	public static class Terminal extends Ast {
@@ -77,6 +89,12 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	public static class Variable extends Expression {
@@ -90,6 +108,12 @@ public class Ast {
 
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
+		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
@@ -105,6 +129,12 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	public static class Entity extends Expression {
@@ -118,6 +148,20 @@ public class Ast {
 
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
+		}
+		
+		public void make(Action a) {
+			
+		}
+		
+		public void make(Condition c) {
+			
+		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
@@ -134,6 +178,12 @@ public class Ast {
 
 		public String tree_edges() {
 			return operator.as_tree_son_of(this) + operand.as_tree_son_of(this);
+		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
@@ -153,6 +203,12 @@ public class Ast {
 		public String tree_edges() {
 			return left_operand.as_tree_son_of(this) + operator.as_tree_son_of(this)
 					+ right_operand.as_tree_son_of(this);
+		}
+
+		@Override
+		public void make(_Transition trans) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
@@ -177,40 +233,66 @@ public class Ast {
 			}
 			return output;
 		}
-		public void make (_Transition trans) {
+
+		public void make(_Transition trans) {
+			ListIterator<Expression> Iter = this.parameters.listIterator();
 			switch (name.toString()) {
 			case "Cell":
 				trans.condition = new _Cell();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.condition);
+				}
 				break;
 			case "Move":
 				trans.act = new _Move();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "Hit":
 				trans.act = new _Hit();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "Wizz":
 				trans.act = new _Wizz();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "Pop":
 				trans.act = new _Pop();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "Pick":
 				trans.act = new _Pick();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "GotStuff":
 				trans.condition = new Got_item();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.condition);
+				}
 				break;
 			case "GotPower":
-				
+
 				break;
 			case "Closest":
 				trans.condition = new Joueur_Proche();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.condition);
+				}
 				break;
 			case "Key":
-				
+
 				break;
 			case "MyDir":
-				
+
 				break;
 			}
 		}
@@ -230,26 +312,7 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-			switch (expression.toString()) {
-			case "Move":
-				trans.act = new _Move();
-				break;
-			case "Pick":
-				trans.act = new _Pick();
-				break;
-			case "Hit":
-				trans.act = new _Hit();
-				break;
-			case "Wizz":
-				trans.act = new _Wizz();
-				break;
-			case "Pop":
-				trans.act = new _Pop();
-				break;
-			case "Turn":
-				trans.act = new _Turn();
-				break;
-			}
+			expression.make(trans);
 		}
 	}
 
@@ -267,21 +330,8 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-			switch (expression.toString()) {
-			case "Cell":
-				trans.condition = new _Cell();
-				break;
-			case "Got_item":
-				trans.condition = new Got_item();
-				break;
-			case "Joueur_proche":
-				trans.condition = new Joueur_Proche();
-				break;
-			case "Presence":
-				trans.condition = new Presence();
-				break;
-			}
-		} 
+			expression.make(trans);
+		}
 	}
 
 	public static class State extends Ast {
