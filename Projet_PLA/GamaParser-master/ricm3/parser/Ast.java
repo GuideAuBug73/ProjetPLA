@@ -177,6 +177,43 @@ public class Ast {
 			}
 			return output;
 		}
+		public void make (_Transition trans) {
+			switch (name.toString()) {
+			case "Cell":
+				trans.condition = new _Cell();
+				break;
+			case "Move":
+				trans.act = new _Move();
+				break;
+			case "Hit":
+				trans.act = new _Hit();
+				break;
+			case "Wizz":
+				trans.act = new _Wizz();
+				break;
+			case "Pop":
+				trans.act = new _Pop();
+				break;
+			case "Pick":
+				trans.act = new _Pick();
+				break;
+			case "GotStuff":
+				trans.condition = new Got_item();
+				break;
+			case "GotPower":
+				
+				break;
+			case "Closest":
+				trans.condition = new Joueur_Proche();
+				break;
+			case "Key":
+				
+				break;
+			case "MyDir":
+				
+				break;
+			}
+		}
 	}
 
 	public static class Action extends Ast {
