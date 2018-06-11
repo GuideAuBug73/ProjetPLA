@@ -33,7 +33,7 @@ public class _Cell extends _Condition {
 		default:
 			break;
 		}
-		switch (tab_parametre[2]) {
+		switch (tab_parametre[0]) {
 		case "E":
 			if (e.x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)

@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import automate.Joueur_in_range;
 import automate.Joueur_Proche;
 import automate._Action;
 import automate._Automate;
@@ -430,10 +429,6 @@ public class Ast {
 				}
 				break;
 			case "GotStuff":
-				trans.condition = new Got_item();
-				while (Iter.hasNext()) {
-					Iter.next().make(trans.condition);
-				}
 				break;
 			case "GotPower":
 
