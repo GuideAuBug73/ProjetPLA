@@ -2,6 +2,7 @@ package principal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Options {
     public static final boolean USE_DOUBLE_BUFFERING = true;
@@ -33,4 +34,7 @@ public class Options {
 
     public static int point_de_vie=3;
 	public static Item itemlance=null;
+
+	public static int taille_bp_h;
+	public static int taille_bp_w;
 }

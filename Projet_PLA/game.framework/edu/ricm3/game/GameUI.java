@@ -18,13 +18,16 @@
 package edu.ricm3.game;
 
 
+import principal.Options;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import principal.Options;
-
-import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GameUI {
 
@@ -59,7 +62,6 @@ public class GameUI {
     Timer m_timer;
     GameModel m_model;
     GameController m_controller;
-    JLabel m_text;
     JLabel m_text2;
     int m_fps;
     String m_msg;
@@ -68,6 +70,9 @@ public class GameUI {
     long m_lastRepaint;
     long m_lastTick;
     int m_nTicks;
+    int frame = 0; //0 frame menu 1 frame jeu 2 frame pause
+    Image img;
+    Image img2;
     int m_h;
     int m_w;
     int m_panelD;
@@ -126,9 +131,57 @@ public class GameUI {
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);
-        m_frame.doLayout();
+        //m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        GraphicsDevice gra = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gra.setFullScreenWindow(m_frame);
+        m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        File file;
+        JPanel panel=new JPanel(new BorderLayout());
+        panel.setBounds(0,0,d.width,d.height);
+        panel.add(m_view,BorderLayout.CENTER);
+        m_frame.add(panel);
+        Graphics g = m_view.getGraphics();
+        file= new File("src/sprites/menu.png");
+        try {
+            img = ImageIO.read(file);
+            g.drawImage(img, 0, 0, Options.d.width, Options.d.height, null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        file= new File("src/sprites/bp.png");
+        try {
+            img2 = ImageIO.read(file);
+            Options.taille_bp_h=((BufferedImage) img2).getHeight();
+            Options.taille_bp_w=((BufferedImage) img2).getWidth();
+            g.drawImage(img2, (d.width/2)-(((BufferedImage) img2).getWidth()/2), (d.height/2)-(((BufferedImage) img2).getHeight()/2), ((BufferedImage) img2).getWidth(), ((BufferedImage) img2).getHeight(), null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        m_frame.setLocationRelativeTo(null);
+        m_frame.setVisible(true);
+
+        GameController ctr = getController();
+        m_view.addKeyListener(ctr);
+        m_view.addMouseListener(ctr);
+        m_view.addMouseMotionListener(ctr);
+        m_view.setFocusable(true);
+        m_view.requestFocusInWindow();
+        m_controller.notifyVisible();
+    }
+
+    public void createWindowGame(Dimension d, GameModel m) {
+        m_frame.dispose();
+        frame=1;
+        m_frame = new JFrame();
+        m_frame.setTitle("Game");
+        m_frame.setSize(d);
+        //m_frame.doLayout();
         m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        GraphicsDevice gra= GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        GraphicsDevice gra = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         gra.setFullScreenWindow(m_frame);
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,24 +198,20 @@ public class GameUI {
         panelinfo.setBackground(Color.BLACK);
         JPanel panelgrid = new JPanel(new BorderLayout());
         panelgrid.setBounds(Options.nb_px_x_min, Options.nb_px_y_min, Options.nb_px_x_max, Options.nb_px_y_max);
-        m_text = new JLabel();
-        m_text.setText("Starting up ...");
-        m_text2=new JLabel();
+        m_text2 = new JLabel();
         m_text2.setText("Starting up ...");
-        Font font = new Font("Arial",Font.BOLD,20);
+        Font font = new Font("Arial", Font.BOLD, 20);
         m_text2.setFont(font);
         m_text2.setForeground(Color.white);
-        //panelplayer.add(m_text,BorderLayout.CENTER);
         panelinfo.add(m_text2);
-        JLayeredPane pane=new JLayeredPane();
+        JLayeredPane pane = new JLayeredPane();
         pane.add(panelinfo);
         pane.add(panelinventaire);
         pane.add(panelplayer);
         panelgrid.add(m_view, BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
-        m_model.m_game.
-        m_frame.addWindowListener(new WindowListener(m_model));
+        m_model.m_game.m_frame.addWindowListener(new WindowListener(m_model));
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
         GameController ctr = getController();
@@ -173,7 +222,7 @@ public class GameUI {
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
 
-        Options.panelinfo=panelinfo;
+        Options.panelinfo = panelinfo;
     }
 
     /*
@@ -205,28 +254,15 @@ public class GameUI {
         m_nTicks++;
         m_model.step(now);
         m_controller.step(now);
-        if (Options.itemlance != null) {
-            Options.itemlance.lanceItem();
-        }
-        elapsed = now - m_lastRepaint;
-        if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
-            double tick = (double) m_elapsed / (double) m_nTicks;
-            long tmp = (long) (tick * 10.0);
-            tick = tmp / 10.0;
-            m_elapsed = 0;
-            m_nTicks = 0;
-            String txt = "Tick=" + tick + "ms";
-            while (txt.length() < 15)
-                txt += " ";
-            txt = txt + m_fps + " fps   ";
-            while (txt.length() < 25)
-                txt += " ";
-            if (m_msg != null)
-                txt += m_msg;
-            //      System.out.println(txt);
-            m_text.setText(txt);
-            m_text.repaint();
-            m_text2.setText("Level : "+Options.level+"     Vague : "+Options.vague);
+        if (frame == 0) {
+            Graphics g = m_view.getGraphics();
+            g.drawImage(img, 0, 0, Options.d.width+10, Options.d.height+30, null);
+            g.drawImage(img2, (Options.d.width/2)-(((BufferedImage) img2).getWidth()/2), (Options.d.height/2)-(((BufferedImage) img2).getHeight()/2), ((BufferedImage) img2).getWidth(), ((BufferedImage) img2).getHeight(), null);
+        } else if (frame == 1) {
+            if (Options.itemlance != null) {
+                Options.itemlance.lanceItem();
+            }
+            m_text2.setText("Level : " + Options.level + "     Vague : " + Options.vague);
             m_text2.repaint();
             m_view.paint();
             m_lastRepaint = now;

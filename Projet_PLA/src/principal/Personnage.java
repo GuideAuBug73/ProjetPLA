@@ -57,6 +57,7 @@ public class Personnage extends Entity {
                 if (cell.libre) {
                     if (cell.entité instanceof Ennemi) {
                         m_mort = true;
+                        p_vie--;
                     }
                     ramasser(cell);
                     cell.entité = this;
@@ -77,6 +78,7 @@ public class Personnage extends Entity {
                 if (cell.libre) {
                     if (cell.entité instanceof Ennemi) {
                         m_mort = true;
+                        p_vie--;
                     }
                     ramasser(cell);
                     cell.entité = this;
@@ -97,6 +99,7 @@ public class Personnage extends Entity {
                 if (cell.libre) {
                     if (cell.entité instanceof Ennemi) {
                         m_mort = true;
+                        p_vie--;
                     }
                     ramasser(cell);
                     cell.entité = this;
@@ -117,6 +120,7 @@ public class Personnage extends Entity {
                 if (cell.libre) {
                     if (cell.entité instanceof Ennemi) {
                         m_mort = true;
+                        p_vie--;
                     }
                     ramasser(cell);
                     cell.entité = this;

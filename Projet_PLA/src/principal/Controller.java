@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 
 
 import basic.Cellule;
+import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameController;
 
 
@@ -111,7 +112,9 @@ public class Controller extends GameController implements ActionListener {
     public void mouseClicked(MouseEvent e) {
         if (Options.ECHO_MOUSE)
             System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-
+        if(e.getX()>=(Options.d.width/2 - Options.taille_bp_w/2) && e.getX()<=(Options.d.width/2 + Options.taille_bp_w/2) && e.getY()>=(Options.d.height/2 - Options.taille_bp_h/2) && e.getY()<=(Options.d.height/2 + Options.taille_bp_h/2)){
+            m_game.createWindowGame(Options.d,m_model);
+        }
 
     }
 
