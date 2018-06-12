@@ -94,11 +94,9 @@ public class Item extends IA {
             Ennemi ennemi = null;
             Personnage personnage = null;
             if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
-                System.out.println("CACA");
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
             } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
-                System.out.println("KIKI");
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
@@ -220,7 +218,6 @@ public class Item extends IA {
             if(ennemi.p_vie<=0){
                 ennemi.m_mort=true;
                 ennemi.m_cell.entité=null;
-                System.out.println("MORMOROMOR");
             }
         }else{
             personnage=(Personnage)entity;
