@@ -63,6 +63,9 @@ public class View extends GameView {
         	k.paint(g);
         }
         h.paint(g);
+        boss b = m_model.m_boss;
+        b.animation();
+        b.paint(g);
         Spell ss = m_model.m_spell;
         ss.paint(g);
     }
