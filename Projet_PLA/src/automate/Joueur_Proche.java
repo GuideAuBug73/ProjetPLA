@@ -3,14 +3,13 @@ package automate;
 import principal.Entity;
 
 public class Joueur_Proche extends _Condition {
-	int distance;
 
-	public Joueur_Proche(int d) {
-		this.distance = d;
+	public Joueur_Proche() {
 	}
 
 	@Override
 	public boolean eval(Entity e) {
+		int distance = Integer.parseInt(tab_parametre[0]);
 		int tab_a[] = e.PosToCell(e.x, e.y);
 		int cell_a_x = tab_a[0];
 		int cell_a_y = tab_a[1];

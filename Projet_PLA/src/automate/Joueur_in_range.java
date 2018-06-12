@@ -1,6 +1,5 @@
 package automate;
 
-import basic.Cellule;
 import principal.Ennemi;
 import principal.Entity;
 import principal.Item;
