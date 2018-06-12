@@ -72,22 +72,49 @@ public class Controller extends GameController implements ActionListener {
             E.haut();
         } else if (e.getKeyChar() == 'j') {
             E.gauche();
-        } else if (e.getKeyChar() == 'm') {
-            if (Options.itemlance == null) {
-                item = c.inventaire.defiler();
-                if (item != null) {
-                    item.orientation = c.orientation;
-                    item.x = c.x;
-                    item.y = c.y;
-                    Options.itemlance = item;
+        } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
+            try {
+                if (Options.itemlance == null) {
+                    item = c.inventaire.defiler();
+                    if (item != null) {
+                        int itemY = c.y;
+                        int itemX = c.x;
+                        item.orientation = c.orientation;
+                        if (c.orientation == 0) {
+                            itemY = itemY + 60;
+                        } else if (c.orientation == 1) {
+                            itemX = itemX + 60;
+                        } else if (c.orientation == 2) {
+                            itemX = itemX - 60;
+                        } else if (c.orientation == 3) {
+                            itemY = itemY - 60;
+                        }
+                        item.x = itemX;
+                        item.y = itemY;
+                        item.hit = true;
+                        Options.itemlance = item;
+                    }
                 }
+            } catch (NullPointerException er) {
             }
         } else if (e.getKeyChar() == 'p') {
             if (Options.itemlance == null) {
+                int itemY = c.y;
+                int itemX = c.x;
                 Item projectile = m_model.m_perso.projectile;
                 projectile.orientation = c.orientation;
-                projectile.x = c.x;
-                projectile.y = c.y;
+                if (c.orientation == 0) {
+                    itemY = itemY + 60;
+                } else if (c.orientation == 1) {
+                    itemX = itemX + 60;
+                } else if (c.orientation == 2) {
+                    itemX = itemX - 60;
+                } else if (c.orientation == 3) {
+                    itemY = itemY - 60;
+                }
+                projectile.x = itemX;
+                projectile.y = itemY;
+                projectile.hit = true;
                 Options.itemlance = projectile;
             }
         }
