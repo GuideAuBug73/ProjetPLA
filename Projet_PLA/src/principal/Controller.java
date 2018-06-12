@@ -130,8 +130,6 @@ public class Controller extends GameController implements ActionListener {
 	}
 
 
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (Options.ECHO_KEYBOARD)
