@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import basic.Cellule;
+import principal.Options;
 
 /**
  * Creates nodes and neighbours from a 2d grid. Each point in the map has an
@@ -18,8 +19,8 @@ import basic.Cellule;
  * 
  */
 public class Grid2d {
-	private final Cellule[][] map;
-
+	//private final Cellule[][] map ;
+	private Cellule[][] map = new Cellule[Options.nb_cell_h][Options.nb_cell_w];
 	/**
 	 * A node in a 2d map. This is simply the coordinates of the point.
 	 * 
@@ -41,7 +42,7 @@ public class Grid2d {
 		}
 
 		public double getTraversalCost(MapNode neighbour) {
-			return 1 + map[neighbour.y][neighbour.x];
+			return 1 + map[neighbour.y][neighbour.x].cout;
 		}
 
 		public Set<MapNode> getNeighbours() {
@@ -57,7 +58,7 @@ public class Grid2d {
 						continue;
 					}
 
-					if (map[j][i] < 0) {
+					if (map[j][i].cout < 0) {
 						continue;
 					} 
 
