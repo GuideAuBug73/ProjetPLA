@@ -27,18 +27,20 @@ import edu.ricm3.game.GameController;
 
 public class Controller extends GameController implements ActionListener {
 
-    Model m_model;
-    Personnage c;
-    Spell s;
-    Ennemi E;
+	Model m_model;
+	Personnage c;
+	Spell s;
+	Ennemi E;
+	Boss b;
     Item item;
 
-    public Controller(Model m) {
-        m_model = m;
-        c = m.m_perso;
-        E = m.m_ennemi;
-        s = m.m_spell;
-    }
+	public Controller(Model m) {
+		m_model = m;
+		c = m.m_perso;
+		E = m.m_ennemi;
+		s = m.m_spell;
+		b=m.m_boss;
+	}
 
     /**
      * Simulation step. Warning: the model has already executed its step.
@@ -115,9 +117,18 @@ public class Controller extends GameController implements ActionListener {
                 Options.itemlance = projectile;
             }
         }
+		else if (e.getKeyChar() == '6' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+			b.droite();
+		} else if (e.getKeyChar() == '2' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+			b.bas();
+		} else if (e.getKeyChar() == '8' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+			b.haut();
+		} else if (e.getKeyChar() == '4' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+			b.gauche();
+		} 
+		
+	}
 
-
-    }
 
     @Override
     public void keyPressed(KeyEvent e) {
