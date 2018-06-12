@@ -1,5 +1,6 @@
 package automate;
 import principal.Entity;
+import principal.Spawn;
 
 public class Presence extends _Condition {
 	public Presence() {
@@ -7,6 +8,8 @@ public class Presence extends _Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		return true;
+		assert (e instanceof Spawn);
+		Spawn m_spawn = (Spawn) e;
+		return m_spawn.entit != null ;
 	}
 }

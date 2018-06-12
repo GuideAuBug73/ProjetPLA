@@ -5,13 +5,14 @@ import java.awt.image.BufferedImage;
 import basic.Cellule;
 
 public class Spawn extends Entity {
-	boolean presence = false;
+	public Entity entit;
 
-	public Spawn(Cellule c, BufferedImage image, Model model) {
+	public Spawn(Cellule c, BufferedImage image, Model model,Entity m_entit) {
 		img = image;
 		m_model = model;
 		x = c.x;
 		y = c.y;
+		entit = m_entit;
 	}
 
 	public Spawn(int x, int y, BufferedImage image, Model model) {
@@ -21,11 +22,6 @@ public class Spawn extends Entity {
 		this.y = y;
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void hit() {
@@ -40,7 +36,7 @@ public class Spawn extends Entity {
 	}
 
 	@Override
-	public void turn() {
+	public void turn(String param) {
 		// TODO Auto-generated method stub
 		
 	}

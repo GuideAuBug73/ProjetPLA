@@ -10,7 +10,7 @@ public class _Turn extends _Action {
 
 	@Override
 	public void execute(Entity e) {
-		e.turn();
+		e.turn(tab_parametre[0]);
 		
 	}
 

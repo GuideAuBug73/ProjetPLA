@@ -115,46 +115,86 @@ public class Ennemi extends Personnage {
 	}
 
 	@Override
-	public void move() {
-		if (!this.gauche()) {
-			if (!this.haut()) {
-				if (!this.droite()) {
-					if (!this.bas())
-						;
-				}
-			}
-		}
-	}
-
-	@Override
 	public void hit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pick() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void turn() {
-		// TODO Auto-generated method stub
-		
+	public void turn(String param) {
+		switch (this.orientation) {
+		case 0:
+			switch (param) {
+			case "L":
+				orientation = 2;
+				break;
+			case "B":
+				orientation = 3;
+				break;
+			case "R":
+			default:
+				orientation = 1;
+				break;
+			}
+		case 1:
+			switch (param) {
+			case "L":
+				orientation = 0;
+				break;
+			case "B":
+				orientation = 2;
+				break;
+			case "R":
+			default:
+				orientation = 3;
+				break;
+			}
+		case 2:
+			switch (param) {
+			case "L":
+				orientation = 3;
+				break;
+			case "B":
+				orientation = 1;
+				break;
+			case "R":
+			default:
+				orientation = 0;
+				break;
+			}
+		case 3:
+			switch (param) {
+			case "L":
+				orientation = 1;
+				break;
+			case "B":
+				orientation = 0;
+				break;
+			case "R":
+			default:
+				orientation = 2;
+				break;
+			}
+		}
+
 	}
 
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
