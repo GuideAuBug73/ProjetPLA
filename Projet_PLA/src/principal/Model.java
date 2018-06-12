@@ -11,7 +11,7 @@ import java.util.Random;
 
 
 public class Model extends GameModel {
-    Personnage m_perso;
+    public Personnage m_perso;
     Ennemi m_ennemi ;
     Ennemi[] m_ennemis;
     Spawn[] m_spawns;
@@ -29,6 +29,7 @@ public class Model extends GameModel {
     Item[] m_item = new Item[10];
     Random rand = new Random();
     Map m_carte;
+    BufferedImage m_ennemiSpriteMort;
 
     public Model() {
         loadSprites();
@@ -106,6 +107,15 @@ public class Model extends GameModel {
 
         try {
             m_ennemiSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("src/sprites/mortEnnemi.png");
+
+        try {
+            m_ennemiSpriteMort = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -224,7 +234,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             int type=(int)(Math.random()*7);
             if(m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type],this);
+                m_item[i] = new Item(3, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[3],this);
                 m_carte.cellules[y][x].entité=m_item[i];
                 i++;
             }
@@ -264,10 +274,11 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
                 System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite, x*Options.TAILLE_CELLULE+4, y*Options.TAILLE_CELLULE+13, 1.0F);
+                m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, x*Options.TAILLE_CELLULE+4, y*Options.TAILLE_CELLULE+13, 1.0F);
                 m_ennemis[i] = m_ennemi;
                 i++;
             }
         }
     }
+
 }

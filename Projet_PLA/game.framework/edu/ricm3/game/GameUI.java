@@ -17,13 +17,13 @@
  */
 package edu.ricm3.game;
 
-import principal.GameMain;
-import principal.Map;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import principal.Options;
+
 import javax.swing.*;
 
 public class GameUI {
@@ -54,13 +54,13 @@ public class GameUI {
 //     */
 //  }
 
-
     JFrame m_frame;
     GameView m_view;
     Timer m_timer;
     GameModel m_model;
     GameController m_controller;
     JLabel m_text;
+    JLabel m_text2;
     int m_fps;
     String m_msg;
     long m_start;
@@ -86,7 +86,7 @@ public class GameUI {
 
         // create the main window and the periodic timer
         // to drive the overall clock of the simulation.
-        createWindow(d,m);
+        createWindow(d, m);
         createTimer();
     }
 
@@ -134,32 +134,34 @@ public class GameUI {
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        JPanel panelinventaire=new JPanel();
-        panelinventaire.setBounds(Options.nb_px_x_max,0,d.width,d.height);
+        JPanel panelinventaire = new JPanel();
+        panelinventaire.setBounds(Options.nb_px_x_max, 0, d.width, d.height);
         panelinventaire.setBackground(Color.BLACK);
         JPanel panelplayer = new JPanel(new BorderLayout());
-        panelplayer.setBounds(0,0,d.width,Options.nb_px_y_min);
+        panelplayer.setBounds(0, 0, d.width, Options.nb_px_y_min);
         panelplayer.setBackground(Color.BLACK);
-        JPanel panelinfo=new JPanel();
-        panelinfo.setBounds(0,Options.nb_px_y_max,d.width,d.height);
+        JPanel panelinfo = new JPanel();
+        panelinfo.setBounds(0, Options.nb_px_y_max, d.width, d.height);
         panelinfo.setBackground(Color.BLACK);
-        JPanel panelgrid=new JPanel(new BorderLayout());
-        panelgrid.setBounds(Options.nb_px_x_min,Options.nb_px_y_min,Options.nb_px_x_max,Options.nb_px_y_max);
+        JPanel panelgrid = new JPanel(new BorderLayout());
+        panelgrid.setBounds(Options.nb_px_x_min, Options.nb_px_y_min, Options.nb_px_x_max, Options.nb_px_y_max);
         m_text = new JLabel();
         m_text.setText("Starting up ...");
-        panelplayer.add(m_text,BorderLayout.CENTER);
+        m_text2=new JLabel();
+        m_text2.setText("Starting up ...");
+        Font font = new Font("Arial",Font.BOLD,20);
+        m_text2.setFont(font);
+        m_text2.setForeground(Color.white);
+        //panelplayer.add(m_text,BorderLayout.CENTER);
+        panelinfo.add(m_text2);
         JLayeredPane pane=new JLayeredPane();
         pane.add(panelinfo);
         pane.add(panelinventaire);
         pane.add(panelplayer);
-        panelgrid.add(m_view,BorderLayout.CENTER);
+        panelgrid.add(m_view, BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
-        System.out.println(Options.nb_px_x_min);
-        System.out.println(Options.nb_px_x_max);
-        System.out.println(Options.nb_px_y_min);
-        System.out.println(Options.nb_px_y_max);
-
+        m_model.m_game.
         m_frame.addWindowListener(new WindowListener(m_model));
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
@@ -170,6 +172,8 @@ public class GameUI {
         m_view.setFocusable(true);
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
+
+        Options.panelinfo=panelinfo;
     }
 
     /*
@@ -201,7 +205,9 @@ public class GameUI {
         m_nTicks++;
         m_model.step(now);
         m_controller.step(now);
-
+        if (Options.itemlance != null) {
+            Options.itemlance.lanceItem();
+        }
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
             double tick = (double) m_elapsed / (double) m_nTicks;
@@ -220,6 +226,8 @@ public class GameUI {
             //      System.out.println(txt);
             m_text.setText(txt);
             m_text.repaint();
+            m_text2.setText("Level : "+Options.level+"     Vague : "+Options.vague);
+            m_text2.repaint();
             m_view.paint();
             m_lastRepaint = now;
         }
@@ -229,4 +237,6 @@ public class GameUI {
         m_fps = fps;
         m_msg = msg;
     }
+
+
 }
