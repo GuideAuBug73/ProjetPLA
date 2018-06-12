@@ -10,7 +10,6 @@ import basic.Orientation;
 public class Item extends IA {
     public int type;
     public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
-    public boolean casted = false;
     public int orientation;
     public int limit;
     public int compteurTickItem = 500;
@@ -35,7 +34,6 @@ public class Item extends IA {
     }
 
     public void setcast(int x, int y, int orientation) {
-        casted = true;
         possession = 3;
         this.orientation = orientation;
         this.x = x;
@@ -69,7 +67,6 @@ public class Item extends IA {
                 Options.itemlance.y = -100;
                 Options.itemlance = null;
                 m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
-
             }
         }
     }
@@ -79,6 +76,8 @@ public class Item extends IA {
         int h = this.y / 60;
         try {
             if (m_model.m_carte.cellules[h][w].libre == false) {
+                m_model.m_carte.cellules[h][w].libre = true;
+                degatZone(h, w);
                 this.limit = 0;
             }
             if (m_model.m_carte.cellules[h][w].entité instanceof Entity) {
@@ -94,60 +93,73 @@ public class Item extends IA {
             Ennemi ennemi = null;
             Personnage personnage = null;
             if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
-                System.out.println("CACA");
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
             } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
-                System.out.println("KIKI");
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
-                    ennemi.p_vie = ennemi.p_vie - 2;
-                    System.out.println("Vie:"+ennemi.p_vie);
+                    if(personnage.invincible!=true) {
+                        personnage.p_vie = personnage.p_vie - 2;
+                    }
                     checkVie(ennemi);
                     hit = false;
-                    this.limit=0;
-                    System.out.println("Degat");
+                    this.limit = 0;
                 } else if (this.type == 2 || this.type == 3) {
-                    ennemi.p_vie = ennemi.p_vie - 2;
+                    if(personnage.invincible!=true) {
+                        personnage.p_vie = personnage.p_vie - 2;
+                    }
                     checkVie(ennemi);
                     degatZone(h, w);
                     hit = false;
-                    this.limit=0;
-                    System.out.println("Degat");
+                    this.limit = 0;
                 } else if (this.type == 4 || this.type == 5) {
-                    ennemi.p_vie = ennemi.p_vie - 2;
+                    if(personnage.invincible!=true) {
+                        personnage.p_vie = personnage.p_vie - 2;
+                    }
                     checkVie(ennemi);
                     hit = false;
-                    System.out.println("Degat");
                 } else if (this.type == 13) {
-                    ennemi.p_vie = ennemi.p_vie - 1;
+                    if(personnage.invincible!=true) {
+                        personnage.p_vie = personnage.p_vie - 1;
+                    }
                     checkVie(ennemi);
                     hit = false;
-                    this.limit=0;
-                    System.out.println("Degat");
+                    this.limit = 0;
                 }
             }
             if (personnage != null) {
                 if (this.type == 0 || this.type == 1) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                    if (personnage.invincible != true) {
+                        personnage.p_vie = personnage.p_vie - 1;
+                    }
+                    personnage.m_mort = true;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     hit = false;
                 } else if (this.type == 2 || this.type == 3) {
-                    ennemi.p_vie = ennemi.p_vie - 2;
+                    if (personnage.invincible != true) {
+                        personnage.p_vie = personnage.p_vie - 1;
+                    }
+                    personnage.m_mort = true;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     degatZone(h, w);
                     hit = false;
                 } else if (this.type == 4 || this.type == 5) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                    if (personnage.invincible != true) {
+                        personnage.p_vie = personnage.p_vie - 1;
+                    }
+                    personnage.m_mort = true;
                     checkVie(personnage);
                     hit = false;
                 } else if (this.type == 13) {
-                    personnage.p_vie = personnage.p_vie - 1;
+                    if (personnage.invincible != true) {
+                        personnage.p_vie = personnage.p_vie - 1;
+                    }
+                    personnage.m_mort = true;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     hit = false;
                 }
             }
@@ -158,53 +170,98 @@ public class Item extends IA {
         Ennemi ennemi = null;
         Personnage personnage = null;
         try {
+            if (m_model.m_carte.cellules[h + 1][w].libre == false) {
+                m_model.m_carte.cellules[h + 1][w].libre = true;
+            }
             if (m_model.m_carte.cellules[h + 1][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h + 1][w].entité;
-                ennemi.p_vie = ennemi.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    System.out.println("Zone");
+                }
                 checkVie(ennemi);
-                System.out.println("Zone");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+        }
+        try {
+            if (m_model.m_carte.cellules[h - 1][w].libre == false) {
+                m_model.m_carte.cellules[h - 1][w].libre = true;
             }
             if (m_model.m_carte.cellules[h - 1][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h - 1][w].entité;
-                ennemi.p_vie = ennemi.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    System.out.println("Zone");
+                }
                 checkVie(ennemi);
-                System.out.println("Zone");
             }
-
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
+            if (m_model.m_carte.cellules[h][w + 1].libre == false) {
+                m_model.m_carte.cellules[h][w + 1].libre = true;
+            }
             if (m_model.m_carte.cellules[h][w + 1].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w + 1].entité;
-                ennemi.p_vie = ennemi.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    System.out.println("Zone");
+                }
                 checkVie(ennemi);
-                System.out.println("Zone");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
+            if (m_model.m_carte.cellules[h][w - 1].libre == false) {
+                m_model.m_carte.cellules[h][w - 1].libre = true;
             }
             if (m_model.m_carte.cellules[h][w - 1].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w - 1].entité;
-                ennemi.p_vie = ennemi.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    System.out.println("Zone");
+                }
                 checkVie(ennemi);
-                System.out.println("Zone");
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
             if (m_model.m_carte.cellules[h + 1][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h + 1][w].entité;
-                personnage.p_vie = personnage.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                }
                 checkVie(personnage);
             }
-
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
             if (m_model.m_carte.cellules[h - 1][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h - 1][w].entité;
-                personnage.p_vie = personnage.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                }
                 checkVie(personnage);
             }
-
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
             if (m_model.m_carte.cellules[h][w + 1].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w + 1].entité;
-                personnage.p_vie = personnage.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                }
                 checkVie(personnage);
-
             }
-
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        try {
             if (m_model.m_carte.cellules[h][w - 1].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w - 1].entité;
-                personnage.p_vie = personnage.p_vie - 2;
+                if(personnage.invincible!=true) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                }
                 checkVie(personnage);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -212,20 +269,20 @@ public class Item extends IA {
         }
     }
 
-    public void checkVie(Entity entity){
-        Ennemi ennemi=null;
-        Personnage personnage=null;
-        if(entity instanceof Ennemi){
-            ennemi=(Ennemi)entity;
-            if(ennemi.p_vie<=0){
-                ennemi.m_mort=true;
-                ennemi.m_cell.entité=null;
+    public void checkVie(Entity entity) {
+        Ennemi ennemi = null;
+        Personnage personnage = null;
+        if (entity instanceof Ennemi) {
+            ennemi = (Ennemi) entity;
+            if (ennemi.p_vie <= 0) {
+                ennemi.m_mort = true;
+                ennemi.m_cell.entité = null;
                 System.out.println("MORMOROMOR");
             }
-        }else{
-            personnage=(Personnage)entity;
-            if(personnage.p_vie<=0){
-                personnage.m_mort=true;
+        } else {
+            personnage = (Personnage) entity;
+            if (personnage.p_vie <= 0) {
+                personnage.m_mort = true;
             }
         }
     }

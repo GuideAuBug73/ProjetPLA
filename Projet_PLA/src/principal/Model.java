@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Model extends GameModel {
     public Personnage m_perso;
-    Ennemi m_ennemi ;
+    Ennemi m_ennemi;
     Ennemi[] m_ennemis;
     Spawn[] m_spawns;
     BufferedImage m_ennemiSprite;
@@ -25,16 +25,23 @@ public class Model extends GameModel {
     BufferedImage m_spawnSprite;
     Spell m_spell;
     BufferedImage m_spellSprite;
-    BufferedImage[] m_itemSprite=new BufferedImage[12];
-    Item[] m_item = new Item[10];
+    BufferedImage[] m_itemSprite = new BufferedImage[12];
+    Item[]  m_item = new Item[10];
     Random rand = new Random();
     Map m_carte;
     BufferedImage m_ennemiSpriteMort;
+    BufferedImage m_lifePotionSprite;
+    BufferedImage m_speedPotionSprite;
+    BufferedImage m_invinciblePotionSprite;
+    Bonus[] m_bonus = new Bonus[3];
+    BufferedImage[] m_bonusSprite = new BufferedImage[3];
+
 
     public Model() {
         loadSprites();
         createMap();
         createItem();
+        createBonus();
         createPerso();
         createSpawn();
         createEnnemi();
@@ -59,7 +66,7 @@ public class Model extends GameModel {
 
 
     private void loadSprites() {
-    	
+
         File imageFile = new File("src/sprites/hero.png");
         try {
             m_persoSprite = ImageIO.read(imageFile);
@@ -67,7 +74,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        
+
         imageFile = new File("src/sprites/mort.png");
 
         try {
@@ -76,7 +83,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        
+
         imageFile = new File("src/sprites/explosion01_set_64.png");
         try {
             m_spellSprite = ImageIO.read(imageFile);
@@ -100,7 +107,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        
+
         //  Ennemis <----------------------------------------------------->
 
         imageFile = new File("src/sprites/ennemi.png");
@@ -169,42 +176,11 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        int test=(int)(Math.random()*5);
-        m_itemSprite[6] =m_itemSprite[test];
-        test=(int)(Math.random()*5);
-        m_itemSprite[7] =m_itemSprite[test];
+        int test = (int) (Math.random() * 5);
+        m_itemSprite[6] = m_itemSprite[test];
+        test = (int) (Math.random() * 5);
+        m_itemSprite[7] = m_itemSprite[test];
 
-        imageFile = new File("src/sprites/vie.png");
-        try {
-            m_itemSprite[8] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-
-        imageFile = new File("src/sprites/vitesse.png");
-        try {
-            m_itemSprite[9] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-
-        imageFile = new File("src/sprites/vitesse.png");
-        try {
-            m_itemSprite[10] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-
-        imageFile = new File("src/sprites/invincible.png");
-        try {
-            m_itemSprite[11] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
 
         imageFile = new File("src/sprites/inv.png");
         try {
@@ -213,10 +189,34 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        
+
         imageFile = new File("src/sprites/spawn.png");
         try {
             m_spawnSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("src/sprites/life_potion.png");
+        try {
+            m_bonusSprite[0] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("src/sprites/mana_potion.png");
+        try {
+            m_bonusSprite[1] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("src/sprites/poison_potion.png");
+        try {
+            m_bonusSprite[2] = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -232,49 +232,65 @@ public class Model extends GameModel {
         for (int i = 0; i < 2; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
-            int type=(int)(Math.random()*7);
-            if(m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_item[i] = new Item(3, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[3],this);
-                m_carte.cellules[y][x].entité=m_item[i];
+            int type = (int) (Math.random() * 7);
+            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
+                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type], this);
+                m_carte.cellules[y][x].entité = m_item[i];
                 i++;
             }
         }
     }
+
+    public void createBonus() {
+        for (int i = 0; i < 2; ) {
+            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+            int type = (int) (Math.random() * 2);
+            System.out.println("x:" + x+ "y:"+y);
+            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
+                m_bonus[i] = new Bonus(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_bonusSprite[type], this);
+                m_carte.cellules[y][x].entité = m_bonus[i];
+                i++;
+            }
+        }
+    }
+
+
     public void createPerso() {
         for (int i = 0; i < 1; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
-            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_perso = new Personnage(this, m_persoSprite, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
-                m_carte.cellules[y][x].entité=m_perso;
+            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
+                m_perso = new Personnage(this, m_persoSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 1.3F);
+                m_carte.cellules[y][x].entité = m_perso;
                 i++;
             }
         }
     }
-    
+
     public void createSpawn() {
-    	m_spawns = new Spawn[4];
-    	int i = 0;
+        m_spawns = new Spawn[4];
+        int i = 0;
         while (i < 4) {
-        	int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
-                System.out.println(x+"et y :"+y);
-                m_spawns[i] = new Spawn(x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, m_spawnSprite, this);
+                System.out.println(x + "et y :" + y);
+                m_spawns[i] = new Spawn(x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_spawnSprite, this);
                 i++;
             }
         }
     }
-    
+
     public void createEnnemi() {
-    	m_ennemis = new Ennemi[2];
-    	int i = 0;
+        m_ennemis = new Ennemi[2];
+        int i = 0;
         while (i < 2) {
-        	int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             if (m_carte.cellules[y][x].libre) {
-                System.out.println(x+"et y :"+y);
-                m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, x*Options.TAILLE_CELLULE+4, y*Options.TAILLE_CELLULE+13, 1.0F);
+                System.out.println(x + "et y :" + y);
+                m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, x * Options.TAILLE_CELLULE + 4, y * Options.TAILLE_CELLULE + 13, 1.0F);
                 m_ennemis[i] = m_ennemi;
                 i++;
             }

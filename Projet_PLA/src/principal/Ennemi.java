@@ -21,6 +21,7 @@ public class Ennemi extends IA {
     public int m_w2;
     public int m_h2;
     int m_cpt;
+    Boolean invincible;
 
     public Ennemi(Model model, BufferedImage sprite, BufferedImage sprite2, int x, int y, float scale) {
         p_vie = Options.point_de_vie_ennemi;
@@ -30,6 +31,7 @@ public class Ennemi extends IA {
         m_idx = 0;
         orientation = 0;
         m_item = null;
+        invincible = false;
         this.x = x;
         this.y = y;
         m_scale = scale;
