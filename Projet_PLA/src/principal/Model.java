@@ -14,7 +14,7 @@ public class Model extends GameModel {
 	boss m_boss;
 	Personnage m_perso;
 	Ennemi m_ennemi;
-	Ennemi[] m_ennemis = new Ennemi[20];
+	Ennemi[] m_ennemis;
 	Spawn[] m_spawns;
 	BufferedImage m_ennemiSprite;
 	BufferedImage m_ennemiItemSprite;
@@ -339,9 +339,9 @@ public class Model extends GameModel {
 			else
 				k = 2;
 		}
-
+		m_ennemis = new Ennemi[k];
 		while (i < k) {
-			m_ennemi = new Ennemi(this, m_ennemiSprite, sx[i] * Options.TAILLE_CELLULE + 4,
+			m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, sx[i] * Options.TAILLE_CELLULE + 4,
 					sy[i] * Options.TAILLE_CELLULE + 13, 1.0F);
 			m_ennemis[totalennemie] = m_ennemi;
 			i++;

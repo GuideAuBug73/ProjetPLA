@@ -72,6 +72,7 @@ public class Ennemi extends IA {
     public void droite() {
         if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
             Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+            m_cell = cell;
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
@@ -96,6 +97,7 @@ public class Ennemi extends IA {
     public void haut() {
         if (y / Options.TAILLE_CELLULE != 0) {
             Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+            m_cell = cell;
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
@@ -121,6 +123,7 @@ public class Ennemi extends IA {
     public void bas() {
         if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
             Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+            m_cell = cell;
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
@@ -146,6 +149,7 @@ public class Ennemi extends IA {
     public void gauche() {
         if (x / Options.TAILLE_CELLULE != 0) {
             Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+            m_cell = cell;
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {

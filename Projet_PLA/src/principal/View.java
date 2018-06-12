@@ -59,7 +59,7 @@ public class View extends GameView {
         	spawn = m_model.m_spawns[i];
         	spawn.paint(g);
 		}
-        for(int i=0 ; i<2 ; i++) {
+        for(int i=0 ; i<m_model.m_ennemis.length ; i++) {
         	k = m_model.m_ennemis[i];
         	k.paint(g);
         }
