@@ -10,7 +10,8 @@ public class _Move extends _Action {
 
 	@Override
 	public void execute(Entity e) {
-		e.move();
+		
+		e.move(tab_parametre[0]);
 	}
 
 }

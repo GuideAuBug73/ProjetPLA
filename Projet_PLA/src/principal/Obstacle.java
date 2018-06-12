@@ -1,11 +1,6 @@
 package principal;
 public class Obstacle extends Entity {
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void hit() {
@@ -20,7 +15,7 @@ public class Obstacle extends Entity {
 	}
 
 	@Override
-	public void turn() {
+	public void turn(String param) {
 		// TODO Auto-generated method stub
 		
 	}

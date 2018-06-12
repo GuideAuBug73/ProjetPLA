@@ -146,11 +146,6 @@ public class Joueur extends Personnage {
 
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void hit() {
@@ -165,7 +160,7 @@ public class Joueur extends Personnage {
 	}
 
 	@Override
-	public void turn() {
+	public void turn(String param) {
 		// TODO Auto-generated method stub
 		
 	}

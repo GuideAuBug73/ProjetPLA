@@ -22,11 +22,6 @@ public class Spawn extends Entity {
 		this.y = y;
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void hit() {
@@ -41,7 +36,7 @@ public class Spawn extends Entity {
 	}
 
 	@Override
-	public void turn() {
+	public void turn(String param) {
 		// TODO Auto-generated method stub
 		
 	}

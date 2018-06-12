@@ -50,7 +50,7 @@ public class Item extends Entity {
 	}
 
 	@Override
-	public void turn() {
+	public void turn(String param) {
 		// TODO Auto-generated method stub
 		
 	}
