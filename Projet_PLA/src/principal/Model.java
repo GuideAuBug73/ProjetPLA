@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
@@ -20,7 +21,6 @@ import edu.ricm3.game.GameModel;
 import ricm3.parser.Ast.AI_Definitions;
 import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
-import ricm3.parser.ParseException;
 
 public class Model extends GameModel {
 	public Joueur m_perso;
@@ -39,13 +39,13 @@ public class Model extends GameModel {
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
 
-	public Model() throws FileNotFoundException, ParseException {
+	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
 		loadSprites();
 		createMap();
 		createItem();
 		createPerso();
 		createEnnemi();
-		String f = "/home/tom/Bureau/test.txt";
+		String f = "tests/tests/automate.txt";
 		new AutomataParser(new BufferedReader(new FileReader(f)));
 		Auto = new LinkedList<_Automate>();
 		AI_Definitions def = (AI_Definitions) AutomataParser.Run();
