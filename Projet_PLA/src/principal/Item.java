@@ -103,6 +103,7 @@ public class Item extends IA {
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
                     ennemi.p_vie = ennemi.p_vie - 2;
+                    System.out.println("Vie:"+ennemi.p_vie);
                     checkVie(ennemi);
                     hit = false;
                     this.limit=0;
@@ -218,6 +219,8 @@ public class Item extends IA {
             ennemi=(Ennemi)entity;
             if(ennemi.p_vie<=0){
                 ennemi.m_mort=true;
+                ennemi.m_cell.entité=null;
+                System.out.println("MORMOROMOR");
             }
         }else{
             personnage=(Personnage)entity;
