@@ -10,6 +10,10 @@ import automate._Automate;
 import automate._Behaviour;
 import automate._Cell;
 import automate._Condition;
+import automate._Conjonction;
+import automate._ConjonctionA;
+import automate._Disjunction;
+import automate._DisjunctionA;
 import automate._Hit;
 import automate._Move;
 import automate._Pick;
@@ -296,7 +300,17 @@ public class Ast {
 	public static abstract class Expression extends Ast {
 		public abstract String toString();
 
-		public abstract void make(_Transition trans);
+		public abstract void make(_Transition trans, String kind);
+
+		public void make(_Condition condition, String kind) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void make(_Action act, String kind) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	public static class UnaryOp extends Expression {
@@ -319,7 +333,7 @@ public class Ast {
 		}
 
 		@Override
-		public void make(_Transition trans) {
+		public void make(_Transition trans,String kind) {
 			// TODO Auto-generated method stub
 
 		}
@@ -348,8 +362,32 @@ public class Ast {
 		}
 
 		@Override
-		public void make(_Transition trans) {
-			// TODO Auto-generated method stub
+		public void make(_Transition trans, String kind) {
+			if(operator.value == "/") {
+				if(kind == "Condition") {
+					trans.condition = new _Disjunction();
+					left_operand.make(trans.condition, kind);
+					right_operand.make(trans.condition, kind);
+				}
+				else {
+					trans.act = new _DisjunctionA();
+					left_operand.make(trans.act, kind);
+					right_operand.make(trans.act, kind);
+				}
+			}
+			
+			else {
+				if(kind == "Condition") {
+					trans.condition = new _Conjonction();
+					left_operand.make(trans.condition, kind);
+					right_operand.make(trans.condition,kind);
+				}
+				else {
+					trans.act = new _ConjonctionA();
+					left_operand.make(trans.act, kind);
+					right_operand.make(trans.act, kind);
+				}
+			}
 
 		}
 	}
@@ -389,7 +427,7 @@ public class Ast {
 			return name + "(" + string + ")";
 		}
 
-		public void make(_Transition trans) {
+		public void make(_Transition trans,String kind) {
 			ListIterator<Parameter> Iter = this.parameters.listIterator();
 			switch (name.toString()) {
 			case "Cell":
@@ -467,7 +505,7 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-			expression.make(trans);
+			expression.make(trans,this.kind);
 		}
 	}
 
@@ -488,8 +526,7 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-
-			expression.make(trans);
+			expression.make(trans,this.kind);
 		}
 	}
 
@@ -517,7 +554,7 @@ public class Ast {
 
 	public static class AI_Definitions extends Ast {
 
-		List<Automaton> automata;
+		public List<Automaton> automata;
 
 		AI_Definitions(List<Automaton> list) {
 			this.kind = "AI_Definitions";
@@ -590,9 +627,12 @@ public class Ast {
 			A.courant = new _State(this.entry.name.value);
 			A.behaviours = new LinkedList<_Behaviour>();
 			ListIterator<Behaviour> Iter = this.behaviours.listIterator();
-			ListIterator<_Behaviour> _Iter = A.behaviours.listIterator();
-			while (Iter.hasNext() && _Iter.hasNext()) {
-				Iter.next().make(_Iter.next());
+			int i = 0;
+			while (Iter.hasNext()) {
+				_Behaviour b = new _Behaviour();
+				A.behaviours.add(b);
+				Iter.next().make(A.behaviours.get(i));
+				i++;
 			}
 		}
 	}
@@ -633,9 +673,12 @@ public class Ast {
 			B.source = new _State(this.source.name.value);
 			B.transitions = new LinkedList<_Transition>();
 			ListIterator<Transition> Iter = this.transitions.listIterator();
-			ListIterator<_Transition> _Iter = B.transitions.listIterator();
-			while (Iter.hasNext() && _Iter.hasNext()) {
-				Iter.next().make(_Iter.next());
+			int i = 0;
+			while (Iter.hasNext()) {
+				_Transition t = new _Transition();
+				B.transitions.add(t);
+				Iter.next().make(B.transitions.get(i));
+				i++;
 			}
 		}
 	}

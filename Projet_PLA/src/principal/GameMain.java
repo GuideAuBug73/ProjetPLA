@@ -1,12 +1,14 @@
 package principal;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 
 import edu.ricm3.game.GameUI;
+import ricm3.parser.ParseException;
 
 public class GameMain {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException, ParseException {
     Options.d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     tailleMap(Options.d);
     // construct the game elements: model, controller, and view.

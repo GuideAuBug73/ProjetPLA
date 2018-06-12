@@ -2,7 +2,10 @@
 package principal;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
@@ -13,6 +16,10 @@ import automate._Move;
 import automate._State;
 import automate._Transition;
 import edu.ricm3.game.GameModel;
+import ricm3.parser.Ast;
+import ricm3.parser.Ast.AI_Definitions;
+import ricm3.parser.AutomataParser;
+import ricm3.parser.ParseException;
 
 
 public class Model extends GameModel {
@@ -31,12 +38,17 @@ public class Model extends GameModel {
     public Map m_carte;
     _Automate a;
 
-    public Model() {
+    public Model() throws FileNotFoundException, ParseException {
         loadSprites();
         createMap();
         createItem();
         createPerso();
         createEnnemi();
+        String f = "/home/tom/Bureau/test.txt";
+        new AutomataParser(new BufferedReader(new FileReader(f)));
+        AI_Definitions def = (AI_Definitions) AutomataParser.Run();
+        _Automate A = new _Automate(def.automata.get(0));
+        
        // createAutomate();
         m_spell = new spell(this, m_spellSprite, 0, 0);
     }
