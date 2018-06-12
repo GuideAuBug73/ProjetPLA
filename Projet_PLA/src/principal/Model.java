@@ -77,7 +77,7 @@ public class Model extends GameModel {
             System.exit(-1);
         }
         
-        imageFile = new File("src/sprites/explosion01_set_64.png");
+        imageFile = new File("src/sprites/sort.png");
         try {
             m_spellSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
@@ -95,7 +95,7 @@ public class Model extends GameModel {
 
         imageFile = new File("src/sprites/wall.png");
         try {
-            m_wallSprite = ImageIO.read(imageFile);
+            m_wallSprite =  ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -162,7 +162,7 @@ public class Model extends GameModel {
             System.exit(-1);
         }
 
-        imageFile = new File("src/sprites/lance.png");
+        imageFile = new File("src/sprites/bowling.png");
         try {
             m_itemSprite[5] = ImageIO.read(imageFile);
         } catch (IOException ex) {
@@ -234,7 +234,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             int type=(int)(Math.random()*7);
             if(m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_item[i] = new Item(3, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[3],this);
+                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type],this);
                 m_carte.cellules[y][x].entité=m_item[i];
                 i++;
             }

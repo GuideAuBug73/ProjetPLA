@@ -15,6 +15,9 @@ public class Item extends IA {
     public int limit;
     public int compteurTickItem = 500;
     public boolean hit = false;
+    BufferedImage[] m_sprites;
+    int m_w, m_h;
+    int m_idx;
 
 
     public Item(int type, int w, int h, BufferedImage m_item, Model model) {
@@ -31,6 +34,23 @@ public class Item extends IA {
             limit = 6 * 30;
         } else if (this.type == 13) {
             limit = 2 * 30;
+        }
+        m_idx = 0;
+        splitSprite();
+    }
+    
+    public void splitSprite() {
+        int width = img.getWidth(null);
+        int height = img.getHeight(null);
+        m_sprites = new BufferedImage[2*2];
+        m_w = width / 2;
+        m_h = height / 2;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                int x = j * m_w;
+                int y = i * m_h;
+                m_sprites[(i * 2) + j] = img.getSubimage(x, y, m_w, m_h);
+            }
         }
     }
 
@@ -232,13 +252,27 @@ public class Item extends IA {
 
 
     public void paint(Graphics g) {
-        if (possession == 0 || possession == 3)
-            g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+    	Image img = null;
+    	//possession 3 = jeté
+    	//possession 1 = inventaire
+    	//possession 2 = ennemi
+        if (possession == 3) {
+        	m_idx = (m_idx+1)%4;
+        	img = m_sprites[m_idx];
+        }
+        //possession 0 = au sol
+        else if(possession == 0) {
+        	img = m_sprites[0];
+        }
+        g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
     }
 
     public void paint(Graphics g, int w, int h) {
         Image img = this.img;
-        if (possession == 1)
+        if (possession == 1) {
+        	img = m_sprites[0];
             g.drawImage(img, w, h, Options.TAILLE_CELLULE - 20, Options.TAILLE_CELLULE - 20, null);
+
+        }
     }
 }
