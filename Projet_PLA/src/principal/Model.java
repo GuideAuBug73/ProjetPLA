@@ -23,6 +23,7 @@ public class Model extends GameModel {
     BufferedImage m_persoSprite;
     BufferedImage m_carre_inventaire;
     BufferedImage m_spawnSprite;
+    BufferedImage m_exploSprite;
     Spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
@@ -205,6 +206,14 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+        
+        imageFile = new File("src/sprites/Explosion03.png");
+        try {
+            m_exploSprite = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
         imageFile = new File("src/sprites/inv.png");
         try {
@@ -234,7 +243,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             int type=(int)(Math.random()*7);
             if(m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité==null) {
-                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type],this);
+                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type], m_exploSprite, this);
                 m_carte.cellules[y][x].entité=m_item[i];
                 i++;
             }
