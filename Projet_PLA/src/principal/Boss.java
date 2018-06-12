@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class boss extends Entity {
+public class Boss extends Entity {
 	int m_w, m_h;
 	int m_idx = 0;
 	float m_scale;
@@ -17,7 +17,7 @@ public class boss extends Entity {
 	int x, y;
 	boolean explosion = false;
 
-	public boss(Model model, BufferedImage sprite, int x, int y, float scale) {
+	public Boss(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
 		img = sprite;
 		orientation = 0;
@@ -197,12 +197,10 @@ public class boss extends Entity {
 	 */
 	public void paint(Graphics g) {
 		m_cpt++;
-		if (m_model.m_perso.m_mort != true) {
-			Image img = m_sprites[m_idx];
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x, y, w, h, null);
-		}
+		Image img = m_sprites[m_idx];
+		int w = (int) (m_scale * m_w);
+		int h = (int) (m_scale * m_h);
+		g.drawImage(img, x, y, w, h, null);
 	}
 
 }

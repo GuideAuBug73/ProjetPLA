@@ -31,7 +31,7 @@ public class Controller extends GameController implements ActionListener {
 	Personnage c;
 	Spell s;
 	Ennemi E;
-	boss b;
+	Boss b;
     Item item;
 
 	public Controller(Model m) {

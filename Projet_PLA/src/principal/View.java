@@ -44,8 +44,10 @@ public class View extends GameView {
         carte.paint(g);
         Item[] item = m_model.m_item;
         for (int i = 0; i < item.length; i++) {
-            if (item[i] != null)
-                item[i].paint(g);
+            if (item[i] != null) {
+            	m_model.m_item[i].splitSprite();
+            	item[i].paint(g);
+            }
         }
         m_model.m_perso.projectile.paint(g);
         m_model.m_spell.cast();
@@ -64,7 +66,7 @@ public class View extends GameView {
         	k.paint(g);
         }
         h.paint(g);
-        boss b = m_model.m_boss;
+        Boss b = m_model.m_boss;
         b.animation();
         b.paint(g);
         Spell ss = m_model.m_spell;
