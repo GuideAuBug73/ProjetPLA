@@ -5,17 +5,18 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class boss extends Entity{
+public class boss extends Entity {
 	int m_w, m_h;
-	int m_idx=0;
+	int m_idx = 0;
 	float m_scale;
-	BufferedImage[] m_sprites,m_Expsprites;
+	BufferedImage[] m_sprites, m_Expsprites;
 	int orientation;
 	Cellule m_cell;
 	Item m_item;
 	int m_cpt;
-	int x,y;
-    boolean explosion = false ;
+	int x, y;
+	boolean explosion = false;
+
 	public boss(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
 		img = sprite;
@@ -54,17 +55,15 @@ public class boss extends Entity{
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
 				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
-				}else if (cell.entité instanceof Item) {
+				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				x += Options.TAILLE_CELLULE/4;
+				x += Options.TAILLE_CELLULE / 4;
 				if (m_item == null) {
 					m_idx = 8 + (m_idx + 1) % 4;
-				} else if (m_item != null) {
-					m_idx = 24 + (m_idx + 1) % 4;
 				}
 				this.orientation = 1;
 			}
@@ -84,11 +83,9 @@ public class boss extends Entity{
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				y -= Options.TAILLE_CELLULE/4;
+				y -= Options.TAILLE_CELLULE / 4;
 				if (m_item == null) {
 					m_idx = 12 + (m_idx + 1) % 4;
-				} else if (m_item != null) {
-					m_idx = 28 + (m_idx + 1) % 4;
 				}
 
 				this.orientation = 3;
@@ -109,11 +106,9 @@ public class boss extends Entity{
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				y += Options.TAILLE_CELLULE/4;
+				y += Options.TAILLE_CELLULE / 4;
 				if (m_item == null) {
 					m_idx = (m_idx + 1) % 4;
-				} else if (m_item != null) {
-					m_idx = 16 + (m_idx + 1) % 4;
 				}
 
 				this.orientation = 0;
@@ -134,94 +129,72 @@ public class boss extends Entity{
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
-				x -= Options.TAILLE_CELLULE/4;
+				x -= Options.TAILLE_CELLULE / 4;
 				if (m_item == null) {
 					m_idx = 4 + (m_idx + 1) % 4;
-				} else if (m_item != null) {
-					m_idx = 20 + (m_idx + 1) % 4;
 				}
 				this.orientation = 2;
 
 			}
 		}
 	}
-	
+
 	public void animation() {
-		
-	
-		
-		
-		//condition permettant la régulation de la vitesse du personnage
-		if(m_cpt%3 == 0) {
-			
-			if(m_idx==3)
-				m_idx=0;
-			if(m_idx==7)
-				m_idx=4;
-			if(m_idx==11)
-				m_idx=8;
-			if(m_idx==15)
-				m_idx=12;
-				
-			m_idx++;
-			
-			
+
+		// condition permettant la régulation de la vitesse du personnage
+		if (m_cpt % 3 == 0) {
+
 			if (orientation == 1 && x % Options.TAILLE_CELLULE != 0) {
-				//4 images par déplacement du personnage
+				// 4 images par déplacement du personnage
 				x += Options.TAILLE_CELLULE / 4;
-				
+				m_idx = 8 + (m_idx + 1) % 4;
 			}
 
 			if (orientation == 2 && x % Options.TAILLE_CELLULE != 0) {
 				x -= Options.TAILLE_CELLULE / 4;
-			
+				m_idx = 4 + (m_idx + 1) % 4;
 			}
 
 			if (orientation == 3 && y % Options.TAILLE_CELLULE != 0) {
 				y -= Options.TAILLE_CELLULE / 4;
-		
+				m_idx = 12 + (m_idx + 1) % 4;
 			}
 
 			if (orientation == 0 && y % Options.TAILLE_CELLULE != 0) {
 				y += Options.TAILLE_CELLULE / 4;
-		
+				m_idx = 0 + (m_idx + 1) % 4;
 			}
 		}
 	}
 
-
 	public void explosion_boss() {
 		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-		Cellule cell1 = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) +1];
-		Cellule cell2 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)+1][(x / Options.TAILLE_CELLULE) ];
-		Cellule cell3 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)-1][(x / Options.TAILLE_CELLULE) ];
+		Cellule cell1 = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+		Cellule cell2 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][(x / Options.TAILLE_CELLULE)];
+		Cellule cell3 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][(x / Options.TAILLE_CELLULE)];
 
-		if(cell.libre)
-			cell.entité = null ;
-		    
-		if(cell1.libre)
-			cell1.entité = null ;
-		
-		if(cell2.libre)
-			cell2.entité = null ;
-		
-		if(cell3.libre)
-			cell3.entité = null ;
-		
+		if (cell.libre)
+			cell.entité = null;
+
+		if (cell1.libre)
+			cell1.entité = null;
+
+		if (cell2.libre)
+			cell2.entité = null;
+
+		if (cell3.libre)
+			cell3.entité = null;
+
 	}
-	
-	/*public void paint_explosion(Graphics g) {
-		m_cpt++;
-		if (m_model.m_perso.m_mort != true) {
-			Image img = m_Expsprites[m_idx];
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x, y, w, h, null);
-		}
-	
-	}
-	*/
+
+	/*
+	 * public void paint_explosion(Graphics g) { m_cpt++; if (m_model.m_perso.m_mort
+	 * != true) { Image img = m_Expsprites[m_idx]; int w = (int) (m_scale * m_w);
+	 * int h = (int) (m_scale * m_h); g.drawImage(img, x, y, w, h, null); }
+	 * 
+	 * }
+	 */
 	public void paint(Graphics g) {
 		m_cpt++;
 		if (m_model.m_perso.m_mort != true) {
