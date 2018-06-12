@@ -17,7 +17,6 @@
  */
 package principal;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -26,7 +25,6 @@ import java.awt.event.MouseEvent;
 
 import basic.Cellule;
 import edu.ricm3.game.GameController;
-
 
 public class Controller extends GameController implements ActionListener {
 
@@ -180,12 +178,19 @@ public class Controller extends GameController implements ActionListener {
 
     public void notifyVisible() {
 
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		if (Options.ECHO_MOUSE_MOTION)
+			System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
+	}
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
     }
 
