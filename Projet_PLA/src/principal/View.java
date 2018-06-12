@@ -48,13 +48,10 @@ public class View extends GameView {
                 item[i].paint(g);
         }
         m_model.m_perso.projectile.paint(g);
-        m_model.m_spell.cast();
         Personnage h = m_model.m_perso;
         h.paint(g);
         Ennemi k = m_model.m_ennemi;
         k.paint(g);
-        spell ss = m_model.m_spell;
-        ss.paint(g);
     }
 
     @Override
@@ -115,5 +112,10 @@ public class View extends GameView {
             Options.vague++;
         }
 
+    }
+
+    @Override
+    protected void _paint_menu(Graphics g) {
+        m_model.m_menu.paint(g);
     }
 }

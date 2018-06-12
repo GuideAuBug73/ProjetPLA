@@ -1,5 +1,7 @@
 package principal;
 
+import edu.ricm3.game.GameUI;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,4 +35,8 @@ public class Options {
 
     public static int point_de_vie=3;
 	public static Item itemlance=null;
+
+	public static int taille_bp_h;
+	public static int taille_bp_w;
+	public static GameUI game;
 }

@@ -18,14 +18,12 @@
 package principal;
 
 
+import edu.ricm3.game.GameController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
-
-import basic.Cellule;
-import edu.ricm3.game.GameController;
 
 
 public class Controller extends GameController implements ActionListener {
@@ -111,8 +109,12 @@ public class Controller extends GameController implements ActionListener {
     public void mouseClicked(MouseEvent e) {
         if (Options.ECHO_MOUSE)
             System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
-
-
+        if (Options.game.frame == 0 && e.getX() >= (Options.d.width / 2 - Options.taille_bp_w / 2) && e.getX() <= (Options.d.width / 2 + Options.taille_bp_w / 2) && e.getY() >= (Options.d.height / 4 - Options.taille_bp_h / 2) && e.getY() <= (Options.d.height / 4 + Options.taille_bp_h / 2)) {
+            m_game.createWindowGame(Options.d, m_model);
+        }
+        if (Options.game.frame == 0 && e.getX() >= (Options.d.width / 2 - Options.taille_bp_w / 2) && e.getX() <= (Options.d.width / 2 + Options.taille_bp_w / 2) && e.getY() >= (Options.d.height / 4 + Options.taille_bp_h) && e.getY() <= (Options.d.height / 4 + Options.taille_bp_h * 2)) {
+            m_game.ask_File();
+        }
     }
 
     @Override

@@ -20,12 +20,15 @@ public class Model extends GameModel {
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
     BufferedImage m_carre_inventaire;
+    BufferedImage img;
+    BufferedImage img2;
     spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
     Item[] m_item = new Item[10];
     Random rand = new Random();
     Map m_carte;
+    Menu m_menu;
 
     public Model() {
         loadSprites();
@@ -33,7 +36,7 @@ public class Model extends GameModel {
         createItem();
         createPerso();
         createEnnemi();
-        m_spell = new spell(this, m_spellSprite, 0, 0);
+        createMenu();
     }
 
     @Override
@@ -199,6 +202,23 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+
+        imageFile = new File("src/sprites/menu.png");
+        try {
+            img = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/bp.png");
+        try {
+            img2 = ImageIO.read(imageFile);
+            Options.taille_bp_h = ((BufferedImage) img2).getHeight();
+            Options.taille_bp_w = ((BufferedImage) img2).getWidth();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     public void createMap() {
@@ -240,5 +260,8 @@ public class Model extends GameModel {
                 i++;
             }
         }
+    }
+    public void createMenu(){
+        m_menu=new Menu(this,img,img2);
     }
 }
