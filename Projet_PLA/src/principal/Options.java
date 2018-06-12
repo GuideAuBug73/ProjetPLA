@@ -33,6 +33,6 @@ public class Options {
     public static float time_vague=0;
 
     public static int point_de_vie=3;
+    public static int point_de_vie_ennemi=2;
 	public static Item itemlance=null;
-
 }

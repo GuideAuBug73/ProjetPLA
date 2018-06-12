@@ -25,3 +25,5 @@ Projet_PLA/GamaParser-master/ricm3/parser/SimpleCharStream\.java
 Projet_PLA/GamaParser-master/ricm3/parser/Token\.java
 
 Projet_PLA/GamaParser-master/ricm3/parser/TokenMgrError\.java
+
+*.class

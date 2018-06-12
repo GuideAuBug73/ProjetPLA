@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Model extends GameModel {
+    BufferedImage m_ennemiSpriteMort;
 	boss m_boss;
 	Personnage m_perso;
 	Ennemi m_ennemi;
@@ -112,7 +113,23 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
-		// Ennemis <----------------------------------------------------->
+        imageFile = new File("src/sprites/mortEnnemi.png");
+
+        try {
+            m_ennemiSpriteMort = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        //  <----------------------------------------------------->
+        imageFile = new File("src/sprites/shuriken.png");
+        try {
+            m_itemSprite[0] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
 		imageFile = new File("src/sprites/ennemi.png");
 
