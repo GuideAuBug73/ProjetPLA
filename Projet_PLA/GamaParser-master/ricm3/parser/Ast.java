@@ -20,6 +20,7 @@ import automate._Pick;
 import automate._Pop;
 import automate._State;
 import automate._Transition;
+import automate._Turn;
 import automate._Wizz;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
@@ -463,6 +464,12 @@ public class Ast {
 			case "Pick":
 				trans.act = new _Pick();
 				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
+				break;
+			case "Turn":
+				trans.act = new _Turn();
+				while(Iter.hasNext()) {
 					Iter.next().make(trans.act);
 				}
 				break;
