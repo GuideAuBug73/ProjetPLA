@@ -121,19 +121,22 @@ public class Controller extends GameController implements ActionListener {
                 int itemX = b.x;
                 Item projectile = m_model.m_boss.projectile;
                 projectile.orientation = b.orientation;
-                if (c.orientation == 0) {
+                if (b.orientation == 0) {
                     itemY = itemY + 60;
-                } else if (c.orientation == 1) {
+                } else if (b.orientation == 1) {
                     itemX = itemX + 60;
-                } else if (c.orientation == 2) {
+                } else if (b.orientation == 2) {
                     itemX = itemX - 60;
-                } else if (c.orientation == 3) {
+                } else if (b.orientation == 3) {
                     itemY = itemY - 60;
                 }
                 projectile.x = itemX;
                 projectile.y = itemY;
                 projectile.hit = true;
                 Options.projectileBossLance = projectile;
+                System.out.println("b.x:"+b.x+"\nb.y: "+b.y);
+                System.out.println("proj.x:"+projectile.x+"\nproj.y: "+projectile.y+"\norientation: "+b.orientation);
+
             }
 
         } else if (e.getKeyChar() == '6' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {

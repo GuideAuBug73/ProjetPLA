@@ -16,7 +16,6 @@ public class boss extends Entity {
     Cellule m_cell;
     Item m_item;
     int m_cpt;
-    int x, y;
     int vie = 10;
     public Item projectile;
     boolean Ennemi_presence = false;

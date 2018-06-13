@@ -111,11 +111,9 @@ public class Item extends IA {
             Ennemi ennemi = null;
             Personnage personnage = null;
             if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
-                System.out.println("CACA");
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
             } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
-                System.out.println("KIKI");
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
@@ -124,25 +122,21 @@ public class Item extends IA {
                     checkVie(ennemi);
                     hit = false;
                     this.limit = 0;
-                    System.out.println("Degat");
                 } else if (this.type == 2 || this.type == 3) {
                     ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
                     degatZone(h, w);
                     hit = false;
                     this.limit = 0;
-                    System.out.println("Degat");
                 } else if (this.type == 4 || this.type == 5) {
                     ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
                     hit = false;
-                    System.out.println("Degat");
                 } else if (this.type == 13) {
                     ennemi.p_vie = ennemi.p_vie - 1;
                     checkVie(ennemi);
                     hit = false;
                     this.limit = 0;
-                    System.out.println("Degat");
                 }
             }
             if (personnage != null) {
@@ -161,7 +155,7 @@ public class Item extends IA {
                     personnage.p_vie = personnage.p_vie - 2;
                     checkVie(personnage);
                     hit = false;
-                } else if (this.type == 13) {
+                } else if (this.type == 14) {
                     personnage.p_vie = personnage.p_vie - 1;
                     checkVie(personnage);
                     this.limit = 0;
