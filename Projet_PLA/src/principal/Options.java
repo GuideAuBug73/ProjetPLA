@@ -37,6 +37,8 @@ public class Options {
     public static int point_de_vie_ennemi=2;
 	public static Item itemlance=null;
 
+	public static Item projectileBossLance=null;
+
 	public static int taille_bp_h;
 	public static int taille_bp_w;
 	public static GameUI game;

@@ -50,9 +50,10 @@ public class View extends GameView {
             }
         }
         m_model.m_perso.projectile.paint(g);
-        m_model.m_spell.cast();
+        m_model.m_boss.projectile.paint(g);
         m_model.m_perso.animation();
-        m_model.m_ennemi.animation();
+        m_model.m_boss.animation();
+        m_model.m_fire.setcastfire();
         Personnage h = m_model.m_perso;
         h.paint(g);
         Ennemi k;
@@ -61,16 +62,18 @@ public class View extends GameView {
         	spawn = m_model.m_spawns[i];
         	spawn.paint(g);
 		}
-        for(int i=0 ; i<m_model.m_ennemis.length ; i++) {
+        
+        for(int i=0 ; i<m_model.totalennemie  ; i++) {
         	k = m_model.m_ennemis[i];
+            m_model.m_ennemis[i].animation();
+
         	k.paint(g);
         }
+        
         h.paint(g);
-        Boss b = m_model.m_boss;
-        b.animation();
-        b.paint(g);
-        Spell ss = m_model.m_spell;
-        ss.paint(g);
+      
+        boss booooo = m_model.m_boss;
+        booooo.paint(g);
     }
 
     @Override
@@ -127,8 +130,10 @@ public class View extends GameView {
         g.fillRect(22,(Options.d.height-Options.nb_px_y_max)/2 -10,(int)Options.time_vague,20);
         Options.time_vague+=0.25;
         if(Options.time_vague==Options.d.width/2 -175){
+            m_model.totalennemie=0;
             Options.time_vague=0;
             Options.vague++;
+            m_model.createEnnemi();
         }
 
     }

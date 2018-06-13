@@ -258,6 +258,9 @@ public class GameUI {
         if (Options.itemlance != null) {
             Options.itemlance.lanceItem();
         }
+        if(Options.projectileBossLance!=null){
+            Options.projectileBossLance.lanceItem();
+        }
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
             if (frame == 0) {

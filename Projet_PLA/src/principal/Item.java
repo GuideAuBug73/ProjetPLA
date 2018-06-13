@@ -80,8 +80,7 @@ public class Item extends IA {
 		this.orientation = orientation;
 		this.x = x;
 		this.y = y;
-
-		if (orientation == 0) {
+				if (orientation == 0) {
 			this.y += 2;
 		} else if (orientation == 1) {
 			this.x += 2;
@@ -92,26 +91,44 @@ public class Item extends IA {
 		}
 	}
 
-	public void lanceItem() {
-		if (compteurTickItem < 1) {
-			compteurTickItem++;
-		} else {
-			verifCellule();
-			if (Options.itemlance.limit != 0) {
-				Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
-				compteurTickItem = 0;
-				Options.itemlance.limit--;
-			} else {
-				if (type == 2 || type == 3)
-					m_zone = true;
-				if (this.type == 2 || this.type == 3) {
-					degatZone(this.y / 60, this.x / 60);
-				}
-				Options.itemlance.x = -100;
-				Options.itemlance.y = -100;
-				Options.itemlance = null;
-				m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite,
-						m_model);
+    public void lanceItem() {
+        if (compteurTickItem < 1) {
+            compteurTickItem++;
+        } else {
+            verifCellule();
+            try {
+                if (Options.itemlance.limit != 0) {
+                    Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
+                    compteurTickItem = 0;
+                    Options.itemlance.limit--;
+                } else {
+                    if (this.type == 2 || this.type == 3) {
+                        degatZone(this.y / 60, this.x / 60);
+                    }
+                    Options.itemlance.x = -100;
+                    Options.itemlance.y = -100;
+                    Options.itemlance = null;
+                    m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
+                }
+            } catch (NullPointerException e) {
+
+            }
+            try {
+                if (Options.projectileBossLance.limit != 0) {
+                    Options.projectileBossLance.setcast(Options.projectileBossLance.x, Options.projectileBossLance.y, Options.projectileBossLance.orientation);
+                    compteurTickItem = 0;
+                    Options.projectileBossLance.limit--;
+                } else {
+                    Options.projectileBossLance.x = -100;
+                    Options.projectileBossLance.y = -100;
+                    Options.projectileBossLance = null;
+                    m_model.m_boss.projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model);
+                }
+            } catch (NullPointerException e) {
+
+            }
+        }
+    }
 
 			}
 		}
@@ -138,114 +155,112 @@ public class Item extends IA {
         }
     }
 
-	public void degat(int h, int w) {
-		if (hit == true) {
-			Ennemi ennemi = null;
-			Personnage personnage = null;
-			if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
-				ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
-			} else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
-			}
-			if (ennemi != null) {
-				if (this.type == 0 || this.type == 1) {
-					ennemi.p_vie = ennemi.p_vie - 2;
-					System.out.println("Vie:" + ennemi.p_vie);
-					checkVie(ennemi);
-					hit = false;
-					this.limit = 0;
-					System.out.println("Degat");
-				} else if (this.type == 2 || this.type == 3) {
-					ennemi.p_vie = ennemi.p_vie - 2;
-					checkVie(ennemi);
-					degatZone(h, w);
-					m_zone = true;
-					hit = false;
-					this.limit = 0;
-					System.out.println("Degat");
-				} else if (this.type == 4 || this.type == 5) {
-					ennemi.p_vie = ennemi.p_vie - 2;
-					checkVie(ennemi);
-					hit = false;
-					System.out.println("Degat");
-				} else if (this.type == 13) {
-					ennemi.p_vie = ennemi.p_vie - 1;
-					checkVie(ennemi);
-					hit = false;
-					this.limit = 0;
-					System.out.println("Degat");
-				}
-			}
-			if (personnage != null) {
-				if (this.type == 0 || this.type == 1) {
-					personnage.p_vie = personnage.p_vie - 1;
-					personnage.m_mort = true;
-					checkVie(personnage);
-					this.limit = 0;
-					hit = false;
-				} else if (this.type == 2 || this.type == 3) {
-					ennemi.p_vie = ennemi.p_vie - 1;
-					personnage.m_mort = true;
-					checkVie(personnage);
-					this.limit = 0;
-					degatZone(h, w);
-					hit = false;
-				} else if (this.type == 4 || this.type == 5) {
-					personnage.p_vie = personnage.p_vie - 1;
-					personnage.m_mort = true;
-					checkVie(personnage);
-					hit = false;
-				} else if (this.type == 13) {
-					personnage.p_vie = personnage.p_vie - 1;
-					personnage.m_mort = true;
-					checkVie(personnage);
-					this.limit = 0;
-					hit = false;
-				}
-			}
-		}
-	}
+    public void degat(int h, int w) {
+        if (hit == true) {
+            Ennemi ennemi = null;
+            Personnage personnage = null;
+            boss boss=null;
+            if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
+                ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
+            } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
+                personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
+            }else if(m_model.m_carte.cellules[h][w].entité instanceof boss){
+                boss = (boss)m_model.m_carte.cellules[h][w].entité;
+            }
+            if (ennemi != null) {
+                if (this.type == 0 || this.type == 1) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
+                    System.out.println("Vie:" + ennemi.p_vie);
+                    checkVie(ennemi);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 2 || this.type == 3) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
+                    checkVie(ennemi);
+                    degatZone(h, w);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 4 || this.type == 5) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
+                    checkVie(ennemi);
+                    hit = false;
+                } else if (this.type == 13) {
+                    ennemi.p_vie = ennemi.p_vie - 1;
+                    checkVie(ennemi);
+                    hit = false;
+                    this.limit = 0;
+                }
+            }
+            if (personnage != null) {
+                if (this.type == 0 || this.type == 1) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    checkVie(personnage);
+                    this.limit = 0;
+                    hit = false;
+                } else if (this.type == 2 || this.type == 3) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
+                    checkVie(personnage);
+                    this.limit = 0;
+                    degatZone(h, w);
+                    hit = false;
+                } else if (this.type == 4 || this.type == 5) {
+                    personnage.p_vie = personnage.p_vie - 2;
+                    checkVie(personnage);
+                    hit = false;
+                } else if (this.type == 14) {
+                    personnage.p_vie = personnage.p_vie - 1;
+                    checkVie(personnage);
+                    this.limit = 0;
+                    hit = false;
+                }
+            }
+            if (boss != null) {
+                if (this.type == 0 || this.type == 1) {
+                    boss.vie = boss.vie - 2;
+                    System.out.println("Vie:" + boss.vie);
+                    checkVie(boss);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 2 || this.type == 3) {
+                    boss.vie = boss.vie - 2;
+                   // checkVie(boss);
+                    degatZone(h, w);
+                    System.out.println("Vie:" + boss.vie);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 4 || this.type == 5) {
+                    boss.vie = boss.vie - 2;
+                    //checkVie(boss);
+                    System.out.println("Vie:" + boss.vie);
+                    hit = false;
+                } else if (this.type == 13) {
+                    boss.vie = boss.vie - 1;
+                    System.out.println("Vie:" + boss.vie);
+                   // checkVie(boss);
+                    hit = false;
+                    this.limit = 0;
+                }
+            }
+        }
+    }
 
-	public void degatZone(int h, int w) {
-		Ennemi ennemi = null;
-		Personnage personnage = null;
-		try {
-			if (m_model.m_carte.cellules[h + 1][w].libre == false) {
-				m_model.m_carte.cellules[h + 1][w].libre = true;
-			}
-			if (m_model.m_carte.cellules[h + 1][w].entité instanceof Ennemi) {
-				ennemi = (Ennemi) m_model.m_carte.cellules[h + 1][w].entité;
-				ennemi.p_vie = ennemi.p_vie - 2;
-				checkVie(ennemi);
-				System.out.println("Zone");
-			}
-			if (m_model.m_carte.cellules[h - 1][w].libre == false) {
-				m_model.m_carte.cellules[h - 1][w].libre = true;
-			}
-			if (m_model.m_carte.cellules[h - 1][w].entité instanceof Ennemi) {
-				ennemi = (Ennemi) m_model.m_carte.cellules[h - 1][w].entité;
-				ennemi.p_vie = ennemi.p_vie - 2;
-				checkVie(ennemi);
-				System.out.println("Zone");
-			}
-			if (m_model.m_carte.cellules[h][w + 1].libre == false) {
-				m_model.m_carte.cellules[h][w + 1].libre = true;
-			}
-			if (m_model.m_carte.cellules[h][w + 1].entité instanceof Ennemi) {
-				ennemi = (Ennemi) m_model.m_carte.cellules[h][w + 1].entité;
-				ennemi.p_vie = ennemi.p_vie - 2;
-				checkVie(ennemi);
-				System.out.println("Zone");
-			}
-			if (m_model.m_carte.cellules[h][w - 1].libre == false) {
-				m_model.m_carte.cellules[h][w - 1].libre = true;
-			}
-			if (m_model.m_carte.cellules[h][w - 1].entité instanceof Ennemi) {
-				ennemi = (Ennemi) m_model.m_carte.cellules[h][w - 1].entité;
-				ennemi.p_vie = ennemi.p_vie - 2;
-				checkVie(ennemi);
-				System.out.println("Zone");
-			}
+    public void degatZone(int h, int w) {
+        Ennemi ennemi = null;
+        Personnage personnage = null;
+        boss boss=null;
+        try {
+            if (m_model.m_carte.cellules[h + 1][w].entité instanceof Ennemi) {
+                ennemi = (Ennemi) m_model.m_carte.cellules[h + 1][w].entité;
+                ennemi.p_vie = ennemi.p_vie - 2;
+                checkVie(ennemi);
+                System.out.println("Zone");
+            }
+            if (m_model.m_carte.cellules[h - 1][w].entité instanceof Ennemi) {
+                ennemi = (Ennemi) m_model.m_carte.cellules[h - 1][w].entité;
+                ennemi.p_vie = ennemi.p_vie - 2;
+                checkVie(ennemi);
+                System.out.println("Zone");
+            }
 
 			if (m_model.m_carte.cellules[h + 1][w].entité instanceof Personnage) {
 				personnage = (Personnage) m_model.m_carte.cellules[h + 1][w].entité;
@@ -280,22 +295,23 @@ public class Item extends IA {
 		}
 	}
 
-	public void checkVie(Entity entity) {
-		Ennemi ennemi = null;
-		Personnage personnage = null;
-		if (entity instanceof Ennemi) {
-			ennemi = (Ennemi) entity;
-			if (ennemi.p_vie <= 0) {
-				ennemi.m_mort = true;
-				ennemi.m_cell.entité = null;
-			}
-		} else {
-			personnage = (Personnage) entity;
-			if (personnage.p_vie <= 0) {
-				personnage.m_mort = true;
-			}
-		}
-	}
+    public void checkVie(Entity entity) {
+        Ennemi ennemi = null;
+        Personnage personnage = null;
+        boss boss= null;
+        if (entity instanceof Ennemi) {
+            ennemi = (Ennemi) entity;
+            if (ennemi.p_vie <= 0) {
+                ennemi.m_mort = true;
+                ennemi.m_cell.entité = null;
+            }
+        } else {
+            personnage = (Personnage) entity;
+            if (personnage.p_vie <= 0) {
+                personnage.m_mort = true;
+            }
+        }
+    }
 
 	public void paint(Graphics g) {
 		Image img = null;

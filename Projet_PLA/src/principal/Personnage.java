@@ -26,7 +26,6 @@ public class Personnage extends Entity {
         this.x = x;
         this.y = y;
         m_scale = scale;
-
         projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite, m_model);
         m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
         if (m_cell.entité == null) {
