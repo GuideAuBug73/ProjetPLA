@@ -181,6 +181,13 @@ public class Model extends GameModel {
         test = (int) (Math.random() * 5);
         m_itemSprite[7] = m_itemSprite[test];
 
+        imageFile = new File("src/sprites/vie.png");
+        try {
+            m_itemSprite[8] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
         imageFile = new File("src/sprites/inv.png");
         try {
@@ -234,7 +241,7 @@ public class Model extends GameModel {
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
             int type = (int) (Math.random() * 7);
             if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
-                m_item[i] = new Item(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[type], this);
+                m_item[i] = new Item(4, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_itemSprite[4], this);
                 m_carte.cellules[y][x].entité = m_item[i];
                 i++;
             }
@@ -245,7 +252,7 @@ public class Model extends GameModel {
         for (int i = 0; i < 2; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
             int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
-            int type = (int) (Math.random() * 2);
+            int type = (int) (Math.random() * 3);
             System.out.println("x:" + x+ "y:"+y);
             if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
                 m_bonus[i] = new Bonus(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_bonusSprite[type], this);

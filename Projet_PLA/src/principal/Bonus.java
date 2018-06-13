@@ -7,9 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class Bonus extends Entity {
     public int type;
-    public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
-    public int compteurTickItem = 500;
-    public boolean hit = false;
     Entity entity;
 
 
@@ -26,16 +23,18 @@ public class Bonus extends Entity {
         this.x = -200;
         this.y = -200;
         Ennemi ennemi = null;
+        this.entity = entity;
         Personnage personnage = null;
         if (entity instanceof Ennemi) {
             ennemi = (Ennemi) entity;
             if (this.type == 0) {
                 ennemi.p_vie++;
             } else if (this.type == 1) {
-
+                Options.vitesseEnnemie = 2;
+                Options.timerVitesse = Options.time_vague+40;
             } else if (this.type == 2) {
-                ennemi.invincible=true;
-                Options.invincible=Options.time_vague+20;
+                ennemi.invincible = true;
+                Options.invincible = Options.time_vague + 40;
             }
         } else if (entity instanceof Personnage) {
             personnage = (Personnage) entity;
@@ -44,23 +43,34 @@ public class Bonus extends Entity {
                     personnage.p_vie++;
                 }
             } else if (this.type == 1) {
-                Options.vitesse=2;
+                Options.vitesse = 2;
+                Options.timerVitesse = Options.time_vague+40;
             } else if (this.type == 2) {
-                personnage.invincible=true;
-                Options.invincible=Options.time_vague+20;
+                personnage.invincible = true;
+                Options.invincible = Options.time_vague + 40;
             }
         }
     }
 
-    public void timerInvincible(){
-        if(Options.invincible!=0){
+    public void timerInvincible() {
+        if (Options.invincible != 0) {
             if (Options.time_vague >= Options.invincible) {
                 if (entity instanceof Personnage) {
-                    Personnage perso=(Personnage)entity;
-                    perso.invincible=false;
-                }else if(entity instanceof Ennemi){
-                    Ennemi ennemi=(Ennemi)entity;
-                    ennemi.invincible=false;
+                    Personnage perso = (Personnage) entity;
+                    perso.invincible = false;
+                } else if (entity instanceof Ennemi) {
+                    Ennemi ennemi = (Ennemi) entity;
+                    ennemi.invincible = false;
+                }
+            }
+        }
+        if (Options.vitesse == 2) {
+            if (Options.time_vague >= Options.timerVitesse) {
+                if (entity instanceof Personnage) {
+                    Options.vitesse = 4;
+                } else if (entity instanceof Ennemi) {
+                    Ennemi ennemi = (Ennemi) entity;
+                    Options.vitesseEnnemie = 4;
                 }
             }
         }
@@ -68,6 +78,6 @@ public class Bonus extends Entity {
 
     public void paint(Graphics g) {
         timerInvincible();
-        g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+        g.drawImage(img, x+10, y+10, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
     }
 }

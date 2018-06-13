@@ -37,4 +37,6 @@ public class Options {
 
 	public static float invincible=0;
 	public static int vitesse = 4;
+	public static int vitesseEnnemie = 4;
+	public static float timerVitesse=0;
 }

@@ -1,6 +1,7 @@
 package principal;
 
 import basic.Cellule;
+import principal.Inventaire;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,6 +23,8 @@ public class Ennemi extends IA {
     public int m_h2;
     int m_cpt;
     Boolean invincible;
+    Item inventaire;
+
 
     public Ennemi(Model model, BufferedImage sprite, BufferedImage sprite2, int x, int y, float scale) {
         p_vie = Options.point_de_vie_ennemi;
@@ -40,7 +43,7 @@ public class Ennemi extends IA {
             m_cell.entité = this;
         }
         splitSprite();
-        m_cpt=0;
+        m_cpt = 0;
     }
 
     public void splitSprite() {
@@ -77,14 +80,18 @@ public class Ennemi extends IA {
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
-                    m_model.m_perso.m_mort = true;
+                    if (((Personnage) cell.entité).invincible == false) {
+                        m_model.m_perso.m_mort = true;
+                        m_model.m_perso.p_vie--;
+                    }
                 } else if (cell.entité instanceof Item) {
                     m_item = (Item) cell.entité;
                     m_item.possession = 2;
                 }
+                ramasser(cell);
                 cell.entité = this;
                 cellActuel.entité = null;
-                x += Options.TAILLE_CELLULE;
+                x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     m_idx = 8 + (m_idx + 1) % 4;
                 } else if (m_item != null) {
@@ -101,14 +108,18 @@ public class Ennemi extends IA {
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
-                    m_model.m_perso.m_mort = true;
+                    if (((Personnage) cell.entité).invincible == false) {
+                        m_model.m_perso.m_mort = true;
+                        m_model.m_perso.p_vie--;
+                    }
                 } else if (cell.entité instanceof Item) {
                     m_item = (Item) cell.entité;
                     m_item.possession = 2;
                 }
+                ramasser(cell);
                 cell.entité = this;
                 cellActuel.entité = null;
-                y -= Options.TAILLE_CELLULE;
+                y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     m_idx = 12 + (m_idx + 1) % 4;
                 } else if (m_item != null) {
@@ -126,14 +137,18 @@ public class Ennemi extends IA {
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
-                    m_model.m_perso.m_mort = true;
+                    if (((Personnage) cell.entité).invincible == false) {
+                        m_model.m_perso.m_mort = true;
+                        m_model.m_perso.p_vie--;
+                    }
                 } else if (cell.entité instanceof Item) {
                     m_item = (Item) cell.entité;
                     m_item.possession = 2;
                 }
+                ramasser(cell);
                 cell.entité = this;
                 cellActuel.entité = null;
-                y += Options.TAILLE_CELLULE;
+                y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     m_idx = (m_idx + 1) % 4;
                 } else if (m_item != null) {
@@ -151,14 +166,18 @@ public class Ennemi extends IA {
             Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
             if (cell.libre) {
                 if (cell.entité instanceof Personnage) {
-                    m_model.m_perso.m_mort = true;
+                    if (((Personnage) cell.entité).invincible == false) {
+                        m_model.m_perso.m_mort = true;
+                        m_model.m_perso.p_vie--;
+                    }
                 } else if (cell.entité instanceof Item) {
                     m_item = (Item) cell.entité;
                     m_item.possession = 2;
                 }
+                ramasser(cell);
                 cell.entité = this;
                 cellActuel.entité = null;
-                x -= Options.TAILLE_CELLULE;
+                x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     m_idx = 4 + (m_idx + 1) % 4;
                 } else if (m_item != null) {
@@ -176,7 +195,7 @@ public class Ennemi extends IA {
         if (m_cpt % 3 == 0) {
             if (orientation == 1 && (x - 4) % Options.TAILLE_CELLULE != 0) {
                 //4 images par déplacement du personnage
-                x += Options.TAILLE_CELLULE / 4;
+                x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     //changement de sprite du personnage
                     m_idx = 8 + (m_idx + 1) % 4;
@@ -186,7 +205,7 @@ public class Ennemi extends IA {
             }
 
             if (orientation == 2 && (x - 4) % Options.TAILLE_CELLULE != 0) {
-                x -= Options.TAILLE_CELLULE / 4;
+                x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     //changement de sprite du personnage
                     m_idx = 4 + (m_idx + 1) % 4;
@@ -196,7 +215,7 @@ public class Ennemi extends IA {
             }
 
             if (orientation == 3 && (y - 13) % Options.TAILLE_CELLULE != 0) {
-                y -= Options.TAILLE_CELLULE / 4;
+                y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     //changement de zsprite du personnage
                     m_idx = 12 + (m_idx + 1) % 4;
@@ -206,7 +225,7 @@ public class Ennemi extends IA {
             }
 
             if (orientation == 0 && (y - 13) % Options.TAILLE_CELLULE != 0) {
-                y += Options.TAILLE_CELLULE / 4;
+                y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
                 if (m_item == null) {
                     //changement de sprite du personnage
                     m_idx = 0 + (m_idx + 1) % 4;
@@ -217,7 +236,7 @@ public class Ennemi extends IA {
         }
     }
 
-    public void paint (Graphics g){
+    public void paint(Graphics g) {
         m_cpt++;
         Image img = null;
         if (m_idxMort < 31) {
@@ -232,6 +251,17 @@ public class Ennemi extends IA {
             int w = (int) (m_scale * m_w);
             int h = (int) (m_scale * m_h);
             g.drawImage(img, x, y, w, h, null);
+        }
+    }
+
+    public void ramasser(Cellule cell) {
+        if (cell.entité instanceof Item) {
+            inventaire = (Item) cell.entité;
+            ((Item) cell.entité).possession = 4;
+            cell.entité = null;
+        }
+        if (cell.entité instanceof Bonus) {
+            ((Bonus) cell.entité).actionBonus(cell, this);
         }
     }
 

@@ -99,29 +99,29 @@ public class Item extends IA {
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
-                    if(personnage.invincible!=true) {
-                        personnage.p_vie = personnage.p_vie - 2;
+                    if(ennemi.invincible!=true) {
+                        ennemi.p_vie = ennemi.p_vie - 2;
                     }
                     checkVie(ennemi);
                     hit = false;
                     this.limit = 0;
                 } else if (this.type == 2 || this.type == 3) {
-                    if(personnage.invincible!=true) {
-                        personnage.p_vie = personnage.p_vie - 2;
+                    if(ennemi.invincible!=true) {
+                        ennemi.p_vie = ennemi.p_vie - 2;
                     }
                     checkVie(ennemi);
                     degatZone(h, w);
                     hit = false;
                     this.limit = 0;
                 } else if (this.type == 4 || this.type == 5) {
-                    if(personnage.invincible!=true) {
-                        personnage.p_vie = personnage.p_vie - 2;
+                    if(ennemi.invincible!=true) {
+                        ennemi.p_vie = ennemi.p_vie - 2;
                     }
+                    hit = true;
                     checkVie(ennemi);
-                    hit = false;
                 } else if (this.type == 13) {
-                    if(personnage.invincible!=true) {
-                        personnage.p_vie = personnage.p_vie - 1;
+                    if(ennemi.invincible!=true) {
+                        ennemi.p_vie = ennemi.p_vie - 1;
                     }
                     checkVie(ennemi);
                     hit = false;
@@ -175,8 +175,8 @@ public class Item extends IA {
             }
             if (m_model.m_carte.cellules[h + 1][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h + 1][w].entité;
-                if(personnage.invincible!=true) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                if(ennemi.invincible!=true) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     System.out.println("Zone");
                 }
                 checkVie(ennemi);
@@ -190,8 +190,8 @@ public class Item extends IA {
             }
             if (m_model.m_carte.cellules[h - 1][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h - 1][w].entité;
-                if(personnage.invincible!=true) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                if(ennemi.invincible!=true) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     System.out.println("Zone");
                 }
                 checkVie(ennemi);
@@ -204,8 +204,8 @@ public class Item extends IA {
             }
             if (m_model.m_carte.cellules[h][w + 1].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w + 1].entité;
-                if(personnage.invincible!=true) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                if(ennemi.invincible!=true) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     System.out.println("Zone");
                 }
                 checkVie(ennemi);
@@ -218,8 +218,8 @@ public class Item extends IA {
             }
             if (m_model.m_carte.cellules[h][w - 1].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w - 1].entité;
-                if(personnage.invincible!=true) {
-                    personnage.p_vie = personnage.p_vie - 2;
+                if(ennemi.invincible!=true) {
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     System.out.println("Zone");
                 }
                 checkVie(ennemi);
@@ -277,7 +277,6 @@ public class Item extends IA {
             if (ennemi.p_vie <= 0) {
                 ennemi.m_mort = true;
                 ennemi.m_cell.entité = null;
-                System.out.println("MORMOROMOR");
             }
         } else {
             personnage = (Personnage) entity;

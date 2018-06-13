@@ -62,8 +62,10 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         } else {
                             ramasser(cell);
                             cell.entité = this;
@@ -93,8 +95,10 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         } else {
                             ramasser(cell);
                             cell.entité = this;
@@ -123,8 +127,10 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         }else {
                             ramasser(cell);
                             cell.entité = this;
@@ -151,8 +157,10 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         }else {
                             ramasser(cell);
                             cell.entité = this;
