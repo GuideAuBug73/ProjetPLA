@@ -14,6 +14,7 @@ public class Model extends GameModel {
 	Ennemi m_ennemi;
 	Ennemi[] m_ennemis;
 	Spawn[] m_spawns;
+	Obstacle m_obstacle;
 	BufferedImage m_ennemiSprite;
 	BufferedImage m_ennemiItemSprite;
 	BufferedImage m_mort;
@@ -44,6 +45,7 @@ public class Model extends GameModel {
 		createPerso();
 		createEnnemi();
 		createboss();
+		createObstacle();
 		m_spell = new Spell(this, m_spellSprite, 0, 0);
 	}
 
@@ -354,6 +356,12 @@ public class Model extends GameModel {
 			m_ennemis[totalennemie] = m_ennemi;
 			i++;
 			totalennemie++;
+		}
+	}
+	
+	public void createObstacle() {
+		for(int i=0 ; i<20 ; i++) {
+			m_obstacle = new Obstacle();
 		}
 	}
 
