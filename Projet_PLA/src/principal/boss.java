@@ -18,10 +18,12 @@ public class boss extends Entity {
     int m_cpt;
     int vie = 10;
     public Item projectile;
+    boolean mort;
     boolean Ennemi_presence = false;
 
     public boss(Model model, BufferedImage sprite, int x, int y, float scale) {
         m_model = model;
+        mort=false;
         img = sprite;
         orientation = 0;
         m_item = null;
