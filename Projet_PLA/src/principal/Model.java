@@ -30,7 +30,7 @@ public class Model extends GameModel {
 	spell m_spell;
 	BufferedImage m_spellSprite;
 	BufferedImage[] m_itemSprite = new BufferedImage[12];
-	Item[] m_item = new Item[10];
+	Item[] m_item = new Item[70];
 	Random rand = new Random();
 	public Map m_carte;
 	LinkedList<_Automate> Auto;

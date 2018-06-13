@@ -29,7 +29,12 @@ public class Grid2d {
 	 */
 	public class MapNode implements Node<MapNode> {
 		private final int x, y;
-
+	public int get_x() {
+		return x;
+	}
+	public int get_y() {
+		return y;
+	}
 		public MapNode(int x, int y) {
 			this.x = x;
 			this.y = y;
@@ -42,16 +47,18 @@ public class Grid2d {
 		}
 
 		public double getTraversalCost(MapNode neighbour) {
-			return 1 + map[neighbour.y][neighbour.x].cout;
+			return 1 + map[neighbour.x][neighbour.y].cout;
 		}
 
 		public Set<MapNode> getNeighbours() {
 			Set<MapNode> neighbours = new HashSet<MapNode>();
-
-			for (int i = x ; i <= x + 1; i++) {
-				for (int j = y; j <= y + 1; j++) {
-					System.out.println("Options.nb_cell_w : "+Options.nb_cell_w);
-					System.out.println("Options.nb_cell_h :"+Options.nb_cell_h);
+			//System.out.println("map length :"+map[i].length);
+			//System.out.println("map length[j] :"+map[j].length);
+		
+			for (int i = x - 1; i <= x + 1; i++) {
+				for (int j = y - 1; j <= y + 1; j++) {
+					//System.out.println("map length :"+map[i].length);
+					//System.out.println("map length[j] :"+map[j].length);
 					if ((i == x && j == y) || i < 0 || j < 0 || j >= Options.nb_cell_w || i >= Options.nb_cell_h) {
 						continue;
 					}
@@ -59,8 +66,17 @@ public class Grid2d {
 					if ((i < x && j < y) || (i > x && j > y)) {
 						continue;
 					}
+					if ((j < x && i < y) || (j > x && i > y)) {
+						continue;
+					}
 
-					if (map[j][i].cout < 0) {
+					if ((i < x && j > y) || (i > x && j < y)) {
+						continue;
+					}
+					if ((i > x && j < y) || (i < x && j > y)) {
+						continue;
+					}
+					if (map[i][j].cout < 0) {
 						continue;
 					} 
 

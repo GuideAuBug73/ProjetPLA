@@ -1,8 +1,0 @@
-Mover(Init){
-
-* (Init): 
-    | Cell(N,V) ? Move(N) :(Init)
-    | Cell(E,V) ? Move(E) :(Init)
-    | Cell(O,V) ? Move(O) :(Init)
-    | Cell(S,V) ? Move(S) :(Init)
-}

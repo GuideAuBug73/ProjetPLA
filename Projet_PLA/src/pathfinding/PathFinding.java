@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import principal.Item;
+import principal.Options;
+
 /**
  * Helper class containing pathfinding algorithms.
  * 
@@ -50,7 +53,10 @@ public class PathFinding {
 			if (current.equals(goal)) {
 				while (current != null) {
 					route.add(0, current);
+					
 					current = fromMap.get(current);
+					
+					//Gri2d.map[current.y][current.x] = new Item(1,route.x*Options.TAILLE_CELLULE,route.y*Options.TAILLE_CELLULE,m_model.m_itemSprite[1]);
 				}
 
 				return route;
