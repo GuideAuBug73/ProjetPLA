@@ -18,6 +18,7 @@ public class Personnage extends Entity {
     public Item projectile;
     public int p_vie;
     int m_cpt;
+    Boolean invincible;
 
     public Personnage(Model model, BufferedImage sprite, int x, int y, float scale) {
         m_model = model;
@@ -61,14 +62,16 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         } else {
                             ramasser(cell);
                             cell.entité = this;
                             cellActuel.entité = null;
 
-                            x += Options.TAILLE_CELLULE / 4;
+                            x += Options.TAILLE_CELLULE/Options.vitesse ;
                             m_idx = 8 + (m_idx + 1) % 4;
                             this.orientation = 1;
                         }
@@ -93,14 +96,16 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         } else {
                             ramasser(cell);
                             cell.entité = this;
                             cellActuel.entité = null;
 
-                            y -= Options.TAILLE_CELLULE / 4;
+                            y -= Options.TAILLE_CELLULE / Options.vitesse;
                             m_idx = 12 + (m_idx + 1) % 4;
                             this.orientation = 3;
                         }
@@ -124,14 +129,16 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         }else {
                             ramasser(cell);
                             cell.entité = this;
                             cellActuel.entité = null;
 
-                            y += Options.TAILLE_CELLULE / 4;
+                            y += Options.TAILLE_CELLULE / Options.vitesse;
                             m_idx = (m_idx + 1) % 4;
                             this.orientation = 0;
                         }
@@ -153,14 +160,16 @@ public class Personnage extends Entity {
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
                         if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
-                            m_mort = true;
-                            p_vie--;
+                            if(this.invincible==false) {
+                                m_mort = true;
+                                p_vie--;
+                            }
                         }else {
                             ramasser(cell);
                             cell.entité = this;
                             cellActuel.entité = null;
 
-                            x -= Options.TAILLE_CELLULE / 4;
+                            x -= Options.TAILLE_CELLULE / Options.vitesse;
                             m_idx = 4 + (m_idx + 1) % 4;
                             this.orientation = 2;
                         }
@@ -178,23 +187,23 @@ public class Personnage extends Entity {
         if (m_cpt % 3 == 0) {
             if (orientation == 1 && x % Options.TAILLE_CELLULE != 0) {
                 //4 images par déplacement du personnage
-                x += Options.TAILLE_CELLULE / 4;
+                x += Options.TAILLE_CELLULE /Options.vitesse;
                 //changement de sprite du personnage
                 m_idx = 8 + (m_idx + 1) % 4;
             }
 
             if (orientation == 2 && x % Options.TAILLE_CELLULE != 0) {
-                x -= Options.TAILLE_CELLULE / 4;
+                x -= Options.TAILLE_CELLULE / Options.vitesse;
                 m_idx = 4 + (m_idx + 1) % 4;
             }
 
             if (orientation == 3 && y % Options.TAILLE_CELLULE != 0) {
-                y -= Options.TAILLE_CELLULE / 4;
+                y -= Options.TAILLE_CELLULE / Options.vitesse;
                 m_idx = 12 + (m_idx + 1) % 4;
             }
 
             if (orientation == 0 && y % Options.TAILLE_CELLULE != 0) {
-                y += Options.TAILLE_CELLULE / 4;
+                y += Options.TAILLE_CELLULE / Options.vitesse;
                 m_idx = (m_idx + 1) % 4;
             }
         }
@@ -216,7 +225,7 @@ public class Personnage extends Entity {
 
 
     public void ramasser(Cellule cell) {
-        if (cell.entité != null) {
+        if (cell.entité instanceof Item) {
             Item[] item = m_model.m_item;
             for (int i = 0; i < item.length; i++) {
                 if (item[i] != null) {
@@ -227,6 +236,9 @@ public class Personnage extends Entity {
                     }
                 }
             }
+        }
+        if(cell.entité instanceof Bonus){
+            ((Bonus) cell.entité).actionBonus(cell,this);
         }
     }
 }
