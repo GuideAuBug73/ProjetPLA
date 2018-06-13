@@ -14,6 +14,7 @@ public class Spawn extends IA {
 	int x,y;
 	int m_idx;
 	int m_cpt;
+	boolean m_spawnEnnemi;
 
 	public Spawn(Cellule c, BufferedImage image, Model model) {
 		m_idx = 2;
@@ -22,6 +23,7 @@ public class Spawn extends IA {
 		x = c.x;
 		y = c.y;
 		m_cpt = 0;
+		m_spawnEnnemi = false;
 		splitSprite();
 	}
 
@@ -32,6 +34,7 @@ public class Spawn extends IA {
 		this.x = x;
 		this.y = y;
 		m_cpt = 0;
+		m_spawnEnnemi = false;
 		splitSprite();
 	}
 	
@@ -52,8 +55,9 @@ public class Spawn extends IA {
 
 	public void paint(Graphics g) {
 		m_cpt++;
-		if(m_cpt%5 == 0) {
+		if(m_cpt%10 == 0 && m_idx != 11) {
 			m_idx=(m_idx+3)%12;
+			m_spawnEnnemi = false;
 		}
 		g.drawImage(m_sprites[m_idx], x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
 	}

@@ -323,7 +323,7 @@ public class Model extends GameModel {
 			if (m_carte.cellules[y][x].libre) {
 				sx[i] = x;
 				sy[i] = y;
-				System.out.println(x + "et y :" + y);
+				//System.out.println(x + "et y :" + y);
 				m_spawns[i] = new Spawn(x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_spawnSprite, this);
 				i++;
 			}
@@ -378,7 +378,7 @@ public class Model extends GameModel {
 		
 		}		
 				
-		System.out.println(k);
+		//System.out.println(k);
 		while (i < k) {
 			m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, sx[i] * Options.TAILLE_CELLULE + 4,
 					sy[i] * Options.TAILLE_CELLULE + 13, 1.0F);
