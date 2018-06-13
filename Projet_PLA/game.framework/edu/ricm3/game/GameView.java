@@ -112,18 +112,22 @@ public abstract class GameView extends Canvas {
     }
 
     public final void paint() {
-        Graphics g = m_drawBuffer.getGraphics();
-        _paint(g);
-        Graphics g2 = m_game.m_frame.getGraphics();
-        JLayeredPane pane=m_game.m_frame.getLayeredPane();
-        _paint_inventaire(g2);
-        _paint_player(g2);
-        Graphics g3= principal.Options.panelinfo.getGraphics();
-        _paint_level(g3);
-        m_swap = true;
-        repaint();
+        if (principal.Options.game.frame == 0) {
+            Graphics g = principal.Options.game.m_view2.getGraphics();
+            _paint_menu(g);
+        } else if (principal.Options.game.frame == 1) {
+            Graphics g = m_drawBuffer.getGraphics();
+            _paint(g);
+            Graphics g2 = m_game.m_frame.getGraphics();
+            JLayeredPane pane = m_game.m_frame.getLayeredPane();
+            _paint_inventaire(g2);
+            _paint_player(g2);
+            Graphics g3 = principal.Options.panelinfo.getGraphics();
+            _paint_level(g3);
+            m_swap = true;
+            repaint();
+        }
     }
-
 
     @Override
     public final void paint(Graphics g) {
@@ -147,4 +151,6 @@ public abstract class GameView extends Canvas {
     protected abstract void _paint_player(Graphics g);
 
     protected abstract void _paint_level(Graphics g);
+
+    protected abstract void _paint_menu(Graphics g);
 }

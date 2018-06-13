@@ -26,7 +26,7 @@ public class Personnage extends Entity {
         this.x = x;
         this.y = y;
         m_scale = scale;
-        projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
+        projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite, m_model);
         m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
         if (m_cell.entité == null) {
             m_cell.entité = this;
@@ -57,9 +57,10 @@ public class Personnage extends Entity {
             if (m_mort == false) {
                 if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
                     Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+                    m_cell = cell;
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
-                        if (cell.entité instanceof Ennemi) {
+                        if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
                             m_mort = true;
                             p_vie--;
                         } else {
@@ -88,9 +89,10 @@ public class Personnage extends Entity {
             if (m_mort == false) {
                 if (y / Options.TAILLE_CELLULE != 0) {
                     Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+                    m_cell = cell;
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
-                        if (cell.entité instanceof Ennemi) {
+                        if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
                             m_mort = true;
                             p_vie--;
                         } else {
@@ -118,9 +120,10 @@ public class Personnage extends Entity {
                 if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE
                         - 1)) {
                     Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+                    m_cell = cell;
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
-                        if (cell.entité instanceof Ennemi) {
+                        if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
                             m_mort = true;
                             p_vie--;
                         }else {
@@ -146,9 +149,10 @@ public class Personnage extends Entity {
             if (m_mort == false) {
                 if (x / Options.TAILLE_CELLULE != 0) {
                     Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+                    m_cell = cell;
                     Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
                     if (cell.libre) {
-                        if (cell.entité instanceof Ennemi) {
+                        if (cell.entité instanceof Ennemi || cell.entité instanceof Boss) {
                             m_mort = true;
                             p_vie--;
                         }else {

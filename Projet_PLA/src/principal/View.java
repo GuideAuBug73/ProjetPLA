@@ -44,8 +44,10 @@ public class View extends GameView {
         carte.paint(g);
         Item[] item = m_model.m_item;
         for (int i = 0; i < item.length; i++) {
-            if (item[i] != null)
-                item[i].paint(g);
+            if (item[i] != null) {
+            	m_model.m_item[i].splitSprite();
+            	item[i].paint(g);
+            }
         }
         m_model.m_perso.projectile.paint(g);
         m_model.m_boss.projectile.paint(g);
@@ -72,13 +74,6 @@ public class View extends GameView {
       
         boss booooo = m_model.m_boss;
         booooo.paint(g);
-        
-      //  fire fff = m_model.m_fire;
-       // fff.paint(g);
-        
-        
-      //  Spell ss = m_model.m_spell;
-     //   ss.paint(g);
     }
 
     @Override
@@ -118,7 +113,7 @@ public class View extends GameView {
         int pdv=m_model.m_perso.p_vie;
         int x=50;
         for(int i=0;i<pdv;i++){
-            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min/2+10, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
+            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min/2-(Options.TAILLE_CELLULE-20)/2, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
             x+=50;
         }
     }
@@ -141,5 +136,10 @@ public class View extends GameView {
             m_model.createEnnemi();
         }
 
+    }
+
+    @Override
+    protected void _paint_menu(Graphics g) {
+        m_model.m_menu.paint(g);
     }
 }
