@@ -4,7 +4,7 @@ package principal;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class spell {
+public class Spell {
     BufferedImage m_sprite;
     int m_y;
     int m_x;
@@ -12,7 +12,7 @@ public class spell {
     boolean casted = false;
     int istenilenx, istenileny;
 
-    public spell(Model model, BufferedImage sprite, int x, int y) {
+    public Spell(Model model, BufferedImage sprite, int x, int y) {
         m_model = model;
         m_sprite = sprite;
         m_x = x;

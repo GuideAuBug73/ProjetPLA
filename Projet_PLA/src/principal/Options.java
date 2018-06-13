@@ -4,6 +4,7 @@ import edu.ricm3.game.GameUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Options {
     public static final boolean USE_DOUBLE_BUFFERING = true;
@@ -33,6 +34,7 @@ public class Options {
     public static JPanel panelinfo;
     public static float time_vague=0;
     public static int point_de_vie=3;
+    public static int point_de_vie_ennemi=2;
 	public static Item itemlance=null;
 
 	public static int taille_bp_h;
