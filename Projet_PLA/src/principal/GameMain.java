@@ -1,15 +1,11 @@
 package principal;
 
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.List;
 
-import basic.Cellule;
 import edu.ricm3.game.GameUI;
 import pathfinding.Grid2d;
-import pathfinding.Node;
 import ricm3.parser.ParseException;
 
 public class GameMain {
@@ -36,7 +32,7 @@ public class GameMain {
 			 int x = element.get_y();
 			 System.out.println("x : "+x);
 			 System.out.println("y : "+y);
-				model.m_item[cpt]=new Item(1,x*Options.TAILLE_CELLULE,y*Options.TAILLE_CELLULE,model.m_itemSprite[1],model);
+				model.m_item[cpt]=new Item(1,x*Options.TAILLE_CELLULE,y*Options.TAILLE_CELLULE,model.m_itemSprite[1],model.m_itemSprite[5],model);
 			 model.m_carte.cellules[y][x].entité = model.m_item[cpt];
 			 cpt++;
 
