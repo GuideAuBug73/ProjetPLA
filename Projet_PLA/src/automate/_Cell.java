@@ -48,10 +48,10 @@ public class _Cell extends _Condition {
 			}
 			return false;
 		case "O":
-			if (e.x / Options.TAILLE_CELLULE - 1 != 0) {
+			if (e.x / Options.TAILLE_CELLULE != 0) {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)
 						- 1];
-				if (entity_cellule != "V") {
+				if (!entity_cellule.equals("V")) {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				} else {
 					return (cell.libre);
@@ -60,10 +60,10 @@ public class _Cell extends _Condition {
 			}
 			return false;
 		case "N":
-			if (e.y / Options.TAILLE_CELLULE - 1 != 0) {
+			if (e.y / Options.TAILLE_CELLULE != 0) {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) - 1][e.x
 						/ Options.TAILLE_CELLULE];
-				if (entity_cellule != "V") {
+				if (!entity_cellule.equals("V")) {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {
@@ -77,7 +77,7 @@ public class _Cell extends _Condition {
 					+ 1 != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) + 1][e.x
 						/ Options.TAILLE_CELLULE];
-				if (entity_cellule != "V") {
+				if (!entity_cellule.equals("V")) {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {

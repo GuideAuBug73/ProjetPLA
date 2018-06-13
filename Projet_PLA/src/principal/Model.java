@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
@@ -15,8 +14,6 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import automate._Automate;
-import automate._Behaviour;
-import automate._Transition;
 import edu.ricm3.game.GameModel;
 import ricm3.parser.Ast.AI_Definitions;
 import ricm3.parser.Ast.Automaton;
@@ -75,18 +72,7 @@ public class Model extends GameModel {
 		_Iter = Auto.listIterator();
 		while (_Iter.hasNext()) {
 			_Automate toExec = _Iter.next();
-			for (int i = 0; i < toExec.behaviours.size(); i++) {
-				_Behaviour b = toExec.behaviours.get(i);
-				if (toExec.courant.name.equals(b.source.name)) {
-					for (int j = 0; j < b.transitions.size(); j++) {
-						_Transition t = b.transitions.get(j);
-						if (t.condition.eval(toExec.e)) {
-							t.act.execute(toExec.e);
-						}
-					}
-				}
-			}
-
+			toExec.step(now);
 		}
 	}
 
