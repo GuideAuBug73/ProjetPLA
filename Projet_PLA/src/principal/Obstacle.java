@@ -9,7 +9,7 @@ public class Obstacle extends Entity {
 	}
 
 	@Override
-	public void pick() {
+	public void pick(String param) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -28,6 +28,12 @@ public class Obstacle extends Entity {
 
 	@Override
 	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
 		// TODO Auto-generated method stub
 		
 	}

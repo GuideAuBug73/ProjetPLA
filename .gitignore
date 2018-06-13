@@ -1,5 +1,5 @@
 /.metadata/
-eclipse/
+eclipse
 *.log
 .metadata
 *.sh
@@ -12,4 +12,5 @@ eclipse/
 
 *.xml
 
+*.class
 Projet_PLA/GamaParser-master/src/Makefile

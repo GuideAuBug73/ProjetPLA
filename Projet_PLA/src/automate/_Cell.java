@@ -34,10 +34,13 @@ public class _Cell extends _Condition {
 		}
 		switch (tab_parametre[0]) {
 		case "E":
-			if (e.x + 1 / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+			if (e.x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)
 						+ 1];
 				if (!entity_cellule.equals("V")) {
+					if(cell.entité == null) {
+						return false;
+					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				} else {
 					return (cell.libre);
@@ -52,6 +55,9 @@ public class _Cell extends _Condition {
 				Cellule cell = e.m_model.m_carte.cellules[e.y / Options.TAILLE_CELLULE][(e.x / Options.TAILLE_CELLULE)
 						- 1];
 				if (!entity_cellule.equals("V")) {
+					if(cell.entité == null) {
+						return false;
+					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				} else {
 					return (cell.libre);
@@ -64,6 +70,9 @@ public class _Cell extends _Condition {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) - 1][e.x
 						/ Options.TAILLE_CELLULE];
 				if (!entity_cellule.equals("V")) {
+					if(cell.entité == null) {
+						return false;
+					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {
@@ -73,11 +82,14 @@ public class _Cell extends _Condition {
 			}
 			return false;
 		case "S":
-			if (e.y / Options.TAILLE_CELLULE
-					+ 1 != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+			if (e.y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE
+                    - 1)) {
 				Cellule cell = e.m_model.m_carte.cellules[(e.y / Options.TAILLE_CELLULE) + 1][e.x
 						/ Options.TAILLE_CELLULE];
 				if (!entity_cellule.equals("V")) {
+					if(cell.entité == null) {
+						return false;
+					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {

@@ -12,13 +12,14 @@ test3 = "Blocker(Init){ * (Init): !(True & True) ? Power(N,T) :(Init) }"
 
 test4 = "Blocker(Init){ * (Init): !(True) ? Power :(Init) }"
 
-test5 = "Mover(Init){ * (Init): True ? Move :(Init) }"
+test6 = "Mover(Init){ * (Init): True ? Move :(Init) }"
 
-test6 = "TestduRun(Run){ \
-* (Run):\
-  | Cell(F,V) ? Move(F) :(Explore)\
-  | Cell(F,A) / Cell(B,A) / Cell(L,A) / Cell(R,A) ? Wizz :(Escape)\
-  | True ? Pop :(Explore)\
+test5 = "Test(Init){ \
+* (Init): \ 
+    | Cell(N,V) ? Move(N) :(Init) \
+    | Cell(E,V) ? Move(E) :(Init) \
+    | Cell(O,V) ? Move(O) :(Init) \
+    | Cell(S,V) ? Move(S) :(Init) \
 }"
 
 test7 = "Master(Think){ \
