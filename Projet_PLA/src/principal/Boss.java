@@ -23,7 +23,7 @@ public class Boss extends Entity {
 
     public Boss(Model model, BufferedImage sprite, int x, int y, float scale) {
         m_model = model;
-        mort=false;
+        mort = false;
         img = sprite;
         orientation = 0;
         m_item = null;
@@ -31,7 +31,7 @@ public class Boss extends Entity {
         this.y = y;
         m_scale = scale;
         m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
-        projectile = new Item(14,-200,-200,m_model.m_fireSprite, m_model.m_exploSprite,m_model);
+        projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model.m_exploSprite, m_model);
         if (m_cell.entité == null) {
             m_cell.entité = this;
         }
@@ -228,15 +228,17 @@ public class Boss extends Entity {
 
 
     public void paint(Graphics g) {
-        g.drawRect(x, y, vie * 6, 5);
-        g.setColor(Color.red);
-        g.fillRect(x, y, vie * 6, 5);
-        m_cpt++;
-        if (m_model.m_perso.m_mort != true) {
-            Image img = m_sprites[m_idx];
-            int w = (int) (m_scale * m_w);
-            int h = (int) (m_scale * m_h);
-            g.drawImage(img, x, y, w, h, null);
+        if (this.mort != true) {
+            g.drawRect(x, y, vie * 6, 5);
+            g.setColor(Color.red);
+            g.fillRect(x, y, vie * 6, 5);
+            m_cpt++;
+            if (m_model.m_perso.m_mort != true) {
+                Image img = m_sprites[m_idx];
+                int w = (int) (m_scale * m_w);
+                int h = (int) (m_scale * m_h);
+                g.drawImage(img, x, y, w, h, null);
+            }
         }
     }
 

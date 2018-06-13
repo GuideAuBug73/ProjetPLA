@@ -57,7 +57,6 @@ public class View extends GameView {
         m_model.m_boss.projectile.paint(g);
         m_model.m_perso.animation();
         m_model.m_boss.animation();
-        m_model.m_fire.setcastfire();
         Personnage h = m_model.m_perso;
         h.paint(g);
         Ennemi k;

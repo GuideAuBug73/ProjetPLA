@@ -33,6 +33,7 @@ public class Personnage extends Entity {
             m_cell.entité = this;
         }
         m_cpt = 0;
+        invincible=false;
         splitSprite();
     }
 

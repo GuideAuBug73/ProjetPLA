@@ -37,7 +37,6 @@ public class Model extends GameModel {
 	int sx[] = new int[4];
 	int sy[] = new int[4];
 	int totalennemie = 0;
-	fire m_fire;
 	BufferedImage m_fireSprite;
     Bonus m_bonus[] = new Bonus[2];
     BufferedImage m_bonusSprite[] = new BufferedImage[3];
@@ -52,9 +51,7 @@ public class Model extends GameModel {
         createboss();
         createMenu();
         createBonus();
-
-        m_fire=new fire(this, m_fireSprite);
-    }
+        }
 
 	@Override
 	public void shutdown() {
@@ -449,7 +446,7 @@ public class Model extends GameModel {
 		while (i < 4) {
 			int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
 			int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
-			if (m_carte.cellules[y][x].libre) {
+			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
 				sx[i] = x;
 				sy[i] = y;
 				// System.out.println(x + "et y :" + y);

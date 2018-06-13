@@ -105,6 +105,7 @@ public class Item extends IA {
                 } else {
                     if (this.type == 2 || this.type == 3) {
                         degatZone(this.y / 60, this.x / 60);
+                        m_zone = true;
                     }
                     Options.itemlance.x = -100;
                     Options.itemlance.y = -100;
@@ -138,10 +139,10 @@ public class Item extends IA {
         m_posDegatW = w;
         try {
             if (m_model.m_carte.cellules[h][w].libre == false) {
-                m_model.m_carte.cellules[h][w].libre = true;
-                degatZone(h, w);
                 this.limit = 0;
                 if (type == 2 || type == 3) {
+                    m_model.m_carte.cellules[h][w].libre = true;
+                    degatZone(h, w);
                     m_zone = true;
                 }
             }
@@ -365,10 +366,19 @@ public class Item extends IA {
                 ennemi.m_mort = true;
                 ennemi.m_cell.entité = null;
             }
-        } else {
+        } else if (entity instanceof Personnage) {
             personnage = (Personnage) entity;
             if (personnage.p_vie <= 0) {
                 personnage.m_mort = true;
+                ennemi.m_cell.entité = null;
+
+            }
+        } else if (entity instanceof Boss) {
+            boss = (Boss) entity;
+            if (boss.vie <= 0) {
+                boss.mort = true;
+                ennemi.m_cell.entité = null;
+
             }
         }
     }
