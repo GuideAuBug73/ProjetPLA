@@ -2,6 +2,7 @@ package principal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Options {
     public static final boolean USE_DOUBLE_BUFFERING = true;

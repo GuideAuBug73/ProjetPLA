@@ -10,15 +10,15 @@ public class test_inventaire {
 	public void test1() {
 		Inventaire inv;
 		inv = new Inventaire();
-		Item item1 = new Item(1,0,0,null,null);
-		Item item2 = new Item(2,0,0,null,null);
-		Item item3 = new Item(3,0,0,null,null);
-		Item item4 = new Item(4,0,0,null,null);
-		Item item5 = new Item(5,0,0,null,null);
-		Item item6 = new Item(6,0,0,null,null);
-		Item item7 = new Item(7,0,0,null,null);
-		Item item8 = new Item(8,0,0,null,null);
-		Item item9 = new Item(9,0,0,null,null);
+		Item item1 = new Item(1,0,0,null,null,null);
+		Item item2 = new Item(2,0,0,null,null,null);
+		Item item3 = new Item(3,0,0,null,null,null);
+		Item item4 = new Item(4,0,0,null,null,null);
+		Item item5 = new Item(5,0,0,null,null,null);
+		Item item6 = new Item(6,0,0,null,null,null);
+		Item item7 = new Item(7,0,0,null,null,null);
+		Item item8 = new Item(8,0,0,null,null,null);
+		Item item9 = new Item(9,0,0,null,null,null);
 		// Inventaire.Iterator iter;
 		inv.enfiler(item1);
 		inv.enfiler(item2);
@@ -36,16 +36,16 @@ public class test_inventaire {
 	public void test2() {
 		Inventaire inv;
 		inv = new Inventaire();
-		Item item1 = new Item(1,0,0,null,null);
-		Item item2 = new Item(2,0,0,null,null);
-		Item item3 = new Item(3,0,0,null,null);
-		Item item4 = new Item(4,0,0,null,null);
-		Item item5 = new Item(5,0,0,null,null);
-		Item item6 = new Item(6,0,0,null,null);
-		Item item7 = new Item(7,0,0,null,null);
-		Item item8 = new Item(8,0,0,null,null);
-		Item item9 = new Item(7,0,0,null,null);
-		Item item10 = new Item(8,0,0,null,null);
+		Item item1 = new Item(1,0,0,null,null,null);
+		Item item2 = new Item(2,0,0,null,null,null);
+		Item item3 = new Item(3,0,0,null,null,null);
+		Item item4 = new Item(4,0,0,null,null,null);
+		Item item5 = new Item(5,0,0,null,null,null);
+		Item item6 = new Item(6,0,0,null,null,null);
+		Item item7 = new Item(7,0,0,null,null,null);
+		Item item8 = new Item(8,0,0,null,null,null);
+		Item item9 = new Item(7,0,0,null,null,null);
+		Item item10 = new Item(8,0,0,null,null,null);
 		inv.enfiler(item1);
 		inv.enfiler(item2);
 		inv.enfiler(item3);
@@ -67,9 +67,9 @@ public class test_inventaire {
 	public void test3() {
 		Inventaire inv;
 		inv = new Inventaire();
-		Item item1 = new Item(1,0,0,null,null);
-		Item item2 = new Item(1,0,0,null,null);
-		Item item3 = new Item(3,0,0,null,null);
+		Item item1 = new Item(1,0,0,null,null,null);
+		Item item2 = new Item(1,0,0,null,null,null);
+		Item item3 = new Item(3,0,0,null,null,null);
 	
 		inv.enfiler(item1);
 		inv.enfiler(item2);
