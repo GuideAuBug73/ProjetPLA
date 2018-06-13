@@ -69,7 +69,6 @@ public class Bonus extends Entity {
                 if (entity instanceof Personnage) {
                     Options.vitesse = 4;
                 } else if (entity instanceof Ennemi) {
-                    Ennemi ennemi = (Ennemi) entity;
                     Options.vitesseEnnemie = 4;
                 }
             }

@@ -42,12 +42,12 @@ public class Model extends GameModel {
         loadSprites();
         createMap();
         createItem();
+        createBonus();
         createSpawn();
         createPerso();
         createEnnemi();
         createboss();
         //createObstacle();
-        createBonus();
         m_spell = new Spell(this, m_spellSprite, 0, 0);
     }
 
@@ -262,14 +262,14 @@ public class Model extends GameModel {
         }
         imageFile = new File("src/sprites/mana_potion.png");
         try {
-            m_bonusSprite[0] = ImageIO.read(imageFile);
+            m_bonusSprite[1] = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
         }
         imageFile = new File("src/sprites/poison_potion.png");
         try {
-            m_bonusSprite[0] = ImageIO.read(imageFile);
+            m_bonusSprite[2] = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
