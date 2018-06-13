@@ -24,6 +24,27 @@ public class Item extends IA {
     int m_posDegatH;
     int m_posDegatW;
 
+	public Item(int type, int w, int h, BufferedImage m_item, BufferedImage m_explo, Model model) {
+		this.type = type;
+		m_model = model;
+		x = w;
+		y = h;
+		img = m_item;
+		img2 = m_explo;
+		if (this.type == 0 || this.type == 1) {
+			limit = 40 * 30;
+		} else if (this.type == 2 || this.type == 3) {
+			limit = 6 * 30;
+		} else if (this.type == 4 || this.type == 5) {
+			limit = 6 * 30;
+		} else if (this.type == 13 || this.type == 14) {
+			limit = 2 * 30;
+		}
+		m_idx = 0;
+		m_zone = false;
+		m_idxExplo = 0;
+		splitSprite();
+	}
 
     public Item(int type, int w, int h, BufferedImage m_item, BufferedImage m_explo, Model model) {
         this.type = type;
@@ -91,31 +112,46 @@ public class Item extends IA {
             this.y -= 2;
         }
     }
-
     public void lanceItem() {
         if (compteurTickItem < 1) {
             compteurTickItem++;
         } else {
             verifCellule();
-            if (Options.itemlance.limit != 0) {
-                Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
-                compteurTickItem = 0;
-                Options.itemlance.limit--;
-            } else {
-                if (type == 2 || type == 3)
-                    m_zone = true;
-                if (this.type == 2 || this.type == 3) {
-                    degatZone(this.y / 60, this.x / 60);
+            try {
+                if (Options.itemlance.limit != 0) {
+                    Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
+                    compteurTickItem = 0;
+                    Options.itemlance.limit--;
+                } else {
+                    if (this.type == 2 || this.type == 3) {
+                        degatZone(this.y / 60, this.x / 60);
+                    }
+                    Options.itemlance.x = -100;
+                    Options.itemlance.y = -100;
+                    Options.itemlance = null;
+                    m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite, m_model);
                 }
-                Options.itemlance.x = -100;
-                Options.itemlance.y = -100;
-                Options.itemlance = null;
-                m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite, m_model);
+            } catch (NullPointerException e) {
+
+            }
+            try {
+                if (Options.projectileBossLance.limit != 0) {
+                    Options.projectileBossLance.setcast(Options.projectileBossLance.x, Options.projectileBossLance.y, Options.projectileBossLance.orientation);
+                    compteurTickItem = 0;
+                    Options.projectileBossLance.limit--;
+                } else {
+                    Options.projectileBossLance.x = -100;
+                    Options.projectileBossLance.y = -100;
+                    Options.projectileBossLance = null;
+                    m_model.m_boss.projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model.m_exploSprite,m_model);
+                }
+            } catch (NullPointerException e) {
+
             }
         }
     }
 
-    public void verifCellule() {
+	public void verifCellule() {
         int w = this.x / 60;
         int h = this.y / 60;
         m_posDegatH = h;
@@ -141,37 +177,33 @@ public class Item extends IA {
         if (hit == true) {
             Ennemi ennemi = null;
             Personnage personnage = null;
+            Boss boss=null;
             if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
             } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
+            }else if(m_model.m_carte.cellules[h][w].entité instanceof Boss){
+                boss = (Boss)m_model.m_carte.cellules[h][w].entité;
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
-                    if (ennemi.invincible != true) {
-                        ennemi.p_vie = ennemi.p_vie - 2;
-                    }
+                    ennemi.p_vie = ennemi.p_vie - 2;
+                    System.out.println("Vie:" + ennemi.p_vie);
                     checkVie(ennemi);
                     hit = false;
                     this.limit = 0;
                 } else if (this.type == 2 || this.type == 3) {
-                    if (ennemi.invincible != true) {
-                        ennemi.p_vie = ennemi.p_vie - 2;
-                    }
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
                     degatZone(h, w);
                     hit = false;
                     this.limit = 0;
                 } else if (this.type == 4 || this.type == 5) {
-                    if (ennemi.invincible != true) {
-                        ennemi.p_vie = ennemi.p_vie - 2;
-                    }
-                    hit = true;
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
+                    hit = false;
                 } else if (this.type == 13) {
-                    if (ennemi.invincible != true) {
-                        ennemi.p_vie = ennemi.p_vie - 1;
-                    }
+                    ennemi.p_vie = ennemi.p_vie - 1;
                     checkVie(ennemi);
                     hit = false;
                     this.limit = 0;
@@ -179,37 +211,52 @@ public class Item extends IA {
             }
             if (personnage != null) {
                 if (this.type == 0 || this.type == 1) {
-                    if (personnage.invincible != true) {
-                        personnage.p_vie = personnage.p_vie - 1;
-                    }
-                    personnage.m_mort = true;
+                    personnage.p_vie = personnage.p_vie - 2;
                     checkVie(personnage);
                     this.limit = 0;
                     hit = false;
                 } else if (this.type == 2 || this.type == 3) {
-                    if (personnage.invincible != true) {
-                        personnage.p_vie = personnage.p_vie - 1;
-                    }
-                    personnage.m_mort = true;
+                    ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(personnage);
                     this.limit = 0;
                     degatZone(h, w);
                     hit = false;
                 } else if (this.type == 4 || this.type == 5) {
-                    if (personnage.invincible != true) {
-                        personnage.p_vie = personnage.p_vie - 1;
-                    }
-                    personnage.m_mort = true;
+                    personnage.p_vie = personnage.p_vie - 2;
                     checkVie(personnage);
                     hit = false;
-                } else if (this.type == 13) {
-                    if (personnage.invincible != true) {
-                        personnage.p_vie = personnage.p_vie - 1;
-                    }
-                    personnage.m_mort = true;
+                } else if (this.type == 14) {
+                    personnage.p_vie = personnage.p_vie - 1;
                     checkVie(personnage);
                     this.limit = 0;
                     hit = false;
+                }
+            }
+            if (boss != null) {
+                if (this.type == 0 || this.type == 1) {
+                    boss.vie = boss.vie - 2;
+                    System.out.println("Vie:" + boss.vie);
+                    checkVie(boss);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 2 || this.type == 3) {
+                    boss.vie = boss.vie - 2;
+                   // checkVie(boss);
+                    degatZone(h, w);
+                    System.out.println("Vie:" + boss.vie);
+                    hit = false;
+                    this.limit = 0;
+                } else if (this.type == 4 || this.type == 5) {
+                    boss.vie = boss.vie - 2;
+                    //checkVie(boss);
+                    System.out.println("Vie:" + boss.vie);
+                    hit = false;
+                } else if (this.type == 13) {
+                    boss.vie = boss.vie - 1;
+                    System.out.println("Vie:" + boss.vie);
+                   // checkVie(boss);
+                    hit = false;
+                    this.limit = 0;
                 }
             }
         }
@@ -378,6 +425,70 @@ public class Item extends IA {
             img = m_sprites[0];
             g.drawImage(img, w, h, Options.TAILLE_CELLULE - 20, Options.TAILLE_CELLULE - 20, null);
 
+		}
+	}
+
+    public void checkVie(Entity entity) {
+        Ennemi ennemi = null;
+        Personnage personnage = null;
+        Boss boss= null;
+        if (entity instanceof Ennemi) {
+            ennemi = (Ennemi) entity;
+            if (ennemi.p_vie <= 0) {
+                ennemi.m_mort = true;
+                ennemi.m_cell.entité = null;
+            }
+        } else {
+            personnage = (Personnage) entity;
+            if (personnage.p_vie <= 0) {
+                personnage.m_mort = true;
+            }
         }
     }
+
+	public void paint(Graphics g) {
+		Image img = null;
+		// possession 3 = jeté
+		// possession 1 = inventaire
+		// possession 2 = ennemi
+		if (possession == 3) {
+			m_idx = (m_idx + 1) % 4;
+			img = m_sprites[m_idx];
+		}
+		// possession 0 = au sol
+		else if (possession == 0) {
+			img = m_sprites[0];
+		}
+		g.drawImage(img, x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+		//dessin explosion
+		if (m_zone == true && m_idxExplo < 16) {
+			System.out.println("x :" + m_posDegatW + "y " + m_posDegatH);
+			img = m_spritesExplo[m_idxExplo];
+			g.drawImage(img, m_posDegatW * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					m_posDegatH * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE, (int) ((Options.TAILLE_CELLULE) * 3),
+					(int) ((Options.TAILLE_CELLULE) * 3), null);
+			g.drawImage(img, (m_posDegatW + 1) * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					m_posDegatH * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE, (int) ((Options.TAILLE_CELLULE) * 3),
+					(int) ((Options.TAILLE_CELLULE) * 3), null);
+			g.drawImage(img, m_posDegatW * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					(m_posDegatH + 1) * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					(int) ((Options.TAILLE_CELLULE) * 3), (int) ((Options.TAILLE_CELLULE) * 3), null);
+			g.drawImage(img, (m_posDegatW - 1) * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					m_posDegatH * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE, (int) ((Options.TAILLE_CELLULE) * 3),
+					(int) ((Options.TAILLE_CELLULE) * 3), null);
+			g.drawImage(img, (m_posDegatW) * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					(m_posDegatH - 1) * Options.TAILLE_CELLULE - Options.TAILLE_CELLULE,
+					(int) ((Options.TAILLE_CELLULE) * 3), (int) ((Options.TAILLE_CELLULE) * 3), null);
+			m_idxExplo++;
+		}
+	}
+
+	public void paint(Graphics g, int w, int h) {
+		Image img = this.img;
+		if (possession == 1) {
+			img = m_sprites[0];
+			g.drawImage(img, w, h, Options.TAILLE_CELLULE - 20, Options.TAILLE_CELLULE - 20, null);
+
+		}
+	}
 }

@@ -11,5 +11,17 @@ public class Entity {
 	    i[0] = y/Options.TAILLE_CELLULE; 
 	    i[1] = x/Options.TAILLE_CELLULE; 
 	    return i; 
-	  } 
+	  }
+	  public void wizz(){
+	    int x2=x/ Options.TAILLE_CELLULE;
+	    int y2=y/ Options.TAILLE_CELLULE;
+	    while(m_model.m_carte.cellules[y2][x2].libre==false || m_model.m_carte.cellules[y2][x2].entité!=null) {
+            x2 = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            y2 = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+        }
+        m_model.m_carte.cellules[y2][x2].entité=this;
+        m_model.m_carte.cellules[y/ Options.TAILLE_CELLULE][x/ Options.TAILLE_CELLULE].entité=null;
+        x=x2* Options.TAILLE_CELLULE;
+        y=y2* Options.TAILLE_CELLULE;
+	  }
 }
