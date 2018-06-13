@@ -59,6 +59,6 @@ public class Spawn extends IA {
 			m_idx=(m_idx+3)%12;
 			m_spawnEnnemi = false;
 		}
-		g.drawImage(m_sprites[m_idx], x, y, Options.TAILLE_CELLULE, Options.TAILLE_CELLULE, null);
+		g.drawImage(m_sprites[m_idx], x-10, y, Options.TAILLE_CELLULE+20, Options.TAILLE_CELLULE, null);
 	}
 }

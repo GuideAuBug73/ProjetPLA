@@ -257,7 +257,7 @@ public class Ennemi extends IA {
             }
             int w = (int) (m_scale * m_w);
             int h = (int) (m_scale * m_h);
-            g.drawImage(img, x, y, w, h, null);
+            g.drawImage(img, x+2, y, w, h, null);
         }
     }
 

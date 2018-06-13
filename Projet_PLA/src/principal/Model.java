@@ -21,10 +21,12 @@ public class Model extends GameModel {
 	BufferedImage m_fieldSprite2;
 	BufferedImage m_wallSprite;
 	BufferedImage m_persoSprite;
+	BufferedImage m_persoSpriteTransfo; 
 	BufferedImage m_carre_inventaire;
 	BufferedImage m_spawnSprite;
 	BufferedImage m_exploSprite;
 	BufferedImage m_bossSprite;
+	BufferedImage m_bossSpriteMort;
 	BufferedImage img[] = new BufferedImage[10];
 	Menu m_menu;
 	BufferedImage m_spellSprite;
@@ -38,20 +40,20 @@ public class Model extends GameModel {
 	int sy[] = new int[4];
 	int totalennemie = 0;
 	BufferedImage m_fireSprite;
-    Bonus m_bonus[] = new Bonus[2];
-    BufferedImage m_bonusSprite[] = new BufferedImage[3];
+	Bonus m_bonus[] = new Bonus[2];
+	BufferedImage m_bonusSprite[] = new BufferedImage[3];
 
-    public Model() {
-        loadSprites();
-        createMap();
-        createItem();
-        createSpawn();
-        createPerso();
-        createEnnemi();
-        createboss();
-        createMenu();
-        createBonus();
-        }
+	public Model() {
+		loadSprites();
+		createMap();
+		createItem();
+		createSpawn();
+		createPerso();
+		createEnnemi();
+		createboss();
+		createMenu();
+		createBonus();
+	}
 
 	@Override
 	public void shutdown() {
@@ -87,6 +89,22 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
+		imageFile = new File("src/sprites/Aura.png"); 
+        try { 
+            m_persoSpriteTransfo = ImageIO.read(imageFile); 
+        } catch (IOException ex) { 
+            ex.printStackTrace(); 
+            System.exit(-1); 
+        } 
+        
+		imageFile = new File("src/sprites/Effect95.png");
+		try {
+			m_bossSpriteMort = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
 		imageFile = new File("src/sprites/inv.png");
 		try {
 			m_carre_inventaire = ImageIO.read(imageFile);
@@ -103,25 +121,23 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
-        imageFile = new File("src/sprites/sort.png");
-        try {
-            m_spellSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("src/sprites/sort.png");
+		try {
+			m_spellSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
+		// Ennemis <----------------------------------------------------->
 
-
-        //  Ennemis <----------------------------------------------------->
-
-        imageFile = new File("src/sprites/field.png");
-        try {
-            m_fieldSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("src/sprites/field.png");
+		try {
+			m_fieldSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 		imageFile = new File("src/sprites/fire.png");
 		try {
 			m_fireSprite = ImageIO.read(imageFile);
@@ -130,13 +146,13 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
-        imageFile = new File("src/sprites/wall.png");
-        try {
-            m_wallSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("src/sprites/wall.png");
+		try {
+			m_wallSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 		imageFile = new File("src/sprites/dust.jpg");
 		try {
 			m_fieldSprite2 = ImageIO.read(imageFile);
@@ -237,7 +253,6 @@ public class Model extends GameModel {
 		test = (int) (Math.random() * 5);
 		m_itemSprite[7] = m_itemSprite[test];
 
-
 		imageFile = new File("src/sprites/vie.png");
 		try {
 			m_itemSprite[8] = ImageIO.read(imageFile);
@@ -276,37 +291,35 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
-        imageFile = new File("src/sprites/life_potion.png");
-        try {
-            m_bonusSprite[0] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-        imageFile = new File("src/sprites/mana_potion.png");
-        try {
-            m_bonusSprite[1] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-        imageFile = new File("src/sprites/poison_potion.png");
-        try {
-            m_bonusSprite[2] = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("src/sprites/life_potion.png");
+		try {
+			m_bonusSprite[0] = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		imageFile = new File("src/sprites/mana_potion.png");
+		try {
+			m_bonusSprite[1] = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		imageFile = new File("src/sprites/poison_potion.png");
+		try {
+			m_bonusSprite[2] = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
-
-
-        imageFile = new File("src/sprites/spawn.png");
-        try {
-            m_spawnSprite = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("src/sprites/spawn.png");
+		try {
+			m_spawnSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 		imageFile = new File("src/sprites/Explosion03.png");
 		try {
 			m_exploSprite = ImageIO.read(imageFile);
@@ -380,8 +393,7 @@ public class Model extends GameModel {
 			}
 
 			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
-				m_perso = new Personnage(this, m_persoSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
-						1.3F);
+				 m_perso = new Personnage(this, m_persoSprite, m_persoSpriteTransfo, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
 				m_carte.cellules[y][x].entité = m_perso;
 				i++;
 			}
@@ -402,29 +414,36 @@ public class Model extends GameModel {
 		}
 	}
 
-    public void createMenu(){
-        m_menu = new Menu(this,img);
-    }
-
-    public void createMap() {
-        m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
-                Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
+	public void createMenu() {
+		m_menu = new Menu(this, img);
 	}
 
+	public void createMap() {
+		if (dust) {
+			m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+					Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
+			dust = !dust;
+		} else {
+			m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+					Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite2);
+			dust = !dust;
+		}
+	}
 
-    public void createBonus() {
-        for (int i = 0; i < 2;) {
-            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
-            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
-            int type = (int) (Math.random() * 3);
-            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
-                m_bonus[i] = new Bonus(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_bonusSprite[type], this);
-                m_carte.cellules[y][x].entité = m_bonus[i];
-                i++;
-                System.out.println("x: "+x+"\ny: "+y);
-            }
-        }
-    }
+	public void createBonus() {
+		for (int i = 0; i < 2;) {
+			int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+			int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+			int type = (int) (Math.random() * 3);
+			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
+				m_bonus[i] = new Bonus(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
+						m_bonusSprite[type], this);
+				m_carte.cellules[y][x].entité = m_bonus[i];
+				i++;
+				System.out.println("x: " + x + "\ny: " + y);
+			}
+		}
+	}
 
 	public void createboss() {
 
@@ -433,7 +452,7 @@ public class Model extends GameModel {
 			int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
 
 			if (m_carte.cellules[y][x].entité == null && m_carte.cellules[y][x].libre) {
-				m_boss = new Boss(this, m_bossSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 0.85F);
+				m_boss = new Boss(this, m_bossSprite, m_bossSpriteMort, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 0.85F);
 				m_carte.cellules[y][x].entité = m_boss;
 				i++;
 			}
@@ -458,48 +477,48 @@ public class Model extends GameModel {
 
 	public void createEnnemi() {
 		int i = 0;
-		int k =0;
+		int k = 0;
 
 		if (Options.level == 1) {
-				if (Options.vague == 1) 
-					k =3 ;
-				else if (Options.vague == 2) 
-					k = 5;
-				else if (Options.vague == 3) 
-					k = 7;
-				else if (Options.vague == 4) 
-					k = 9;
-		}		
+			if (Options.vague == 1)
+				k = 3;
+			else if (Options.vague == 2)
+				k = 5;
+			else if (Options.vague == 3)
+				k = 7;
+			else if (Options.vague == 4)
+				k = 9;
+		}
 		if (Options.level == 2) {
 			if (Options.vague == 1)
-				k =4 ;
-			else if (Options.vague == 2) 
+				k = 4;
+			else if (Options.vague == 2)
 				k = 7;
-			else if (Options.vague == 3) 
+			else if (Options.vague == 3)
 				k = 10;
-			else if (Options.vague == 4) 
+			else if (Options.vague == 4)
 				k = 13;
 		}
 		if (Options.level == 3) {
 			if (Options.vague == 1)
-				k =4 ;
-			else if (Options.vague == 2) 
+				k = 4;
+			else if (Options.vague == 2)
 				k = 8;
-			else if (Options.vague == 3) 
+			else if (Options.vague == 3)
 				k = 12;
-			else if (Options.vague == 4) 
+			else if (Options.vague == 4)
 				k = 16;
 		}
-		//System.out.println(k);
+		// System.out.println(k);
 		while (i < k) {
 			m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[i] * Options.TAILLE_CELLULE + 4,
 					sy[i] * Options.TAILLE_CELLULE + 13, 1.0F);
 			m_ennemis[totalennemie] = m_ennemi;
 			i++;
 			totalennemie++;
-			if ( i ==4 ) { 
-				k = k -4;
-				i = 0 ;
+			if (i == 4) {
+				k = k - 4;
+				i = 0;
 			}
 		}
 	}
@@ -512,10 +531,6 @@ public class Model extends GameModel {
 		totalennemie++;
 
 	}
-
-
-
-
 
 	void newvague() {
 
@@ -561,9 +576,5 @@ public class Model extends GameModel {
 			}
 		}
 	}
-
-	
-
-	
 
 }
