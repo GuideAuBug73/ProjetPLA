@@ -12,7 +12,7 @@ import java.util.Random;
 public class Model extends GameModel {
     Personnage m_perso;
     Ennemi m_ennemi;
-    Ennemi[] m_ennemis;
+    Ennemi[] m_ennemis = new Ennemi[100];
     Spawn[] m_spawns;
     BufferedImage m_ennemiSprite;
     BufferedImage m_ennemiItemSprite;
@@ -26,7 +26,6 @@ public class Model extends GameModel {
     BufferedImage m_bossSprite;
     BufferedImage img[] = new BufferedImage[10];
     Menu m_menu;
-    Spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite = new BufferedImage[12];
     Item[] m_item = new Item[10];
@@ -49,7 +48,6 @@ public class Model extends GameModel {
         createEnnemi();
         createboss();
         createMenu();
-        m_spell = new Spell(this, m_spellSprite, 0, 0);
         m_fire=new fire(this, m_fireSprite);
     }
 
@@ -254,7 +252,7 @@ public class Model extends GameModel {
 
         imageFile = new File("src/sprites/Explosion03.png");
         try {
-            m_exploSprite = ImageIO.read(imageFile);
+             m_exploSprite = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -364,14 +362,6 @@ public class Model extends GameModel {
                 i++;
             }
         }
-    }
-
-			if (m_carte.cellules[y][x].entité == null && m_carte.cellules[y][x].libre) {
-				m_boss = new boss(this, m_bossSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 0.85F);
-				m_carte.cellules[y][x].entité = m_boss;
-				i++;
-			}
-		}
 	}
 
 	public void createSpawn() {

@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-public class boss extends Entity {
+public class Boss extends Entity {
     int m_w, m_h;
     int m_idx = 0;
     float m_scale;
@@ -21,7 +21,7 @@ public class boss extends Entity {
     boolean mort;
     boolean Ennemi_presence = false;
 
-    public boss(Model model, BufferedImage sprite, int x, int y, float scale) {
+    public Boss(Model model, BufferedImage sprite, int x, int y, float scale) {
         m_model = model;
         mort=false;
         img = sprite;
@@ -31,7 +31,7 @@ public class boss extends Entity {
         this.y = y;
         m_scale = scale;
         m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
-        projectile = new Item(14,-200,-200,m_model.m_fireSprite,m_model);
+        projectile = new Item(14,-200,-200,m_model.m_fireSprite, m_model.m_exploSprite,m_model);
         if (m_cell.entité == null) {
             m_cell.entité = this;
         }
