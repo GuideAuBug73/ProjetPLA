@@ -72,7 +72,7 @@ public class View extends GameView {
         
         h.paint(g);
       
-        boss booooo = m_model.m_boss;
+        Boss booooo = m_model.m_boss;
         booooo.paint(g);
     }
 

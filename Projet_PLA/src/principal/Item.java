@@ -37,7 +37,7 @@ public class Item extends IA {
 			limit = 6 * 30;
 		} else if (this.type == 4 || this.type == 5) {
 			limit = 6 * 30;
-		} else if (this.type == 13) {
+		} else if (this.type == 13 || this.type == 14) {
 			limit = 2 * 30;
 		}
 		m_idx = 0;
@@ -108,7 +108,7 @@ public class Item extends IA {
                     Options.itemlance.x = -100;
                     Options.itemlance.y = -100;
                     Options.itemlance = null;
-                    m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
+                    m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model.m_exploSprite, m_model);
                 }
             } catch (NullPointerException e) {
 
@@ -122,17 +122,13 @@ public class Item extends IA {
                     Options.projectileBossLance.x = -100;
                     Options.projectileBossLance.y = -100;
                     Options.projectileBossLance = null;
-                    m_model.m_boss.projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model);
+                    m_model.m_boss.projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model.m_exploSprite,m_model);
                 }
             } catch (NullPointerException e) {
 
             }
         }
     }
-
-			}
-		}
-	}
 
 	public void verifCellule() {
         int w = this.x / 60;
@@ -159,13 +155,13 @@ public class Item extends IA {
         if (hit == true) {
             Ennemi ennemi = null;
             Personnage personnage = null;
-            boss boss=null;
+            Boss boss=null;
             if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
             } else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
                 personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
-            }else if(m_model.m_carte.cellules[h][w].entité instanceof boss){
-                boss = (boss)m_model.m_carte.cellules[h][w].entité;
+            }else if(m_model.m_carte.cellules[h][w].entité instanceof Boss){
+                boss = (Boss)m_model.m_carte.cellules[h][w].entité;
             }
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
@@ -247,7 +243,7 @@ public class Item extends IA {
     public void degatZone(int h, int w) {
         Ennemi ennemi = null;
         Personnage personnage = null;
-        boss boss=null;
+        Boss boss=null;
         try {
             if (m_model.m_carte.cellules[h + 1][w].entité instanceof Ennemi) {
                 ennemi = (Ennemi) m_model.m_carte.cellules[h + 1][w].entité;
@@ -298,7 +294,7 @@ public class Item extends IA {
     public void checkVie(Entity entity) {
         Ennemi ennemi = null;
         Personnage personnage = null;
-        boss boss= null;
+        Boss boss= null;
         if (entity instanceof Ennemi) {
             ennemi = (Ennemi) entity;
             if (ennemi.p_vie <= 0) {
