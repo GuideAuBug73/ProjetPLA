@@ -32,11 +32,11 @@ public class Item extends IA {
 		img = m_item;
 		img2 = m_explo;
 		if (this.type == 0 || this.type == 1) {
-			limit = 6 * 30;
+			limit = 40 * 30;
 		} else if (this.type == 2 || this.type == 3) {
 			limit = 6 * 30;
 		} else if (this.type == 4 || this.type == 5) {
-			limit = 40 * 30;
+			limit = 6 * 30;
 		} else if (this.type == 13) {
 			limit = 2 * 30;
 		}
@@ -166,7 +166,7 @@ public class Item extends IA {
 				} else if (this.type == 4 || this.type == 5) {
 					ennemi.p_vie = ennemi.p_vie - 2;
 					checkVie(ennemi);
-					hit = true;
+					hit = false;
 					System.out.println("Degat");
 				} else if (this.type == 13) {
 					ennemi.p_vie = ennemi.p_vie - 1;
