@@ -29,7 +29,7 @@ public class Item extends IA {
             limit = 6 * 30;
         } else if (this.type == 4 || this.type == 5) {
             limit = 6 * 30;
-        } else if (this.type == 13) {
+        } else if (this.type == 13 || this.type == 14) {
             limit = 2 * 30;
         }
     }
@@ -57,18 +57,35 @@ public class Item extends IA {
             compteurTickItem++;
         } else {
             verifCellule();
-            if (Options.itemlance.limit != 0) {
-                Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
-                compteurTickItem = 0;
-                Options.itemlance.limit--;
-            } else {
-                if (this.type == 2 || this.type == 3) {
-                    degatZone(this.y / 60, this.x / 60);
+            try {
+                if (Options.itemlance.limit != 0) {
+                    Options.itemlance.setcast(Options.itemlance.x, Options.itemlance.y, Options.itemlance.orientation);
+                    compteurTickItem = 0;
+                    Options.itemlance.limit--;
+                } else {
+                    if (this.type == 2 || this.type == 3) {
+                        degatZone(this.y / 60, this.x / 60);
+                    }
+                    Options.itemlance.x = -100;
+                    Options.itemlance.y = -100;
+                    Options.itemlance = null;
+                    m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
                 }
-                Options.itemlance.x = -100;
-                Options.itemlance.y = -100;
-                Options.itemlance = null;
-                m_model.m_perso.projectile = new Item(13, -200, -200, m_model.m_spellSprite, m_model);
+            } catch (NullPointerException e) {
+
+            }
+            try {
+                if (Options.projectileBossLance.limit != 0) {
+                    Options.projectileBossLance.setcast(Options.projectileBossLance.x, Options.projectileBossLance.y, Options.projectileBossLance.orientation);
+                    compteurTickItem = 0;
+                    Options.projectileBossLance.limit--;
+                } else {
+                    Options.projectileBossLance.x = -100;
+                    Options.projectileBossLance.y = -100;
+                    Options.projectileBossLance = null;
+                    m_model.m_boss.projectile = new Item(14, -200, -200, m_model.m_fireSprite, m_model);
+                }
+            } catch (NullPointerException e) {
 
             }
         }
@@ -103,17 +120,17 @@ public class Item extends IA {
             if (ennemi != null) {
                 if (this.type == 0 || this.type == 1) {
                     ennemi.p_vie = ennemi.p_vie - 2;
-                    System.out.println("Vie:"+ennemi.p_vie);
+                    System.out.println("Vie:" + ennemi.p_vie);
                     checkVie(ennemi);
                     hit = false;
-                    this.limit=0;
+                    this.limit = 0;
                     System.out.println("Degat");
                 } else if (this.type == 2 || this.type == 3) {
                     ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
                     degatZone(h, w);
                     hit = false;
-                    this.limit=0;
+                    this.limit = 0;
                     System.out.println("Degat");
                 } else if (this.type == 4 || this.type == 5) {
                     ennemi.p_vie = ennemi.p_vie - 2;
@@ -124,7 +141,7 @@ public class Item extends IA {
                     ennemi.p_vie = ennemi.p_vie - 1;
                     checkVie(ennemi);
                     hit = false;
-                    this.limit=0;
+                    this.limit = 0;
                     System.out.println("Degat");
                 }
             }
@@ -132,12 +149,12 @@ public class Item extends IA {
                 if (this.type == 0 || this.type == 1) {
                     personnage.p_vie = personnage.p_vie - 2;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     hit = false;
                 } else if (this.type == 2 || this.type == 3) {
                     ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     degatZone(h, w);
                     hit = false;
                 } else if (this.type == 4 || this.type == 5) {
@@ -147,7 +164,7 @@ public class Item extends IA {
                 } else if (this.type == 13) {
                     personnage.p_vie = personnage.p_vie - 1;
                     checkVie(personnage);
-                    this.limit=0;
+                    this.limit = 0;
                     hit = false;
                 }
             }
@@ -212,20 +229,19 @@ public class Item extends IA {
         }
     }
 
-    public void checkVie(Entity entity){
-        Ennemi ennemi=null;
-        Personnage personnage=null;
-        if(entity instanceof Ennemi){
-            ennemi=(Ennemi)entity;
-            if(ennemi.p_vie<=0){
-                ennemi.m_mort=true;
-                ennemi.m_cell.entité=null;
-                System.out.println("MORMOROMOR");
+    public void checkVie(Entity entity) {
+        Ennemi ennemi = null;
+        Personnage personnage = null;
+        if (entity instanceof Ennemi) {
+            ennemi = (Ennemi) entity;
+            if (ennemi.p_vie <= 0) {
+                ennemi.m_mort = true;
+                ennemi.m_cell.entité = null;
             }
-        }else{
-            personnage=(Personnage)entity;
-            if(personnage.p_vie<=0){
-                personnage.m_mort=true;
+        } else {
+            personnage = (Personnage) entity;
+            if (personnage.p_vie <= 0) {
+                personnage.m_mort = true;
             }
         }
     }

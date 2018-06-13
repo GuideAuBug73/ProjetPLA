@@ -27,20 +27,20 @@ import edu.ricm3.game.GameController;
 
 public class Controller extends GameController implements ActionListener {
 
-	Model m_model;
-	Personnage c;
-	Spell s;
-	Ennemi E;
-	boss b;
+    Model m_model;
+    Personnage c;
+    Spell s;
+    Ennemi E;
+    boss b;
     Item item;
 
-	public Controller(Model m) {
-		m_model = m;
-		c = m.m_perso;
-		E = m.m_ennemi;
-		s = m.m_spell;
-		b=m.m_boss;
-	}
+    public Controller(Model m) {
+        m_model = m;
+        c = m.m_perso;
+        E = m.m_ennemi;
+        s = m.m_spell;
+        b = m.m_boss;
+    }
 
     /**
      * Simulation step. Warning: the model has already executed its step.
@@ -54,27 +54,23 @@ public class Controller extends GameController implements ActionListener {
     @Override
     public void keyTyped(KeyEvent e) {
 
-        if (e.getKeyChar() == 'd' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+        if (e.getKeyChar() == 'd' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.droite();
-        } else if (e.getKeyChar() == 's' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 's' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.bas();
-        } else if (e.getKeyChar() == 'z' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'z' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.haut();
-        } else if (e.getKeyChar() == 'q' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'q' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.gauche();
-        }
-        
-        
-        
-        else if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.droite();
-        } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.bas();
-        } else if (e.getKeyChar() == 'i' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'i' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.haut();
-        } else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+        } else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.gauche();
-      } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
+        } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
             try {
                 if (Options.itemlance == null) {
                     item = c.inventaire.defiler();
@@ -119,30 +115,41 @@ public class Controller extends GameController implements ActionListener {
                 projectile.hit = true;
                 Options.itemlance = projectile;
             }
+        } else if (e.getKeyChar() == '5') {
+            if (Options.projectileBossLance == null) {
+                int itemY = b.y;
+                int itemX = b.x;
+                Item projectile = m_model.m_boss.projectile;
+                projectile.orientation = b.orientation;
+                if (c.orientation == 0) {
+                    itemY = itemY + 60;
+                } else if (c.orientation == 1) {
+                    itemX = itemX + 60;
+                } else if (c.orientation == 2) {
+                    itemX = itemX - 60;
+                } else if (c.orientation == 3) {
+                    itemY = itemY - 60;
+                }
+                projectile.x = itemX;
+                projectile.y = itemY;
+                projectile.hit = true;
+                Options.projectileBossLance = projectile;
+            }
+
+        } else if (e.getKeyChar() == '6' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+            b.droite();
+        } else if (e.getKeyChar() == '2' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+            b.bas();
+        } else if (e.getKeyChar() == '8' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+            b.haut();
+        } else if (e.getKeyChar() == '4' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+            b.gauche();
+        } else if (e.getKeyChar() == 'c' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+            b.createmy();
         }
-    	else if (e.getKeyChar() == '6' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
-			b.droite();
-		} else if (e.getKeyChar() == '2' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
-			b.bas();
-		} else if (e.getKeyChar() == '8' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
-			b.haut();
-		} else if (e.getKeyChar() == '4' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
-			b.gauche();
-		}  else if (e.getKeyChar() == 'c'&& (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
-			b.createmy();
-		} 
-		
-	}
-       
-		
-	
-       
-        
-    
-	
 
+    }
 
-    
 
     @Override
     public void keyPressed(KeyEvent e) {
