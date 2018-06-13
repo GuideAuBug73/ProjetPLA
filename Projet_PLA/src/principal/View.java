@@ -41,10 +41,16 @@ public class View extends GameView {
         Map carte = m_model.m_carte;
         carte.paint(g);
         Item[] item = m_model.m_item;
+        Bonus[] bonus = m_model.m_bonus;
         for (int i = 0; i < item.length; i++) {
             if (item[i] != null) {
             	m_model.m_item[i].splitSprite();
             	item[i].paint(g);
+            }
+        }
+        for (int i = 0; i < bonus.length; i++) {
+            if (bonus[i] != null) {
+                bonus[i].paint(g);
             }
         }
         m_model.m_perso.projectile.paint(g);
@@ -59,19 +65,6 @@ public class View extends GameView {
         for(int i=0 ; i<4 ; i++) {
         	spawn = m_model.m_spawns[i];
         	spawn.paint(g);
-		}
-		m_model.m_perso.projectile.paint(g);
-		m_model.m_boss.projectile.paint(g);
-		m_model.m_perso.animation();
-		m_model.m_boss.animation();
-		m_model.m_fire.setcastfire();
-		Personnage h = m_model.m_perso;
-		h.paint(g);
-		Ennemi k;
-		Spawn spawn;
-		for (int i = 0; i < 4; i++) {
-			spawn = m_model.m_spawns[i];
-			spawn.paint(g);
 		}
 
 		for (int i = 0; i < m_model.totalennemie; i++) {
