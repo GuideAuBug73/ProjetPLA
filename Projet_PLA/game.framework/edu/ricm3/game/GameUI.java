@@ -20,11 +20,13 @@ package edu.ricm3.game;
 
 import principal.Options;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class GameUI {
 
@@ -54,10 +56,9 @@ public class GameUI {
 //     */
 //  }
 
-    JFrame m_frame;
+    public JFrame m_frame;
     GameView m_view;
     GameView m_view2;
-
     Timer m_timer;
     GameModel m_model;
     GameController m_controller;
@@ -123,6 +124,7 @@ public class GameUI {
     }
 
     private void createWindow(Dimension d, GameModel m) {
+        //m_frame.add(new JLabel(new ImageIcon(m.m_)));
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);
@@ -131,12 +133,12 @@ public class GameUI {
         gra.setFullScreenWindow(m_frame);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        File file;
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBounds(0, 0, d.width, d.height);
         panel.add(m_view2, BorderLayout.CENTER);
 
         String[] liste_automate={"ennemi","obstacle","item","spawn"};
+
 
         JComboBox choix_ennemi = new JComboBox();
         for(int i=0;i<liste_automate.length;i++) {
@@ -174,6 +176,7 @@ public class GameUI {
     }
 
     public void createWindowGame(Dimension d, GameModel m) {
+        m_frame.dispose();
         Options.game.frame = 1;
         m_frame = new JFrame();
         m_frame.setTitle("Game");

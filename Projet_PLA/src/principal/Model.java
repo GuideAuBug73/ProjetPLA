@@ -20,8 +20,7 @@ public class Model extends GameModel {
     BufferedImage m_wallSprite;
     BufferedImage m_persoSprite;
     BufferedImage m_carre_inventaire;
-    BufferedImage img;
-    BufferedImage img2;
+    BufferedImage img[]=new BufferedImage[10];
     spell m_spell;
     BufferedImage m_spellSprite;
     BufferedImage[] m_itemSprite=new BufferedImage[12];
@@ -205,16 +204,51 @@ public class Model extends GameModel {
 
         imageFile = new File("src/sprites/menu.png");
         try {
-            img = ImageIO.read(imageFile);
+            img[0] = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
         }
         imageFile = new File("src/sprites/bp.png");
         try {
-            img2 = ImageIO.read(imageFile);
-            Options.taille_bp_h = ((BufferedImage) img2).getHeight();
-            Options.taille_bp_w = ((BufferedImage) img2).getWidth();
+            img[1] = ImageIO.read(imageFile);
+            Options.taille_bp_h = ((BufferedImage) img[1]).getHeight();
+            Options.taille_bp_w = ((BufferedImage) img[1]).getWidth();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_ennemi.png");
+        try {
+            img[2] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_obstacle.png");
+        try {
+            img[3] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_item.png");
+        try {
+            img[4] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_aut.png");
+        try {
+            img[5] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_deco.png");
+        try {
+            img[6] = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
@@ -262,6 +296,6 @@ public class Model extends GameModel {
         }
     }
     public void createMenu(){
-        m_menu=new Menu(this,img,img2);
+        m_menu=new Menu(this,img);
     }
 }
