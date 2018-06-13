@@ -14,7 +14,11 @@ public class Model extends GameModel {
 	boss m_boss;
 	Personnage m_perso;
 	Ennemi m_ennemi;
-	Ennemi[] m_ennemis;
+	Ennemi m_ennemi1;
+	Ennemi m_ennemi2;
+
+	Ennemi[] m_ennemis = new Ennemi[100];
+
 	Spawn[] m_spawns;
 	BufferedImage m_ennemiSprite;
 	BufferedImage m_ennemiItemSprite;
@@ -34,6 +38,8 @@ public class Model extends GameModel {
 	int sx[] = new int[4];
 	int sy[] = new int[4];
 	int totalennemie = 0;
+	BufferedImage m_fireSprite;
+	fire m_fire;
 
 	public Model() {
 		loadSprites();
@@ -41,9 +47,12 @@ public class Model extends GameModel {
 		createItem();
 		createSpawn();
 		createPerso();
-		createEnnemi();
 		createboss();
-		m_spell = new Spell(this, m_spellSprite, 0, 0);
+
+		createEnnemi();
+		m_spell = new Spell(this, m_spellSprite);
+		m_fire=new fire(this, m_fireSprite);
+	
 	}
 
 	@Override
@@ -89,6 +98,13 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
+		imageFile = new File("src/sprites/fire.png");
+		try {
+			m_fireSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 		imageFile = new File("src/sprites/explosion01_set_64.png");
 		try {
 			m_spellSprite = ImageIO.read(imageFile);
@@ -292,6 +308,8 @@ public class Model extends GameModel {
 				m_boss = new boss(this, m_bossSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 0.85F);
 				m_carte.cellules[y][x].entité = m_boss;
 				i++;
+		
+				
 			}
 		}
 	}
@@ -314,39 +332,79 @@ public class Model extends GameModel {
 
 	public void createEnnemi() {
 		int i = 0;
-		int k;
+		int k = 0;
 
 		if (Options.level == 1) {
-			if (Options.vague == 1)
-				k = 3;
-			else
-				k = 2;
-		}
+				if (Options.vague == 1) 
+					k =3 ;
+				
+				else if (Options.vague == 2) 
+					k = 5;
+				
+				else if (Options.vague == 3) 
+					k = 7;
+
+				else if (Options.vague == 4) 
+					k = 9;
+			
+		}		
 		if (Options.level == 2) {
 			if (Options.vague == 1)
-				k = 3;
-			else
-				k = 2;
-		}
-		if (Options.level == 2) {
+				k =4 ;
+	
+			else if (Options.vague == 2) 
+				k = 7;
+			
+			else if (Options.vague == 3) 
+				k = 10;
+
+			else if (Options.vague == 4) 
+				k = 13;
+		
+		}		
+				
+		if (Options.level == 3) {
 			if (Options.vague == 1)
-				k = 3;
-			else
-				k = 2;
-		} else {
-			if (Options.vague == 1)
-				k = 3;
-			else
-				k = 2;
-		}
-		m_ennemis = new Ennemi[k];
+				k =4 ;
+	
+			else if (Options.vague == 2) 
+				k = 8;
+			
+			else if (Options.vague == 3) 
+				k = 12;
+
+			else if (Options.vague == 4) 
+				k = 16;
+		
+		}		
+				
+		System.out.println(k);
 		while (i < k) {
 			m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, sx[i] * Options.TAILLE_CELLULE + 4,
 					sy[i] * Options.TAILLE_CELLULE + 13, 1.0F);
 			m_ennemis[totalennemie] = m_ennemi;
 			i++;
 			totalennemie++;
+			
+			if ( i ==4 ) { 
+				k = k -4;
+				i = 0 ;
+			}
+			
 		}
 	}
+	
+	
+void bossc(int x,int y) {
+	
+
+		m_ennemi = new Ennemi(this, m_ennemiSprite,m_ennemiSpriteMort, x * Options.TAILLE_CELLULE + 4,
+				y  * Options.TAILLE_CELLULE + 13, 1.0F);
+		m_ennemis[totalennemie] = m_ennemi;
+		totalennemie++;
+
+	
+}
+	
 
 }

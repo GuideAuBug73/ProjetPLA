@@ -63,7 +63,10 @@ public class Controller extends GameController implements ActionListener {
         } else if (e.getKeyChar() == 'q' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
             c.gauche();
         }
-        if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+        
+        
+        
+        else if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.droite();
         } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.bas();
@@ -117,7 +120,7 @@ public class Controller extends GameController implements ActionListener {
                 Options.itemlance = projectile;
             }
         }
-		else if (e.getKeyChar() == '6' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+    	else if (e.getKeyChar() == '6' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
 			b.droite();
 		} else if (e.getKeyChar() == '2' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
 			b.bas();
@@ -125,12 +128,21 @@ public class Controller extends GameController implements ActionListener {
 			b.haut();
 		} else if (e.getKeyChar() == '4' && (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
 			b.gauche();
+		}  else if (e.getKeyChar() == 'c'&& (m_model.m_boss.x)%Options.TAILLE_CELLULE==0 && (m_model.m_boss.y)%Options.TAILLE_CELLULE==0) {
+			b.createmy();
 		} 
 		
 	}
+       
+		
+	
+       
+        
+    
+	
 
 
-    }
+    
 
     @Override
     public void keyPressed(KeyEvent e) {

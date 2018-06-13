@@ -1,6 +1,8 @@
 package principal;
 
 import basic.Cellule;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -15,7 +17,9 @@ public class boss extends Entity{
 	Item m_item;
 	int m_cpt;
 	int x,y;
-    boolean explosion = false ;
+	int vie=10;
+    boolean Ennemi_presence = false ;
+	
 	public boss(Model model, BufferedImage sprite, int x, int y, float scale) {
 		m_model = model;
 		img = sprite;
@@ -31,7 +35,9 @@ public class boss extends Entity{
 		m_cpt = 0;
 		splitSprite();
 	}
-
+	
+	
+	
 	public void splitSprite() {
 		int width = img.getWidth(null);
 		int height = img.getHeight(null);
@@ -46,6 +52,29 @@ public class boss extends Entity{
 			}
 		}
 	}
+	
+	
+	void createmy(){
+		
+		if(orientation==0 || orientation ==3) {
+		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+		if (cell.libre)
+		m_model.bossc((x/60)+1,y/60);
+		cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+		if (cell.libre)
+		m_model.bossc((x/60)-1,y/60);
+		}
+		if(orientation==1 || orientation ==2) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)+1][(x / Options.TAILLE_CELLULE)];
+			if (cell.libre)
+			m_model.bossc((x/60),(y/60)+1);
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)-1][(x / Options.TAILLE_CELLULE)];
+			if (cell.libre)
+			m_model.bossc((x/60),(y/60)-1);
+			}
+	}
+
+	
 
 	public void droite() {
 		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
@@ -57,6 +86,7 @@ public class boss extends Entity{
 				}else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
+					m_item = null;
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
@@ -81,6 +111,7 @@ public class boss extends Entity{
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
+					m_item = null;
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
@@ -106,6 +137,7 @@ public class boss extends Entity{
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
+					m_item = null;
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
@@ -131,6 +163,7 @@ public class boss extends Entity{
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
 					m_item.possession = 2;
+					m_item = null;
 				}
 				cell.entité = this;
 				cellActuel.entité = null;
@@ -189,40 +222,21 @@ public class boss extends Entity{
 		}
 	}
 
-
-	public void explosion_boss() {
-		Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-		Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-		Cellule cell1 = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) +1];
-		Cellule cell2 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)+1][(x / Options.TAILLE_CELLULE) ];
-		Cellule cell3 = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE)-1][(x / Options.TAILLE_CELLULE) ];
-
-		if(cell.libre)
-			cell.entité = null ;
-		    
-		if(cell1.libre)
-			cell1.entité = null ;
+   
+	public void Ennemi_Boss(){
 		
-		if(cell2.libre)
-			cell2.entité = null ;
-		
-		if(cell3.libre)
-			cell3.entité = null ;
+		Ennemi_presence = true ;
 		
 	}
 	
-	/*public void paint_explosion(Graphics g) {
-		m_cpt++;
-		if (m_model.m_perso.m_mort != true) {
-			Image img = m_Expsprites[m_idx];
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x, y, w, h, null);
-		}
 	
-	}
-	*/
+
+	
 	public void paint(Graphics g) {
+		g.drawRect (x, y, vie*6, 5);  
+		g.setColor(Color.red);
+        g.fillRect(x,y,vie*6,5);
+		
 		m_cpt++;
 		if (m_model.m_perso.m_mort != true) {
 			Image img = m_sprites[m_idx];

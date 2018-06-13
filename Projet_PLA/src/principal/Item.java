@@ -9,7 +9,7 @@ import basic.Orientation;
 
 public class Item extends IA {
     public int type;
-    public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
+    public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi , 4 pour boss
     public boolean casted = false;
     public int orientation;
     public int limit;

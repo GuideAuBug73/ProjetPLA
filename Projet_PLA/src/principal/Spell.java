@@ -12,11 +12,10 @@ public class Spell {
     boolean casted = false;
     int istenilenx, istenileny;
 
-    public Spell(Model model, BufferedImage sprite, int x, int y) {
+    public Spell(Model model, BufferedImage sprite) {
         m_model = model;
         m_sprite = sprite;
-        m_x = x;
-        m_y = y;
+       
 
 
     }
