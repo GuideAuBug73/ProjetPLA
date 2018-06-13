@@ -18,13 +18,15 @@
 package edu.ricm3.game;
 
 
+import principal.Options;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import principal.Options;
-
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 public class GameUI {
 
@@ -54,12 +56,12 @@ public class GameUI {
 //     */
 //  }
 
-    JFrame m_frame;
+    public JFrame m_frame;
     GameView m_view;
+    GameView m_view2;
     Timer m_timer;
     GameModel m_model;
     GameController m_controller;
-    JLabel m_text;
     JLabel m_text2;
     int m_fps;
     String m_msg;
@@ -68,21 +70,20 @@ public class GameUI {
     long m_lastRepaint;
     long m_lastTick;
     int m_nTicks;
-    int m_h;
-    int m_w;
-    int m_panelD;
-    int m_panelB;
-    int m_panelH;
+    File fichieraut;
+    public int frame = 0;
 
-    public GameUI(GameModel m, GameView v, GameController c, Dimension d) {
+    public GameUI(GameModel m, GameView v, GameView v2, GameController c, Dimension d) {
         m_model = m;
         m_model.m_game = this;
         m_view = v;
+        m_view2 = v2;
         m_view.m_game = this;
         m_controller = c;
         m_controller.m_game = this;
 
         System.out.println(license);
+        Options.game = this;
 
         // create the main window and the periodic timer
         // to drive the overall clock of the simulation.
@@ -126,9 +127,62 @@ public class GameUI {
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);
+        //m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        GraphicsDevice gra = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gra.setFullScreenWindow(m_frame);
+        m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBounds(0, 0, d.width, d.height);
+        panel.add(m_view2, BorderLayout.CENTER);
+
+        String[] liste_automate={"ennemi","obstacle","item","spawn"};
+
+
+        JComboBox choix_ennemi = new JComboBox();
+        for(int i=0;i<liste_automate.length;i++) {
+            choix_ennemi.addItem(liste_automate[i]);
+        }
+        choix_ennemi.setBounds(Options.d.width/2,Options.d.height/2+100,150,25);
+        m_frame.add(choix_ennemi);
+
+        JComboBox choix_obstacle = new JComboBox();
+        for(int i=0;i<liste_automate.length;i++) {
+            choix_obstacle.addItem(liste_automate[i]);
+        }
+        choix_obstacle.setBounds(Options.d.width/2,Options.d.height/2+200,150,25);
+        m_frame.add(choix_obstacle);
+
+        JComboBox choix_item = new JComboBox();
+        for(int i=0;i<liste_automate.length;i++) {
+            choix_item.addItem(liste_automate[i]);
+        }
+        choix_item.setBounds(Options.d.width/2,Options.d.height/2+300,150,25);
+        m_frame.add(choix_item);
+
+
+        GameController ctr = getController();
+        m_view2.addKeyListener(ctr);
+        m_view2.addMouseListener(ctr);
+        m_view2.addMouseMotionListener(ctr);
+        m_view2.setFocusable(true);
+        m_view2.requestFocusInWindow();
+        m_controller.notifyVisible();
+
+        m_frame.add(panel);
+        m_frame.setLocationRelativeTo(null);
+        m_frame.setVisible(true);
+    }
+
+    public void createWindowGame(Dimension d, GameModel m) {
+        m_frame.dispose();
+        Options.game.frame = 1;
+        m_frame = new JFrame();
+        m_frame.setTitle("Game");
+        m_frame.setSize(d);
         m_frame.doLayout();
         m_frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        GraphicsDevice gra= GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        GraphicsDevice gra = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         gra.setFullScreenWindow(m_frame);
         m_frame.setVisible(true);
         m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,24 +199,20 @@ public class GameUI {
         panelinfo.setBackground(Color.BLACK);
         JPanel panelgrid = new JPanel(new BorderLayout());
         panelgrid.setBounds(Options.nb_px_x_min, Options.nb_px_y_min, Options.nb_px_x_max, Options.nb_px_y_max);
-        m_text = new JLabel();
-        m_text.setText("Starting up ...");
-        m_text2=new JLabel();
+        m_text2 = new JLabel();
         m_text2.setText("Starting up ...");
-        Font font = new Font("Arial",Font.BOLD,20);
+        Font font = new Font("Arial", Font.BOLD, 20);
         m_text2.setFont(font);
         m_text2.setForeground(Color.white);
-        //panelplayer.add(m_text,BorderLayout.CENTER);
         panelinfo.add(m_text2);
-        JLayeredPane pane=new JLayeredPane();
+        JLayeredPane pane = new JLayeredPane();
         pane.add(panelinfo);
         pane.add(panelinventaire);
         pane.add(panelplayer);
         panelgrid.add(m_view, BorderLayout.CENTER);
         pane.add(panelgrid);
         m_frame.add(pane);
-        m_model.m_game.
-        m_frame.addWindowListener(new WindowListener(m_model));
+        m_model.m_game.m_frame.addWindowListener(new WindowListener(m_model));
         m_frame.pack();
         m_frame.setLocationRelativeTo(null);
         GameController ctr = getController();
@@ -173,7 +223,7 @@ public class GameUI {
         m_view.requestFocusInWindow();
         m_controller.notifyVisible();
 
-        Options.panelinfo=panelinfo;
+        Options.panelinfo = panelinfo;
     }
 
     /*
@@ -210,26 +260,14 @@ public class GameUI {
         }
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
-            double tick = (double) m_elapsed / (double) m_nTicks;
-            long tmp = (long) (tick * 10.0);
-            tick = tmp / 10.0;
-            m_elapsed = 0;
-            m_nTicks = 0;
-            String txt = "Tick=" + tick + "ms";
-            while (txt.length() < 15)
-                txt += " ";
-            txt = txt + m_fps + " fps   ";
-            while (txt.length() < 25)
-                txt += " ";
-            if (m_msg != null)
-                txt += m_msg;
-            //      System.out.println(txt);
-            m_text.setText(txt);
-            m_text.repaint();
-            m_text2.setText("Level : "+Options.level+"     Vague : "+Options.vague);
-            m_text2.repaint();
-            m_view.paint();
-            m_lastRepaint = now;
+            if (frame == 0) {
+                m_view2.paint();
+            } else if (Options.game.frame == 1) {
+                m_text2.setText("Level : " + Options.level + "     Vague : " + Options.vague);
+                m_text2.repaint();
+                m_view.paint();
+                m_lastRepaint = now;
+            }
         }
     }
 
@@ -238,5 +276,13 @@ public class GameUI {
         m_msg = msg;
     }
 
+    public void ask_File() {
+        JFileChooser dialogue = new JFileChooser(new File("."));
+        if (dialogue.showOpenDialog(null) ==
+                JFileChooser.APPROVE_OPTION) {
+            fichieraut = dialogue.getSelectedFile();
+        }
+
+    }
 
 }
