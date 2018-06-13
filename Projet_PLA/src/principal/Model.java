@@ -14,6 +14,7 @@ public class Model extends GameModel {
 	Ennemi[] m_ennemis = new Ennemi[100];
 	boolean dust = true;
 	Spawn[] m_spawns;
+	Obstacle[] m_obstacles = new Obstacle[5];
 	BufferedImage m_ennemiSprite;
 	BufferedImage m_ennemiItemSprite;
 	BufferedImage m_mort;
@@ -21,7 +22,7 @@ public class Model extends GameModel {
 	BufferedImage m_fieldSprite2;
 	BufferedImage m_wallSprite;
 	BufferedImage m_persoSprite;
-	BufferedImage m_persoSpriteTransfo; 
+	BufferedImage m_persoSpriteTransfo;
 	BufferedImage m_carre_inventaire;
 	BufferedImage m_spawnSprite;
 	BufferedImage m_exploSprite;
@@ -89,14 +90,14 @@ public class Model extends GameModel {
 			System.exit(-1);
 		}
 
-		imageFile = new File("src/sprites/Aura.png"); 
-        try { 
-            m_persoSpriteTransfo = ImageIO.read(imageFile); 
-        } catch (IOException ex) { 
-            ex.printStackTrace(); 
-            System.exit(-1); 
-        } 
-        
+		imageFile = new File("src/sprites/Aura.png");
+		try {
+			m_persoSpriteTransfo = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
 		imageFile = new File("src/sprites/Effect95.png");
 		try {
 			m_bossSpriteMort = ImageIO.read(imageFile);
@@ -393,7 +394,8 @@ public class Model extends GameModel {
 			}
 
 			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
-				 m_perso = new Personnage(this, m_persoSprite, m_persoSpriteTransfo, x*Options.TAILLE_CELLULE, y*Options.TAILLE_CELLULE, 1.3F);
+				m_perso = new Personnage(this, m_persoSprite, m_persoSpriteTransfo, x * Options.TAILLE_CELLULE,
+						y * Options.TAILLE_CELLULE, 1.3F);
 				m_carte.cellules[y][x].entité = m_perso;
 				i++;
 			}
@@ -452,7 +454,8 @@ public class Model extends GameModel {
 			int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
 
 			if (m_carte.cellules[y][x].entité == null && m_carte.cellules[y][x].libre) {
-				m_boss = new Boss(this, m_bossSprite, m_bossSpriteMort, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, 0.85F);
+				m_boss = new Boss(this, m_bossSprite, m_bossSpriteMort, x * Options.TAILLE_CELLULE,
+						y * Options.TAILLE_CELLULE, 0.85F);
 				m_carte.cellules[y][x].entité = m_boss;
 				i++;
 			}
@@ -574,6 +577,12 @@ public class Model extends GameModel {
 				m_carte.cellules[y][x].entité = m_perso;
 				i++;
 			}
+		}
+	}
+
+	public void createObstacle() {
+		for (int i = 0; i < 5; i++) {
+			m_obstacles[i] = new Obstacle(this);
 		}
 	}
 
