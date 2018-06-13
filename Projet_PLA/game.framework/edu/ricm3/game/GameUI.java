@@ -124,7 +124,6 @@ public class GameUI {
     }
 
     private void createWindow(Dimension d, GameModel m) {
-        //m_frame.add(new JLabel(new ImageIcon(m.m_)));
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);
