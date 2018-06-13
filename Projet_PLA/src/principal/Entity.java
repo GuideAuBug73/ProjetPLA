@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public abstract class Entity {
 	public int x, y;
 	public BufferedImage img;
+	public BufferedImage img2;
 	public Model m_model;
 
 	public int[] PosToCell(int x, int y) {

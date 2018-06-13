@@ -64,3 +64,18 @@ Questions :
 -Création ennemi 
 -Début des automates
 
+**Jeudi 7 Juin**
+- Création de la classe Automate et les premiers test 
+- Lancer Item
+- Mort Joueur
+- Inventaire fait
+- Travail sur les spawns
+
+
+**Vendredi 8 Juin**
+- Structuration de la classe automates
+- Création des fonctions afin de générer notre classe automate à partir du parser
+- Mise en place des spawns
+- Amélioration des animations de déplacement pour le joueur et ennemis
+- Mise en place des infos complémentaires(Point de vie, Niveau, Vague, Temps restant)
+
