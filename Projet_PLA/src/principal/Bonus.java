@@ -76,7 +76,7 @@ public class Bonus extends Entity {
     }
 
     public void paint(Graphics g) {
-        timerInvincible();
         g.drawImage(img, x+10, y+10, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
+        timerInvincible();
     }
 }

@@ -49,9 +49,10 @@ public class Model extends GameModel {
         createEnnemi();
         createboss();
         createMenu();
+        createBonus();
+
         m_fire=new fire(this, m_fireSprite);
     }
-        createBonus();
 
     @Override
     public void shutdown() {
@@ -225,17 +226,11 @@ public class Model extends GameModel {
             System.exit(-1);
         }
 
-
         int test=(int)(Math.random()*5);
         m_itemSprite[6] =m_itemSprite[test];
         test=(int)(Math.random()*5);
         m_itemSprite[7] =m_itemSprite[test];
 
-
-        int test = (int) (Math.random() * 5);
-        m_itemSprite[6] = m_itemSprite[test];
-        test = (int) (Math.random() * 5);
-        m_itemSprite[7] = m_itemSprite[test];
 
         imageFile = new File("src/sprites/vie.png");
         try {
@@ -268,6 +263,30 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+
+        imageFile = new File("src/sprites/life_potion.png");
+        try {
+            m_bonusSprite[0] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/mana_potion.png");
+        try {
+            m_bonusSprite[1] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/poison_potion.png");
+        try {
+            m_bonusSprite[2] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+
 
         imageFile = new File("src/sprites/spawn.png");
         try {
@@ -358,6 +377,10 @@ public class Model extends GameModel {
         }
     }
 
+    public void createMenu(){
+        m_menu = new Menu(this,img);
+    }
+
     public void createMap() {
         m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
                 Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
@@ -376,6 +399,29 @@ public class Model extends GameModel {
 			}
 		}
 	}
+
+    void bossc(int x, int y) {
+
+        m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, x * Options.TAILLE_CELLULE + 4,
+                y * Options.TAILLE_CELLULE + 13, 1.0F);
+        m_ennemis[totalennemie] = m_ennemi;
+        totalennemie++;
+
+    }
+
+    public void createBonus() {
+        for (int i = 0; i < 2;) {
+            int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
+            int y = (int) (Math.random() * (Options.nb_px_y_max - Options.nb_px_y_min)) / Options.TAILLE_CELLULE;
+            int type = (int) (Math.random() * 3);
+            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null) {
+                m_bonus[i] = new Bonus(type, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE, m_bonusSprite[type], this);
+                m_carte.cellules[y][x].entité = m_bonus[i];
+                i++;
+                System.out.println("x: "+x+"\ny: "+y);
+            }
+        }
+    }
 
 	public void createboss() {
 

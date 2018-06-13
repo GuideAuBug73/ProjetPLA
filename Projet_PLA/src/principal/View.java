@@ -2,7 +2,6 @@ package principal;
 
 import edu.ricm3.game.GameView;
 
-import javax.swing.*;
 import java.awt.*;
 
 
