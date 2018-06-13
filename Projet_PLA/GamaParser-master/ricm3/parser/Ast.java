@@ -720,7 +720,7 @@ public class Ast {
 		}
 
 		public void make(_Transition T) {
-			T.dest = new _State(target.toString());
+			T.dest = new _State(target.name.toString());
 			this.condition.make(T);
 			this.action.make(T);
 		}

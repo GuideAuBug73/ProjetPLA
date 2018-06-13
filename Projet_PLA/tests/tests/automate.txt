@@ -1,4 +1,4 @@
-Mover(Init){
+Mover1(Init){
 
 * (Init): 
     | Cell(N,V) ? Move(N) :(Init)

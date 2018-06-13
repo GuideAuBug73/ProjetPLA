@@ -9,7 +9,7 @@ public class _Pick extends _Action {
 
 	@Override
 	public void execute(Entity e) {
-		e.pick();
+		e.pick(this.tab_parametre[0]);
 
 	}
 }

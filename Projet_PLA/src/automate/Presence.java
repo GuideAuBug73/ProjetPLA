@@ -10,6 +10,6 @@ public class Presence extends _Condition {
 	public boolean eval(Entity e) {
 		assert (e instanceof Spawn);
 		Spawn m_spawn = (Spawn) e;
-		return m_spawn.entit != null ;
+		return m_spawn.presence;
 	}
 }

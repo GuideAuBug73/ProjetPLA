@@ -20,7 +20,7 @@ import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
-	Personnage m_perso;
+	public Joueur m_perso;
 	Ennemi m_ennemi;
 	Ennemi[] m_ennemis;
 	Spawn[] m_spawns;
@@ -39,12 +39,13 @@ public class Model extends GameModel {
 	BufferedImage[] m_itemSprite = new BufferedImage[12];
 	Item[] m_item = new Item[10];
 	Random rand = new Random();
-	Map m_carte;
+	public Map m_carte;
 	BufferedImage m_ennemiSpriteMort;
 	Boss m_boss;
 	int sx[] = new int[4];
 	int sy[] = new int[4];
 	int totalennemie = 0;
+	int compteur = 0;
 
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
@@ -54,19 +55,23 @@ public class Model extends GameModel {
 		createMap();
 		createItem();
 		createPerso();
+		createSpawn();
+		createboss();
 		createEnnemi();
 		String f = "tests/tests/automate.txt";
 		new AutomataParser(new BufferedReader(new FileReader(f)));
 		Auto = new LinkedList<_Automate>();
 		AI_Definitions def = (AI_Definitions) AutomataParser.Run();
 		ListIterator<Automaton> Iter = def.automata.listIterator();
+		int i = 0;
 		while (Iter.hasNext()) {
 			_Automate A = new _Automate(Iter.next(), m_ennemi);
+			i++;
 			Auto.add(A);
 		}
 
 		// createAutomate();
-		m_spell = new spell(this, m_spellSprite, 0, 0);
+		m_spell = new Spell(this, m_spellSprite, 0, 0);
 	}
 
 	@Override
@@ -82,11 +87,16 @@ public class Model extends GameModel {
 	 */
 	@Override
 	public void step(long now) {
-		_Iter = Auto.listIterator();
-		while (_Iter.hasNext()) {
-			_Automate toExec = _Iter.next();
-			toExec.step(now);
+		compteur++;
+		if(compteur >= 200) {
+			compteur = 0;
+			_Iter = Auto.listIterator();
+			while (_Iter.hasNext()) {
+				_Automate toExec = _Iter.next();
+				toExec.step(now);
+			}
 		}
+		
 	}
 	private void loadSprites() {
 
@@ -288,7 +298,7 @@ public class Model extends GameModel {
 			}
 
 			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
-				m_perso = new Personnage(this, m_persoSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
+				m_perso = new Joueur(this, m_persoSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
 						1.3F);
 				m_carte.cellules[y][x].entité = m_perso;
 				i++;

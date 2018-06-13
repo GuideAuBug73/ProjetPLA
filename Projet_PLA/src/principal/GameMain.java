@@ -18,11 +18,11 @@ public class GameMain {
     Controller controller = new Controller(model);
     View view = new View(model,controller);
     new GameUI(model,view,controller,Options.d);
-    Grid2d map2d = new Grid2d(model.m_carte.cellules);
+    /*Grid2d map2d = new Grid2d(model.m_carte.cellules);
     int [] tab_j = model.m_perso.PosToCell(model.m_perso.x,model.m_perso.y);
     int [] tab_a = model.m_ennemi.PosToCell(model.m_ennemi.x,model.m_ennemi.y);
     
-	System.out.println(map2d.findPath(tab_j[0],tab_j[1],tab_a[0],tab_a[1]));
+	//System.out.println(map2d.findPath(tab_j[0],tab_j[1],tab_a[0],tab_a[1]));
     // notice that the main thread will exit here,
     // but not your program... hence the hooking
     // of the window events to System.exit(0) when

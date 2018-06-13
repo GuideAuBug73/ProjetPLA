@@ -141,11 +141,11 @@ public class Item extends Entity {
 	public void degat(int h, int w) {
 		if (hit == true) {
 			Ennemi ennemi = null;
-			Personnage personnage = null;
+			Joueur personnage = null;
 			if (m_model.m_carte.cellules[h][w].entité instanceof Ennemi) {
 				ennemi = (Ennemi) m_model.m_carte.cellules[h][w].entité;
-			} else if (m_model.m_carte.cellules[h][w].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h][w].entité;
+			} else if (m_model.m_carte.cellules[h][w].entité instanceof Joueur) {
+				personnage = (Joueur) m_model.m_carte.cellules[h][w].entité;
 			}
 			if (ennemi != null) {
 				if (this.type == 0 || this.type == 1) {
@@ -208,7 +208,7 @@ public class Item extends Entity {
 
 	public void degatZone(int h, int w) {
 		Ennemi ennemi = null;
-		Personnage personnage = null;
+		Joueur personnage = null;
 		try {
 			if (m_model.m_carte.cellules[h + 1][w].libre == false) {
 				m_model.m_carte.cellules[h + 1][w].libre = true;
@@ -247,30 +247,30 @@ public class Item extends Entity {
 				System.out.println("Zone");
 			}
 
-			if (m_model.m_carte.cellules[h + 1][w].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h + 1][w].entité;
+			if (m_model.m_carte.cellules[h + 1][w].entité instanceof Joueur) {
+				personnage = (Joueur) m_model.m_carte.cellules[h + 1][w].entité;
 				personnage.p_vie = personnage.p_vie - 1;
 				personnage.m_mort = true;
 				checkVie(personnage);
 			}
 
-			if (m_model.m_carte.cellules[h - 1][w].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h - 1][w].entité;
+			if (m_model.m_carte.cellules[h - 1][w].entité instanceof Joueur) {
+				personnage = (Joueur) m_model.m_carte.cellules[h - 1][w].entité;
 				personnage.p_vie = personnage.p_vie - 1;
 				personnage.m_mort = true;
 				checkVie(personnage);
 			}
 
-			if (m_model.m_carte.cellules[h][w + 1].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h][w + 1].entité;
+			if (m_model.m_carte.cellules[h][w + 1].entité instanceof Joueur) {
+				personnage = (Joueur) m_model.m_carte.cellules[h][w + 1].entité;
 				personnage.p_vie = personnage.p_vie - 1;
 				personnage.m_mort = true;
 				checkVie(personnage);
 
 			}
 
-			if (m_model.m_carte.cellules[h][w - 1].entité instanceof Personnage) {
-				personnage = (Personnage) m_model.m_carte.cellules[h][w - 1].entité;
+			if (m_model.m_carte.cellules[h][w - 1].entité instanceof Joueur) {
+				personnage = (Joueur) m_model.m_carte.cellules[h][w - 1].entité;
 				personnage.p_vie = personnage.p_vie - 1;
 				personnage.m_mort = true;
 				checkVie(personnage);
@@ -282,7 +282,7 @@ public class Item extends Entity {
 
 	public void checkVie(Entity entity) {
 		Ennemi ennemi = null;
-		Personnage personnage = null;
+		Joueur personnage = null;
 		if (entity instanceof Ennemi) {
 			ennemi = (Ennemi) entity;
 			if (ennemi.p_vie <= 0) {
@@ -290,7 +290,7 @@ public class Item extends Entity {
 				ennemi.m_cell.entité = null;
 			}
 		} else {
-			personnage = (Personnage) entity;
+			personnage = (Joueur) entity;
 			if (personnage.p_vie <= 0) {
 				personnage.m_mort = true;
 			}
@@ -350,7 +350,7 @@ public class Item extends Entity {
 	}
 
 	@Override
-	public void pick() {
+	public void pick(String param) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -369,6 +369,12 @@ public class Item extends Entity {
 
 	@Override
 	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
 		// TODO Auto-generated method stub
 		
 	}

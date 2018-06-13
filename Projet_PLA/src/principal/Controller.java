@@ -27,7 +27,7 @@ import edu.ricm3.game.GameController;
 public class Controller extends GameController implements ActionListener {
 
 	Model m_model;
-	Personnage c;
+	Joueur c;
 	Spell s;
 	Ennemi E;
 	Boss b;
@@ -62,7 +62,7 @@ public class Controller extends GameController implements ActionListener {
         } else if (e.getKeyChar() == 'q' && m_model.m_perso.x%Options.TAILLE_CELLULE==0 && m_model.m_perso.y%Options.TAILLE_CELLULE==0) {
             c.gauche();
         }
-        if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
+       /* if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.droite();
         } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.bas();
@@ -70,7 +70,7 @@ public class Controller extends GameController implements ActionListener {
             E.haut();
         } else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.gauche();
-      } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
+      }*/ else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
             try {
                 if (Options.itemlance == null) {
                     item = c.inventaire.defiler();

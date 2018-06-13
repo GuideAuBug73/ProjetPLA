@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 
 import basic.Cellule;
 
-public class Spawn extends IA {
-	boolean presence = false;
+public class Spawn extends Entity {
+	public boolean presence = false;
 	BufferedImage m_sprite;
 	Model m_model;
 	int x,y;
@@ -17,7 +17,6 @@ public class Spawn extends IA {
 		m_model = model;
 		x = c.x;
 		y = c.y;
-		entit = m_entit;
 	}
 
 	public Spawn(int x, int y, BufferedImage image, Model model) {
@@ -38,7 +37,7 @@ public class Spawn extends IA {
 	}
 
 	@Override
-	public void pick() {
+	public void pick(String param) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -57,6 +56,12 @@ public class Spawn extends IA {
 
 	@Override
 	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,7 +14,6 @@ public class Boss extends Entity {
 	Cellule m_cell;
 	Item m_item;
 	int m_cpt;
-	int x, y;
 	boolean explosion = false;
 
 	public Boss(Model model, BufferedImage sprite, int x, int y, float scale) {
@@ -53,7 +52,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Personnage) {
+				if (cell.entité instanceof Joueur) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -75,7 +74,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Personnage) {
+				if (cell.entité instanceof Joueur) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -98,7 +97,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Personnage) {
+				if (cell.entité instanceof Joueur) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -121,7 +120,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Personnage) {
+				if (cell.entité instanceof Joueur) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -201,6 +200,42 @@ public class Boss extends Entity {
 		int w = (int) (m_scale * m_w);
 		int h = (int) (m_scale * m_h);
 		g.drawImage(img, x, y, w, h, null);
+	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pick(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

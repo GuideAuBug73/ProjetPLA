@@ -2,11 +2,14 @@ package principal;
 
 import java.awt.image.BufferedImage;
 
+import basic.Cellule;
+
 public abstract class Entity {
 	public int x, y;
 	public BufferedImage img;
 	public BufferedImage img2;
 	public Model m_model;
+	public Cellule m_cell;
 
 	public int[] PosToCell(int x, int y) {
 		int i[] = new int[2];
@@ -15,29 +18,12 @@ public abstract class Entity {
 		return i;
 	}
 
-	public void move(String param) {
-		switch (param) {
-
-		case "N":
-			y -= Options.TAILLE_CELLULE;
-			break;
-		case "S":
-			y += Options.TAILLE_CELLULE;
-			break;
-		case "O":
-			x -= Options.TAILLE_CELLULE;
-			break;
-		case "E":
-			x += Options.TAILLE_CELLULE;
-			break;
-		default:
-			break;
-		}
-	}
+	public abstract void move(String param);
+		
 
 	public abstract void hit();
 
-	public abstract void pick();
+	public abstract void pick(String param);
 
 	public abstract void turn(String param);
 
