@@ -1,8 +1,11 @@
 package principal;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import basic.Cellule;
+import basic.Orientation;
+import pathfinding.Grid2d;
 
 public abstract class Entity {
 	public int x, y;
@@ -11,7 +14,7 @@ public abstract class Entity {
 	public Model m_model;
 	public Cellule m_cell;
 
-	public int[] PosToCell(int x, int y) {
+	public int[] PosToCell() {
 		int i[] = new int[2];
 		i[0] = y / Options.TAILLE_CELLULE;
 		i[1] = x / Options.TAILLE_CELLULE;
@@ -19,7 +22,6 @@ public abstract class Entity {
 	}
 
 	public abstract void move(String param);
-		
 
 	public abstract void hit();
 
@@ -30,5 +32,8 @@ public abstract class Entity {
 	public abstract void wizz();
 
 	public abstract void pop();
+
+	public abstract void follow();
+	
 
 }

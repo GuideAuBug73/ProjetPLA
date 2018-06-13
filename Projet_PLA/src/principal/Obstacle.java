@@ -38,5 +38,11 @@ public class Obstacle extends Entity {
 		
 	}
 
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

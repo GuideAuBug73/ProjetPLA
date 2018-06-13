@@ -15,7 +15,7 @@ public class Joueur_in_range extends _Condition {
 	public boolean eval(Entity e) {
 		assert (e instanceof Ennemi);
 		int i;
-		int tab[] = e.PosToCell(e.x, e.y);
+		int tab[] = e.PosToCell();
 		int cell_x = tab[0];
 		int cell_y = tab[1];
 		Ennemi mechant = (Ennemi) e;

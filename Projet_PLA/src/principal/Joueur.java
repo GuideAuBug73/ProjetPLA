@@ -272,4 +272,11 @@ public class Joueur extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -379,4 +379,10 @@ public class Item extends Entity {
 		
 	}
 
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

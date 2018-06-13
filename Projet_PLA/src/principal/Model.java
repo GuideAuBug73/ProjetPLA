@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import automate._Automate;
 import edu.ricm3.game.GameModel;
+import pathfinding.Grid2d;
 import ricm3.parser.Ast.AI_Definitions;
 import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
@@ -46,7 +47,8 @@ public class Model extends GameModel {
 	int sy[] = new int[4];
 	int totalennemie = 0;
 	int compteur = 0;
-
+	public Grid2d map2d;
+	
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
 
@@ -69,6 +71,7 @@ public class Model extends GameModel {
 			i++;
 			Auto.add(A);
 		}
+		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
 		m_spell = new Spell(this, m_spellSprite, 0, 0);

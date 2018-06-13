@@ -66,5 +66,11 @@ public class Spawn extends Entity {
 		
 	}
 
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
