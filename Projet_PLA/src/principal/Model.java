@@ -14,7 +14,7 @@ public class Model extends GameModel {
 	Ennemi m_ennemi;
 	Ennemi[] m_ennemis;
 	Spawn[] m_spawns;
-	Obstacle m_obstacle;
+	Obstacle[] m_obstacles = new Obstacle[20];
 	BufferedImage m_ennemiSprite;
 	BufferedImage m_ennemiItemSprite;
 	BufferedImage m_mort;
@@ -360,8 +360,8 @@ public class Model extends GameModel {
 	}
 	
 	public void createObstacle() {
-		for(int i=0 ; i<20 ; i++) {
-			m_obstacle = new Obstacle();
+		for(int i=0 ; i<5 ; i++) {
+			m_obstacles[i] = new Obstacle(this);
 		}
 	}
 
