@@ -45,7 +45,7 @@ public class Map {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 if (map[i][j] == 0) {
-                    cellules[i][j] = new Cellule(null, true, j * m_sizew / m_w, i * m_sizeh / m_h,0);
+                    cellules[i][j] = new Cellule(null, true, j * m_sizew / m_w, i * m_sizeh / m_h,1);
                 } else {
                     cellules[i][j] = new Cellule(null, false, j * m_sizew / m_w, i * m_sizeh / m_h,-1);
 

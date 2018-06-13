@@ -48,9 +48,11 @@ public class Grid2d {
 		public Set<MapNode> getNeighbours() {
 			Set<MapNode> neighbours = new HashSet<MapNode>();
 
-			for (int i = x - 1; i <= x + 1; i++) {
-				for (int j = y - 1; j <= y + 1; j++) {
-					if ((i == x && j == y) || i < 0 || j < 0 || j >= map.length || i >= map[j].length) {
+			for (int i = x ; i <= x + 1; i++) {
+				for (int j = y; j <= y + 1; j++) {
+					System.out.println("Options.nb_cell_w : "+Options.nb_cell_w);
+					System.out.println("Options.nb_cell_h :"+Options.nb_cell_h);
+					if ((i == x && j == y) || i < 0 || j < 0 || j >= Options.nb_cell_w || i >= Options.nb_cell_h) {
 						continue;
 					}
 
