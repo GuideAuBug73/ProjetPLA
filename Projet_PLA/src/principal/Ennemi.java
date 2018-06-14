@@ -88,7 +88,7 @@ public class Ennemi extends Entity {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("E");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -117,7 +117,7 @@ public class Ennemi extends Entity {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("N");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -147,7 +147,7 @@ public class Ennemi extends Entity {
                         m_model.m_perso.p_vie--;
                     }
                 }else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("S");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -177,7 +177,7 @@ public class Ennemi extends Entity {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("O");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
