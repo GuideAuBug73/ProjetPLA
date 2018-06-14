@@ -72,10 +72,12 @@ public class View extends GameView {
 		}
 
 		h.paint(g);
-		Boss boss = m_model.m_boss;
-		boss.paint(g);
-		boss.projectile.paint(g);
-		boss.animation();
+		if(Options.vague == 5) {
+			Boss boss = m_model.m_boss;
+			boss.paint(g);
+			boss.projectile.paint(g);
+			boss.animation();
+		}
 	}
 
 	@Override
@@ -139,6 +141,10 @@ public class View extends GameView {
 			Options.time_vague = 0;
 			Options.vague++;
 			m_model.createEnnemi();
+			if (Options.vague == 5) {
+				m_model.createboss();
+				m_ctr.b = m_model.m_boss;
+			}
 			if (m_model.m_perso.m_mort && m_model.m_perso.p_vie != 0) {
 				if (Options.vague != 1)
 					m_model.m_perso.m_mort = false;
