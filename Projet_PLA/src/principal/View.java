@@ -133,7 +133,7 @@ public class View extends GameView {
 		g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, Options.d.width / 2 - 175, 20);
 		g.setColor(Color.GRAY);
 		g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, (int) Options.time_vague, 20);
-		Options.time_vague += 1;
+		Options.time_vague += 0.25;
 		if (Options.time_vague == Options.d.width / 2 - 175) {
 			m_model.totalennemie = 0;
 			Options.time_vague = 0;

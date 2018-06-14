@@ -87,9 +87,8 @@ public class Ennemi extends Entity {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -117,9 +116,8 @@ public class Ennemi extends Entity {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -148,9 +146,8 @@ public class Ennemi extends Entity {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                }else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -179,9 +176,8 @@ public class Ennemi extends Entity {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
