@@ -8,6 +8,8 @@ import edu.ricm3.game.GameUI;
 import pathfinding.Grid2d;
 import ricm3.parser.ParseException;
 
+import java.awt.*;
+
 public class GameMain {
 
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
