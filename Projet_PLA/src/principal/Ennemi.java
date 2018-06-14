@@ -296,7 +296,7 @@ public class Ennemi extends Entity {
 				m_idx = 28 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 3;
+			this.orientation = 0;
 			break;
 		case "S":
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
@@ -311,7 +311,7 @@ public class Ennemi extends Entity {
 				m_idx = 16 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 0;
+			this.orientation = 3;
 			break;
 		case "O":
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
@@ -387,7 +387,7 @@ public class Ennemi extends Entity {
 				m_idx = 28 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 3;
+			this.orientation = 0;
 			break;
 		case 3:
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
@@ -402,7 +402,7 @@ public class Ennemi extends Entity {
 				m_idx = 16 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 0;
+			this.orientation = 3;
 			break;
 		case 2:
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
