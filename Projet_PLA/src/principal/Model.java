@@ -16,7 +16,6 @@ import automate._Automate;
 import edu.ricm3.game.GameModel;
 import pathfinding.Grid2d;
 import ricm3.parser.Ast.AI_Definitions;
-import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
@@ -63,7 +62,6 @@ public class Model extends GameModel {
 	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
 		loadSprites();
 		createMap();
-        createObstacle();
         createSpawn();
 		createItem();
 		createPerso();
@@ -74,11 +72,12 @@ public class Model extends GameModel {
 		def = (AI_Definitions) AutomataParser.Run();
 		int taille = def.automata.size();
 		Options.tab_A = new String[taille];
-		Auto = new LinkedList<_Automate>();
+		Auto = new LinkedList<_Automate>();	
 		for(int i = 0; i < taille;i++) {
 			Options.tab_A[i] = def.automata.get(i).name.toString();
 		}
 		createEnnemi();
+		createObstacle();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
@@ -98,7 +97,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		compteur++;
-		if(compteur >= 200) {
+		if(compteur >= 120) {
 			compteur = 0;
 			_Iter = Auto.listIterator();
 			while (_Iter.hasNext()) {
@@ -564,7 +563,7 @@ public class Model extends GameModel {
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
                     sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(1), m_ennemis[j]);
+           _Automate A = new _Automate(def.automata.get(0), m_ennemis[j]);
            	Auto.add(A);
             totalennemie++;
 
@@ -636,6 +635,9 @@ public class Model extends GameModel {
     public void createObstacle() {
         for (int i = 0; i < 5; i++) {
             m_obstacles[i] = new Obstacle(this);
+            System.out.println("Nb obstacle : "+m_obstacles.length);
+            _Automate A = new _Automate(def.automata.get(1), m_obstacles[i]);
+           	Auto.add(A);
         }
     }
 
