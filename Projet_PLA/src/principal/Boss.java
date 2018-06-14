@@ -257,6 +257,50 @@ public class Boss extends Entity {
     }
 
 
+    public void shoot(){
+        if (Options.projectileBossLance== null) {
+            int itemY = this.y;
+            int itemX = this.x;
+            System.out.println("EX: "+this.x+"EY: "+ this.y);
+            Item projectile = this.projectile;
+            projectile.orientation = this.orientation;
+            if (this.orientation == 0) {
+                itemY = itemY + 60;
+            } else if (this.orientation == 1) {
+                itemX = itemX + 60;
+            } else if (this.orientation == 2) {
+                itemX = itemX - 60;
+            } else if (this.orientation == 3) {
+                itemY = itemY - 60;
+            }
+            projectile.x = itemX;
+            projectile.y = itemY;
+            projectile.hit = true;
+            System.out.println("X:"+projectile.x+"    Y: "+projectile.y);
+            Options.projectileBossLance = projectile;
+        }
+    }
+
+    public void paint(Graphics g) {
+        if (this.vie > 0) {
+            g.drawRect(x, y, vie * 6, 5);
+            g.setColor(Color.red);
+            g.fillRect(x, y, vie * 6, 5);
+            m_cpt++;
+            Image img = m_sprites[m_idx];
+            int w = (int) (m_scale * m_w);
+            int h = (int) (m_scale * m_h);
+            g.drawImage(img, x - 10, y - 10, w, h, null);
+        } else if (this.vie <= 0 && m_idxMort < 11) {
+            m_cell.entité = null;
+            Image img = m_spritesMort[m_idxMort];
+            m_idxMort++;
+            int w = (int) (m_scale * m_w);
+            int h = (int) (m_scale * m_h);
+            g.drawImage(img, x, y, w, h, null);
+        }
+    }
+
 	@Override
 	public void hit() {
 		// TODO Auto-generated method stub
@@ -274,28 +318,6 @@ public class Boss extends Entity {
 		// TODO Auto-generated method stub
 	}
 	
-	public void paint(Graphics g) {
-		if (this.vie > 0) {
-			g.drawRect(x-1, y-1, 10 * 6 +2, 5+2);
-			g.setColor(Color.red);
-			g.drawRect(x, y, vie * 6, 5);
-			g.setColor(Color.red);
-			g.fillRect(x, y, vie * 6, 5);
-			m_cpt++;
-			Image img = m_sprites[m_idx];
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x-10, y-10, w, h, null);
-		}
-		else if (this.vie <= 0 && m_idxMort < 11){
-			m_cell.entité = null;
-			Image img = m_spritesMort[m_idxMort];
-			m_idxMort++;
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x, y, w, h, null);
-		}
-	}
 
 	@Override
 	public void wizz() {

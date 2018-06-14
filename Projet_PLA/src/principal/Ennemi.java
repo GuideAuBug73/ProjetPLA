@@ -25,7 +25,7 @@ public class Ennemi extends Entity {
     public int m_h2;
     int m_cpt;
     Boolean invincible;
-    Item inventaire;
+    public Item inventaire;
 
 
     public Ennemi(Model model, BufferedImage sprite, BufferedImage sprite2, int x, int y, float scale) {
@@ -238,6 +238,30 @@ public class Ennemi extends Entity {
                     m_idx = 16 + (m_idx + 1) % 4;
                 }
             }
+        }
+    }
+
+    public void shoot(){
+        if (Options.itemlanceEnnemi == null) {
+            int itemY = this.y;
+            int itemX = this.x;
+            System.out.println("EX: "+this.x+"EY: "+ this.y);
+            Item projectile = inventaire;
+            projectile.orientation = this.orientation;
+            if (this.orientation == 0) {
+                itemY = itemY + 60;
+            } else if (this.orientation == 1) {
+                itemX = itemX + 60;
+            } else if (this.orientation == 2) {
+                itemX = itemX - 60;
+            } else if (this.orientation == 3) {
+                itemY = itemY - 60;
+            }
+            projectile.x = itemX;
+            projectile.y = itemY;
+            projectile.hit = true;
+            System.out.println("X:"+projectile.x+"    Y: "+projectile.y);
+            Options.itemlanceEnnemi = projectile;
         }
     }
 
