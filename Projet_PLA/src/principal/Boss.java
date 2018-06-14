@@ -12,7 +12,6 @@ public class Boss extends Entity {
     int m_idx = 0, m_idxMort = 0;
     float m_scale;
     BufferedImage[] m_sprites, m_Expsprites;
-    int orientation;
     Cellule m_cell;
     Item m_item;
     int m_cpt;
@@ -29,7 +28,6 @@ public class Boss extends Entity {
         mort = false;
         img = sprite;
         img2 = sprite2;
-        orientation = 0;
         m_item = null;
         this.x = x;
         this.y = y;

@@ -58,6 +58,7 @@ public class Model extends GameModel {
 	BufferedImage m_fireSprite;
 	Bonus m_bonus[] = new Bonus[40];
 	BufferedImage m_bonusSprite[] = new BufferedImage[3];
+	int testcompteur = 0;
 
 	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
 		loadSprites();
@@ -522,6 +523,8 @@ public class Model extends GameModel {
     }
 
     public void createEnnemi() {
+    	testcompteur++;
+    	System.out.println(testcompteur);
         int i = 0;
         int k = 0;
 
@@ -559,11 +562,12 @@ public class Model extends GameModel {
         while (m_ennemis[i]!=null){
             i++;
         }
-        for(int j=i;j<i+k;j++){
+        for(int j=i;j<k;j++){
+        	System.out.println("Total ennemi sur la vague = "+k);
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
                     sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(0), m_ennemis[j]);
+           _Automate A = new _Automate(def.automata.get(2), m_ennemis[j]);
            	Auto.add(A);
             totalennemie++;
 
@@ -584,8 +588,6 @@ public class Model extends GameModel {
     }
 
     void newlevel() {
-
-        totalennemie = 0;
         for (int y = 0; y < m_carte.m_h; y++) {
             for (int x = 0; x < m_carte.m_w; x++) {
                 m_carte.cellules[y][x].entité = null;
@@ -635,7 +637,6 @@ public class Model extends GameModel {
     public void createObstacle() {
         for (int i = 0; i < 5; i++) {
             m_obstacles[i] = new Obstacle(this);
-            System.out.println("Nb obstacle : "+m_obstacles.length);
             _Automate A = new _Automate(def.automata.get(1), m_obstacles[i]);
            	Auto.add(A);
         }

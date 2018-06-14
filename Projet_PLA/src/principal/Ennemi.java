@@ -14,7 +14,6 @@ public class Ennemi extends Entity {
 	int m_idxMort;
 	float m_scale;
 	BufferedImage[] m_sprites;
-	public int orientation;
 	Cellule m_cell;
 	Boolean m_mort = false;
 	public Item m_item;
@@ -32,7 +31,6 @@ public class Ennemi extends Entity {
 		img = sprite;
 		img2 = sprite2;
 		m_idx = 0;
-		orientation = 0;
 		m_item = null;
 		invincible = false;
 		this.x = x;
@@ -282,7 +280,27 @@ public class Ennemi extends Entity {
 
 	@Override
 	public void hit() {
-		// TODO Auto-generated method stub
+		if (this.m_mort == false) {
+			Cellule cell = new Cellule();
+			switch (this.orientation) {
+			case 0:
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+				break;
+			case 1:
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+				break;
+			case 2:
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+				break;
+			case 3:
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+				break;
+			}
+			if (((Personnage) cell.entité).invincible == false) {
+				m_model.m_perso.m_mort = true;
+				m_model.m_perso.p_vie--;
+			}
+		}
 
 	}
 
@@ -293,43 +311,64 @@ public class Ennemi extends Entity {
 
 		case "N":
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-			m_item = (Item) cell.entité;
-			m_item.possession = 2;
-			cell.entité = null;
+			if (cell.entité instanceof Item) {
+				m_item = (Item) cell.entité;
+				m_item.possession = 2;
+				cell.entité = null;
+			} else {
+				((Bonus) cell.entité).actionBonus(cell, this);
+			}
 			break;
 		case "S":
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-			m_item = (Item) cell.entité;
-			m_item.possession = 2;
-			cell.entité = null;
+			if (cell.entité instanceof Item) {
+				m_item = (Item) cell.entité;
+				m_item.possession = 2;
+				cell.entité = null;
+			} else {
+				((Bonus) cell.entité).actionBonus(cell, this);
+			}
 			break;
 		case "O":
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-			m_item = (Item) cell.entité;
-			m_item.possession = 2;
-			cell.entité = null;
+			if (cell.entité instanceof Item) {
+				m_item = (Item) cell.entité;
+				m_item.possession = 2;
+				cell.entité = null;
+			} else {
+				((Bonus) cell.entité).actionBonus(cell, this);
+			}
 			break;
 		case "E":
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-			m_item = (Item) cell.entité;
-			m_item.possession = 2;
-			cell.entité = null;
-			;
+			if (cell.entité instanceof Item) {
+				m_item = (Item) cell.entité;
+				m_item.possession = 2;
+				cell.entité = null;
+			} else {
+				((Bonus) cell.entité).actionBonus(cell, this);
+			}
+			break;
+		case "F":
+			switch (this.orientation) {
+			case 0:
+				this.pick("S");
+				break;
+			case 3:
+				this.pick("N");
+				break;
+			case 1:
+				this.pick("E");
+				break;
+			case 2:
+				this.pick("O");
+				break;
+			default:
+				break;
+			}
 		default:
 			break;
 		}
-
-	}
-
-	@Override
-	public void turn(String param) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wizz() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -405,6 +444,23 @@ public class Ennemi extends Entity {
 				this.orientation = 1;
 
 				break;
+			case "F":
+				switch (this.orientation) {
+				case 0:
+					this.move("S");
+					break;
+				case 3:
+					this.move("N");
+					break;
+				case 1:
+					this.move("E");
+					break;
+				case 2:
+					this.move("O");
+					break;
+				default:
+					break;
+				}
 			default:
 				break;
 			}
@@ -460,23 +516,26 @@ public class Ennemi extends Entity {
 
 	@Override
 	public void threw() {
-		if (this.m_item != null) {
-			int itemY = this.y;
-			int itemX = this.x;
-			m_item.orientation = this.orientation;
-			if (this.orientation == 0) {
-				itemY = itemY + 60;
-			} else if (this.orientation == 1) {
-				itemX = itemX + 60;
-			} else if (this.orientation == 2) {
-				itemX = itemX - 60;
-			} else if (this.orientation == 3) {
-				itemY = itemY - 60;
+		if (this.m_mort == false) {
+			if (this.m_item != null) {
+				int itemY = this.y;
+				int itemX = this.x;
+				m_item.orientation = this.orientation;
+				if (this.orientation == 0) {
+					itemY = itemY + 60;
+				} else if (this.orientation == 1) {
+					itemX = itemX + 60;
+				} else if (this.orientation == 2) {
+					itemX = itemX - 60;
+				} else if (this.orientation == 3) {
+					itemY = itemY - 60;
+				}
+				m_item.x = itemX;
+				m_item.y = itemY;
+				m_item.hit = true;
+				Options.itemlance = m_item;
 			}
-			m_item.x = itemX;
-			m_item.y = itemY;
-			m_item.hit = true;
-			Options.itemlance = m_item;
+			m_item = null;
 		}
 
 	}

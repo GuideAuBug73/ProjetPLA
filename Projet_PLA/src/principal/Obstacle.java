@@ -17,6 +17,7 @@ public class Obstacle extends Entity {
 			cell = m_model.m_carte.cellules[y][x];
 		}
 		m_model.m_carte.cellules[y][x].entité = this;
+		m_model.m_carte.cellules[y][x].libre = false;
 	}
 
 	@Override
@@ -60,7 +61,9 @@ public class Obstacle extends Entity {
 			m_cell = cell;
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
+			cell.libre = false;
 			cellActuel.entité = null;
+			cellActuel.libre = true;
 			y -= Options.TAILLE_CELLULE;
 			break;
 		case "S":
@@ -68,7 +71,9 @@ public class Obstacle extends Entity {
 			m_cell = cell;
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
+			cell.libre = false;
 			cellActuel.entité = null;
+			cellActuel.libre = true;
 			y += Options.TAILLE_CELLULE;
 			break;
 		case "O":
@@ -76,7 +81,9 @@ public class Obstacle extends Entity {
 			m_cell = cell;
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
+			cell.libre = false;
 			cellActuel.entité = null;
+			cellActuel.libre = true;
 			x -= Options.TAILLE_CELLULE;
 			break;
 		case "E":
@@ -84,7 +91,9 @@ public class Obstacle extends Entity {
 			m_cell = cell;
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
+			cell.libre = false;
 			cellActuel.entité = null;
+			cellActuel.libre = true;
 			x += Options.TAILLE_CELLULE;
 			break;
 		default:
