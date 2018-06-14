@@ -305,12 +305,12 @@ public class Ast {
 
 		public void make(_Condition condition, String kind) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void make(_Action act, String kind) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 
@@ -334,7 +334,7 @@ public class Ast {
 		}
 
 		@Override
-		public void make(_Transition trans,String kind) {
+		public void make(_Transition trans, String kind) {
 			// TODO Auto-generated method stub
 
 		}
@@ -364,32 +364,82 @@ public class Ast {
 
 		@Override
 		public void make(_Transition trans, String kind) {
-			if(operator.value == "/") {
-				if(kind == "Condition") {
+			if (operator.value == "/") {
+				if (kind == "Condition") {
 					trans.condition = new _Disjunction();
-					left_operand.make(trans.condition, kind);
-					right_operand.make(trans.condition, kind);
-				}
-				else {
+					left_operand.make(trans.condition, "left");
+					right_operand.make(trans.condition, "right");
+				} else {
 					trans.act = new _DisjunctionA();
-					left_operand.make(trans.act, kind);
-					right_operand.make(trans.act, kind);
-				}
-			}
-			
-			else {
-				if(kind == "Condition") {
-					trans.condition = new _Conjonction();
-					left_operand.make(trans.condition, kind);
-					right_operand.make(trans.condition,kind);
-				}
-				else {
-					trans.act = new _ConjonctionA();
-					left_operand.make(trans.act, kind);
-					right_operand.make(trans.act, kind);
+					left_operand.make(trans.act, "left");
+					right_operand.make(trans.act, "right");
 				}
 			}
 
+			else {
+				if (kind == "Condition") {
+					trans.condition = new _Conjonction();
+					left_operand.make(trans.condition, "left");
+					right_operand.make(trans.condition, "right");
+				} else {
+					trans.act = new _ConjonctionA();
+					left_operand.make(trans.act, "left");
+					right_operand.make(trans.act, "right");
+				}
+			}
+
+		}
+
+		public void make(_Action action, String kind) {
+			if (operator.value == "/") {
+				if (kind.equals("left")) {
+					action.action1 = new _DisjunctionA();
+					left_operand.make(action.action1, "left");
+					right_operand.make(action.action1, "right");
+				} else {
+					action.action2 = new _DisjunctionA();
+					left_operand.make(action.action2, "left");
+					right_operand.make(action.action2, "right");
+				}
+			}
+
+			else {
+				if (kind.equals("left")) {
+					action.action1 = new _ConjonctionA();
+					left_operand.make(action.action1, "left");
+					right_operand.make(action.action1, "right");
+				} else {
+					action.action2 = new _ConjonctionA();
+					left_operand.make(action.action2, "left");
+					right_operand.make(action.action2, "right");
+				}
+			}
+		}
+
+		public void make(_Condition cond, String kind) {
+			if (operator.value == "/") {
+				if (kind.equals("left")) {
+					cond.cond1 = new _Disjunction();
+					left_operand.make(cond.cond1, "left");
+					right_operand.make(cond.cond1, "right");
+				} else {
+					cond.cond2 = new _Disjunction();
+					left_operand.make(cond.cond2, "left");
+					right_operand.make(cond.cond2, "right");
+				}
+			}
+
+			else {
+				if (kind.equals("left")) {
+					cond.cond1 = new _Conjonction();
+					left_operand.make(cond.cond1, "left");
+					right_operand.make(cond.cond1, "right");
+				} else {
+					cond.cond2 = new _Conjonction();
+					left_operand.make(cond.cond2, "left");
+					right_operand.make(cond.cond2, "right");
+				}
+			}
 		}
 	}
 
@@ -428,7 +478,7 @@ public class Ast {
 			return name + "(" + string + ")";
 		}
 
-		public void make(_Transition trans,String kind) {
+		public void make(_Transition trans, String kind) {
 			ListIterator<Parameter> Iter = this.parameters.listIterator();
 			switch (name.toString()) {
 			case "Cell":
@@ -469,7 +519,7 @@ public class Ast {
 				break;
 			case "Turn":
 				trans.act = new _Turn();
-				while(Iter.hasNext()) {
+				while (Iter.hasNext()) {
 					Iter.next().make(trans.act);
 				}
 				break;
@@ -492,6 +542,124 @@ public class Ast {
 				break;
 			}
 		}
+
+		public void make(_Action act, String kind) {
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
+			if (kind.equals("left")) {
+				switch (name.toString()) {
+				case "Move":
+					act.action1 = new _Move();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				case "Hit":
+					act.action1 = new _Hit();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				case "Wizz":
+					act.action1 = new _Wizz();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				case "Pop":
+					act.action1 = new _Pop();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				case "Pick":
+					act.action1 = new _Pick();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				case "Turn":
+					act.action1 = new _Turn();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
+				}
+			} else {
+				switch (name.toString()) {
+				case "Move":
+					act.action2 = new _Move();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				case "Hit":
+					act.action2 = new _Hit();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				case "Wizz":
+					act.action2 = new _Wizz();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				case "Pop":
+					act.action2 = new _Pop();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				case "Pick":
+					act.action2 = new _Pick();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				case "Turn":
+					act.action2 = new _Turn();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
+				}
+			}
+		}
+
+		public void make(_Condition cond, String kind) {
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
+			if (kind.equals("left")) {
+				switch (name.toString()) {
+				case "Cell":
+					cond.cond1 = new _Cell();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond1);
+					}
+					break;
+				case "Closest":
+					cond.cond1 = new Joueur_Proche();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond1);
+					}
+					break;
+				}
+			} else {
+				switch (name.toString()) {
+				case "Cell":
+					cond.cond2 = new _Cell();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond2);
+					}
+					break;
+				case "Closest":
+					cond.cond2 = new Joueur_Proche();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond2);
+					}
+					break;
+				}
+			}
+		}
 	}
 
 	public static class Action extends Ast {
@@ -512,7 +680,7 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-			expression.make(trans,this.kind);
+			expression.make(trans, this.kind);
 		}
 	}
 
@@ -533,7 +701,7 @@ public class Ast {
 		}
 
 		public void make(_Transition trans) {
-			expression.make(trans,this.kind);
+			expression.make(trans, this.kind);
 		}
 	}
 

@@ -18,16 +18,16 @@ public class _Cell extends _Condition {
 		 * case "OW": entity_cellule = "Obstacle"; break;
 		 */
 		case "T":
-			entity_cellule = "Personnage";
+			entity_cellule = "principal.Personnage";
 			break;
 		case "A":
-			entity_cellule = "Ennemi";
+			entity_cellule = "principal.Ennemi";
 			break;
 		case "G":
-			entity_cellule = "Spawn";
+			entity_cellule = "principal.Spawn";
 			break;
 		case "P":
-			entity_cellule = "Item";
+			entity_cellule = "principal.Item";
 			break;
 		default:
 			break;
@@ -43,7 +43,7 @@ public class _Cell extends _Condition {
 					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				} else {
-					return (cell.libre);
+					return (cell.libre && cell.entité == null);
 				}
 				/*
 				 * if (entity_cellule == "W") { return (!cell.libre); }
@@ -60,7 +60,7 @@ public class _Cell extends _Condition {
 					}
 					return (cell.entité.getClass().getName() == entity_cellule);
 				} else {
-					return (cell.libre);
+					return (cell.libre && cell.entité == null);
 				}
 
 			}
@@ -76,7 +76,7 @@ public class _Cell extends _Condition {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {
-					return (cell.libre);
+					return (cell.libre && cell.entité == null);
 				}
 
 			}
@@ -93,7 +93,7 @@ public class _Cell extends _Condition {
 					return (cell.entité.getClass().getName() == entity_cellule);
 				}
 				else {
-					return (cell.libre);
+					return (cell.libre && cell.entité == null);
 				}
 
 			}

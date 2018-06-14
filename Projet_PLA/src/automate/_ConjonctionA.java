@@ -3,8 +3,10 @@ package automate;
 import principal.Entity;
 
 public class _ConjonctionA extends _Action {
-	public _Action action1;
-	public _Action action2;
+	
+	public _ConjonctionA(){
+		
+	}
 	
 	@Override
 	public void execute(Entity e) {
