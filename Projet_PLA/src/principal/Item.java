@@ -7,22 +7,22 @@ import java.awt.image.BufferedImage;
 import basic.Cellule;
 import basic.Orientation;
 
-public class Item extends IA {
-    public int type;
-    public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
-    public boolean casted = false;
-    public int orientation;
-    public int limit;
-    public int compteurTickItem = 500;
-    public boolean hit = false;
-    BufferedImage[] m_sprites;
-    BufferedImage[] m_spritesExplo;
-    int m_w, m_h, m_w2, m_h2;
-    int m_idx;
-    boolean m_zone;
-    int m_idxExplo;
-    int m_posDegatH;
-    int m_posDegatW;
+public class Item extends Entity {
+	public int type;
+	public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
+	public boolean casted = false;
+	public int orientation;
+	public int limit;
+	public int compteurTickItem = 500;
+	public boolean hit = false;
+	BufferedImage[] m_sprites;
+	BufferedImage[] m_spritesExplo;
+	int m_w, m_h, m_w2, m_h2;
+	int m_idx;
+	boolean m_zone;
+	int m_idxExplo;
+	int m_posDegatH;
+	int m_posDegatW;
 
     public Item(int type, int w, int h, BufferedImage m_item, BufferedImage m_explo, Model model) {
         this.type = type;
@@ -419,5 +419,54 @@ public class Item extends IA {
             m_idxExplo++;
         }
     }
+
+
+	@Override
+	public void move(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void pick(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

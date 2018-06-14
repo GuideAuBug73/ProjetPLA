@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-
 import edu.ricm3.game.GameController;
 
 public class Controller extends GameController implements ActionListener {
@@ -60,7 +59,8 @@ public class Controller extends GameController implements ActionListener {
             c.haut();
         } else if (e.getKeyChar() == 'q' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.gauche();
-        } else if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
+        }
+       /* if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.droite();
         } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.bas();
@@ -68,7 +68,7 @@ public class Controller extends GameController implements ActionListener {
             E.haut();
         } else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.gauche();
-        } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
+      }*/ else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
             try {
                 if (Options.itemlance == null) {
                     item = c.inventaire.defiler();
