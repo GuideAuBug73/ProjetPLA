@@ -51,7 +51,6 @@ public class Model extends GameModel {
 		createSpawn();
 		createPerso();
 		createEnnemi();
-		createboss();
 		createMenu();
 		createBonus();
 		createObstacle();
