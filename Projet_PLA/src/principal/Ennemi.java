@@ -373,7 +373,6 @@ public class Ennemi extends Entity {
 				} else if (m_item != null) {
 					m_idx = 16 + (m_idx + 1) % 4;
 				}
-
 				this.orientation = 0;
 				break;
 			case "O":
@@ -409,9 +408,7 @@ public class Ennemi extends Entity {
 				break;
 			}
 		}
-
 	}
-
 	public void follow() {
 		int orientation = -1;
 		int[] tab_j = m_model.m_perso.PosToCell();
