@@ -1,0 +1,12 @@
+Mover1(Init){
+
+* (Init): 
+    | Cell(N,V) ? Move(N) :(Init)
+    | Cell(E,V) ? Move(E) :(Init)
+    | Cell(O,V) ? Move(O) :(Init)
+    | Cell(S,V) ? Move(S) :(Init)
+    | Cell(S,P) ? Pick(S) & Move(S) :(Init)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Init)
+    | Cell(E,P) ? Pick(E) & Move(E) :(Init)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Init)
+}

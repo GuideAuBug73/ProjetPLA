@@ -2,21 +2,23 @@ package principal;
 
 import basic.Cellule;
 import principal.Inventaire;
+import pathfinding.Grid2d;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
-public class Ennemi extends IA {
+public class Ennemi extends Entity {
     int m_w, m_h;
     int m_idx;
     int m_idxMort;
     float m_scale;
     BufferedImage[] m_sprites;
-    int orientation;
+    public int orientation;
     Cellule m_cell;
     Boolean m_mort = false;
-    Item m_item;
+    public Item m_item;
     public int p_vie;
     public BufferedImage[] m_spritesTransfo;
     public int m_w2;
@@ -46,33 +48,33 @@ public class Ennemi extends IA {
         m_cpt = 0;
     }
 
-    public void splitSprite() {
-        int width = img.getWidth(null);
-        int height = img.getHeight(null);
-        m_sprites = new BufferedImage[4 * 8];
-        m_w = width / 4;
-        m_h = height / 8;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 4; j++) {
-                int x = j * m_w;
-                int y = i * m_h;
-                m_sprites[(i * 4) + j] = img.getSubimage(x, y, m_w, m_h);
-            }
-        }
-        //sprite de transformation
-        width = img2.getWidth(null);
-        height = img2.getHeight(null);
-        m_spritesTransfo = new BufferedImage[8 * 4];
-        m_w2 = width / 8;
-        m_h2 = height / 4;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 8; j++) {
-                int x = j * m_w2;
-                int y = i * m_h2;
-                m_spritesTransfo[(i * 8) + j] = img2.getSubimage(x, y, m_w2, m_h2);
-            }
-        }
-    }
+	public void splitSprite() {
+		int width = img.getWidth(null);
+		int height = img.getHeight(null);
+		m_sprites = new BufferedImage[4 * 8];
+		m_w = width / 4;
+		m_h = height / 8;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 4; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				m_sprites[(i * 4) + j] = img.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		// sprite de transformation
+		width = img2.getWidth(null);
+		height = img2.getHeight(null);
+		m_spritesTransfo = new BufferedImage[8 * 4];
+		m_w2 = width / 8;
+		m_h2 = height / 4;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				int x = j * m_w2;
+				int y = i * m_h2;
+				m_spritesTransfo[(i * 8) + j] = img2.getSubimage(x, y, m_w2, m_h2);
+			}
+		}
+	}
 
     public void droite() {
         if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
@@ -86,7 +88,7 @@ public class Ennemi extends IA {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("E");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -115,7 +117,7 @@ public class Ennemi extends IA {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("N");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -145,7 +147,7 @@ public class Ennemi extends IA {
                         m_model.m_perso.p_vie--;
                     }
                 }else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("S");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -175,7 +177,7 @@ public class Ennemi extends IA {
                         m_model.m_perso.p_vie--;
                     }
                 } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    ramasser(cell);
+                    pick("O");
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -257,15 +259,224 @@ public class Ennemi extends IA {
         }
     }
 
-    public void ramasser(Cellule cell) {
-        if (cell.entité instanceof Item) {
-            inventaire = (Item) cell.entité;
-            inventaire.possession = 2;
-            cell.entité = null;
-        }
-        if (cell.entité instanceof Bonus) {
-            ((Bonus) cell.entité).actionBonus(cell, this);
-        }
-    }
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pick(String param) {
+		Cellule cell;
+		switch (param) {
+
+		case "N":
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			m_item = (Item) cell.entité;
+			m_item.possession = 2;
+			cell.entité = null;
+			break;
+		case "S":
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			m_item = (Item) cell.entité;
+			m_item.possession = 2;
+			cell.entité = null;
+			break;
+		case "O":
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+			m_item = (Item) cell.entité;
+			m_item.possession = 2;
+			cell.entité = null;
+			break;
+		case "E":
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			m_item = (Item) cell.entité;
+			m_item.possession = 2;
+			cell.entité = null;;
+		default:
+			break;
+		}
+
+	}
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void move(String param) {
+		Cellule cell;
+		Cellule cellActuel;
+		switch (param) {
+
+		case "N":
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			y -= Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 12 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 28 + (m_idx + 1) % 4;
+			}
+
+			this.orientation = 0;
+			break;
+		case "S":
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			y += Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 16 + (m_idx + 1) % 4;
+			}
+
+			this.orientation = 3;
+			break;
+		case "O":
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			x -= Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 4 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 20 + (m_idx + 1) % 4;
+			}
+			this.orientation = 2;
+			break;
+		case "E":
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			x += Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 8 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 24 + (m_idx + 1) % 4;
+			}
+			this.orientation = 1;
+
+			break;
+		default:
+			break;
+		}
+
+	}
+	public void follow() {
+		int orientation=-1;
+		int[] tab_j = m_model.m_perso.PosToCell();
+		int[] tab_a = m_model.m_ennemi.PosToCell();
+
+		List<Grid2d.MapNode> route = m_model.map2d.findPath(tab_a[0], tab_a[1], tab_j[0], tab_j[1]);
+
+		Grid2d.MapNode element = route.get(1);
+		int y_recherche = element.get_x();
+		int x_recherche = element.get_y();
+		int y_en = tab_a[1];
+		int x_en = tab_a[0];
+		int diff_x = x_en - x_recherche;
+		int diff_y = y_en - y_recherche;
+		if (diff_x == -1) {
+			orientation = 2;
+		} else if (diff_y == -1) {
+			orientation = 3;
+		} else if (diff_y == +1) {
+			orientation = 0;
+		} else if (diff_x == +1) {
+			orientation = 1;
+		}
+		Cellule cell;
+		Cellule cellActuel;
+		switch (orientation) {
+		
+		case 0:
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			y -= Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 12 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 28 + (m_idx + 1) % 4;
+			}
+
+			this.orientation = 0;
+			break;
+		case 3:
+			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			y += Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 16 + (m_idx + 1) % 4;
+			}
+
+			this.orientation = 3;
+			break;
+		case 2:
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			x -= Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 4 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 20 + (m_idx + 1) % 4;
+			}
+			this.orientation = 2;
+			break;
+		case 1:
+			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			m_cell = cell;
+			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			cell.entité = this;
+			cellActuel.entité = null;
+			x += Options.TAILLE_CELLULE / 4;
+			if (m_item == null) {
+				m_idx = 8 + (m_idx + 1) % 4;
+			} else if (m_item != null) {
+				m_idx = 24 + (m_idx + 1) % 4;
+			}
+			this.orientation = 1;
+
+			break;
+		default:
+			break;
+		}
+	}
+	
 
 }

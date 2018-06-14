@@ -2,7 +2,7 @@ package principal;
 
 import basic.Cellule;
 
-public class Obstacle extends IA {
+public class Obstacle extends Entity {
 	public Obstacle(Model model) { 
 	    m_model = model; 
 	    Cellule cell;
@@ -18,4 +18,49 @@ public class Obstacle extends IA {
 	    } 
 	    m_model.m_carte.cellules[y][x].entité = this; 
 	  } 
+
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pick(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

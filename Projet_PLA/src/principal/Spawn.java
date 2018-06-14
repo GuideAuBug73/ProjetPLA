@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 
 import basic.Cellule;
 
-public class Spawn extends IA {
-	boolean presence = false;
+public class Spawn extends Entity {
+	public boolean presence = false;
 	BufferedImage[] m_sprites;
 	int m_w, m_h;
 	Model m_model;
@@ -61,4 +61,48 @@ public class Spawn extends IA {
 		}
 		g.drawImage(m_sprites[m_idx], x-10, y, Options.TAILLE_CELLULE+20, Options.TAILLE_CELLULE, null);
 	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pick(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
