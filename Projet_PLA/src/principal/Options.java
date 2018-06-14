@@ -48,4 +48,5 @@ public class Options {
 	public static int taille_bp_h;
 	public static int taille_bp_w;
 	public static GameUI game;
+	public static float timer_mort;
 }
