@@ -40,10 +40,10 @@ public class GameMain {
 			 model.m_carte.cellules[y][x].entité = model.m_item[cpt];
 			 cpt++;
 
-		}
+		}*/
 
-		// <T list = (map2d.findPath(tab_j[0],tab_j[1],tab_a[0],tab_a[1]));
-		System.out.println(map2d.findPath(tab_j[0], tab_j[1], tab_a[0], tab_a[1]));*/
+
+		//System.out.println(map2d.findPath(tab_j[0], tab_j[1], tab_a[0], tab_a[1]));
 
 		// notice that the main thread will exit here,
 		// but not your program... hence the hooking
