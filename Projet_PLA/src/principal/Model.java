@@ -57,19 +57,19 @@ public class Model extends GameModel {
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
 	BufferedImage m_fireSprite;
-	Bonus m_bonus[] = new Bonus[2];
+	Bonus m_bonus[] = new Bonus[40];
 	BufferedImage m_bonusSprite[] = new BufferedImage[3];
 
 	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
 		loadSprites();
 		createMap();
+        createObstacle();
+        createSpawn();
 		createItem();
 		createPerso();
-		createSpawn();
 		createEnnemi();
 		createMenu();
 		createBonus();
-		createObstacle();
 		String f = "tests/tests/automate.txt";
 		new AutomataParser(new BufferedReader(new FileReader(f)));
 		Auto = new LinkedList<_Automate>();
@@ -589,11 +589,13 @@ public class Model extends GameModel {
                 m_carte.cellules[y][x].entité = null;
             }
         }
-
+        m_item=new Item[70];
+        m_bonus=new Bonus[40];
         createMap();
         createObstacle();
         createSpawn();
         createItem();
+        createBonus();
         createEnnemi();
 
         for (int i = 0; i < 1; ) {

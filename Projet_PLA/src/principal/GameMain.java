@@ -14,6 +14,7 @@ public class GameMain {
 
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
 		Options.d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		Options.timer_mort=Options.d.width / 2 - 175;
 		tailleMap(Options.d);
 		// construct the game elements: model, controller, and view.
 		Model model = new Model();
