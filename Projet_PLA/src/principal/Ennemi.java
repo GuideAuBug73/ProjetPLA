@@ -353,14 +353,14 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE / 4;
+			y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 12 + (m_idx + 1) % 4;
 			} else if (m_item != null) {
 				m_idx = 28 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 0;
+			this.orientation = 3;
 			break;
 		case "S":
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
@@ -368,14 +368,14 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			y += Options.TAILLE_CELLULE / 4;
+			y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = (m_idx + 1) % 4;
 			} else if (m_item != null) {
 				m_idx = 16 + (m_idx + 1) % 4;
 			}
 
-			this.orientation = 3;
+			this.orientation = 0;
 			break;
 		case "O":
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
@@ -383,7 +383,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			x -= Options.TAILLE_CELLULE / 4;
+			x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 4 + (m_idx + 1) % 4;
 			} else if (m_item != null) {
@@ -397,7 +397,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			x += Options.TAILLE_CELLULE / 4;
+			x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 8 + (m_idx + 1) % 4;
 			} else if (m_item != null) {
@@ -444,7 +444,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE / 4;
+			y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 12 + (m_idx + 1) % 4;
 			} else if (m_item != null) {
@@ -459,7 +459,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			y += Options.TAILLE_CELLULE / 4;
+			y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = (m_idx + 1) % 4;
 			} else if (m_item != null) {
@@ -474,7 +474,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			x -= Options.TAILLE_CELLULE / 4;
+			x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 4 + (m_idx + 1) % 4;
 			} else if (m_item != null) {
@@ -488,7 +488,7 @@ public class Ennemi extends Entity {
 			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			cell.entité = this;
 			cellActuel.entité = null;
-			x += Options.TAILLE_CELLULE / 4;
+			x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
 			if (m_item == null) {
 				m_idx = 8 + (m_idx + 1) % 4;
 			} else if (m_item != null) {

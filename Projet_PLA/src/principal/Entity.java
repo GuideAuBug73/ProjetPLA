@@ -1,11 +1,8 @@
 package principal;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import basic.Cellule;
-import basic.Orientation;
-import pathfinding.Grid2d;
 
 public abstract class Entity {
 	public int x, y;

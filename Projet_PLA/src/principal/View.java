@@ -1,8 +1,9 @@
 package principal;
 
-import edu.ricm3.game.GameView;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import java.awt.*;
+import edu.ricm3.game.GameView;
 
 public class View extends GameView {
 
