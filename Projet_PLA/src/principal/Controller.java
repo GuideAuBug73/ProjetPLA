@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-
 import edu.ricm3.game.GameController;
 
 public class Controller extends GameController implements ActionListener {
@@ -37,7 +36,6 @@ public class Controller extends GameController implements ActionListener {
         m_model = m;
         c = m.m_perso;
         E = m.m_ennemi;
-        b = m.m_boss;
     }
 
     /**
@@ -60,7 +58,8 @@ public class Controller extends GameController implements ActionListener {
             c.haut();
         } else if (e.getKeyChar() == 'q' && m_model.m_perso.x % Options.TAILLE_CELLULE == 0 && m_model.m_perso.y % Options.TAILLE_CELLULE == 0) {
             c.gauche();
-        } else if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
+        }
+       /* if (e.getKeyChar() == 'l' && (m_model.m_ennemi.x-4)%Options.TAILLE_CELLULE==0 && (m_model.m_ennemi.y-13)%Options.TAILLE_CELLULE==0) {
             E.droite();
         } else if (e.getKeyChar() == 'k' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.bas();
@@ -68,7 +67,7 @@ public class Controller extends GameController implements ActionListener {
             E.haut();
         } else if (e.getKeyChar() == 'j' && (m_model.m_ennemi.x - 4) % Options.TAILLE_CELLULE == 0 && (m_model.m_ennemi.y - 13) % Options.TAILLE_CELLULE == 0) {
             E.gauche();
-        } else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
+      }*/ else if (e.getKeyChar() == 'm' || e.getKeyChar() == 'M') {
             try {
                 if (Options.itemlance == null) {
                     item = c.inventaire.defiler();
@@ -114,29 +113,9 @@ public class Controller extends GameController implements ActionListener {
                 Options.itemlance = projectile;
             }
         } else if (e.getKeyChar() == '5') {
-            if (Options.projectileBossLance == null) {
-                int itemY = b.y;
-                int itemX = b.x;
-                Item projectile = m_model.m_boss.projectile;
-                projectile.orientation = b.orientation;
-                if (b.orientation == 0) {
-                    itemY = itemY + 60;
-                } else if (b.orientation == 1) {
-                    itemX = itemX + 60;
-                } else if (b.orientation == 2) {
-                    itemX = itemX - 60;
-                } else if (b.orientation == 3) {
-                    itemY = itemY - 60;
-                }
-                projectile.x = itemX;
-                projectile.y = itemY;
-                projectile.hit = true;
-                Options.projectileBossLance = projectile;
-                System.out.println("b.x:"+b.x+"\nb.y: "+b.y);
-                System.out.println("proj.x:"+projectile.x+"\nproj.y: "+projectile.y+"\norientation: "+b.orientation);
-
-            }
-
+            b.shoot();
+        } else if (e.getKeyChar() == 'o') {
+            E.shoot();
         } else if (e.getKeyChar() == '6' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
             b.droite();
         } else if (e.getKeyChar() == '2' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
@@ -148,7 +127,6 @@ public class Controller extends GameController implements ActionListener {
         } else if (e.getKeyChar() == 'c' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
             b.createmy();
         }
-
     }
 
 

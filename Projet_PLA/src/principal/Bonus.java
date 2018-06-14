@@ -79,4 +79,46 @@ public class Bonus extends Entity {
         g.drawImage(img, x+10, y+10, Options.TAILLE_CELLULE-20, Options.TAILLE_CELLULE-20, null);
         timerInvincible();
     }
+
+	@Override
+	public void move(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pick(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turn(String param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void follow() {
+		// TODO Auto-generated method stub
+		
+	}
 }

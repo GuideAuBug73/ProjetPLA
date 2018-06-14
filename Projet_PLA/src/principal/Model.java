@@ -1,78 +1,116 @@
 package principal;
 
-import edu.ricm3.game.GameModel;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Random;
 
-public class Model extends GameModel {
-    Personnage m_perso;
-    Ennemi m_ennemi;
-    Ennemi[] m_ennemis = new Ennemi[100];
-    boolean dust = true;
-    Spawn[] m_spawns;
-    Obstacle[] m_obstacles = new Obstacle[5];
-    BufferedImage m_ennemiSprite;
-    BufferedImage m_ennemiItemSprite;
-    BufferedImage m_mort;
-    BufferedImage m_fieldSprite;
-    BufferedImage m_fieldSprite2;
-    BufferedImage m_wallSprite;
-    BufferedImage m_persoSprite;
-    BufferedImage m_persoSpriteTransfo;
-    BufferedImage m_carre_inventaire;
-    BufferedImage m_spawnSprite;
-    BufferedImage m_exploSprite;
-    BufferedImage m_bossSprite;
-    BufferedImage m_bossSpriteMort;
-    BufferedImage img[] = new BufferedImage[10];
-    Menu m_menu;
-    BufferedImage m_spellSprite;
-    BufferedImage[] m_itemSprite = new BufferedImage[12];
-    Item[] m_item = new Item[10];
-    Random rand = new Random();
-    Map m_carte;
-    BufferedImage m_ennemiSpriteMort;
-    Boss m_boss;
-    int sx[] = new int[4];
-    int sy[] = new int[4];
-    int totalennemie = 0;
-    BufferedImage m_fireSprite;
-    Bonus m_bonus[] = new Bonus[10];
-    BufferedImage m_bonusSprite[] = new BufferedImage[3];
+import javax.imageio.ImageIO;
 
-    public Model() {
-        loadSprites();
-        createMap();
-        createObstacle();
-        createSpawn();
-        createItem();
-        createPerso();
-        createEnnemi();
-        createboss();
-        createMenu();
-        createBonus();
-    }
+import automate._Automate;
+import edu.ricm3.game.GameModel;
+import pathfinding.Grid2d;
+import ricm3.parser.Ast.AI_Definitions;
+import ricm3.parser.Ast.Automaton;
+import ricm3.parser.AutomataParser;
+
+public class Model extends GameModel {
+	public Personnage m_perso;
+	Ennemi m_ennemi;
+	Ennemi[] m_ennemis = new Ennemi[100];
+	boolean dust = true;
+	Spawn[] m_spawns;
+	Obstacle[] m_obstacles = new Obstacle[5];
+	BufferedImage m_ennemiSprite;
+	BufferedImage m_ennemiItemSprite;
+	BufferedImage m_mort;
+	BufferedImage m_fieldSprite;
+	BufferedImage m_fieldSprite2;
+	BufferedImage m_wallSprite;
+	BufferedImage m_persoSprite;
+	BufferedImage m_persoSpriteTransfo;
+	BufferedImage m_carre_inventaire;
+	BufferedImage m_spawnSprite;
+	BufferedImage m_exploSprite;
+	BufferedImage m_bossSprite;
+	BufferedImage m_bossSpriteMort;
+	BufferedImage img[] = new BufferedImage[10];
+	Menu m_menu;
+	BufferedImage m_spellSprite;
+	BufferedImage[] m_itemSprite = new BufferedImage[12];
+	Item[] m_item = new Item[70];
+	Random rand = new Random();
+	public Map m_carte;
+	BufferedImage m_ennemiSpriteMort;
+	Boss m_boss;
+	int sx[] = new int[4];
+	int sy[] = new int[4];
+	int totalennemie = 0;
+	int compteur = 0;
+	public Grid2d map2d;
+	
+	LinkedList<_Automate> Auto;
+	ListIterator<_Automate> _Iter;
+	BufferedImage m_fireSprite;
+	Bonus m_bonus[] = new Bonus[2];
+	BufferedImage m_bonusSprite[] = new BufferedImage[3];
+
+	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
+		loadSprites();
+		createMap();
+		createItem();
+		createPerso();
+		createSpawn();
+		createEnnemi();
+		createMenu();
+		createBonus();
+		createObstacle();
+		String f = "tests/tests/automate.txt";
+		new AutomataParser(new BufferedReader(new FileReader(f)));
+		Auto = new LinkedList<_Automate>();
+		AI_Definitions def = (AI_Definitions) AutomataParser.Run();
+		ListIterator<Automaton> Iter = def.automata.listIterator();
+		int i = 0;
+		while (Iter.hasNext()) {
+			_Automate A = new _Automate(Iter.next(), m_ennemi);
+			i++;
+			Auto.add(A);
+		}
+		map2d = new Grid2d(this.m_carte.cellules);
+
+		// createAutomate();
+	}
 
     @Override
     public void shutdown() {
 
     }
 
-    /**
-     * Simulation step.
-     *
-     * @param now is the current time in milliseconds.
-     */
-    @Override
-    public void step(long now) {
-
-    }
-
-    private void loadSprites() {
+	/**
+	 * Simulation step.
+	 *
+	 * @param now
+	 *            is the current time in milliseconds.
+	 */
+	@Override
+	public void step(long now) {
+		compteur++;
+		if(compteur >= 200) {
+			compteur = 0;
+			_Iter = Auto.listIterator();
+			while (_Iter.hasNext()) {
+				_Automate toExec = _Iter.next();
+				toExec.step(now);
+			}
+		}
+		
+	}
+	private void loadSprites() {
 
         File imageFile = new File("src/sprites/hero.png");
         try {
@@ -393,14 +431,14 @@ public class Model extends GameModel {
                     test = false;
             }
 
-            if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
-                m_perso = new Personnage(this, m_persoSprite, m_persoSpriteTransfo, x * Options.TAILLE_CELLULE,
-                        y * Options.TAILLE_CELLULE, 1.3F);
-                m_carte.cellules[y][x].entité = m_perso;
-                i++;
-            }
-        }
-    }
+			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
+				m_perso = new Personnage(this, m_persoSprite,m_persoSpriteTransfo,x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
+						1.3F);
+				m_carte.cellules[y][x].entité = m_perso;
+				i++;
+			}
+		}
+	}
 
     public void createItem() {
         int i = 0;
