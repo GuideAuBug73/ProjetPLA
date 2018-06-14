@@ -9,16 +9,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class Ennemi extends IA {
+public class Ennemi extends Entity {
     int m_w, m_h;
     int m_idx;
     int m_idxMort;
     float m_scale;
     BufferedImage[] m_sprites;
-    int orientation;
+    public int orientation;
     Cellule m_cell;
     Boolean m_mort = false;
-    Item m_item;
+    public Item m_item;
     public int p_vie;
     public BufferedImage[] m_spritesTransfo;
     public int m_w2;
@@ -198,21 +198,6 @@ public class Ennemi extends IA {
         }
     }
 
-	public void gauche() {
-		if (x / Options.TAILLE_CELLULE != 0) {
-			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-			m_cell = cell;
-			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			if (cell.libre) {
-				if (cell.entité instanceof Joueur) {
-					m_model.m_perso.m_mort = true;
-				} else if (cell.entité instanceof Item) {
-					m_item = (Item) cell.entité;
-					m_item.possession = 2;
-				}
-				if (!(cell.entité instanceof Ennemi)) {
-					cell.entité = this;
-					cellActuel.entité = null;
 
     public void animation() {
         //condition permettant la régulation de la vitesse du personnage
@@ -277,24 +262,6 @@ public class Ennemi extends IA {
             g.drawImage(img, x+2, y, w, h, null);
         }
     }
-
-	public void paint(Graphics g) {
-		m_cpt++;
-		Image img = null;
-		if (m_idxMort < 31) {
-			if (this.m_mort != true) {
-				img = m_sprites[m_idx];
-			} else {
-				img = m_spritesTransfo[m_idxMort];
-				if (m_idxMort < 31) {
-					m_idxMort++;
-				}
-			}
-			int w = (int) (m_scale * m_w);
-			int h = (int) (m_scale * m_h);
-			g.drawImage(img, x, y, w, h, null);
-		}
-	}
 
 	@Override
 	public void hit() {

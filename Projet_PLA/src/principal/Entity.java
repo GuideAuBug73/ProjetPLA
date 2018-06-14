@@ -29,8 +29,6 @@ public abstract class Entity {
 
 	public abstract void turn(String param);
 
-	public abstract void wizz();
-
 	public abstract void pop();
 
 	public abstract void follow();

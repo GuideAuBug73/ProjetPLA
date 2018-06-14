@@ -95,7 +95,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Joueur) {
+				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -120,7 +120,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Joueur) {
+				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -146,7 +146,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Joueur) {
+				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;
@@ -172,7 +172,7 @@ public class Boss extends Entity {
 			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
 			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
 			if (cell.libre && !(cell.entité instanceof Ennemi)) {
-				if (cell.entité instanceof Joueur) {
+				if (cell.entité instanceof Personnage) {
 					m_model.m_perso.m_mort = true;
 				} else if (cell.entité instanceof Item) {
 					m_item = (Item) cell.entité;

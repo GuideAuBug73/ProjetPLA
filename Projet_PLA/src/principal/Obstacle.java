@@ -2,7 +2,7 @@ package principal;
 
 import basic.Cellule;
 
-public class Obstacle extends IA {
+public class Obstacle extends Entity {
 	public Obstacle(Model model) { 
 	    m_model = model; 
 	    Cellule cell;
@@ -18,7 +18,6 @@ public class Obstacle extends IA {
 	    } 
 	    m_model.m_carte.cellules[y][x].entité = this; 
 	  } 
-public class Obstacle extends Entity {
 
 
 	@Override

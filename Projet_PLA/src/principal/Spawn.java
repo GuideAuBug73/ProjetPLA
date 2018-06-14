@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import basic.Cellule;
 
 public class Spawn extends Entity {
-	boolean presence = false;
+	public boolean presence = false;
 	BufferedImage[] m_sprites;
 	int m_w, m_h;
 	Model m_model;

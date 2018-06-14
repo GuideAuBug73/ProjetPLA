@@ -19,7 +19,8 @@ public class GameMain {
 		Model model = new Model();
 		Controller controller = new Controller(model);
 		View view = new View(model, controller);
-		new GameUI(model, view, controller, Options.d);
+		View view2 = new View(model,controller);
+		new GameUI(model, view, view2,controller,Options.d);
 		Grid2d map2d = new Grid2d(model.m_carte.cellules);
 		int[] tab_j = model.m_perso.PosToCell();
 		int[] tab_a = model.m_ennemi.PosToCell();

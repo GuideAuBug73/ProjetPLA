@@ -20,7 +20,7 @@ import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
-	public Joueur m_perso;
+	public Personnage m_perso;
 	Ennemi m_ennemi;
 	Ennemi[] m_ennemis = new Ennemi[100];
 	boolean dust = true;
@@ -86,7 +86,6 @@ public class Model extends GameModel {
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
-		m_spell = new Spell(this, m_spellSprite, 0, 0);
 	}
 
 	@Override
@@ -435,7 +434,7 @@ public class Model extends GameModel {
 			}
 
 			if (m_carte.cellules[y][x].libre && m_carte.cellules[y][x].entité == null && test) {
-				m_perso = new Joueur(this, m_persoSprite, x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
+				m_perso = new Personnage(this, m_persoSprite,m_persoSpriteTransfo,x * Options.TAILLE_CELLULE, y * Options.TAILLE_CELLULE,
 						1.3F);
 				m_carte.cellules[y][x].entité = m_perso;
 				i++;
