@@ -18,7 +18,7 @@ public class GameMain {
 		Controller controller = new Controller(model);
 		View view = new View(model, controller);
 		new GameUI(model, view, controller, Options.d);
-		Grid2d map2d = new Grid2d(model.m_carte.cellules);
+	/*	Grid2d map2d = new Grid2d(model.m_carte.cellules);
 		int[] tab_j = model.m_perso.PosToCell();
 		int[] tab_a = model.m_ennemi.PosToCell();
 		System.out.println("Options.nb_cell_w" + Options.nb_cell_w);
@@ -36,10 +36,10 @@ public class GameMain {
 			 model.m_carte.cellules[y][x].entité = model.m_item[cpt];
 			 cpt++;
 
-		}
+		}*/
 
-		// <T list = (map2d.findPath(tab_j[0],tab_j[1],tab_a[0],tab_a[1]));
-		System.out.println(map2d.findPath(tab_j[0], tab_j[1], tab_a[0], tab_a[1]));
+
+		//System.out.println(map2d.findPath(tab_j[0], tab_j[1], tab_a[0], tab_a[1]));
 
 		// notice that the main thread will exit here,
 		// but not your program... hence the hooking

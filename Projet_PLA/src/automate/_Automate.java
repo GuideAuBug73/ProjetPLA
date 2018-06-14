@@ -33,8 +33,10 @@ public class _Automate {
 					}
 				}
 				int rand = (int) (Math.random() * (valide.size()));
-				valide.get(rand).act.execute(this.e);
-				this.courant.name = valide.get(rand).dest.name;
+				if (valide.size() != 0) {
+					valide.get(rand).act.execute(this.e);
+					this.courant.name = valide.get(rand).dest.name;
+				}
 			}
 		}
 	}

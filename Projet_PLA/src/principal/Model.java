@@ -65,12 +65,10 @@ public class Model extends GameModel {
 		Auto = new LinkedList<_Automate>();
 		AI_Definitions def = (AI_Definitions) AutomataParser.Run();
 		ListIterator<Automaton> Iter = def.automata.listIterator();
-		int i = 0;
-		while (Iter.hasNext()) {
-			_Automate A = new _Automate(Iter.next(), m_ennemi);
-			i++;
-			Auto.add(A);
-		}
+		_Automate A = new _Automate(def.automata.get(1), m_ennemi);
+		Auto.add(A);
+			
+		
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();

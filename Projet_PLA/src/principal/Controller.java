@@ -131,20 +131,20 @@ public class Controller extends GameController implements ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (Options.ECHO_KEYBOARD)
-            System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+       // if (Options.ECHO_KEYBOARD)
+      //      System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (Options.ECHO_KEYBOARD)
-            System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+     //   if (Options.ECHO_KEYBOARD)
+     //       System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (Options.ECHO_MOUSE)
-            System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+      //  if (Options.ECHO_MOUSE)
+       //     System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
 
 
     }
@@ -157,32 +157,32 @@ public class Controller extends GameController implements ActionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (Options.ECHO_MOUSE)
-            System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+      //  if (Options.ECHO_MOUSE)
+      //      System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (Options.ECHO_MOUSE_MOTION)
-            System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
+      //  if (Options.ECHO_MOUSE_MOTION)
+      //      System.out.println("MouseEntered: (" + e.getX() + "," + e.getY());
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (Options.ECHO_MOUSE_MOTION)
-            System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
+     //   if (Options.ECHO_MOUSE_MOTION)
+     //       System.out.println("MouseExited: (" + e.getX() + "," + e.getY());
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (Options.ECHO_MOUSE_MOTION)
-            System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
+   //     if (Options.ECHO_MOUSE_MOTION)
+   //         System.out.println("MouseDragged: (" + e.getX() + "," + e.getY());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (Options.ECHO_MOUSE_MOTION)
-            System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
+     //   if (Options.ECHO_MOUSE_MOTION)
+     //       System.out.println("MouseMoved: (" + e.getX() + "," + e.getY());
     }
 
     public void notifyVisible() {

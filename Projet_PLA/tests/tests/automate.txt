@@ -10,3 +10,8 @@ Mover1(Init){
     | Cell(E,P) ? Pick(E) & Move(E) :(Init)
     | Cell(O,P) ? Pick(O) & Move(O) :(Init)
 }
+
+Mover2(Init){
+
+*(Init): Closest ? Follow :(Init)
+}
