@@ -85,9 +85,8 @@ public class Ennemi extends IA {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -115,9 +114,8 @@ public class Ennemi extends IA {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -146,9 +144,8 @@ public class Ennemi extends IA {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                }else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -177,9 +174,8 @@ public class Ennemi extends IA {
                         m_model.m_perso.m_mort = true;
                         m_model.m_perso.p_vie--;
                     }
-                } else if (cell.entité instanceof Item) {
-                    m_item = (Item) cell.entité;
-                    m_item.possession = 2;
+                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+                    ramasser(cell);
                 }
                 if(!(cell.entité instanceof Ennemi)) {
 	                cell.entité = this;
@@ -264,7 +260,7 @@ public class Ennemi extends IA {
     public void ramasser(Cellule cell) {
         if (cell.entité instanceof Item) {
             inventaire = (Item) cell.entité;
-            ((Item) cell.entité).possession = 4;
+            inventaire.possession = 2;
             cell.entité = null;
         }
         if (cell.entité instanceof Bonus) {
