@@ -14,6 +14,7 @@ public class GameMain {
 
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
 		Options.d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		Options.timer_mort=Options.d.width / 2 - 175;
 		tailleMap(Options.d);
 		// construct the game elements: model, controller, and view.
 		Model model = new Model();
@@ -21,7 +22,7 @@ public class GameMain {
 		View view = new View(model, controller);
 		View view2 = new View(model,controller);
 		new GameUI(model, view, view2,controller,Options.d);
-		Grid2d map2d = new Grid2d(model.m_carte.cellules);
+		/*Grid2d map2d = new Grid2d(model.m_carte.cellules);
 		int[] tab_j = model.m_perso.PosToCell();
 		int[] tab_a = model.m_ennemi.PosToCell();
 		System.out.println("Options.nb_cell_w" + Options.nb_cell_w);

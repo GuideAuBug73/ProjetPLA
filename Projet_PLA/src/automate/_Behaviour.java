@@ -2,7 +2,6 @@ package automate;
 
 import java.util.List;
 
-import ricm3.parser.Ast.Behaviour;
 
 public class _Behaviour {
 	public _State source;

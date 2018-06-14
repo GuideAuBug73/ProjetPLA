@@ -262,6 +262,9 @@ public class GameUI {
         if(Options.projectileBossLance!=null){
             Options.projectileBossLance.lanceItem();
         }
+        if(Options.itemlanceEnnemi!=null){
+            Options.itemlanceEnnemi.lanceItem();
+        }
         elapsed = now - m_lastRepaint;
         if (elapsed > edu.ricm3.game.Options.REPAINT_DELAY) {
             if (frame == 0) {

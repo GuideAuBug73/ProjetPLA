@@ -256,6 +256,31 @@ public class Boss extends Entity {
         Ennemi_presence = true;
     }
 
+
+    public void shoot(){
+        if (Options.projectileBossLance== null) {
+            int itemY = this.y;
+            int itemX = this.x;
+            System.out.println("EX: "+this.x+"EY: "+ this.y);
+            Item projectile = this.projectile;
+            projectile.orientation = this.orientation;
+            if (this.orientation == 0) {
+                itemY = itemY + 60;
+            } else if (this.orientation == 1) {
+                itemX = itemX + 60;
+            } else if (this.orientation == 2) {
+                itemX = itemX - 60;
+            } else if (this.orientation == 3) {
+                itemY = itemY - 60;
+            }
+            projectile.x = itemX;
+            projectile.y = itemY;
+            projectile.hit = true;
+            System.out.println("X:"+projectile.x+"    Y: "+projectile.y);
+            Options.projectileBossLance = projectile;
+        }
+    }
+
     public void paint(Graphics g) {
         if (this.vie > 0) {
             g.drawRect(x, y, vie * 6, 5);
@@ -291,8 +316,8 @@ public class Boss extends Entity {
 	@Override
 	public void turn(String param) {
 		// TODO Auto-generated method stub
-		
 	}
+	
 
 	@Override
 	public void wizz() {
