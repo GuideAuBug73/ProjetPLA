@@ -302,4 +302,10 @@ public class Personnage extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void threw() {
+		// TODO Auto-generated method stub
+		
+	}
 }

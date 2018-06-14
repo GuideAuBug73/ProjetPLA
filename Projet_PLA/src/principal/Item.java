@@ -530,4 +530,11 @@ public class Item extends Entity {
 		
 	}
 
+
+	@Override
+	public void threw() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

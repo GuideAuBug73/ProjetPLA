@@ -96,7 +96,8 @@ TOKEN :
   | "Cell"
   | "Closest"
   | "GotPower"
-  | "GotStuff" >
+  | "GotStuff"
+  | "InRange" >
 }
 
 TOKEN :

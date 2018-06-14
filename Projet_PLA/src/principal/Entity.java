@@ -19,6 +19,8 @@ public abstract class Entity {
 	}
 
 	public abstract void move(String param);
+	
+	public abstract void threw();
 
 	public abstract void hit();
 
@@ -48,4 +50,5 @@ public abstract class Entity {
         x=x2* Options.TAILLE_CELLULE;
         y=y2* Options.TAILLE_CELLULE;
 	  }
+
 }

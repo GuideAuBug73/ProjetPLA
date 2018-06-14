@@ -10,43 +10,42 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Ennemi extends Entity {
-    int m_w, m_h;
-    int m_idx;
-    int m_idxMort;
-    float m_scale;
-    BufferedImage[] m_sprites;
-    public int orientation;
-    Cellule m_cell;
-    Boolean m_mort = false;
-    public Item m_item;
-    public int p_vie;
-    public BufferedImage[] m_spritesTransfo;
-    public int m_w2;
-    public int m_h2;
-    int m_cpt;
-    Boolean invincible;
-    public Item inventaire;
+	int m_w, m_h;
+	int m_idx;
+	int m_idxMort;
+	float m_scale;
+	BufferedImage[] m_sprites;
+	public int orientation;
+	Cellule m_cell;
+	Boolean m_mort = false;
+	public Item m_item;
+	public int p_vie;
+	public BufferedImage[] m_spritesTransfo;
+	public int m_w2;
+	public int m_h2;
+	int m_cpt;
+	Boolean invincible;
+	public Item inventaire;
 
-
-    public Ennemi(Model model, BufferedImage sprite, BufferedImage sprite2, int x, int y, float scale) {
-        p_vie = Options.point_de_vie_ennemi;
-        m_model = model;
-        img = sprite;
-        img2 = sprite2;
-        m_idx = 0;
-        orientation = 0;
-        m_item = null;
-        invincible = false;
-        this.x = x;
-        this.y = y;
-        m_scale = scale;
-        m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
-        if (m_cell.entité == null) {
-            m_cell.entité = this;
-        }
-        splitSprite();
-        m_cpt = 0;
-    }
+	public Ennemi(Model model, BufferedImage sprite, BufferedImage sprite2, int x, int y, float scale) {
+		p_vie = Options.point_de_vie_ennemi;
+		m_model = model;
+		img = sprite;
+		img2 = sprite2;
+		m_idx = 0;
+		orientation = 0;
+		m_item = null;
+		invincible = false;
+		this.x = x;
+		this.y = y;
+		m_scale = scale;
+		m_cell = m_model.m_carte.cellules[y / 60][(x / 60)];
+		if (m_cell.entité == null) {
+			m_cell.entité = this;
+		}
+		splitSprite();
+		m_cpt = 0;
+	}
 
 	public void splitSprite() {
 		int width = img.getWidth(null);
@@ -76,212 +75,211 @@ public class Ennemi extends Entity {
 		}
 	}
 
-    public void droite() {
-        if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
-            Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-            m_cell = cell;
-            Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-            if (cell.libre) {
-                if (cell.entité instanceof Personnage) {
-                    if (((Personnage) cell.entité).invincible == false) {
-                        m_model.m_perso.m_mort = true;
-                        m_model.m_perso.p_vie--;
-                    }
-                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    pick("E");
-                }
-                if(!(cell.entité instanceof Ennemi)) {
-	                cell.entité = this;
-	                cellActuel.entité = null;
-                x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-	                if (m_item == null) {
-	                    m_idx = 8 + (m_idx + 1) % 4;
-	                } else if (m_item != null) {
-	                    m_idx = 24 + (m_idx + 1) % 4;
-	                }
-	                this.orientation = 1;
-                }
-            }
-        }
-    }
+	public void droite() {
+		if (x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+			m_cell = cell;
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					if (((Personnage) cell.entité).invincible == false) {
+						m_model.m_perso.m_mort = true;
+						m_model.m_perso.p_vie--;
+					}
+				} else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+					pick("E");
+				}
+				if (!(cell.entité instanceof Ennemi)) {
+					cell.entité = this;
+					cellActuel.entité = null;
+					x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+					if (m_item == null) {
+						m_idx = 8 + (m_idx + 1) % 4;
+					} else if (m_item != null) {
+						m_idx = 24 + (m_idx + 1) % 4;
+					}
+					this.orientation = 1;
+				}
+			}
+		}
+	}
 
-    public void haut() {
-        if (y / Options.TAILLE_CELLULE != 0) {
-            Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-            m_cell = cell;
-            Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-            if (cell.libre) {
-                if (cell.entité instanceof Personnage) {
-                    if (((Personnage) cell.entité).invincible == false) {
-                        m_model.m_perso.m_mort = true;
-                        m_model.m_perso.p_vie--;
-                    }
-                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    pick("N");
-                }
-                if(!(cell.entité instanceof Ennemi)) {
-	                cell.entité = this;
-	                cellActuel.entité = null;
-                y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-	                if (m_item == null) {
-	                    m_idx = 12 + (m_idx + 1) % 4;
-	                } else if (m_item != null) {
-	                    m_idx = 28 + (m_idx + 1) % 4;
-	                }
-	
-	                this.orientation = 3;
-                }
-            }
-        }
-    }
+	public void haut() {
+		if (y / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					if (((Personnage) cell.entité).invincible == false) {
+						m_model.m_perso.m_mort = true;
+						m_model.m_perso.p_vie--;
+					}
+				} else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+					pick("N");
+				}
+				if (!(cell.entité instanceof Ennemi)) {
+					cell.entité = this;
+					cellActuel.entité = null;
+					y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+					if (m_item == null) {
+						m_idx = 12 + (m_idx + 1) % 4;
+					} else if (m_item != null) {
+						m_idx = 28 + (m_idx + 1) % 4;
+					}
 
-    public void bas() {
-        if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
-            Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-            m_cell = cell;
-            Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-            if (cell.libre) {
-                if (cell.entité instanceof Personnage) {
-                    if (((Personnage) cell.entité).invincible == false) {
-                        m_model.m_perso.m_mort = true;
-                        m_model.m_perso.p_vie--;
-                    }
-                }else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    pick("S");
-                }
-                if(!(cell.entité instanceof Ennemi)) {
-	                cell.entité = this;
-	                cellActuel.entité = null;
-                y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-	                if (m_item == null) {
-	                    m_idx = (m_idx + 1) % 4;
-	                } else if (m_item != null) {
-	                    m_idx = 16 + (m_idx + 1) % 4;
-	                }
-	
-	                this.orientation = 0;
-                }
-            }
-        }
-    }
+					this.orientation = 3;
+				}
+			}
+		}
+	}
 
-    public void gauche() {
-        if (x / Options.TAILLE_CELLULE != 0) {
-            Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-            m_cell = cell;
-            Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-            if (cell.libre) {
-                if (cell.entité instanceof Personnage) {
-                    if (((Personnage) cell.entité).invincible == false) {
-                        m_model.m_perso.m_mort = true;
-                        m_model.m_perso.p_vie--;
-                    }
-                } else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
-                    pick("O");
-                }
-                if(!(cell.entité instanceof Ennemi)) {
-	                cell.entité = this;
-	                cellActuel.entité = null;
-                x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-	                if (m_item == null) {
-	                    m_idx = 4 + (m_idx + 1) % 4;
-	                } else if (m_item != null) {
-	                    m_idx = 20 + (m_idx + 1) % 4;
-	                }
-	                this.orientation = 2;
-                }
-            }
-        }
-    }
+	public void bas() {
+		if (y / Options.TAILLE_CELLULE != ((Options.nb_px_y_max - Options.nb_px_y_min) / Options.TAILLE_CELLULE - 1)) {
+			Cellule cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+			m_cell = cell;
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					if (((Personnage) cell.entité).invincible == false) {
+						m_model.m_perso.m_mort = true;
+						m_model.m_perso.p_vie--;
+					}
+				} else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+					pick("S");
+				}
+				if (!(cell.entité instanceof Ennemi)) {
+					cell.entité = this;
+					cellActuel.entité = null;
+					y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+					if (m_item == null) {
+						m_idx = (m_idx + 1) % 4;
+					} else if (m_item != null) {
+						m_idx = 16 + (m_idx + 1) % 4;
+					}
 
+					this.orientation = 0;
+				}
+			}
+		}
+	}
 
-    public void animation() {
-        //condition permettant la régulation de la vitesse du personnage
-        if (m_cpt % 3 == 0) {
-            if (orientation == 1 && (x - 4) % Options.TAILLE_CELLULE != 0) {
-                //4 images par déplacement du personnage
-                x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-                if (m_item == null) {
-                    //changement de sprite du personnage
-                    m_idx = 8 + (m_idx + 1) % 4;
-                } else {
-                    m_idx = 24 + (m_idx + 1) % 4;
-                }
-            }
+	public void gauche() {
+		if (x / Options.TAILLE_CELLULE != 0) {
+			Cellule cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+			m_cell = cell;
+			Cellule cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+			if (cell.libre) {
+				if (cell.entité instanceof Personnage) {
+					if (((Personnage) cell.entité).invincible == false) {
+						m_model.m_perso.m_mort = true;
+						m_model.m_perso.p_vie--;
+					}
+				} else if (cell.entité instanceof Item || cell.entité instanceof Bonus) {
+					pick("O");
+				}
+				if (!(cell.entité instanceof Ennemi)) {
+					cell.entité = this;
+					cellActuel.entité = null;
+					x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+					if (m_item == null) {
+						m_idx = 4 + (m_idx + 1) % 4;
+					} else if (m_item != null) {
+						m_idx = 20 + (m_idx + 1) % 4;
+					}
+					this.orientation = 2;
+				}
+			}
+		}
+	}
 
-            if (orientation == 2 && (x - 4) % Options.TAILLE_CELLULE != 0) {
-                x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-                if (m_item == null) {
-                    //changement de sprite du personnage
-                    m_idx = 4 + (m_idx + 1) % 4;
-                } else {
-                    m_idx = 20 + (m_idx + 1) % 4;
-                }
-            }
+	public void animation() {
+		// condition permettant la régulation de la vitesse du personnage
+		if (m_cpt % 3 == 0) {
+			if (orientation == 1 && (x - 4) % Options.TAILLE_CELLULE != 0) {
+				// 4 images par déplacement du personnage
+				x += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+				if (m_item == null) {
+					// changement de sprite du personnage
+					m_idx = 8 + (m_idx + 1) % 4;
+				} else {
+					m_idx = 24 + (m_idx + 1) % 4;
+				}
+			}
 
-            if (orientation == 3 && (y - 13) % Options.TAILLE_CELLULE != 0) {
-                y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-                if (m_item == null) {
-                    //changement de zsprite du personnage
-                    m_idx = 12 + (m_idx + 1) % 4;
-                } else {
-                    m_idx = 28 + (m_idx + 1) % 4;
-                }
-            }
+			if (orientation == 2 && (x - 4) % Options.TAILLE_CELLULE != 0) {
+				x -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+				if (m_item == null) {
+					// changement de sprite du personnage
+					m_idx = 4 + (m_idx + 1) % 4;
+				} else {
+					m_idx = 20 + (m_idx + 1) % 4;
+				}
+			}
 
-            if (orientation == 0 && (y - 13) % Options.TAILLE_CELLULE != 0) {
-                y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-                if (m_item == null) {
-                    //changement de sprite du personnage
-                    m_idx = 0 + (m_idx + 1) % 4;
-                } else {
-                    m_idx = 16 + (m_idx + 1) % 4;
-                }
-            }
-        }
-    }
+			if (orientation == 3 && (y - 13) % Options.TAILLE_CELLULE != 0) {
+				y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+				if (m_item == null) {
+					// changement de zsprite du personnage
+					m_idx = 12 + (m_idx + 1) % 4;
+				} else {
+					m_idx = 28 + (m_idx + 1) % 4;
+				}
+			}
 
-    public void shoot(){
-        if (Options.itemlanceEnnemi == null) {
-            int itemY = this.y;
-            int itemX = this.x;
-            System.out.println("EX: "+this.x+"EY: "+ this.y);
-            Item projectile = inventaire;
-            projectile.orientation = this.orientation;
-            if (this.orientation == 0) {
-                itemY = itemY + 60;
-            } else if (this.orientation == 1) {
-                itemX = itemX + 60;
-            } else if (this.orientation == 2) {
-                itemX = itemX - 60;
-            } else if (this.orientation == 3) {
-                itemY = itemY - 60;
-            }
-            projectile.x = itemX;
-            projectile.y = itemY;
-            projectile.hit = true;
-            System.out.println("X:"+projectile.x+"    Y: "+projectile.y);
-            Options.itemlanceEnnemi = projectile;
-        }
-    }
+			if (orientation == 0 && (y - 13) % Options.TAILLE_CELLULE != 0) {
+				y += Options.TAILLE_CELLULE / Options.vitesseEnnemie;
+				if (m_item == null) {
+					// changement de sprite du personnage
+					m_idx = 0 + (m_idx + 1) % 4;
+				} else {
+					m_idx = 16 + (m_idx + 1) % 4;
+				}
+			}
+		}
+	}
 
-    public void paint(Graphics g) {
-        m_cpt++;
-        Image img = null;
-        if (m_idxMort < 31) {
-            if (this.m_mort != true) {
-                img = m_sprites[m_idx];
-            } else {
-                img = m_spritesTransfo[m_idxMort];
-                if (m_idxMort < 31) {
-                    m_idxMort++;
-                }
-            }
-            int w = (int) (m_scale * m_w);
-            int h = (int) (m_scale * m_h);
-            g.drawImage(img, x+2, y, w, h, null);
-        }
-    }
+	public void shoot() {
+		if (Options.itemlanceEnnemi == null) {
+			int itemY = this.y;
+			int itemX = this.x;
+			System.out.println("EX: " + this.x + "EY: " + this.y);
+			Item projectile = inventaire;
+			projectile.orientation = this.orientation;
+			if (this.orientation == 0) {
+				itemY = itemY + 60;
+			} else if (this.orientation == 1) {
+				itemX = itemX + 60;
+			} else if (this.orientation == 2) {
+				itemX = itemX - 60;
+			} else if (this.orientation == 3) {
+				itemY = itemY - 60;
+			}
+			projectile.x = itemX;
+			projectile.y = itemY;
+			projectile.hit = true;
+			System.out.println("X:" + projectile.x + "    Y: " + projectile.y);
+			Options.itemlanceEnnemi = projectile;
+		}
+	}
+
+	public void paint(Graphics g) {
+		m_cpt++;
+		Image img = null;
+		if (m_idxMort < 31) {
+			if (this.m_mort != true) {
+				img = m_sprites[m_idx];
+			} else {
+				img = m_spritesTransfo[m_idxMort];
+				if (m_idxMort < 31) {
+					m_idxMort++;
+				}
+			}
+			int w = (int) (m_scale * m_w);
+			int h = (int) (m_scale * m_h);
+			g.drawImage(img, x + 2, y, w, h, null);
+		}
+	}
 
 	@Override
 	public void hit() {
@@ -316,7 +314,8 @@ public class Ennemi extends Entity {
 			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
 			m_item = (Item) cell.entité;
 			m_item.possession = 2;
-			cell.entité = null;;
+			cell.entité = null;
+			;
 		default:
 			break;
 		}
@@ -345,74 +344,77 @@ public class Ennemi extends Entity {
 	public void move(String param) {
 		Cellule cell;
 		Cellule cellActuel;
-		switch (param) {
+		if (m_mort == false) {
+			switch (param) {
 
-		case "N":
-			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 12 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 28 + (m_idx + 1) % 4;
-			}
+			case "N":
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				y -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 12 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 28 + (m_idx + 1) % 4;
+				}
 
-			this.orientation = 3;
-			break;
-		case "S":
-			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			y += Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 16 + (m_idx + 1) % 4;
-			}
+				this.orientation = 3;
+				break;
+			case "S":
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				y += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 16 + (m_idx + 1) % 4;
+				}
 
-			this.orientation = 0;
-			break;
-		case "O":
-			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			x -= Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 4 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 20 + (m_idx + 1) % 4;
-			}
-			this.orientation = 2;
-			break;
-		case "E":
-			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			x += Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 8 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 24 + (m_idx + 1) % 4;
-			}
-			this.orientation = 1;
+				this.orientation = 0;
+				break;
+			case "O":
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				x -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 4 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 20 + (m_idx + 1) % 4;
+				}
+				this.orientation = 2;
+				break;
+			case "E":
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				x += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 8 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 24 + (m_idx + 1) % 4;
+				}
+				this.orientation = 1;
 
-			break;
-		default:
-			break;
+				break;
+			default:
+				break;
+			}
 		}
 
 	}
+
 	public void follow() {
-		int orientation=-1;
+		int orientation = -1;
 		int[] tab_j = m_model.m_perso.PosToCell();
 		int[] tab_a = m_model.m_ennemi.PosToCell();
 
@@ -437,7 +439,7 @@ public class Ennemi extends Entity {
 		Cellule cell;
 		Cellule cellActuel;
 		switch (orientation) {
-		
+
 		case 0:
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 			m_cell = cell;
@@ -501,6 +503,28 @@ public class Ennemi extends Entity {
 			break;
 		}
 	}
-	
+
+	@Override
+	public void threw() {
+		if (this.m_item != null) {
+			int itemY = this.y;
+			int itemX = this.x;
+			m_item.orientation = this.orientation;
+			if (this.orientation == 0) {
+				itemY = itemY + 60;
+			} else if (this.orientation == 1) {
+				itemX = itemX + 60;
+			} else if (this.orientation == 2) {
+				itemX = itemX - 60;
+			} else if (this.orientation == 3) {
+				itemY = itemY - 60;
+			}
+			m_item.x = itemX;
+			m_item.y = itemY;
+			m_item.hit = true;
+			Options.itemlance = m_item;
+		}
+
+	}
 
 }

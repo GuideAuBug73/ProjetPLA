@@ -53,6 +53,7 @@ public class Model extends GameModel {
 	int totalennemie = 0;
 	int compteur = 0;
 	public Grid2d map2d;
+	AI_Definitions def ;
 	
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
@@ -67,20 +68,13 @@ public class Model extends GameModel {
         createSpawn();
 		createItem();
 		createPerso();
-		createEnnemi();
 		createMenu();
 		createBonus();
 		String f = "tests/tests/automate.txt";
 		new AutomataParser(new BufferedReader(new FileReader(f)));
 		Auto = new LinkedList<_Automate>();
-		AI_Definitions def = (AI_Definitions) AutomataParser.Run();
-		ListIterator<Automaton> Iter = def.automata.listIterator();
-		int i = 0;
-		while (Iter.hasNext()) {
-			_Automate A = new _Automate(Iter.next(), m_ennemi);
-			i++;
-			Auto.add(A);
-		}
+		def = (AI_Definitions) AutomataParser.Run();
+		createEnnemi();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
@@ -100,7 +94,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		compteur++;
-		if(compteur >= 200) {
+		if(compteur >= 60) {
 			compteur = 0;
 			_Iter = Auto.listIterator();
 			while (_Iter.hasNext()) {
@@ -566,6 +560,8 @@ public class Model extends GameModel {
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
                     sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
+            _Automate A = new _Automate(def.automata.get(0), m_ennemis[j]);
+            Auto.add(A);
             totalennemie++;
 
             if (j-i == 3) {
