@@ -54,6 +54,7 @@ public class Model extends GameModel {
 		createboss();
 		createMenu();
 		createBonus();
+		createObstacle();
 	}
 
 	@Override
