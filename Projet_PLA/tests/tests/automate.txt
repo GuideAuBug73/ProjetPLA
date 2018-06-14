@@ -11,3 +11,8 @@ Mover1(Init){
     | Cell(O,P) ? Pick(O) & Move(O) :(Init)
     
 }
+
+Mover2(Init){
+
+*(Init): Closest ? Follow :(Init)
+}

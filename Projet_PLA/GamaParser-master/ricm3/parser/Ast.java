@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import automate.Follow;
 import automate.Joueur_Proche;
 import automate._Action;
 import automate._Automate;
@@ -491,6 +492,13 @@ public class Ast {
 				break;
 			case "Move":
 				trans.act = new _Move();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
+				break;
+				
+			case "Follow":
+				trans.act = new Follow();
 				while (Iter.hasNext()) {
 					Iter.next().make(trans.act);
 				}
