@@ -256,25 +256,6 @@ public class Boss extends Entity {
         Ennemi_presence = true;
     }
 
-    public void paint(Graphics g) {
-        if (this.vie > 0) {
-            g.drawRect(x, y, vie * 6, 5);
-            g.setColor(Color.red);
-            g.fillRect(x, y, vie * 6, 5);
-            m_cpt++;
-            Image img = m_sprites[m_idx];
-            int w = (int) (m_scale * m_w);
-            int h = (int) (m_scale * m_h);
-            g.drawImage(img, x - 10, y - 10, w, h, null);
-        } else if (this.vie <= 0 && m_idxMort < 11) {
-            m_cell.entité = null;
-            Image img = m_spritesMort[m_idxMort];
-            m_idxMort++;
-            int w = (int) (m_scale * m_w);
-            int h = (int) (m_scale * m_h);
-            g.drawImage(img, x, y, w, h, null);
-        }
-    }
 
 	@Override
 	public void hit() {
