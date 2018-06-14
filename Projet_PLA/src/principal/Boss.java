@@ -238,6 +238,8 @@ public class Boss extends Entity {
 
 	public void paint(Graphics g) {
 		if (this.vie > 0) {
+			g.drawRect(x-1, y-1, 10 * 6 +2, 5+2);
+			g.setColor(Color.red);
 			g.drawRect(x, y, vie * 6, 5);
 			g.setColor(Color.red);
 			g.fillRect(x, y, vie * 6, 5);
