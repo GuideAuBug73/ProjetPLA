@@ -3,9 +3,9 @@ package automate;
 import principal.Ennemi;
 import principal.Entity;
 import principal.Item;
-import principal.Joueur;
 import principal.Obstacle;
 import principal.Options;
+import principal.Personnage;
 
 public class Joueur_in_range extends _Condition {
 	public Joueur_in_range() {
@@ -27,7 +27,7 @@ public class Joueur_in_range extends _Condition {
 			while (!(e.x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE - i != 0))) {
 
-				if (e.m_model.m_carte.cellules[cell_y - i][cell_x].entité instanceof Joueur) {
+				if (e.m_model.m_carte.cellules[cell_y - i][cell_x].entité instanceof Personnage) {
 					return true;
 				}
 				if (e.m_model.m_carte.cellules[cell_y - i][cell_x].entité instanceof Obstacle) {
@@ -47,7 +47,7 @@ public class Joueur_in_range extends _Condition {
 			while (!(e.x / Options.TAILLE_CELLULE + i != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE != 0))) {
 
-				if (e.m_model.m_carte.cellules[cell_y][cell_x + i].entité instanceof Joueur) {
+				if (e.m_model.m_carte.cellules[cell_y][cell_x + i].entité instanceof Personnage) {
 					return true;
 				}
 				if (e.m_model.m_carte.cellules[cell_y][cell_x + i].entité instanceof Obstacle) {
@@ -67,7 +67,7 @@ public class Joueur_in_range extends _Condition {
 			while (!(e.x / Options.TAILLE_CELLULE - i != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE != 0))) {
 
-				if (e.m_model.m_carte.cellules[cell_y][cell_x - i].entité instanceof Joueur) {
+				if (e.m_model.m_carte.cellules[cell_y][cell_x - i].entité instanceof Personnage) {
 					return true;
 				}
 				if (e.m_model.m_carte.cellules[cell_y][cell_x - i].entité instanceof Obstacle) {
@@ -86,7 +86,7 @@ public class Joueur_in_range extends _Condition {
 			while (!(e.x / Options.TAILLE_CELLULE  != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE +i!= 0))) {
 
-				if (e.m_model.m_carte.cellules[cell_y +i][cell_x].entité instanceof Joueur) {
+				if (e.m_model.m_carte.cellules[cell_y +i][cell_x].entité instanceof Personnage) {
 					return true;
 				}
 				if (e.m_model.m_carte.cellules[cell_y +i][cell_x].entité instanceof Obstacle) {

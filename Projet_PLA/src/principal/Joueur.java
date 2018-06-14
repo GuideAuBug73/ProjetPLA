@@ -1,4 +1,4 @@
-package principal;
+/*package principal;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -279,4 +279,4 @@ public class Joueur extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
-}
+}*/
