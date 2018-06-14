@@ -1,14 +1,14 @@
 package principal;
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.util.List;
+import java.io.FileReader;
 
 import edu.ricm3.game.GameUI;
-import pathfinding.Grid2d;
+import ricm3.parser.Ast.AI_Definitions;
+import ricm3.parser.AutomataParser;
 import ricm3.parser.ParseException;
-
-import java.awt.*;
 
 public class GameMain {
 

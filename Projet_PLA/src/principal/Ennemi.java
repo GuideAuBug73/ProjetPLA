@@ -1,9 +1,5 @@
 package principal;
 
-import basic.Cellule;
-import principal.Inventaire;
-import pathfinding.Grid2d;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -419,63 +415,47 @@ public class Ennemi extends Entity {
 	public void follow() {
 		int orientation = -1;
 		int[] tab_j = m_model.m_perso.PosToCell();
-		int[] tab_a = m_model.m_ennemi.PosToCell();
+		int[] tab_a = this.PosToCell();
 
 		List<Grid2d.MapNode> route = m_model.map2d.findPath(tab_a[0], tab_a[1], tab_j[0], tab_j[1]);
 		System.out.println(route.size());
-		if(route.size()>1) {
-		Grid2d.MapNode element = route.get(1);
-	
-		int y_recherche = element.get_y();
-		int x_recherche = element.get_x();
-		int y_en = tab_a[1];
-		int x_en = tab_a[0];
-		int diff_x = x_en - x_recherche;
-		int diff_y = y_en - y_recherche;
-		System.out.println(diff_x);
-		System.out.println(diff_y);
-		if (diff_x == -1) {
-			orientation = 0;
-		} else if (diff_y == -1) {
-			orientation = 2;
-		} else if (diff_y == +1) {
-			orientation = 1;
-		} else if (diff_x == +1) {
-			orientation = 3;
-		}
+		if (route.size() > 1) {
+			Grid2d.MapNode element = route.get(1);
 
-		switch (orientation) {
-
-		case 0:
-			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE / Options.vitesseEnnemie;
-			if (m_item == null) {
-				m_idx = 12 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 28 + (m_idx + 1) % 4;
+			int y_recherche = element.get_y();
+			int x_recherche = element.get_x();
+			int y_en = tab_a[1];
+			int x_en = tab_a[0];
+			int diff_x = x_en - x_recherche;
+			int diff_y = y_en - y_recherche;
+			System.out.println(diff_x);
+			System.out.println(diff_y);
+			if (diff_x == -1) {
+				orientation = 0;
+			} else if (diff_y == -1) {
+				orientation = 2;
+			} else if (diff_y == +1) {
+				orientation = 1;
+			} else if (diff_x == +1) {
+				orientation = 3;
 			}
 
-			this.orientation = 0;
-			break;
-		case 3:
-			this.move("N");
-			break;
-		case 0:
-			this.move("S");
-			break;
-		case 2:
-			this.move("E");
-			break;
-		case 1:
-			this.move("O");
-			break;
-			
+			switch (orientation) {
+			case 3:
+				this.move("N");
+				break;
+			case 0:
+				this.move("S");
+				break;
+			case 2:
+				this.move("E");
+				break;
+			case 1:
+				this.move("O");
+				break;
+			}
+			System.out.println(orientation);
 		}
-		System.out.println(orientation);
 	}
 
 	@Override

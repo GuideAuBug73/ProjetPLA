@@ -805,7 +805,7 @@ public class Ast {
 
 	public static class Automaton extends Ast {
 
-		Terminal name;
+		public Terminal name;
 		State entry;
 		List<Behaviour> behaviours;
 
