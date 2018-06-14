@@ -559,15 +559,18 @@ public class Model extends GameModel {
                 k = 16;
         }
         // System.out.println(k);
-        while (i < k) {
-            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[i] * Options.TAILLE_CELLULE + 4,
-                    sy[i] * Options.TAILLE_CELLULE + 13, 1.0F);
-            m_ennemis[totalennemie] = m_ennemi;
+        while (m_ennemis[i]!=null){
             i++;
+        }
+        for(int j=i;j<i+k;j++){
+            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
+                    sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
+            m_ennemis[j] = m_ennemi;
             totalennemie++;
-            if (i == 4) {
+
+            if (j-i == 3) {
                 k = k - 4;
-                i = 0;
+                i += 4;
             }
         }
     }
@@ -591,6 +594,7 @@ public class Model extends GameModel {
         }
         m_item=new Item[70];
         m_bonus=new Bonus[40];
+        m_ennemis=new Ennemi[70];
         createMap();
         createObstacle();
         createSpawn();
