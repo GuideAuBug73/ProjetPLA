@@ -36,7 +36,6 @@ public class Controller extends GameController implements ActionListener {
         m_model = m;
         c = m.m_perso;
         E = m.m_ennemi;
-        b = m.m_boss;
     }
 
     /**

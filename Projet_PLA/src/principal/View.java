@@ -73,6 +73,7 @@ public class View extends GameView {
 
 		h.paint(g);
 		if(Options.vague == 5) {
+			m_ctr.b = m_model.m_boss;
 			Boss boss = m_model.m_boss;
 			boss.paint(g);
 			boss.projectile.paint(g);
