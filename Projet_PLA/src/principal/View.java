@@ -137,7 +137,7 @@ public class View extends GameView {
         g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, Options.d.width / 2 - 175, 20);
         g.setColor(Color.GRAY);
         g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, (int) Options.time_vague, 20);
-        Options.time_vague += 5;
+        Options.time_vague += 0.25;
         if (m_model.m_perso.m_mort && m_model.m_perso.p_vie != 0 && Options.timer_mort == Options.d.width / 2 - 175) {
             Options.timer_mort = Options.time_vague;
         }
