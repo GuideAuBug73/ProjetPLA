@@ -112,21 +112,25 @@ public class Controller extends GameController implements ActionListener {
                 projectile.hit = true;
                 Options.itemlance = projectile;
             }
-        } else if (e.getKeyChar() == '5') {
-            b.shoot();
-        } else if (e.getKeyChar() == 'o') {
-            E.shoot();
-        } else if (e.getKeyChar() == '6' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
-            b.droite();
-        } else if (e.getKeyChar() == '2' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
-            b.bas();
-        } else if (e.getKeyChar() == '8' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
-            b.haut();
-        } else if (e.getKeyChar() == '4' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
-            b.gauche();
-        } else if (e.getKeyChar() == 'c' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
-            b.createmy();
+        } 
+        if(Options.vague==5){
+        	if (e.getKeyChar() == '5') {
+        		b.shoot();
+            } else if (e.getKeyChar() == 'o') {
+                E.shoot();
+            } else if (e.getKeyChar() == '6' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+                b.droite();
+            } else if (e.getKeyChar() == '2' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+                b.bas();
+            } else if (e.getKeyChar() == '8' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+                b.haut();
+            } else if (e.getKeyChar() == '4' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+                b.gauche();
+            } else if (e.getKeyChar() == 'c' && (m_model.m_boss.x) % Options.TAILLE_CELLULE == 0 && (m_model.m_boss.y) % Options.TAILLE_CELLULE == 0) {
+                b.createmy();
+            }
         }
+            
     }
 
 
