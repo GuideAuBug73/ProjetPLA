@@ -374,7 +374,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/bp.png");
+        imageFile = new File("src/sprites/jouer.png");
         try {
             img[1] = ImageIO.read(imageFile);
             Options.taille_bp_h = ((BufferedImage) img[1]).getHeight();
@@ -418,13 +418,27 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/map3.jpg");
-		try {
-			m_fieldSprite3 = ImageIO.read(imageFile);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
-		}
+        imageFile = new File("src/sprites/automate.png");
+        try {
+            img[7] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_bp.png");
+        try {
+            img[8] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/credit.png");
+        try {
+            img[9] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
     }
 
@@ -510,6 +524,7 @@ public class Model extends GameModel {
     }
 
     public void createboss() {
+	    m_ennemis=new Ennemi[70];
 
         for (int i = 0; i < 1; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
@@ -575,20 +590,21 @@ public class Model extends GameModel {
                 k = 16;
         }
         // System.out.println(k);
-        while (m_ennemis[i]!=null){
-            i++;
-        }
-        for(int j=i;j<i+k;j++){
-            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
-                    sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
+
+        for(int j=0;j<k;j++){
+            while (m_ennemis[i]!=null){
+                i++;
+            }
+            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j] * Options.TAILLE_CELLULE + 4,
+                    sy[j] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
            _Automate A = new _Automate(def.automata.get(1), m_ennemis[j]);
            	Auto.add(A);
             totalennemie++;
 
-            if (j-i == 3) {
+            if (j == 3) {
                 k = k - 4;
-                i += 4;
+                j =0;
             }
         }
     }
