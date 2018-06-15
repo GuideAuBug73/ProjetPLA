@@ -446,57 +446,54 @@ public class Ennemi extends Entity {
 				} else if (diff_x == +1) {
 					orientation = 3;
 				}
-				System.out.println("oo");
 				switch (orientation) {
 
 				case 3:
-					
-						if (!(m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Ennemi
-								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-							if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Item) {
-								this.pick("N");
-							}
-							this.move("N");
-						
+
+					if (!(m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Item) {
+							this.pick("N");
+						}
+						this.move("N");
+
 					}
 					break;
 				case 0:
-					
-						if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
-								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-							if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item){
-								this.pick("S");
-							}
-							this.move("S");
 
-						
+					if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
+							this.pick("S");
+						}
+						this.move("S");
+
 					}
 					break;
 				case 2:
-					
-						if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
-								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-							if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi){
-								this.pick("E");	
-							}
-							
-							this.move("E");
 
-						
+					if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
+							this.pick("E");
+						}
+
+						this.move("E");
+
 					}
 					break;
 				case 1:
-					
-						if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
-								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-							if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
-								this.pick("O");
-							}
-							
-							this.move("O");
 
+					if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
+							this.pick("O");
 						}
-					
+
+						this.move("O");
+
+					}
+
 					break;
 				}
 
