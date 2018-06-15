@@ -96,7 +96,8 @@ TOKEN :
   | "Cell"
   | "Closest"
   | "GotPower"
-  | "GotStuff" >
+  | "GotStuff"
+  | "InRange" >
 }
 
 TOKEN :
@@ -114,7 +115,8 @@ TOKEN :
   | "Store"
   | "Throw"
   | "Turn"
-  | "Wizz" >
+  | "Wizz"
+  | "Follow">
 }
 
 TOKEN :
@@ -162,7 +164,8 @@ TOKEN :
   | "O"
   | "P"
   | "T"
-  | "V" >
+  | "V"
+  | "W" >
 }
 
 TOKEN :
