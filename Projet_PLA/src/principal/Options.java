@@ -49,4 +49,6 @@ public class Options {
 	public static int taille_bp_w;
 	public static GameUI game;
 	public static float timer_mort;
+	
+	public static String tab_A[];
 }

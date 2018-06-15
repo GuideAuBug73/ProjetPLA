@@ -67,8 +67,6 @@ public class View extends GameView {
 
         for (int i = 0; i < m_model.totalennemie; i++) {
             k = m_model.m_ennemis[i];
-            m_model.m_ennemis[i].animation();
-
             k.paint(g);
         }
 

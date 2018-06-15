@@ -10,6 +10,7 @@ public class _Automate {
 	public Entity e;
 	public _State courant;
 	public List<_Behaviour> behaviours;
+	public String name; 
 
 	public _Automate(_State courant, List<_Behaviour> behav) {
 		this.courant = courant;

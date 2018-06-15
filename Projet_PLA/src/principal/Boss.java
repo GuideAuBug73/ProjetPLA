@@ -343,4 +343,10 @@ public class Boss extends Entity {
 		
 	}
 
+	@Override
+	public void threw() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

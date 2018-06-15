@@ -20,7 +20,9 @@ import automate._Move;
 import automate._Pick;
 import automate._Pop;
 import automate._State;
+import automate._Throw;
 import automate._Transition;
+import automate._True;
 import automate._Turn;
 import automate._Wizz;
 
@@ -531,7 +533,11 @@ public class Ast {
 					Iter.next().make(trans.act);
 				}
 				break;
-			case "GotStuff":
+			case "Throw":
+				trans.act = new _Throw();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.act);
+				}
 				break;
 			case "GotPower":
 
@@ -542,8 +548,11 @@ public class Ast {
 					Iter.next().make(trans.condition);
 				}
 				break;
-			case "Key":
-
+			case "True":
+				trans.condition = new _True();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.condition);
+				}
 				break;
 			case "MyDir":
 
@@ -591,6 +600,12 @@ public class Ast {
 						Iter.next().make(act.action1);
 					}
 					break;
+				case "Throw":
+					act.action1 = new _Throw();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action1);
+					}
+					break;
 				}
 			} else {
 				switch (name.toString()) {
@@ -630,6 +645,12 @@ public class Ast {
 						Iter.next().make(act.action2);
 					}
 					break;
+				case "Throw":
+					act.action2 = new _Throw();
+					while (Iter.hasNext()) {
+						Iter.next().make(act.action2);
+					}
+					break;
 				}
 			}
 		}
@@ -650,6 +671,12 @@ public class Ast {
 						Iter.next().make(cond.cond1);
 					}
 					break;
+				case "True":
+					cond.cond1 = new _True();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond1);
+					}
+					break;
 				}
 			} else {
 				switch (name.toString()) {
@@ -665,7 +692,14 @@ public class Ast {
 						Iter.next().make(cond.cond2);
 					}
 					break;
+				case "True":
+					cond.cond2 = new _True();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond2);
+					}
+					break;
 				}
+
 			}
 		}
 	}
@@ -771,7 +805,7 @@ public class Ast {
 
 	public static class Automaton extends Ast {
 
-		Terminal name;
+		public Terminal name;
 		State entry;
 		List<Behaviour> behaviours;
 

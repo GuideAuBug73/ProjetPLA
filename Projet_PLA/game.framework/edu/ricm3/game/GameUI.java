@@ -137,26 +137,26 @@ public class GameUI {
         panel.setBounds(0, 0, d.width, d.height);
         panel.add(m_view2, BorderLayout.CENTER);
 
-        String[] liste_automate={"ennemi","obstacle","item","spawn"};
+        
 
 
         JComboBox choix_ennemi = new JComboBox();
-        for(int i=0;i<liste_automate.length;i++) {
-            choix_ennemi.addItem(liste_automate[i]);
+        for(int i=0;i<Options.tab_A.length;i++) {
+            choix_ennemi.addItem(Options.tab_A[i]);
         }
         choix_ennemi.setBounds(Options.d.width/2,Options.d.height/2+100,150,25);
         m_frame.add(choix_ennemi);
 
         JComboBox choix_obstacle = new JComboBox();
-        for(int i=0;i<liste_automate.length;i++) {
-            choix_obstacle.addItem(liste_automate[i]);
+        for(int i=0;i<Options.tab_A.length;i++) {
+            choix_obstacle.addItem(Options.tab_A[i]);
         }
         choix_obstacle.setBounds(Options.d.width/2,Options.d.height/2+200,150,25);
         m_frame.add(choix_obstacle);
 
         JComboBox choix_item = new JComboBox();
-        for(int i=0;i<liste_automate.length;i++) {
-            choix_item.addItem(liste_automate[i]);
+        for(int i=0;i<Options.tab_A.length;i++) {
+            choix_item.addItem(Options.tab_A[i]);
         }
         choix_item.setBounds(Options.d.width/2,Options.d.height/2+300,150,25);
         m_frame.add(choix_item);

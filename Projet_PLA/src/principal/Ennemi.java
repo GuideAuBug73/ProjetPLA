@@ -1,9 +1,5 @@
 package principal;
 
-import basic.Cellule;
-import principal.Inventaire;
-import pathfinding.Grid2d;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -347,7 +343,8 @@ public class Ennemi extends Entity {
 	public void move(String param) {
 		Cellule cell;
 		Cellule cellActuel;
-		switch (param) {
+		if (m_mort == false) {
+			switch (param) {
 
 		case "N":
 			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
@@ -499,6 +496,7 @@ public class Ennemi extends Entity {
 
 			}
 		}
+	}
 
 	}
 
