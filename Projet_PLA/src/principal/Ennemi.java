@@ -460,7 +460,7 @@ public class Ennemi extends Entity {
 				case 0:
 
 					if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
-							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+							|| m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Obstacle)) {
 						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
 							this.pick("S");
 						}
@@ -471,7 +471,7 @@ public class Ennemi extends Entity {
 				case 2:
 
 					if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
-							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+							|| m_model.m_carte.cellules[a_y][a_x+1].entité instanceof Obstacle)) {
 						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
 							this.pick("E");
 						}
@@ -483,7 +483,7 @@ public class Ennemi extends Entity {
 				case 1:
 
 					if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
-							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+							|| m_model.m_carte.cellules[a_y][a_x-1].entité instanceof Obstacle)) {
 						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
 							this.pick("O");
 						}
