@@ -42,6 +42,7 @@ public class Model extends GameModel {
 	Menu m_menu;
 	BufferedImage m_spellSprite;
 	BufferedImage[] m_itemSprite = new BufferedImage[12];
+	BufferedImage  m_fieldSprite3;
 	Item[] m_item = new Item[70];
 	Random rand = new Random();
 	public Map m_carte;
@@ -52,6 +53,8 @@ public class Model extends GameModel {
 	int totalennemie = 0;
 	int compteur = 0;
 	public Grid2d map2d;
+	boolean map1 = true ;
+	
 	AI_Definitions def ;
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
@@ -415,6 +418,13 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+        imageFile = new File("src/sprites/map3.jpg");
+		try {
+			m_fieldSprite3 = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
     }
 
@@ -461,16 +471,24 @@ public class Model extends GameModel {
     }
 
     public void createMap() {
-        if (dust) {
-            m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
-                    Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
-            dust = !dust;
-        } else {
-            m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
-                    Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite2);
-            dust = !dust;
-        }
-    }
+    	if(!dust && map1) {
+    	m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    			Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite3);
+    	dust=!dust;
+    	}
+    	else if(dust && map1){
+    	m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    				Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
+    	dust=!dust;
+    	map1 = !map1;
+    	}
+    	else if(!dust && !map1){
+    		m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    					Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite2);
+    		//dust=!dust;
+    		map1=!map1;
+    		}
+    	}
 
     public void createBonus() {
         int i = 0;

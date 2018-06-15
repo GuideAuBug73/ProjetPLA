@@ -464,53 +464,94 @@ public class Ennemi extends Entity {
 			default:
 				break;
 			}
-		}
 
+		}
 	}
 
 	public void follow() {
+
 		int orientation = -1;
 		int[] tab_j = m_model.m_perso.PosToCell();
 		int[] tab_a = this.PosToCell();
+		int a_x = tab_a[1];
+		int a_y = tab_a[0];
 
 		List<Grid2d.MapNode> route = m_model.map2d.findPath(tab_a[0], tab_a[1], tab_j[0], tab_j[1]);
-		System.out.println(route.size());
-		if (route.size() > 1) {
-			Grid2d.MapNode element = route.get(1);
+		if (route != null) {
 
-			int y_recherche = element.get_y();
-			int x_recherche = element.get_x();
-			int y_en = tab_a[1];
-			int x_en = tab_a[0];
-			int diff_x = x_en - x_recherche;
-			int diff_y = y_en - y_recherche;
-			System.out.println(diff_x);
-			System.out.println(diff_y);
-			if (diff_x == -1) {
-				orientation = 0;
-			} else if (diff_y == -1) {
-				orientation = 2;
-			} else if (diff_y == +1) {
-				orientation = 1;
-			} else if (diff_x == +1) {
-				orientation = 3;
-			}
+			// System.out.println(route.size());
+			if (route.size() > 1) {
+				Grid2d.MapNode element = route.get(1);
 
-			switch (orientation) {
-			case 3:
-				this.move("N");
-				break;
-			case 0:
-				this.move("S");
-				break;
-			case 2:
-				this.move("E");
-				break;
-			case 1:
-				this.move("O");
-				break;
+				int y_recherche = element.get_y();
+				int x_recherche = element.get_x();
+				int y_en = tab_a[1];
+				int x_en = tab_a[0];
+				int diff_x = x_en - x_recherche;
+				int diff_y = y_en - y_recherche;
+				// System.out.println(diff_x);
+				// System.out.println(diff_y);
+				if (diff_x == -1) {
+					orientation = 0;
+				} else if (diff_y == -1) {
+					orientation = 2;
+				} else if (diff_y == +1) {
+					orientation = 1;
+				} else if (diff_x == +1) {
+					orientation = 3;
+				}
+				switch (orientation) {
+
+				case 3:
+
+					if (!(m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Item) {
+							this.pick("N");
+						}
+						this.move("N");
+
+					}
+					break;
+				case 0:
+
+					if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
+							this.pick("S");
+						}
+						this.move("S");
+
+					}
+					break;
+				case 2:
+
+					if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
+							this.pick("E");
+						}
+
+						this.move("E");
+
+					}
+					break;
+				case 1:
+
+					if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
+							this.pick("O");
+						}
+
+						this.move("O");
+
+					}
+
+					break;
+				}
+
 			}
-			System.out.println(orientation);
 		}
 	}
 
