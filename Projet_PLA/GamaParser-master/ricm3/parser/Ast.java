@@ -583,7 +583,7 @@ public class Ast {
 					}
 					break;
 				case "Pop":
-					act.action1 = new _Pop();
+					act.action1 = new Follow();
 					while (Iter.hasNext()) {
 						Iter.next().make(act.action1);
 					}
@@ -628,7 +628,7 @@ public class Ast {
 					}
 					break;
 				case "Pop":
-					act.action2 = new _Pop();
+					act.action2 = new Follow();
 					while (Iter.hasNext()) {
 						Iter.next().make(act.action2);
 					}
