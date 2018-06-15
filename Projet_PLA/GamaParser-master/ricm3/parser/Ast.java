@@ -498,7 +498,7 @@ public class Ast {
 				}
 				break;
 				
-			case "Follow":
+			case "Pop":
 				trans.act = new Follow();
 				while (Iter.hasNext()) {
 					Iter.next().make(trans.act);
@@ -516,12 +516,8 @@ public class Ast {
 					Iter.next().make(trans.act);
 				}
 				break;
-			case "Pop":
-				trans.act = new _Pop();
-				while (Iter.hasNext()) {
-					Iter.next().make(trans.act);
-				}
-				break;
+	
+				
 			case "Pick":
 				trans.act = new _Pick();
 				while (Iter.hasNext()) {
@@ -587,7 +583,7 @@ public class Ast {
 					}
 					break;
 				case "Pop":
-					act.action1 = new _Pop();
+					act.action1 = new Follow();
 					while (Iter.hasNext()) {
 						Iter.next().make(act.action1);
 					}
@@ -632,7 +628,7 @@ public class Ast {
 					}
 					break;
 				case "Pop":
-					act.action2 = new _Pop();
+					act.action2 = new Follow();
 					while (Iter.hasNext()) {
 						Iter.next().make(act.action2);
 					}

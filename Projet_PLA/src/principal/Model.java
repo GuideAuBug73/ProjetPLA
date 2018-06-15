@@ -17,6 +17,7 @@ import edu.ricm3.game.GameModel;
 import pathfinding.Grid2d;
 import ricm3.parser.Ast.AI_Definitions;
 import ricm3.parser.AutomataParser;
+import ricm3.parser.ParseException;
 
 public class Model extends GameModel {
 	public Personnage m_perso;
@@ -42,6 +43,8 @@ public class Model extends GameModel {
 	Menu m_menu;
 	BufferedImage m_spellSprite;
 	BufferedImage[] m_itemSprite = new BufferedImage[12];
+	BufferedImage  m_fieldSprite3;
+	BufferedImage m_fieldSprite4;
 	Item[] m_item = new Item[70];
 	Random rand = new Random();
 	public Map m_carte;
@@ -52,6 +55,8 @@ public class Model extends GameModel {
 	int totalennemie = 0;
 	int compteur = 0;
 	public Grid2d map2d;
+	boolean map1 = true ;
+	
 	AI_Definitions def ;
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
@@ -69,20 +74,16 @@ public class Model extends GameModel {
 		createMenu();
 		createBonus();
 		String f = "tests/tests/automate.txt";
-		new AutomataParser(new BufferedReader(new FileReader(f)));
-		def = (AI_Definitions) AutomataParser.Run();
-		int taille = def.automata.size();
-		Options.tab_A = new String[taille];
+		def = parsing(new File(f));
 		Auto = new LinkedList<_Automate>();	
-		for(int i = 0; i < taille;i++) {
-			Options.tab_A[i] = def.automata.get(i).name.toString();
-		}
 		createEnnemi();
 		createObstacle();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
 	}
+	
+
 
     @Override
     public void shutdown() {
@@ -371,7 +372,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/bp.png");
+        imageFile = new File("src/sprites/jouer.png");
         try {
             img[1] = ImageIO.read(imageFile);
             Options.taille_bp_h = ((BufferedImage) img[1]).getHeight();
@@ -415,6 +416,34 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
+        imageFile = new File("src/sprites/automate.png");
+        try {
+            img[7] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_bp.png");
+        try {
+            img[8] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/credit.png");
+        try {
+            img[9] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/Go.jpg");
+		try {
+			m_fieldSprite4 = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
     }
 
@@ -461,16 +490,24 @@ public class Model extends GameModel {
     }
 
     public void createMap() {
-        if (dust) {
-            m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
-                    Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
-            dust = !dust;
-        } else {
-            m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
-                    Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite2);
-            dust = !dust;
-        }
-    }
+    	if(!dust && map1) {
+    	m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    			Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite3);
+    	dust=!dust;
+    	}
+    	else if(dust && map1){
+    	m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    				Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite);
+    	dust=!dust;
+    	map1 = !map1;
+    	}
+    	else if(!dust && !map1){
+    		m_carte = new Map(Options.nb_cell_h, Options.nb_cell_w, Options.nb_px_y_max - Options.nb_px_y_min,
+    					Options.nb_px_x_max - Options.nb_px_x_min, m_wallSprite, m_fieldSprite2);
+    		//dust=!dust;
+    		map1=!map1;
+    		}
+    	}
 
     public void createBonus() {
         int i = 0;
@@ -492,6 +529,18 @@ public class Model extends GameModel {
     }
 
     public void createboss() {
+	    for(int i=0;i<m_ennemis.length;i++){
+	        if(m_ennemis[i]!=null){
+	            m_ennemis[i].m_mort=true;
+            }
+        }
+        for (int y = 0; y < m_carte.m_h; y++) {
+            for (int x = 0; x < m_carte.m_w; x++) {
+                if(m_carte.cellules[y][x].entité instanceof Ennemi)
+                m_carte.cellules[y][x].entité = null;
+            }
+        }
+	    m_ennemis=new Ennemi[70];
 
         for (int i = 0; i < 1; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
@@ -559,20 +608,21 @@ public class Model extends GameModel {
                 k = 16;
         }
         // System.out.println(k);
-        while (m_ennemis[i]!=null){
-            i++;
-        }
-        for(int j=i;j<k;j++){
-            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
-                    sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
-            m_ennemis[j] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(2), m_ennemis[j]);
+        for(int j=0;j<k;j++){
+            i=j;
+            while (m_ennemis[i]!=null){
+                i++;
+            }
+            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j] * Options.TAILLE_CELLULE + 4,
+                    sy[j] * Options.TAILLE_CELLULE + 13, 1.0F);
+            m_ennemis[i] = m_ennemi;
+           _Automate A = new _Automate(def.automata.get(2), m_ennemis[i]);
            	Auto.add(A);
             totalennemie++;
 
-            if (j-i == 3) {
+            if (j == 3) {
                 k = k - 4;
-                i += 4;
+                j =0;
             }
         }
     }

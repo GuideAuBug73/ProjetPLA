@@ -75,10 +75,10 @@ Mover1(Sud){
 
 Mover2(Init){
 *(Init):
-	| Cell(S,V) ? Move(S) :(Init)
     | Cell(O,V) ? Move(O) :(Init)
     | Cell(N,V) ? Move(N) :(Init)
-    | Cell(E,V) ? Move(E) :(Init)
+	| Cell(E,V) ? Move(E) :(Init) 
+	| Cell(S,V) ? Move(S) :(Init)
 }
 
 
@@ -102,4 +102,5 @@ Mover3(Init){
 	
 *(Arme):
 	| True ? Throw :(Init)
+	
 }

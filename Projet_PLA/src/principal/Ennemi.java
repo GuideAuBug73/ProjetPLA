@@ -1,12 +1,11 @@
 package principal;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import basic.Cellule;
 import pathfinding.Grid2d;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Ennemi extends Entity {
 	int m_w, m_h;
@@ -271,6 +270,15 @@ public class Ennemi extends Entity {
 				if (m_idxMort < 31) {
 					m_idxMort++;
 				}
+				if (m_idx >= 31) {
+					for (int i = 0; i < m_model.m_ennemis.length; i++) {
+						if (m_model.m_ennemis[i] != null) {
+							if (m_model.m_ennemis[i] == this) {
+								m_model.m_ennemis[i] = null;
+							}
+						}
+					}
+				}
 			}
 			int w = (int) (m_scale * m_w);
 			int h = (int) (m_scale * m_h);
@@ -464,53 +472,108 @@ public class Ennemi extends Entity {
 			default:
 				break;
 			}
-		}
 
+		}
 	}
 
 	public void follow() {
+
 		int orientation = -1;
 		int[] tab_j = m_model.m_perso.PosToCell();
 		int[] tab_a = this.PosToCell();
+		int a_x = tab_a[1];
+		int a_y = tab_a[0];
+		if (this.m_item != null) {
+			this.threw();
+		} else {
+			List<Grid2d.MapNode> route = m_model.map2d.findPath(tab_a[0], tab_a[1], tab_j[0], tab_j[1]);
+			if (route != null) {
 
-		List<Grid2d.MapNode> route = m_model.map2d.findPath(tab_a[0], tab_a[1], tab_j[0], tab_j[1]);
-		System.out.println(route.size());
-		if (route.size() > 1) {
-			Grid2d.MapNode element = route.get(1);
+				// System.out.println(route.size());
+				if (route.size() > 1) {
+					Grid2d.MapNode element = route.get(1);
 
-			int y_recherche = element.get_y();
-			int x_recherche = element.get_x();
-			int y_en = tab_a[1];
-			int x_en = tab_a[0];
-			int diff_x = x_en - x_recherche;
-			int diff_y = y_en - y_recherche;
-			System.out.println(diff_x);
-			System.out.println(diff_y);
-			if (diff_x == -1) {
-				orientation = 0;
-			} else if (diff_y == -1) {
-				orientation = 2;
-			} else if (diff_y == +1) {
-				orientation = 1;
-			} else if (diff_x == +1) {
-				orientation = 3;
+					int y_recherche = element.get_y();
+					int x_recherche = element.get_x();
+					int y_en = tab_a[1];
+					int x_en = tab_a[0];
+					int diff_x = x_en - x_recherche;
+					int diff_y = y_en - y_recherche;
+					// System.out.println(diff_x);
+					// System.out.println(diff_y);
+					if (diff_x == -1) {
+						orientation = 0;
+					} else if (diff_y == -1) {
+						orientation = 2;
+					} else if (diff_y == +1) {
+						orientation = 1;
+					} else if (diff_x == +1) {
+						orientation = 3;
+					}
+					switch (orientation) {
+
+					case 3:
+
+						if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Personnage) {
+							this.hit();
+							this.wizz();
+						} else if (!(m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Ennemi
+								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
+							if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Item) {
+								this.pick("N");
+							}
+							this.move("N");
+
+						}
+						break;
+					case 0:
+						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Personnage) {
+							this.hit();
+							this.wizz();
+						}
+						else if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
+								|| m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Obstacle)) {
+							if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
+								this.pick("S");
+							}
+							this.move("S");
+
+						}
+						break;
+					case 2:
+						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Personnage) {
+							this.hit();
+							this.wizz();
+						}
+						else if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
+								|| m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Obstacle)) {
+							if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
+								this.pick("E");
+							}
+
+							this.move("E");
+
+						}
+						break;
+					case 1:
+						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Personnage) {
+							this.hit();
+							this.wizz();
+						}
+						else if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
+								|| m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Obstacle)) {
+							if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
+								this.pick("O");
+							}
+
+							this.move("O");
+
+						}
+
+						break;
+					}
+				}
 			}
-
-			switch (orientation) {
-			case 3:
-				this.move("N");
-				break;
-			case 0:
-				this.move("S");
-				break;
-			case 2:
-				this.move("E");
-				break;
-			case 1:
-				this.move("O");
-				break;
-			}
-			System.out.println(orientation);
 		}
 	}
 
