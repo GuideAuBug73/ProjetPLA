@@ -1,6 +1,7 @@
 package principal;
 
 import edu.ricm3.game.GameUI;
+import ricm3.parser.Ast.AI_Definitions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,4 +54,9 @@ public class Options {
 	public static String tab_A[];
 	
 	public static boolean parser = false;
+
+	public static AI_Definitions definitions;
+	public static String Ennemi_A;
+	public static String Obstacle_A;
+	public static String Item_A;
 }

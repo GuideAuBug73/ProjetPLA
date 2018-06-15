@@ -1,10 +1,8 @@
 package principal;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -15,9 +13,6 @@ import javax.imageio.ImageIO;
 import automate._Automate;
 import edu.ricm3.game.GameModel;
 import pathfinding.Grid2d;
-import ricm3.parser.Ast.AI_Definitions;
-import ricm3.parser.AutomataParser;
-import ricm3.parser.ParseException;
 
 public class Model extends GameModel {
 	public Personnage m_perso;
@@ -55,8 +50,6 @@ public class Model extends GameModel {
 	int compteur = 0;
 	public Grid2d map2d;
 	boolean map1 = true ;
-	
-	AI_Definitions def ;
 	LinkedList<_Automate> Auto;
 	ListIterator<_Automate> _Iter;
 	BufferedImage m_fireSprite;
@@ -73,10 +66,8 @@ public class Model extends GameModel {
 		createMenu();
 		createBonus();
 		String f = "tests/tests/automate.txt";
-		def = parsing(new File(f));
+		Options.definitions = parsing(new File(f));
 		Auto = new LinkedList<_Automate>();	
-		createEnnemi();
-		createObstacle();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
@@ -605,12 +596,16 @@ public class Model extends GameModel {
             while (m_ennemis[i]!=null){
                 i++;
             }
-        	System.out.println("Total ennemi sur la vague = "+k);
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j] * Options.TAILLE_CELLULE + 4,
                     sy[j] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[i] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(2), m_ennemis[i]);
-           	Auto.add(A);
+            for(int p = 0;p<Options.definitions.automata.size();p++) {
+            	if(Options.definitions.automata.get(p).name.toString() == Options.Ennemi_A) {
+                    _Automate A = new _Automate(Options.definitions.automata.get(p), m_ennemis[i]);
+                   	Auto.add(A);
+            	}
+            }
+
             totalennemie++;
 
             if (j == 3) {
@@ -679,8 +674,12 @@ public class Model extends GameModel {
     public void createObstacle() {
         for (int i = 0; i < 5; i++) {
             m_obstacles[i] = new Obstacle(this);
-            _Automate A = new _Automate(def.automata.get(1), m_obstacles[i]);
-           	Auto.add(A);
+            for(int p = 0;p<Options.definitions.automata.size();p++) {
+            	if(Options.definitions.automata.get(p).name.toString() == Options.Obstacle_A) {
+                    _Automate A = new _Automate(Options.definitions.automata.get(p), m_obstacles[i]);
+                   	Auto.add(A);
+            	}
+            }
         }
     }
 

@@ -165,6 +165,9 @@ public class GameUI {
             choix_item.addItem(Options.tab_A[i]);
         }
         choix_item.setBounds(Options.d.width/2,Options.d.height/2+300,150,25);
+        choix_item.setSelectedIndex(1);
+        choix_ennemi.setSelectedIndex(2);
+        choix_obstacle.setSelectedIndex(1);
         m_frame.add(choix_item);
 
 
@@ -182,6 +185,9 @@ public class GameUI {
     }
 
     public void createWindowGame(Dimension d, GameModel m) {
+    	Options.Ennemi_A = choix_ennemi.getSelectedItem().toString();
+    	Options.Obstacle_A = choix_obstacle.getSelectedItem().toString();
+    	Options.Item_A = choix_item.getSelectedItem().toString();
         m_frame.dispose();
         Options.game.frame = 1;
         m_frame = new JFrame();
