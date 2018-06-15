@@ -59,4 +59,6 @@ public class Options {
 	public static String Ennemi_A;
 	public static String Obstacle_A;
 	public static String Item_A;
+	
+	public static int pdv;
 }

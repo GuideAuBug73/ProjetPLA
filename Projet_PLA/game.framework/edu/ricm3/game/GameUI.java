@@ -131,6 +131,10 @@ public class GameUI {
     }
 
     private void createWindow(Dimension d, GameModel m) {
+    	if(frame==4) {
+    		m_timer.start();
+    		frame=0;
+    	}
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);

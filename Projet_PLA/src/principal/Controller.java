@@ -167,6 +167,9 @@ public class Controller extends GameController implements ActionListener {
                 e1.printStackTrace();
             }
         }
+        if (Options.game.frame==4) {
+        	m_game.m_frame.dispose();
+        }
 
     }
 

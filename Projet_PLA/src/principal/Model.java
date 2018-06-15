@@ -428,7 +428,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/Go.jpg");
+        imageFile = new File("src/sprites/Go.png");
 		try {
 			m_fieldSprite4 = ImageIO.read(imageFile);
 		} catch (IOException ex) {
