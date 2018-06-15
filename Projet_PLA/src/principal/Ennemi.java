@@ -523,22 +523,22 @@ public class Ennemi extends Entity {
                         break;
                     case 0:
 
-                        if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
-                                || m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-                            if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
-                                this.pick("S");
-                            }
-                            this.move("S");
+					if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
+							this.pick("S");
+						}
+						this.move("S");
 
                         }
                         break;
                     case 2:
 
-                        if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
-                                || m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-                            if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
-                                this.pick("E");
-                            }
+					if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y][a_x+1].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
+							this.pick("E");
+						}
 
                             this.move("E");
 
@@ -546,11 +546,11 @@ public class Ennemi extends Entity {
                         break;
                     case 1:
 
-                        if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
-                                || m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
-                            if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
-                                this.pick("O");
-                            }
+					if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
+							|| m_model.m_carte.cellules[a_y][a_x-1].entité instanceof Obstacle)) {
+						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
+							this.pick("O");
+						}
 
                             this.move("O");
 
