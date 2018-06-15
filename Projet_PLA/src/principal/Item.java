@@ -197,7 +197,7 @@ public class Item extends Entity {
                 } else if (this.type == 4 || this.type == 5) {
                     ennemi.p_vie = ennemi.p_vie - 2;
                     checkVie(ennemi);
-                    hit = false;
+                    hit = true;
                 } else if (this.type == 13) {
                     ennemi.p_vie = ennemi.p_vie - 1;
                     checkVie(ennemi);
@@ -240,17 +240,17 @@ public class Item extends Entity {
                     this.limit = 0;
                 } else if (this.type == 2 || this.type == 3) {
                     boss.vie = boss.vie - 2;
-                    // checkVie(boss);
+                    checkVie(boss);
                     degatZone(h, w);
                     hit = false;
                     this.limit = 0;
                 } else if (this.type == 4 || this.type == 5) {
                     boss.vie = boss.vie - 2;
-                    //checkVie(boss);
+                    checkVie(boss);
                     hit = false;
                 } else if (this.type == 13) {
                     boss.vie = boss.vie - 1;
-                    // checkVie(boss);
+                    checkVie(boss);
                     hit = false;
                     this.limit = 0;
                 }
