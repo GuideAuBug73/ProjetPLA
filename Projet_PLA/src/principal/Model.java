@@ -98,7 +98,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		compteur++;
-		if(compteur >= 120) {
+		if(compteur >= 200) {
 			compteur = 0;
 			_Iter = Auto.listIterator();
 			while (_Iter.hasNext()) {
@@ -563,7 +563,6 @@ public class Model extends GameModel {
             i++;
         }
         for(int j=i;j<k;j++){
-        	System.out.println("Total ennemi sur la vague = "+k);
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
                     sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
