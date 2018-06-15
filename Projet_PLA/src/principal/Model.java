@@ -17,6 +17,7 @@ import edu.ricm3.game.GameModel;
 import pathfinding.Grid2d;
 import ricm3.parser.Ast.AI_Definitions;
 import ricm3.parser.AutomataParser;
+import ricm3.parser.ParseException;
 
 public class Model extends GameModel {
 	public Personnage m_perso;
@@ -72,19 +73,29 @@ public class Model extends GameModel {
 		createMenu();
 		createBonus();
 		String f = "tests/tests/automate.txt";
-		new AutomataParser(new BufferedReader(new FileReader(f)));
-		def = (AI_Definitions) AutomataParser.Run();
-		int taille = def.automata.size();
-		Options.tab_A = new String[taille];
+		def = parsing(f);
 		Auto = new LinkedList<_Automate>();	
-		for(int i = 0; i < taille;i++) {
-			Options.tab_A[i] = def.automata.get(i).name.toString();
-		}
 		createEnnemi();
 		createObstacle();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
+	}
+	
+	public AI_Definitions parsing(String f) throws FileNotFoundException, ParseException {
+		if(Options.parser) {
+			AutomataParser.ReInit(new BufferedReader(new FileReader(f)));
+		} else {
+			new AutomataParser(new BufferedReader(new FileReader(f)));
+			Options.parser = true;
+		}
+		AI_Definitions result = (AI_Definitions) AutomataParser.Run();
+		int taille = result.automata.size();
+		Options.tab_A = new String[taille];
+		for(int i = 0; i < taille;i++) {
+			Options.tab_A[i] = result.automata.get(i).name.toString();
+		}
+		return result;
 	}
 
     @Override

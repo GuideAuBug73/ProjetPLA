@@ -91,7 +91,6 @@ Mover3(Init){
 	| Cell(F,T) ? Hit & Wizz :(Init)
 	| Cell(F,M) ? Pick(F) & Move(F) :(Init)
 	| Cell(F,P) ? Pick(F) & Move(F) :(Arme)
-	| Closest ? Follow :(Init)
 	| Cell(F,V) ? Move(F) :(Init) 
 	| Cell(F,W) ? Wizz :(Wazz)
 	| Cell(E,V) ? Move(E) :(Init)

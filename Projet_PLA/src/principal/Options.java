@@ -51,4 +51,6 @@ public class Options {
 	public static float timer_mort;
 	
 	public static String tab_A[];
+	
+	public static boolean parser = false;
 }
