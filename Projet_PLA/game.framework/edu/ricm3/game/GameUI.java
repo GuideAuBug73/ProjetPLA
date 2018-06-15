@@ -18,6 +18,7 @@
 package edu.ricm3.game;
 
 
+import principal.Model;
 import principal.Options;
 
 import javax.imageio.ImageIO;
@@ -25,9 +26,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+
 import principal.Bonus;
+import ricm3.parser.AutomataParser;
+import ricm3.parser.ParseException;
 
 public class GameUI {
 
@@ -73,6 +76,9 @@ public class GameUI {
     int m_nTicks;
     File fichieraut;
     public int frame = 0;
+    JComboBox choix_ennemi;
+    JComboBox choix_obstacle;
+    JComboBox choix_item;
 
     public GameUI(GameModel m, GameView v, GameView v2, GameController c, Dimension d) {
         m_model = m;
@@ -140,21 +146,21 @@ public class GameUI {
         
 
 
-        JComboBox choix_ennemi = new JComboBox();
+        choix_ennemi = new JComboBox();
         for(int i=0;i<Options.tab_A.length;i++) {
             choix_ennemi.addItem(Options.tab_A[i]);
         }
         choix_ennemi.setBounds(Options.d.width/2,Options.d.height/2+100,150,25);
         m_frame.add(choix_ennemi);
 
-        JComboBox choix_obstacle = new JComboBox();
+        choix_obstacle = new JComboBox();
         for(int i=0;i<Options.tab_A.length;i++) {
             choix_obstacle.addItem(Options.tab_A[i]);
         }
         choix_obstacle.setBounds(Options.d.width/2,Options.d.height/2+200,150,25);
         m_frame.add(choix_obstacle);
 
-        JComboBox choix_item = new JComboBox();
+        choix_item = new JComboBox();
         for(int i=0;i<Options.tab_A.length;i++) {
             choix_item.addItem(Options.tab_A[i]);
         }
@@ -283,11 +289,25 @@ public class GameUI {
         m_msg = msg;
     }
 
-    public void ask_File() {
+    public void ask_File() throws FileNotFoundException, ParseException {
         JFileChooser dialogue = new JFileChooser(new File("."));
         if (dialogue.showOpenDialog(null) ==
                 JFileChooser.APPROVE_OPTION) {
             fichieraut = dialogue.getSelectedFile();
+            m_model.parsing(fichieraut);
+            choix_ennemi.removeAllItems();
+            choix_item.removeAllItems();
+            choix_obstacle.removeAllItems();
+
+            for(int i=0;i<Options.tab_A.length;i++) {
+                choix_ennemi.addItem(Options.tab_A[i]);
+            }
+            for(int i=0;i<Options.tab_A.length;i++) {
+                choix_obstacle.addItem(Options.tab_A[i]);
+            }
+            for(int i=0;i<Options.tab_A.length;i++) {
+                choix_item.addItem(Options.tab_A[i]);
+            }
         }
 
     }

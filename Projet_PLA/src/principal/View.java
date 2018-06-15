@@ -66,7 +66,8 @@ public class View extends GameView {
 
         for (int i = 0; i < m_model.totalennemie; i++) {
             k = m_model.m_ennemis[i];
-            k.paint(g);
+            if (k != null)
+                k.paint(g);
         }
 
         h.paint(g);
@@ -134,15 +135,14 @@ public class View extends GameView {
         g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, Options.d.width / 2 - 175, 20);
         g.setColor(Color.GRAY);
         g.fillRect(22, (Options.d.height - Options.nb_px_y_max) / 2 - 10, (int) Options.time_vague, 20);
-        Options.time_vague += 0.25;
+            Options.time_vague += 5;
         if (m_model.m_perso.m_mort && m_model.m_perso.p_vie != 0 && Options.timer_mort == Options.d.width / 2 - 175) {
             Options.timer_mort = Options.time_vague;
         }
         if ((Options.time_vague == Options.timer_mort + 30 || Options.time_vague == Options.d.width / 2 - 175) && Options.timer_mort != Options.d.width / 2 - 175) {
-            
             Options.time_vague = 0;
             m_model.m_perso.m_mort = false;
-            m_model.m_ennemis=new Ennemi[70];
+            m_model.m_ennemis = new Ennemi[70];
             m_model.createEnnemi();
             Options.timer_mort = Options.d.width / 2 - 175;
         }
@@ -159,7 +159,7 @@ public class View extends GameView {
 
             }
             if (Options.vague == 5) {
-            	m_model.totalennemie = 0;
+                m_model.totalennemie = 0;
                 m_model.createboss();
                 m_ctr.b = m_model.m_boss;
             }
