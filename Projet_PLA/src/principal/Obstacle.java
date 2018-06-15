@@ -6,8 +6,8 @@ public class Obstacle extends Entity {
 	public Obstacle(Model model) {
 		m_model = model;
 		Cellule cell;
-		int x = (int) (Math.random() * (Options.nb_cell_w - 3)) + 2;
-		int y = (int) (Math.random() * (Options.nb_cell_h - 3)) + 2;
+		this.x = (int) (Math.random() * (Options.nb_cell_w - 3)) + 2;
+		this.y = (int) (Math.random() * (Options.nb_cell_h - 3)) + 2;
 		cell = m_model.m_carte.cellules[y][x];
 		while (!(cell.entité == null && cell.libre == false
 				&& (m_model.m_carte.cellules[y][x + 1].libre || m_model.m_carte.cellules[y][x - 1].libre
@@ -16,8 +16,13 @@ public class Obstacle extends Entity {
 			y = (int) (Math.random() * (Options.nb_cell_h - 3)) + 2;
 			cell = m_model.m_carte.cellules[y][x];
 		}
+		m_cell = cell;
+		System.out.println( "x ="+x );
+		System.out.println("y="+y);
 		m_model.m_carte.cellules[y][x].entité = this;
 		m_model.m_carte.cellules[y][x].libre = false;
+		this.x = this.x*Options.TAILLE_CELLULE;
+		this.y = this.y*Options.TAILLE_CELLULE;
 	}
 
 	@Override
@@ -32,17 +37,7 @@ public class Obstacle extends Entity {
 
 	}
 
-	@Override
-	public void turn(String param) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void wizz() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void pop() {

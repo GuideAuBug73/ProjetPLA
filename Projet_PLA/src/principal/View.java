@@ -65,7 +65,6 @@ public class View extends GameView {
         }
 
         for (int i = 0; i < m_model.totalennemie; i++) {
-        	System.out.println("Total ennemi paint :"+m_model.totalennemie);
             k = m_model.m_ennemis[i];
             k.paint(g);
         }

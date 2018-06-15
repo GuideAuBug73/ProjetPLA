@@ -75,14 +75,10 @@ Mover1(Sud){
 
 Mover2(Init){
 *(Init):
-	| Cell(F,V) ? Move(F) :(Init)
-	| Cell(F,W) ? Wizz :(Wazz)
-
-*(Wazz):
-	| Cell(N,V) ? Turn(N) :(Init)
-	| Cell(E,V) ? Turn(E) :(Init)
-	| Cell(S,V) ? Turn(S) :(Init)
-	| Cell(O,V) ? Turn(O) :(Init) 
+    | Cell(O,V) ? Move(O) :(Init)
+    | Cell(N,V) ? Move(N) :(Init)
+	| Cell(E,V) ? Move(E) :(Init) 
+	| Cell(S,V) ? Move(S) :(Init)
 }
 
 
