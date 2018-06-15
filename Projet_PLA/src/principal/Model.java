@@ -16,7 +16,6 @@ import automate._Automate;
 import edu.ricm3.game.GameModel;
 import pathfinding.Grid2d;
 import ricm3.parser.Ast.AI_Definitions;
-import ricm3.parser.Ast.Automaton;
 import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
@@ -62,11 +61,11 @@ public class Model extends GameModel {
 	BufferedImage m_fireSprite;
 	Bonus m_bonus[] = new Bonus[40];
 	BufferedImage m_bonusSprite[] = new BufferedImage[3];
+	int testcompteur = 0;
 
 	public Model() throws FileNotFoundException, ricm3.parser.ParseException {
 		loadSprites();
 		createMap();
-        createObstacle();
         createSpawn();
 		createItem();
 		createPerso();
@@ -77,11 +76,12 @@ public class Model extends GameModel {
 		def = (AI_Definitions) AutomataParser.Run();
 		int taille = def.automata.size();
 		Options.tab_A = new String[taille];
-		Auto = new LinkedList<_Automate>();
+		Auto = new LinkedList<_Automate>();	
 		for(int i = 0; i < taille;i++) {
 			Options.tab_A[i] = def.automata.get(i).name.toString();
 		}
 		createEnnemi();
+		createObstacle();
 		map2d = new Grid2d(this.m_carte.cellules);
 
 		// createAutomate();
@@ -101,7 +101,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		compteur++;
-		if(compteur >= 200) {
+		if(compteur >= 120) {
 			compteur = 0;
 			_Iter = Auto.listIterator();
 			while (_Iter.hasNext()) {
@@ -374,7 +374,7 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/bp.png");
+        imageFile = new File("src/sprites/jouer.png");
         try {
             img[1] = ImageIO.read(imageFile);
             Options.taille_bp_h = ((BufferedImage) img[1]).getHeight();
@@ -418,13 +418,27 @@ public class Model extends GameModel {
             ex.printStackTrace();
             System.exit(-1);
         }
-        imageFile = new File("src/sprites/map3.jpg");
-		try {
-			m_fieldSprite3 = ImageIO.read(imageFile);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
-		}
+        imageFile = new File("src/sprites/automate.png");
+        try {
+            img[7] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/menu_bp.png");
+        try {
+            img[8] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        imageFile = new File("src/sprites/credit.png");
+        try {
+            img[9] = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
 
     }
 
@@ -510,6 +524,7 @@ public class Model extends GameModel {
     }
 
     public void createboss() {
+	    m_ennemis=new Ennemi[70];
 
         for (int i = 0; i < 1; ) {
             int x = (int) (Math.random() * (Options.nb_px_x_max - Options.nb_px_x_min)) / Options.TAILLE_CELLULE;
@@ -541,6 +556,8 @@ public class Model extends GameModel {
     }
 
     public void createEnnemi() {
+    	testcompteur++;
+    	System.out.println(testcompteur);
         int i = 0;
         int k = 0;
 
@@ -578,17 +595,18 @@ public class Model extends GameModel {
         while (m_ennemis[i]!=null){
             i++;
         }
-        for(int j=i;j<i+k;j++){
+        for(int j=i;j<k;j++){
+        	System.out.println("Total ennemi sur la vague = "+k);
             m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
                     sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
             m_ennemis[j] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(1), m_ennemis[j]);
+           _Automate A = new _Automate(def.automata.get(2), m_ennemis[j]);
            	Auto.add(A);
             totalennemie++;
 
-            if (j-i == 3) {
+            if (j == 3) {
                 k = k - 4;
-                i += 4;
+                j =0;
             }
         }
     }
@@ -603,8 +621,6 @@ public class Model extends GameModel {
     }
 
     void newlevel() {
-
-        totalennemie = 0;
         for (int y = 0; y < m_carte.m_h; y++) {
             for (int x = 0; x < m_carte.m_w; x++) {
                 m_carte.cellules[y][x].entité = null;
@@ -654,6 +670,8 @@ public class Model extends GameModel {
     public void createObstacle() {
         for (int i = 0; i < 5; i++) {
             m_obstacles[i] = new Obstacle(this);
+            _Automate A = new _Automate(def.automata.get(1), m_obstacles[i]);
+           	Auto.add(A);
         }
     }
 

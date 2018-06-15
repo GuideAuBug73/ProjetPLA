@@ -1,22 +1,109 @@
-Mover1(Init){
+Mover1(Sud){
 
-* (Init): 
+*(Sud): 
+	| Cell(N,G) ? Wizz :(Sud)
+	| Cell(E,G) ? Wizz :(Sud)
+	| Cell(O,G) ? Wizz :(Sud)
+	| Cell(S,G) ? Wizz :(Sud)
+	| Cell(S,P) ? Pick(S) & Move(S) :(Arme)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Arme)	
+    | Cell(E,P) ? Pick(E) & Move(E) :(Arme)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Arme)
+    | Cell(S,V) ? Move(S) :(Sud)
+    | Cell(O,V) ? Move(O) :(Ouest)
+    | Cell(N,V) ? Move(N) :(Nord)
+    | Cell(E,V) ? Move(E) :(Est)
+
+
+*(Nord):
 	| Cell(N,G) ? Wizz :(Init)
 	| Cell(E,G) ? Wizz :(Init)
 	| Cell(O,G) ? Wizz :(Init)
 	| Cell(S,G) ? Wizz :(Init)
+	| Cell(S,P) ? Pick(S) & Move(S) :(Arme)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Arme)	
+    | Cell(E,P) ? Pick(E) & Move(E) :(Arme)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Arme)
     | Cell(N,V) ? Move(N) :(Nord)
+	| Cell(E,V) ? Move(E) :(Est)
+	| Cell(S,V) ? Move(S) :(Sud)
+	| Cell(O,V) ? Move(O) :(Ouest)
+
+*(Est):
+	| Cell(N,G) ? Wizz :(Init)
+	| Cell(E,G) ? Wizz :(Init)
+	| Cell(O,G) ? Wizz :(Init)
+	| Cell(S,G) ? Wizz :(Init)
+	| Cell(S,P) ? Pick(S) & Move(S) :(Arme)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Arme)	
+    | Cell(E,P) ? Pick(E) & Move(E) :(Arme)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Arme)
     | Cell(E,V) ? Move(E) :(Est)
-    | Cell(O,V) ? Move(O) :(Ouest)
     | Cell(S,V) ? Move(S) :(Sud)
-    | Cell(S,P) ? Pick(S) & Move(S) :(Init)
-    | Cell(N,P) ? Pick(N) & Move(N) :(Init)	
-    | Cell(E,P) ? Pick(E) & Move(E) :(Init)
-    | Cell(O,P) ? Pick(O) & Move(O) :(Init)
-        
+	| Cell(O,V) ? Move(O) :(Ouest)
+	| Cell(N,V) ? Move(N) :(Nord)
+	
+*(Ouest):
+	| Cell(N,G) ? Wizz :(Init)
+	| Cell(E,G) ? Wizz :(Init)
+	| Cell(O,G) ? Wizz :(Init)
+	| Cell(S,G) ? Wizz :(Init)
+	| Cell(S,P) ? Pick(S) & Move(S) :(Arme)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Arme)	
+    | Cell(E,P) ? Pick(E) & Move(E) :(Arme)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Arme)
+    | Cell(O,V) ? Move(O) :(Ouest)
+    | Cell(N,V) ? Move(N) :(Nord)
+	| Cell(E,V) ? Move(E) :(Est) 
+	| Cell(S,V) ? Move(S) :(Sud)
+	
+*(Arme):
+	| InRange ? Throw :(Sud)
+	| Cell(N,G) ? Wizz :(Arme)
+	| Cell(E,G) ? Wizz :(Arme)
+	| Cell(O,G) ? Wizz :(Arme)
+	| Cell(S,G) ? Wizz :(Arme)
+	| Cell(S,P) ? Pick(S) & Move(S) :(Arme)
+    | Cell(N,P) ? Pick(N) & Move(N) :(Arme)	
+    | Cell(E,P) ? Pick(E) & Move(E) :(Arme)
+    | Cell(O,P) ? Pick(O) & Move(O) :(Arme)
+    | Cell(O,V) ? Move(O) :(Arme)
+    | Cell(N,V) ? Move(N) :(Arme)
+	| Cell(E,V) ? Move(E) :(Arme) 
+	| Cell(S,V) ? Move(S) :(Arme)
 }
 
 Mover2(Init){
+*(Init):
+	| Cell(F,V) ? Move(F) :(Init)
+	| Cell(F,W) ? Wizz :(Wazz)
 
-*(Init): Closest ? Pop :(Init)
+*(Wazz):
+	| Cell(N,V) ? Turn(N) :(Init)
+	| Cell(E,V) ? Turn(E) :(Init)
+	| Cell(S,V) ? Turn(S) :(Init)
+	| Cell(O,V) ? Turn(O) :(Init) 
+}
+
+
+Mover3(Init){
+*(Init):
+	| Cell(F,T) ? Hit & Wizz :(Init)
+	| Cell(F,M) ? Pick(F) & Move(F) :(Init)
+	| Cell(F,P) ? Pick(F) & Move(F) :(Arme)
+	| Cell(F,V) ? Move(F) :(Init) 
+	| Cell(F,W) ? Wizz :(Wazz)
+	| Cell(E,V) ? Move(E) :(Init)
+	| Cell(O,V) ? Move(O) :(Init)
+	| Cell(N,V) ? Move(N) :(Init)
+	| Cell(S,V) ? Move(S) :(Init)
+	
+*(Wazz):
+	| Cell(N,V) ? Turn(N) :(Init)
+	| Cell(E,V) ? Turn(E) :(Init)
+	| Cell(S,V) ? Turn(S) :(Init)
+	| Cell(O,V) ? Turn(O) :(Init)
+	
+*(Arme):
+	| True ? Throw :(Init)
 }

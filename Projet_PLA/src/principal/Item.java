@@ -11,7 +11,6 @@ public class Item extends Entity {
 	public int type;
 	public int possession;// 0 si non possédé 1 si c'est le joueur 2 si c'est l'ennemi
 	public boolean casted = false;
-	public int orientation;
 	public int limit;
 	public int compteurTickItem = 500;
 	public boolean hit = false;

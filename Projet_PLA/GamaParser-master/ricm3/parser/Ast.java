@@ -6,6 +6,7 @@ import java.util.ListIterator;
 
 import automate.Follow;
 import automate.Joueur_Proche;
+import automate.Joueur_in_range;
 import automate._Action;
 import automate._Automate;
 import automate._Behaviour;
@@ -535,8 +536,11 @@ public class Ast {
 					Iter.next().make(trans.act);
 				}
 				break;
-			case "GotPower":
-
+			case "InRange":
+				trans.condition = new Joueur_in_range();
+				while (Iter.hasNext()) {
+					Iter.next().make(trans.condition);
+				}
 				break;
 			case "Closest":
 				trans.condition = new Joueur_Proche();
@@ -667,6 +671,11 @@ public class Ast {
 						Iter.next().make(cond.cond1);
 					}
 					break;
+				case "InRange":
+					cond.cond1 = new Joueur_in_range();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond1);
+					}
 				case "True":
 					cond.cond1 = new _True();
 					while (Iter.hasNext()) {
@@ -682,6 +691,11 @@ public class Ast {
 						Iter.next().make(cond.cond2);
 					}
 					break;
+				case "InRange":
+					cond.cond2 = new Joueur_in_range();
+					while (Iter.hasNext()) {
+						Iter.next().make(cond.cond2);
+					}
 				case "Closest":
 					cond.cond2 = new Joueur_Proche();
 					while (Iter.hasNext()) {

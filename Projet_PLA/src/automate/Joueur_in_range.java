@@ -22,7 +22,7 @@ public class Joueur_in_range extends _Condition {
 		Item objet = mechant.m_item;
 		i = 0;
 		switch (mechant.orientation) {
-		case 0:// nord
+		case 3:// nord
 
 			while (!(e.x / Options.TAILLE_CELLULE != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE - i != 0))) {
@@ -39,6 +39,7 @@ public class Joueur_in_range extends _Condition {
 				if ((objet.type > 1) && i > 6) {
 					return false;
 				}
+				i++;
 			}
 
 			return false;
@@ -59,6 +60,7 @@ public class Joueur_in_range extends _Condition {
 				if ((objet.type > 1) && i > 6) {
 					return false;
 				}
+				i++;
 			}
 
 			return false;
@@ -79,10 +81,11 @@ public class Joueur_in_range extends _Condition {
 				if ((objet.type > 1) && i > 6) {
 					return false;
 				}
+				i++;
 			}
 
 			return false;
-		case 3:// sud
+		case 0:// sud
 			while (!(e.x / Options.TAILLE_CELLULE  != (Options.nb_px_x_max / Options.TAILLE_CELLULE - 1)
 					|| (e.y / Options.TAILLE_CELLULE +i!= 0))) {
 
@@ -98,6 +101,7 @@ public class Joueur_in_range extends _Condition {
 				if ((objet.type > 1) && i > 6) {
 					return false;
 				}
+				i++;
 			}
 
 			return false;

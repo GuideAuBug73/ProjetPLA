@@ -13,7 +13,6 @@ public class Personnage extends Entity {
 	float m_scale;
 	BufferedImage[] m_sprites;
 	BufferedImage[] m_spritesTransfo;
-	int orientation = 0;
 	Inventaire inventaire = new Inventaire();
 	Boolean m_mort = false;
 	Cellule m_cell;

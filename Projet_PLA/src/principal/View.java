@@ -1,9 +1,8 @@
 package principal;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import edu.ricm3.game.GameView;
+
+import java.awt.*;
 
 public class View extends GameView {
 
@@ -66,6 +65,7 @@ public class View extends GameView {
         }
 
         for (int i = 0; i < m_model.totalennemie; i++) {
+        	System.out.println("Total ennemi paint :"+m_model.totalennemie);
             k = m_model.m_ennemis[i];
             k.paint(g);
         }
@@ -119,7 +119,7 @@ public class View extends GameView {
         int pdv = m_model.m_perso.p_vie;
         int x = 50;
         for (int i = 0; i < pdv; i++) {
-            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min / 2 - (Options.TAILLE_CELLULE - 20) / 2,
+            g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min / 2 + 30 - (Options.TAILLE_CELLULE - 20) / 2,
                     Options.TAILLE_CELLULE - 20, Options.TAILLE_CELLULE - 20, null);
             x += 50;
         }
@@ -140,14 +140,14 @@ public class View extends GameView {
             Options.timer_mort = Options.time_vague;
         }
         if ((Options.time_vague == Options.timer_mort + 30 || Options.time_vague == Options.d.width / 2 - 175) && Options.timer_mort != Options.d.width / 2 - 175) {
-            m_model.totalennemie = 0;
+            
             Options.time_vague = 0;
             m_model.m_perso.m_mort = false;
+            m_model.m_ennemis=new Ennemi[70];
             m_model.createEnnemi();
             Options.timer_mort = Options.d.width / 2 - 175;
         }
         if (Options.time_vague == Options.d.width / 2 - 175) {
-            m_model.totalennemie = 0;
             Options.time_vague = 0;
             Options.vague++;
             m_model.createItem();
@@ -160,6 +160,7 @@ public class View extends GameView {
 
             }
             if (Options.vague == 5) {
+            	m_model.totalennemie = 0;
                 m_model.createboss();
                 m_ctr.b = m_model.m_boss;
             }
