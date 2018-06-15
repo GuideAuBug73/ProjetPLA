@@ -21,6 +21,8 @@ public class Obstacle extends Entity {
 		System.out.println("y="+y);
 		m_model.m_carte.cellules[y][x].entité = this;
 		m_model.m_carte.cellules[y][x].libre = false;
+		this.x = this.x*Options.TAILLE_CELLULE;
+		this.y = this.y*Options.TAILLE_CELLULE;
 	}
 
 	@Override

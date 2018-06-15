@@ -157,6 +157,10 @@ public class Controller extends GameController implements ActionListener {
         if (Options.game.frame == 0 && e.getX() >= (Options.d.width / 2 - Options.taille_bp_w / 2) && e.getX() <= (Options.d.width / 2 + Options.taille_bp_w / 2) && e.getY() >= (Options.d.height / 4 + Options.taille_bp_h) && e.getY() <= (Options.d.height / 4 + Options.taille_bp_h * 2)) {
             m_game.ask_File();
         }
+        if(Options.game.frame == 4) {
+        	m_game.m_frame.dispose();
+        	m_game.createWindow(Options.d, m_model);
+        }
 
     }
 

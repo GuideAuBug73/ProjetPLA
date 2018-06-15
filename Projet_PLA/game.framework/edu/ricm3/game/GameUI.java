@@ -124,7 +124,11 @@ public class GameUI {
         m_frame.add(c, BorderLayout.CENTER);
     }
 
-    private void createWindow(Dimension d, GameModel m) {
+    public void createWindow(Dimension d, GameModel m) {
+    	if(frame == 4) {
+    		m_timer.start();
+    		frame = 0;
+    	}
         m_frame = new JFrame();
         m_frame.setTitle("Game");
         m_frame.setSize(d);
@@ -275,6 +279,10 @@ public class GameUI {
                 m_view.paint();
                 m_lastRepaint = now;
             }
+        }
+        if(Options.pdv == 0 && frame != 0) {
+        	frame = 4;
+        	m_timer.stop();
         }
     }
 
