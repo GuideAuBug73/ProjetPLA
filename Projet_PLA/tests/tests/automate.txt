@@ -18,5 +18,5 @@ Mover1(Init){
 
 Mover2(Init){
 
-*(Init): Closest ? Follow :(Init)
+*(Init): Closest ? Pop :(Init)
 }

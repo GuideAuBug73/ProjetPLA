@@ -346,69 +346,70 @@ public class Ennemi extends Entity {
 		if (m_mort == false) {
 			switch (param) {
 
-		case "N":
-			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			y -= Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 12 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 28 + (m_idx + 1) % 4;
+			case "N":
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				y -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 12 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 28 + (m_idx + 1) % 4;
+				}
+
+				this.orientation = 3;
+				break;
+			case "S":
+				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				y += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 16 + (m_idx + 1) % 4;
+				}
+
+				this.orientation = 0;
+				break;
+			case "O":
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				x -= Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 4 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 20 + (m_idx + 1) % 4;
+				}
+				this.orientation = 2;
+				break;
+			case "E":
+				cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
+				m_cell = cell;
+				cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
+				cell.entité = this;
+				cellActuel.entité = null;
+				x += Options.TAILLE_CELLULE;
+				if (m_item == null) {
+					m_idx = 8 + (m_idx + 1) % 4;
+				} else if (m_item != null) {
+					m_idx = 24 + (m_idx + 1) % 4;
+				}
+				this.orientation = 1;
+
+				break;
+			default:
+				break;
 			}
 
-			this.orientation = 3;
-			break;
-		case "S":
-			cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) + 1][x / Options.TAILLE_CELLULE];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			y += Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 16 + (m_idx + 1) % 4;
-			}
-
-			this.orientation = 0;
-			break;
-		case "O":
-			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) - 1];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			x -= Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 4 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 20 + (m_idx + 1) % 4;
-			}
-			this.orientation = 2;
-			break;
-		case "E":
-			cell = m_model.m_carte.cellules[y / Options.TAILLE_CELLULE][(x / Options.TAILLE_CELLULE) + 1];
-			m_cell = cell;
-			cellActuel = m_model.m_carte.cellules[y / 60][(x / 60)];
-			cell.entité = this;
-			cellActuel.entité = null;
-			x += Options.TAILLE_CELLULE;
-			if (m_item == null) {
-				m_idx = 8 + (m_idx + 1) % 4;
-			} else if (m_item != null) {
-				m_idx = 24 + (m_idx + 1) % 4;
-			}
-			this.orientation = 1;
-
-			break;
-		default:
-			break;
 		}
-
 	}
 
 	public void follow() {
@@ -497,6 +498,10 @@ public class Ennemi extends Entity {
 			}
 		}
 	}
+
+	@Override
+	public void threw() {
+		// TODO Auto-generated method stub
 
 	}
 
