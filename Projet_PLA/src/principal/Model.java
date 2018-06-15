@@ -73,7 +73,7 @@ public class Model extends GameModel {
 		createMenu();
 		createBonus();
 		String f = "tests/tests/automate.txt";
-		def = parsing(f);
+		def = parsing(new File(f));
 		Auto = new LinkedList<_Automate>();	
 		createEnnemi();
 		createObstacle();
@@ -82,21 +82,7 @@ public class Model extends GameModel {
 		// createAutomate();
 	}
 	
-	public AI_Definitions parsing(String f) throws FileNotFoundException, ParseException {
-		if(Options.parser) {
-			AutomataParser.ReInit(new BufferedReader(new FileReader(f)));
-		} else {
-			new AutomataParser(new BufferedReader(new FileReader(f)));
-			Options.parser = true;
-		}
-		AI_Definitions result = (AI_Definitions) AutomataParser.Run();
-		int taille = result.automata.size();
-		Options.tab_A = new String[taille];
-		for(int i = 0; i < taille;i++) {
-			Options.tab_A[i] = result.automata.get(i).name.toString();
-		}
-		return result;
-	}
+
 
     @Override
     public void shutdown() {
@@ -112,7 +98,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		compteur++;
-		if(compteur >= 120) {
+		if(compteur >= 200) {
 			compteur = 0;
 			_Iter = Auto.listIterator();
 			while (_Iter.hasNext()) {
@@ -535,6 +521,17 @@ public class Model extends GameModel {
     }
 
     public void createboss() {
+	    for(int i=0;i<m_ennemis.length;i++){
+	        if(m_ennemis[i]!=null){
+	            m_ennemis[i].m_mort=true;
+            }
+        }
+        for (int y = 0; y < m_carte.m_h; y++) {
+            for (int x = 0; x < m_carte.m_w; x++) {
+                if(m_carte.cellules[y][x].entité instanceof Ennemi)
+                m_carte.cellules[y][x].entité = null;
+            }
+        }
 	    m_ennemis=new Ennemi[70];
 
         for (int i = 0; i < 1; ) {
@@ -603,15 +600,16 @@ public class Model extends GameModel {
                 k = 16;
         }
         // System.out.println(k);
-        while (m_ennemis[i]!=null){
-            i++;
-        }
-        for(int j=i;j<k;j++){
+        for(int j=0;j<k;j++){
+            i=j;
+            while (m_ennemis[i]!=null){
+                i++;
+            }
         	System.out.println("Total ennemi sur la vague = "+k);
-            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j-i] * Options.TAILLE_CELLULE + 4,
-                    sy[j-i] * Options.TAILLE_CELLULE + 13, 1.0F);
-            m_ennemis[j] = m_ennemi;
-           _Automate A = new _Automate(def.automata.get(2), m_ennemis[j]);
+            m_ennemi = new Ennemi(this, m_ennemiSprite, m_ennemiSpriteMort, sx[j] * Options.TAILLE_CELLULE + 4,
+                    sy[j] * Options.TAILLE_CELLULE + 13, 1.0F);
+            m_ennemis[i] = m_ennemi;
+           _Automate A = new _Automate(def.automata.get(2), m_ennemis[i]);
            	Auto.add(A);
             totalennemie++;
 

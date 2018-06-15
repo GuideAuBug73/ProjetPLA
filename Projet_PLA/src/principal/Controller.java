@@ -21,8 +21,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 
 import edu.ricm3.game.GameController;
+import ricm3.parser.ParseException;
 
 public class Controller extends GameController implements ActionListener {
 
@@ -155,7 +157,13 @@ public class Controller extends GameController implements ActionListener {
             m_game.createWindowGame(Options.d, m_model);
         }
         if (Options.game.frame == 0 && e.getX() >= (Options.d.width / 2 - Options.taille_bp_w / 2) && e.getX() <= (Options.d.width / 2 + Options.taille_bp_w / 2) && e.getY() >= (Options.d.height / 4 + Options.taille_bp_h) && e.getY() <= (Options.d.height / 4 + Options.taille_bp_h * 2)) {
-            m_game.ask_File();
+            try {
+                m_game.ask_File();
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
         }
 
     }
