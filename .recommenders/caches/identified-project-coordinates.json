@@ -1,1 +1,5 @@
-[[{"location":"/home/mastoura/Documents/ProjetPLA/Projet_PLA","type":"PROJECT","hints":{"PROJECT_NAME":"Projet_PLA"}},"ABSENT"],[{"location":"/home/thomas/Documents/ProjetPLA/Projet_PLA","type":"PROJECT","hints":{"PROJECT_NAME":"Projet_PLA"}},"ABSENT"]]
+<<<<<<< Updated upstream
+{}
+=======
+[[{"location":"/home/mastoura/Documents/ProjetPLA/Projet_PLA","type":"PROJECT","hints":{"PROJECT_NAME":"Projet_PLA"}},"ABSENT"],[{"location":"/home/thomas/Documents/ProjetPLA/Projet_PLA","type":"PROJECT","hints":{"PROJECT_NAME":"Projet_PLA"}},"ABSENT"],[{"location":"/usr/lib/jvm/java-8-openjdk-amd64","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
+>>>>>>> Stashed changes
