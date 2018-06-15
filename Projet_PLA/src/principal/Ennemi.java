@@ -304,9 +304,11 @@ public class Ennemi extends Entity {
 				cell = m_model.m_carte.cellules[(y / Options.TAILLE_CELLULE) - 1][x / Options.TAILLE_CELLULE];
 				break;
 			}
-			if (((Personnage) cell.entité).invincible == false) {
-				m_model.m_perso.m_mort = true;
-				m_model.m_perso.p_vie--;
+			if (cell.entité instanceof Personnage) {
+				if (((Personnage) cell.entité).invincible == false) {
+					m_model.m_perso.m_mort = true;
+					m_model.m_perso.p_vie--;
+				}
 			}
 		}
 
@@ -504,18 +506,19 @@ public class Ennemi extends Entity {
 					if (diff_x == -1) {
 						orientation = 0;
 					} else if (diff_y == -1) {
-						orientation = 2;
-					} else if (diff_y == +1) {
 						orientation = 1;
+					} else if (diff_y == +1) {
+						orientation = 2;
 					} else if (diff_x == +1) {
 						orientation = 3;
 					}
 					switch (orientation) {
 
 					case 3:
-
+						this.orientation = 3;
 						if (m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Personnage) {
-							this.hit();
+							if (!m_model.m_perso.m_mort)
+								this.hit();
 							this.wizz();
 						} else if (!(m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Ennemi
 								|| m_model.m_carte.cellules[a_y - 1][a_x].entité instanceof Obstacle)) {
@@ -527,11 +530,12 @@ public class Ennemi extends Entity {
 						}
 						break;
 					case 0:
+						this.orientation = 0;
 						if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Personnage) {
-							this.hit();
+							if (!m_model.m_perso.m_mort)
+								this.hit();
 							this.wizz();
-						}
-						else if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
+						} else if (!(m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Ennemi
 								|| m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Obstacle)) {
 							if (m_model.m_carte.cellules[a_y + 1][a_x].entité instanceof Item) {
 								this.pick("S");
@@ -540,12 +544,13 @@ public class Ennemi extends Entity {
 
 						}
 						break;
-					case 2:
+					case 1:
+						this.orientation = 1;
 						if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Personnage) {
-							this.hit();
+							if (!m_model.m_perso.m_mort)
+								this.hit();
 							this.wizz();
-						}
-						else if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
+						} else if (!(m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi
 								|| m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Obstacle)) {
 							if (m_model.m_carte.cellules[a_y][a_x + 1].entité instanceof Ennemi) {
 								this.pick("E");
@@ -555,12 +560,13 @@ public class Ennemi extends Entity {
 
 						}
 						break;
-					case 1:
+					case 2:
+						this.orientation = 2;
 						if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Personnage) {
-							this.hit();
+							if (!m_model.m_perso.m_mort)
+								this.hit();
 							this.wizz();
-						}
-						else if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
+						} else if (!(m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi
 								|| m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Obstacle)) {
 							if (m_model.m_carte.cellules[a_y][a_x - 1].entité instanceof Ennemi) {
 								this.pick("O");

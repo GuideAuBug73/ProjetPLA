@@ -288,6 +288,10 @@ public class GameUI {
                 m_lastRepaint = now;
             }
         }
+        if (Options.pdv ==0 && frame!=0) {
+        	frame=4;
+        	m_timer.stop();
+        }
     }
 
     public void setFPS(int fps, String msg) {

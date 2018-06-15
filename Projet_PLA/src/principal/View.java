@@ -64,11 +64,11 @@ public class View extends GameView {
 			spawn.paint(g);
 		}
 
-        for (int i = 0; i < m_model.m_ennemis.length; i++) {
-            k = m_model.m_ennemis[i];
-            if (k != null)
-                k.paint(g);
-        }
+		for (int i = 0; i < m_model.m_ennemis.length; i++) {
+			k = m_model.m_ennemis[i];
+			if (k != null)
+				k.paint(g);
+		}
 
 		h.paint(g);
 		if (Options.vague == 5) {
@@ -126,7 +126,7 @@ public class View extends GameView {
 		int pdv = m_model.m_perso.p_vie;
 		int x = 50;
 		for (int i = 0; i < pdv; i++) {
-			g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min / 2 + 30 - (Options.TAILLE_CELLULE - 20) / 2,
+			g.drawImage(m_model.m_itemSprite[8], x, Options.nb_px_y_min / 2 + 10 - (Options.TAILLE_CELLULE - 20) / 2,
 					Options.TAILLE_CELLULE - 20, Options.TAILLE_CELLULE - 20, null);
 			x += 50;
 		}
@@ -155,6 +155,15 @@ public class View extends GameView {
 					&& Options.timer_mort != Options.d.width / 2 - 175) {
 				Options.time_vague = 0;
 				m_model.m_perso.m_mort = false;
+				for (int y = 0; y < m_model.m_carte.m_h; y++) {
+					for (int x = 0; x < m_model.m_carte.m_w; x++) {
+						if (m_model.m_carte.cellules[y][x].entité instanceof Ennemi) {
+							Ennemi en = (Ennemi) m_model.m_carte.cellules[y][x].entité;
+							en.m_mort = true;
+							m_model.m_carte.cellules[y][x].entité = null;
+						}
+					}
+				}
 				m_model.m_ennemis = new Ennemi[70];
 				m_model.createEnnemi();
 				Options.timer_mort = Options.d.width / 2 - 175;
@@ -173,15 +182,20 @@ public class View extends GameView {
 				}
 				if (Options.vague == 5) {
 					m_model.totalennemie = 0;
-					m_model.createboss();
-					m_ctr.b = m_model.m_boss;
+					if (m_model.m_boss == null) {
+						m_model.createboss();
+						m_ctr.b = m_model.m_boss;
+					}
 				}
 			}
 
 			if (Options.vague == 5) {
 				m_model.totalennemie = 0;
-				m_model.createboss();
-				m_ctr.b = m_model.m_boss;
+				if (m_model.m_boss == null) {
+					m_model.createboss();
+					m_ctr.b = m_model.m_boss;
+				}
+
 			}
 		}
 	}

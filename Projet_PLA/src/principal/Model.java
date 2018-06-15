@@ -544,6 +544,8 @@ public class Model extends GameModel {
                 i++;
             }
         }
+        _Automate A = new _Automate(Options.definitions.automata.get(4), m_boss);
+       	Auto.add(A);       
     }
 
     public void createSpawn() {

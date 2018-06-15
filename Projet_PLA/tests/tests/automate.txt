@@ -1,4 +1,4 @@
-Mover1(Sud){
+MoverSpeciale(Sud){
 
 *(Sud): 
 	| Cell(N,G) ? Wizz :(Sud)
@@ -73,7 +73,7 @@ Mover1(Sud){
 	| Cell(S,V) ? Move(S) :(Arme)
 }
 
-Mover2(Init){
+Mover(Init){
 *(Init):
     | Cell(O,V) ? Move(O) :(Init)
     | Cell(N,V) ? Move(N) :(Init)
@@ -82,7 +82,33 @@ Mover2(Init){
 }
 
 
-Mover3(Init){
+EnnemiDur(Init){
+*(Init):
+	| Closest ? Pop :(Init)
+	| Cell(F,T) ? Hit & Wizz :(Init)
+	| Cell(F,M) ? Pick(F) & Move(F) :(Init)
+	| Cell(F,P) ? Pick(F) & Move(F) :(Arme)
+	| Cell(F,V) ? Move(F) :(Init) 
+	| Cell(F,W) ? Wizz :(Wazz)
+	| Cell(E,V) ? Move(E) :(Init)
+	| Cell(O,V) ? Move(O) :(Init)
+	| Cell(N,V) ? Move(N) :(Init)
+	| Cell(S,V) ? Move(S) :(Init)
+	
+*(Wazz):
+	| Cell(N,V) ? Turn(N) :(Init)
+	| Cell(E,V) ? Turn(E) :(Init)
+	| Cell(S,V) ? Turn(S) :(Init)
+	| Cell(O,V) ? Turn(O) :(Init)
+	
+*(Arme):
+	| True ? Throw :(Init)
+	
+}
+
+
+
+EneemiFaible(Init){
 *(Init):
 	| Cell(F,T) ? Hit & Wizz :(Init)
 	| Cell(F,M) ? Pick(F) & Move(F) :(Init)
@@ -104,3 +130,13 @@ Mover3(Init){
 	| True ? Throw :(Init)
 	
 }
+
+
+
+
+Boss(Init){
+*(Init):
+	| True ? Pop(): (Init) 
+
+}
+
